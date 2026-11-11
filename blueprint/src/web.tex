@@ -1,0 +1,27 @@
+% This file makes a web version of the blueprint
+% It should include all the \usepackage needed for this version.
+% The template includes standard AMS packages.
+% It is otherwise a very minimal preamble (you should probably at least
+% add cleveref and tikz-cd).
+
+\documentclass{report}
+
+\usepackage{amssymb, amsthm, amsmath}
+\usepackage{hyperref}
+\usepackage[showmore, dep_graph]{blueprint}
+
+
+\input{macros/common}
+\input{macros/web}
+
+\home{https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint}
+\github{https://github.com/qamar-munawer/additive-multiplicative-zeta-blueprint}
+\dochome{https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs}
+
+\title{Additive-Multiplicative Completeness of Prime and Composite Dirichlet Systems: Structural Partitions, Natural Boundaries, and Spectral Equivalences of the Riemann Hypothesis}
+\author{Qamar Munawer}
+
+\begin{document}
+\maketitle
+\input{content}
+\end{document}

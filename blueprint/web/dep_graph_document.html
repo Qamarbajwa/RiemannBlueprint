@@ -1,0 +1,1986 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dependency graph</title>
+  <meta name="generator" content="plasTeX" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles/theme-white.css" />
+  <link rel="stylesheet" href="styles/dep_graph.css" />
+  
+  <script type="text/x-mathjax-config">
+  
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  
+  </script>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">  </script>
+
+
+<link rel="stylesheet" href="styles/extra_styles.css" />
+
+</head>
+
+<body>
+<header>
+  <a class="toc" href="index.html">Home</a>
+  <h1 id="doc_title">Dependencies</h1>
+</header>
+<div class="wrapper">
+<div class="content">
+  <div id="Legend">
+    <span id="legend_title" class="title">Legend
+    <div class="btn">
+       <div class="bar"></div>
+       <div class="bar"></div>
+       <div class="bar"></div>
+    </div></span> 
+    <dl class="legend">
+      
+      <dt>Boxes</dt><dd>definitions</dd>
+      
+      <dt>Ellipses</dt><dd>theorems and lemmas</dd>
+      
+      <dt>Blue border</dt><dd>the <em>statement</em> of this result is ready to be formalized; all prerequisites are done</dd>
+      
+      <dt>Orange border</dt><dd>the <em>statement</em> of this result is not ready to be formalized; the blueprint needs more work</dd>
+      
+      <dt>Blue background</dt><dd>the <em>proof</em> of this result is ready to be formalized; all prerequisites are done</dd>
+      
+      <dt>Green border</dt><dd>the <em>statement</em> of this result is formalized</dd>
+      
+      <dt>Green background</dt><dd>the <em>proof</em> of this result is formalized</dd>
+      
+      <dt>Dark green background</dt><dd>the <em>proof</em> of this result and all its ancestors are formalized</dd>
+      
+      <dt>Dark green border</dt><dd>this is in Mathlib</dd>
+      
+    </dl>
+  </div>
+    <div id="graph"></div>
+<div id="statements">
+
+    
+    <div class="dep-modal-container" id="cor:divisor_bounds_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="cor:divisor_bounds" style="display: none">
+    <div class="thm_thmheading">
+      <span class="corollary_thmcaption">
+      Corollary
+      </span>
+      <span class="corollary_thmlabel">0.3.7</span><span class="corollary_thmtitle">Divisor Bounds and Parity Criterion</span></div>
+    <div class="thm_thmcontent"><p>   For all \(n \in \mathbb {N}\): </p>
+<ol class="enumerate">
+  <li><p>\(d(n) = 1\) if and only if \(n = 1\). </p>
+</li>
+  <li><p>\(d(n) = 2\) if and only if \(n \in \mathbb {P}\). </p>
+</li>
+  <li><p>\(d(n) \ge 3\) for all composite numbers \(n \in \mathbb {C}\). </p>
+</li>
+  <li><p>\(d(n)\) is an <b class="bfseries">odd integer</b> if and only if \(n\) is a <b class="bfseries">perfect square</b> (\(n = m^2\) for some \(m \in \mathbb {N}\)). </p>
+</li>
+</ol>
+</div>
+
+    <a class="latex_link" href="sect0003.html#cor:divisor_bounds">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section3_CompositeTaxonomy.divisor_count_composite">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="cor:phasor_symmetry_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="cor:phasor_symmetry" style="display: none">
+    <div class="thm_thmheading">
+      <span class="corollary_thmcaption">
+      Corollary
+      </span>
+      <span class="corollary_thmlabel">0.6.6</span><span class="corollary_thmtitle">Phasor Symmetry on the Critical Line</span></div>
+    <div class="thm_thmcontent"><p>    On the critical line \(\sigma = \frac{1}{2}\), and choosing \(x = y = \sqrt{\frac{|t|}{2\pi }}\), the two Dirichlet polynomials in&#160;?? have identical phasor decay lengths: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D7BC110>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:critical_phasor_balance} \left| \frac{1}{n^s} \right| = n^{-1/2} \quad \text{and} \quad \left| \chi \left(\frac{1}{2} + i t\right) \frac{1}{n^{1-s}} \right| = n^{-1/2} + \mathcal{O}\left(|t|^{-1}\right). \end{equation}
+  </div>
+  <span class="equation_label">75</span>
+</p>
+</div>
+<p> Off the critical line (\(\sigma \neq \frac{1}{2}\)), the two sums experience asymmetric exponential imbalance: </p>
+<div class="equation" id="a0000000188">
+<p>
+  <div class="equation_content">
+    \begin{equation}  |\chi (\sigma + i t)| \sim \left(\frac{|t|}{2\pi }\right)^{\frac{1}{2} - \sigma } \quad \text{as } |t| \to \infty . \end{equation}
+  </div>
+  <span class="equation_label">76</span>
+</p>
+</div>
+</div>
+
+    <a class="latex_link" href="sec-critical_strip_audit.html#cor:phasor_symmetry">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section6_CriticalStripAudit.chi_critical_line_modulus">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="def:chebyshev_functions_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def:chebyshev_functions" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">0.7.1</span><span class="definition_thmtitle">Chebyshev Functions</span></div>
+    <div class="thm_thmcontent"><p>   For \(x \ge 1\), Chebyshev’s theta and psi functions are defined by: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D7BF3B0>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:chebyshev_defs} \theta (x) \coloneqq \sum _{p \le x} \ln p, \qquad \psi (x) \coloneqq \sum _{n \le x} \Lambda (n) = \sum _{p^k \le x} \ln p. \end{equation}
+  </div>
+  <span class="equation_label">77</span>
+</p>
+</div>
+</div>
+
+    <a class="latex_link" href="sec-spectral_bridge.html#def:chebyshev_functions">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section7_SpectralBridge.chebyshevPsi">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="def:dirichlet_eta_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def:dirichlet_eta" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">0.6.3</span><span class="definition_thmtitle">Dirichlet Eta Function</span></div>
+    <div class="thm_thmcontent"><p>   The Dirichlet Eta function \(\eta : \{ s \in \mathbb {C}: \operatorname {Re}(s) {\gt} 0\}  \to \mathbb {C}\) is defined by the alternating series: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D69F0B0>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:eta_def} \eta (s) \coloneqq \sum _{n=1}^\infty \frac{(-1)^{n-1}}{n^s} = 1 - \frac{1}{2^s} + \frac{1}{3^s} - \frac{1}{4^s} + \frac{1}{5^s} - \dots \end{equation}
+  </div>
+  <span class="equation_label">70</span>
+</p>
+</div>
+</div>
+
+    <a class="latex_link" href="sec-critical_strip_audit.html#def:dirichlet_eta">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section6_CriticalStripAudit.dirichletEta">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="def:divisor_functions_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def:divisor_functions" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">0.3.5</span><span class="definition_thmtitle">Divisor Function and Sum-of-Divisors Function</span></div>
+    <div class="thm_thmcontent"><p>  For \(n \in \mathbb {N}\) and \(\alpha \ge 0\), the generalized divisor function \(\sigma _\alpha (n)\) is: </p>
+<div class="equation" id="a0000000074">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \sigma _\alpha (n) \equiv \sum _{d \mid n} d^\alpha . \end{equation}
+  </div>
+  <span class="equation_label">32</span>
+</p>
+</div>
+<p> When \(\alpha = 0\), \(d(n) \equiv \sigma _0(n) = \sum _{d \mid n} 1\) counts the number of positive divisors of \(n\). When \(\alpha = 1\), \(\sigma _1(n) \equiv \sum _{d \mid n} d\) is the sum of divisors of \(n\). </p>
+</div>
+
+    <a class="latex_link" href="sect0003.html#def:divisor_functions">LaTeX</a>
+    
+    
+  
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="def:local_euler_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def:local_euler" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">0.4.4</span><span class="definition_thmtitle">Local Prime Euler Factor Decomposition</span></div>
+    <div class="thm_thmcontent"><p>  For each prime \(p \in \mathbb {P}\) and \(\operatorname {Re}(s) {\gt} 1\), the local Euler factor decomposes additively into: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D43F230>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:local_factor} \left(1 - \frac{1}{p^s}\right)^{-1} = \sum _{k=0}^\infty \frac{1}{p^{k s}} = 1 + \frac{1}{p^s} + \sum _{k=2}^\infty \frac{1}{p^{k s}} = 1 + \frac{1}{p^s} + \zeta _{\mathrm{pure}, p}(s), \end{equation}
+  </div>
+  <span class="equation_label">49</span>
+</p>
+</div>
+<p> where: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D43CE30>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:pure_prime_factor} \zeta _{\mathrm{pure}, p}(s) \equiv \sum _{k=2}^\infty \frac{1}{p^{k s}} = \frac{p^{-2s}}{1 - p^{-s}} = \frac{1}{p^s(p^s - 1)} \end{equation}
+  </div>
+  <span class="equation_label">50</span>
+</p>
+</div>
+<p> is the <b class="bfseries">local pure composite factor</b> generating all pure powers of \(p\) (\(\{ p^2, p^3, p^4, \dots \}  \subset \mathbb {C}_{\mathrm{pure}}\)). </p>
+</div>
+
+    <a class="latex_link" href="sec-construction_composite_zeta.html#def:local_euler">LaTeX</a>
+    
+    
+  
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="def:mertens_function_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def:mertens_function" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">0.5.4</span><span class="definition_thmtitle">Mertens Function</span></div>
+    <div class="thm_thmcontent"><p>   The Mertens function \(M : [1, \infty ) \to \mathbb {Z}\) is the summatory function of the Möbius function: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D60C6B0>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:mertens_def} M(x) \coloneqq \sum _{1 \le n \le x} \mu (n). \end{equation}
+  </div>
+  <span class="equation_label">63</span>
+</p>
+</div>
+</div>
+
+    <a class="latex_link" href="sec-reciprocal_euler_mertens.html#def:mertens_function">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section5_MobiusMertens.mertens">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="def:normalized_chebyshev_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def:normalized_chebyshev" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">0.7.3</span><span class="definition_thmtitle">Normalized Chebyshev Function</span></div>
+    <div class="thm_thmcontent"><p>  For \(x {\gt} 1\), the normalized Chebyshev function \(\psi _0(x)\) is defined by: </p>
+<div class="equation" id="a0000000201">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \psi _0(x) \coloneqq \lim _{\epsilon \to 0^+} \frac{\psi (x + \epsilon ) + \psi (x - \epsilon )}{2} = \begin{cases}  \psi (x) &  \text{if } x \notin \{ p^k : k \in \mathbb {N}\} , \\ \psi (x) - \frac{1}{2}\Lambda (x) &  \text{if } x = p^k. \end{cases} \end{equation}
+  </div>
+  <span class="equation_label">80</span>
+</p>
+</div>
+</div>
+
+    <a class="latex_link" href="sec-spectral_bridge.html#def:normalized_chebyshev">LaTeX</a>
+    
+    
+  
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="def:omega_Omega_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def:omega_Omega" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">0.3.1</span><span class="definition_thmtitle">Arithmetic Factor Counting Functions</span></div>
+    <div class="thm_thmcontent"><p>   For any integer \(n \ge 2\) with unique prime factorization \(n = p_1^{a_1} p_2^{a_2} \cdots p_k^{a_k}\), we define: </p>
+<ol class="enumerate">
+  <li><p>The <em>distinct prime counting function</em>: \(\omega (n) \equiv k = \sum _{p \mid n} 1\). </p>
+</li>
+  <li><p>The <em>total prime factor function with multiplicity</em>: \(\Omega (n) \equiv \sum _{i=1}^k a_i = \sum _{p^a \parallel n} a\). </p>
+</li>
+</ol>
+<p> For \(n = 1\), we set \(\omega (1) = \Omega (1) = 0\). </p>
+</div>
+
+    <a class="latex_link" href="sect0003.html#def:omega_Omega">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section3_CompositeTaxonomy.omega">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="def:ord10_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def:ord10" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">0.2.8</span><span class="definition_thmtitle">Multiplicative Order and Reptend Period</span></div>
+    <div class="thm_thmcontent"><p>   Let \(a, n \in \mathbb {N}\) with \(\gcd (a, n) = 1\). The <em>multiplicative order</em> of \(a\) modulo \(n\), denoted \(\operatorname {ord}_n(a)\), is the smallest positive integer \(k\) such that: </p>
+<div class="equation" id="a0000000053">
+<p>
+  <div class="equation_content">
+    \begin{equation}  a^k \equiv 1 \pmod n. \end{equation}
+  </div>
+  <span class="equation_label">12</span>
+</p>
+</div>
+<p> For a fraction \(1/n\) with \(\gcd (n, 10) = 1\), the decimal expansion takes the form of an infinite recurring repetend \(0.\overline{d_1 d_2 \dots d_L}\). The minimal length \(L\) of this repeating block is called the <em>period length</em> of \(1/n\). </p>
+</div>
+
+    <a class="latex_link" href="sect0002.html#def:ord10">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section2_PrimeAtoms.ord10">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="def:P_and_zetaC_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def:P_and_zetaC" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">0.4.1</span><span class="definition_thmtitle">Unweighted Composite Zeta Function</span></div>
+    <div class="thm_thmcontent"><p>   For \(s = \sigma + i t\) with \(\sigma {\gt} 1\), the <em>Prime Zeta Function</em> \(P(s)\) and the <em>Composite Zeta Function</em> \(\zeta _C(s)\) are defined by: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D43D0D0>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:P_and_zetaC} P(s) \equiv \sum _{p \in \mathbb {P}} \frac{1}{p^s}, \qquad \zeta _C(s) \equiv \sum _{c \in \mathbb {C}} \frac{1}{c^s}. \end{equation}
+  </div>
+  <span class="equation_label">45</span>
+</p>
+</div>
+</div>
+
+    <a class="latex_link" href="sec-construction_composite_zeta.html#def:P_and_zetaC">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section4_CompositeZeta.PrimeZeta">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="def:primes_units_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def:primes_units" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">0.2.1</span><span class="definition_thmtitle">Primes, Units, and Divisibility</span></div>
+    <div class="thm_thmcontent"><p>   Let \(a, b \in \mathbb {Z}\). We say that \(a\) divides \(b\), written \(a \mid b\), if there exists an integer \(c \in \mathbb {Z}\) such that \(b = a \cdot c\). An element \(u \in \mathbb {Z}\) is a <em>unit</em> if \(u \mid 1\), which in \(\mathbb {Z}\) implies \(u \in \{ -1, +1\} \). An integer \(p \in \mathbb {Z}\setminus \{ -1, 0, 1\} \) is called <em>prime</em> if its only divisors are \(\pm 1\) and \(\pm p\). Throughout this monograph, \(\mathbb {P}\) denotes the positive primes: </p>
+<div class="equation" id="a0000000032">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \mathbb {P}\equiv \{ n \in \mathbb {N}\mid n \ge 2 \text{ and } (d \mid n \implies d \in \{ 1, n\} )\} . \end{equation}
+  </div>
+  <span class="equation_label">6</span>
+</p>
+</div>
+<p> Two integers \(a, b \in \mathbb {Z}\) are called <em>coprime</em> (or relatively prime), denoted \(\gcd (a, b) = 1\), if their only common positive divisor is \(1\). </p>
+</div>
+
+    <a class="latex_link" href="sect0002.html#def:primes_units">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section2_PrimeAtoms.Primes">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="def:pure_mixed_composites_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def:pure_mixed_composites" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">0.3.3</span><span class="definition_thmtitle">Pure and Mixed Composites</span></div>
+    <div class="thm_thmcontent"><p>    The composite set \(\mathbb {C}\) decomposes disjointly into two structurally distinct arithmetic families: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D225CD0>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:composite_subpartition} \mathbb {C}= \mathbb {C}_{\mathrm{pure}}\; \dot{\cup }\;  \mathbb {C}_{\mathrm{mixed}}, \end{equation}
+  </div>
+  <span class="equation_label">21</span>
+</p>
+</div>
+<p> where: </p>
+<ol class="enumerate">
+  <li><p><b class="bfseries">Pure Prime Powers (\(\mathbb {C}_{\mathrm{pure}}\)):</b> Composites supported on a single prime: </p>
+<div class="equation" id="a0000000070">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \mathbb {C}_{\mathrm{pure}}\equiv \{ n \in \mathbb {C}\mid \omega (n) = 1, \;  \Omega (n) \ge 2\}  = \{ p^a \mid p \in \mathbb {P}, \;  a \ge 2\}  = \{ 4, 8, 9, 16, 25, 27, 32, \dots \} . \end{equation}
+  </div>
+  <span class="equation_label">22</span>
+</p>
+</div>
+</li>
+  <li><p><b class="bfseries">Mixed Composites (\(\mathbb {C}_{\mathrm{mixed}}\)):</b> Composites supported on two or more distinct primes: </p>
+<div class="equation" id="a0000000071">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \mathbb {C}_{\mathrm{mixed}}\equiv \{ n \in \mathbb {C}\mid \omega (n) \ge 2\}  = \{ 6, 10, 12, 14, 15, 18, 20, 21, 22, 24, \dots \} . \end{equation}
+  </div>
+  <span class="equation_label">23</span>
+</p>
+</div>
+</li>
+</ol>
+</div>
+
+    <a class="latex_link" href="sect0003.html#def:pure_mixed_composites">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section3_CompositeTaxonomy.PureComposites">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="def:totient_function_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def:totient_function" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">0.3.8</span><span class="definition_thmtitle">Euler’s Totient Function</span></div>
+    <div class="thm_thmcontent"><p>  For \(n \in \mathbb {N}\), Euler’s totient function \(\phi (n)\) counts the number of positive integers up to \(n\) that are coprime to \(n\): </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D3A3890>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:totient_def} \phi (n) \equiv \sum _{\substack {1 \le k \le n \\ \gcd (k, n) = 1}} 1 = n \prod _{p \mid n} \left(1 - \frac{1}{p}\right). \end{equation}
+  </div>
+  <span class="equation_label">35</span>
+</p>
+</div>
+</div>
+
+    <a class="latex_link" href="sect0003.html#def:totient_function">LaTeX</a>
+    
+    
+  
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:bezout_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:bezout" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">0.2.2</span><span class="lemma_thmtitle">Bézout’s Identity</span></div>
+    <div class="thm_thmcontent"><p>   Let \(a, b \in \mathbb {Z}\) not both zero, and let \(g = \gcd (a, b)\). Then there exist integers \(x, y \in \mathbb {Z}\) such that: </p>
+<div class="equation" id="eq:bezout">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:bezout} a x + b y = g. \end{equation}
+  </div>
+  <span class="equation_label">7</span>
+</p>
+</div>
+<p> In particular, \(a\) and \(b\) are coprime if and only if there exist integers \(x, y \in \mathbb {Z}\) such that \(a x + b y = 1\). </p>
+</div>
+
+    <a class="latex_link" href="sect0002.html#lem:bezout">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section2_PrimeAtoms.bezout_identity">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:euclid_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:euclid" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">0.2.3</span><span class="lemma_thmtitle">Euclid’s Lemma</span></div>
+    <div class="thm_thmcontent"><p>    Let \(p \in \mathbb {P}\) and let \(a, b \in \mathbb {Z}\). If \(p \mid a b\), then \(p \mid a\) or \(p \mid b\). </p>
+</div>
+
+    <a class="latex_link" href="sect0002.html#lem:euclid">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section2_PrimeAtoms.euclid_lemma">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:log_derivative_zeta_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:log_derivative_zeta" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">0.7.2</span><span class="lemma_thmtitle">Logarithmic Derivative of the Riemann Zeta Function</span></div>
+    <div class="thm_thmcontent"><p>   For every \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the logarithmic derivative of \(\zeta (s)\) is given by the Dirichlet series: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D7BF6B0>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:zeta_log_derivative} -\frac{\zeta '(s)}{\zeta (s)} = \sum _{n=1}^\infty \frac{\Lambda (n)}{n^s}. \end{equation}
+  </div>
+  <span class="equation_label">79</span>
+</p>
+</div>
+</div>
+
+    <a class="latex_link" href="sec-spectral_bridge.html#lem:log_derivative_zeta">LaTeX</a>
+    
+    
+  
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:mellin_reciprocal_zeta_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:mellin_reciprocal_zeta" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">0.5.5</span><span class="lemma_thmtitle">Mellin Transform Representation of \(1/\zeta (s)\)</span></div>
+    <div class="thm_thmcontent"><p>   For every \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the reciprocal Riemann zeta function can be expressed as the Laplace–Mellin integral of the Mertens function: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D60C650>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:reciprocal_mellin} \frac{1}{\zeta (s)} = s \int _1^\infty \frac{M(x)}{x^{s+1}} \,  \mathrm{d}x. \end{equation}
+  </div>
+  <span class="equation_label">64</span>
+</p>
+</div>
+</div>
+
+    <a class="latex_link" href="sec-reciprocal_euler_mertens.html#lem:mellin_reciprocal_zeta">LaTeX</a>
+    
+    
+  
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="prop:arithmetic_classification_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="prop:arithmetic_classification" style="display: none">
+    <div class="thm_thmheading">
+      <span class="proposition_thmcaption">
+      Proposition
+      </span>
+      <span class="proposition_thmlabel">0.3.2</span><span class="proposition_thmtitle">Exact Arithmetic Classification of \(\mathbb {N}\)</span></div>
+    <div class="thm_thmcontent"><p>   The natural numbers admit the exact disjoint partition: </p>
+<div class="equation" id="a0000000068">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \mathbb {N}= \{ 1\}  \; \dot{\cup }\;  \mathbb {P}\; \dot{\cup }\;  \mathbb {C}, \end{equation}
+  </div>
+  <span class="equation_label">17</span>
+</p>
+</div>
+<p> characterized completely by the value of \(\Omega (n)\): </p>
+<div class="displaymath" id="a0000000069">
+  \begin{align}  \text{Unit:} \quad & \{ 1\}  = \{ n \in \mathbb {N}\mid \Omega (n) = 0\} , \\ \text{Primes:} \quad & \mathbb {P}= \{ n \in \mathbb {N}\mid \Omega (n) = 1\} , \\ \text{Composites:} \quad & \mathbb {C}= \{ n \in \mathbb {N}\mid \Omega (n) \ge 2\} . \end{align}
+</div>
+</div>
+
+    <a class="latex_link" href="sect0003.html#prop:arithmetic_classification">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section3_CompositeTaxonomy.arithmetic_classification_partition">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="prop:composite_lattice_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="prop:composite_lattice" style="display: none">
+    <div class="thm_thmheading">
+      <span class="proposition_thmcaption">
+      Proposition
+      </span>
+      <span class="proposition_thmlabel">0.3.11</span><span class="proposition_thmtitle">The \((6a \pm 1)(6b \pm 1)\) Coprime Composite Lattice</span></div>
+    <div class="thm_thmcontent"><p>   Let \(c \in \mathbb {C}\) such that \(\gcd (c, 6) = 1\). Then \(c\) is generated by the two-parameter modular lattice: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D3FF710>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:lattice_eq} c = (6a + \epsilon _1)(6b + \epsilon _2) = 36 a b + 6(a \epsilon _2 + b \epsilon _1) + \epsilon _1 \epsilon _2, \end{equation}
+  </div>
+  <span class="equation_label">42</span>
+</p>
+</div>
+<p> where \(a, b \in \mathbb {N}\) and \(\epsilon _1, \epsilon _2 \in \{ -1, +1\} \). In particular: </p>
+<div class="equation" id="a0000000092">
+<p>
+  <div class="equation_content">
+    \begin{equation}  c \equiv \epsilon _1 \epsilon _2 \pmod6 \in \{ -1, +1\}  \pmod6. \end{equation}
+  </div>
+  <span class="equation_label">43</span>
+</p>
+</div>
+<p> Every prime \(p {\gt} 3\) is precisely an integer of the form \(6k \pm 1\) that <b class="bfseries">escapes</b> the range of the four-branch bivariate quadratic form: </p>
+<div class="equation" id="a0000000093">
+<p>
+  <div class="equation_content">
+    \begin{equation}  k \neq 6 a b + a \epsilon _2 + b \epsilon _1 + \frac{\epsilon _1 \epsilon _2 \mp 1}{6} \quad (\forall a, b \ge 1, \;  \epsilon _1, \epsilon _2 \in \{ -1, +1\} ). \end{equation}
+  </div>
+  <span class="equation_label">44</span>
+</p>
+</div>
+</div>
+
+    <a class="latex_link" href="sect0003.html#prop:composite_lattice">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section3_CompositeTaxonomy.coprime_composite_lattice">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="prop:reciprocal_partition_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="prop:reciprocal_partition" style="display: none">
+    <div class="thm_thmheading">
+      <span class="proposition_thmcaption">
+      Proposition
+      </span>
+      <span class="proposition_thmlabel">0.5.2</span><span class="proposition_thmtitle">Additive-Multiplicative Reciprocal Decomposition</span></div>
+    <div class="thm_thmcontent"><p>    For \(\operatorname {Re}(s) {\gt} 1\), the reciprocal zeta function decomposes into the exact tripartite identity: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D5BD850>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:reciprocal_partition} \frac{1}{\zeta (s)} = 1 - P(s) + \zeta _{\mu , C}(s), \end{equation}
+  </div>
+  <span class="equation_label">61</span>
+</p>
+</div>
+<p> where \(P(s) = \sum _{p \in \mathbb {P}} p^{-s}\) is the Prime Zeta function, and \(\zeta _{\mu , C}(s)\) is the Möbius-signed Composite Dirichlet Series: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D5BDCD0>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:mobius_composite_series} \zeta _{\mu , C}(s) \coloneqq \sum _{c \in \mathbb {C}_{\mathrm{comp}}} \frac{\mu (c)}{c^s} = \sum _{\substack {c \in \mathbb {C}_{\mathrm{comp}}\\ \mu (c) \neq 0}} \frac{(-1)^{\omega (c)}}{c^s}. \end{equation}
+  </div>
+  <span class="equation_label">62</span>
+</p>
+</div>
+</div>
+
+    <a class="latex_link" href="sec-reciprocal_euler_mertens.html#prop:reciprocal_partition">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section5_MobiusMertens.reciprocal_partition_identity">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="prop:totient_gap_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="prop:totient_gap" style="display: none">
+    <div class="thm_thmheading">
+      <span class="proposition_thmcaption">
+      Proposition
+      </span>
+      <span class="proposition_thmlabel">0.3.9</span><span class="proposition_thmtitle">Prime vs. Composite Totient Gap</span></div>
+    <div class="thm_thmcontent"><p>    Let \(n \ge 2\). Then: </p>
+<div class="equation" id="a0000000080">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \phi (n) = n - 1 \iff n \in \mathbb {P}, \end{equation}
+  </div>
+  <span class="equation_label">36</span>
+</p>
+</div>
+<p> and: </p>
+<div class="equation" id="a0000000081">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \phi (n) \le n - 1 - \frac{n}{p_{\min }} {\lt} n - 1 \quad \text{for all } n \in \mathbb {C}, \end{equation}
+  </div>
+  <span class="equation_label">37</span>
+</p>
+</div>
+<p> where \(p_{\min }\) is the smallest prime factor of \(n\). </p>
+</div>
+
+    <a class="latex_link" href="sect0003.html#prop:totient_gap">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section3_CompositeTaxonomy.prime_vs_composite_totient_gap">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="prop:von_mangoldt_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="prop:von_mangoldt" style="display: none">
+    <div class="thm_thmheading">
+      <span class="proposition_thmcaption">
+      Proposition
+      </span>
+      <span class="proposition_thmlabel">0.3.4</span><span class="proposition_thmtitle">Isolation via the von Mangoldt Function</span></div>
+    <div class="thm_thmcontent"><p>    The von Mangoldt function \(\Lambda : \mathbb {N}\to \mathbb {R}\) is defined by: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D226270>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:von_mangoldt_def} \Lambda (n) \equiv \begin{cases}  \ln p &  \text{if } n = p^k \text{ for some } p \in \mathbb {P}\text{ and integer } k \ge 1, \\ 0 &  \text{otherwise.} \end{cases} \end{equation}
+  </div>
+  <span class="equation_label">24</span>
+</p>
+</div>
+<p> Under the arithmetic partition \(\mathbb {N}= \{ 1\}  \; \dot{\cup }\;  \mathbb {P}\; \dot{\cup }\;  \mathbb {C}_{\mathrm{pure}}\; \dot{\cup }\;  \mathbb {C}_{\mathrm{mixed}}\), \(\Lambda (n)\) acts as a natural projector onto prime-power channels: </p>
+<div class="equation" id="a0000000073">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \Lambda (n) = \begin{cases}  0 &  \text{if } n = 1, \\ \ln p &  \text{if } n = p \in \mathbb {P}, \\ \ln p &  \text{if } n = p^a \in \mathbb {C}_{\mathrm{pure}}\quad (a \ge 2), \\ 0 &  \text{if } n \in \mathbb {C}_{\mathrm{mixed}}. \end{cases} \end{equation}
+  </div>
+  <span class="equation_label">27</span>
+</p>
+</div>
+<p> In particular, \(\Lambda (n)\) isolates primes and pure prime powers while completely annihilating all mixed composite numbers. </p>
+</div>
+
+    <a class="latex_link" href="sect0003.html#prop:von_mangoldt">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section3_CompositeTaxonomy.von_mangoldt_isolation">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:additive_identity_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:additive_identity" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">0.4.2</span><span class="theorem_thmtitle">Exact Additive Decomposition Identity</span></div>
+    <div class="thm_thmcontent"><p>    For all \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the Riemann zeta function decomposes into the exact three-term identity: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D43C410>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:zeta_additive_identity} \zeta (s) = 1 + P(s) + \zeta _C(s). \end{equation}
+  </div>
+  <span class="equation_label">46</span>
+</p>
+</div>
+<p> Equivalently: </p>
+<div class="equation" id="a0000000095">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \zeta _C(s) = \zeta (s) - 1 - P(s). \end{equation}
+  </div>
+  <span class="equation_label">47</span>
+</p>
+</div>
+</div>
+
+    <a class="latex_link" href="sec-construction_composite_zeta.html#thm:additive_identity">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section4_CompositeZeta.additive_identity_relation">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:approx_functional_equation_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:approx_functional_equation" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">0.6.5</span><span class="theorem_thmtitle">Hardy–Littlewood Approximate Functional Equation</span></div>
+    <div class="thm_thmcontent"><p>   Let \(s = \sigma + i t\) with \(0 {\lt} \sigma {\lt} 1\). For any \(x, y \ge 1\) satisfying \(2\pi x y = |t|\): </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D763050>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:approx_functional_equation} \zeta (s) = \sum _{n \le x} \frac{1}{n^s} + \chi (s) \sum _{n \le y} \frac{1}{n^{1-s}} + \mathcal{O}\left(x^{-\sigma } + |t|^{\frac{1}{2}-\sigma } y^{\sigma -1}\right), \end{equation}
+  </div>
+  <span class="equation_label">73</span>
+</p>
+</div>
+<p> where \(\chi (s)\) is the functional equation factor: </p>
+<div class="equation" id="a0000000186">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \chi (s) \coloneqq 2^s \pi ^{s-1} \sin \left(\frac{\pi s}{2}\right) \Gamma (1-s). \end{equation}
+  </div>
+  <span class="equation_label">74</span>
+</p>
+</div>
+</div>
+
+    <a class="latex_link" href="sec-critical_strip_audit.html#thm:approx_functional_equation">LaTeX</a>
+    
+    
+  
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:composite_radix_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:composite_radix" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">0.3.10</span><span class="theorem_thmtitle">Composite Base-10 Decomposition Theorem</span></div>
+    <div class="thm_thmcontent"><p>   Let \(n \in \mathbb {C}\) be a composite integer. Factor \(n\) into its decimal base components and coprime core: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D3A3770>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:n_base_factorization} n = 2^a \cdot 5^b \cdot m, \qquad \gcd (m, 10) = 1, \quad (a, b \ge 0, \;  m \ge 1). \end{equation}
+  </div>
+  <span class="equation_label">38</span>
+</p>
+</div>
+<p> Then the decimal expansion of \(1/n\) consists of: </p>
+<ol class="enumerate">
+  <li><p>A <b class="bfseries">transient non-repeating pre-period</b> of exact length: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D3FCCB0>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:preperiod_length} K = \max (a, b). \end{equation}
+  </div>
+  <span class="equation_label">39</span>
+</p>
+</div>
+</li>
+  <li><p>Followed by a <b class="bfseries">purely repeating periodic cycle</b> of minimal period length: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D3FC530>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:composite_period_length} L = \operatorname {ord}_m(10), \end{equation}
+  </div>
+  <span class="equation_label">40</span>
+</p>
+</div>
+<p> where \(L\) divides the Carmichael function \(\lambda (m)\) and Euler’s totient \(\phi (m)\): </p>
+<div class="equation" id="a0000000083">
+<p>
+  <div class="equation_content">
+    \begin{equation}  L \mid \lambda (m) \mid \phi (m) {\lt} n - 1. \end{equation}
+  </div>
+  <span class="equation_label">41</span>
+</p>
+</div>
+</li>
+  <li><p>In particular, \(1/n\) terminates if and only if \(m = 1\) (\(n = 2^a 5^b\)), is purely periodic if and only if \(a = b = 0\) (\(\gcd (n, 10) = 1\)), and is mixed-periodic with both a pre-period and a period if and only if \(\max (a, b) \ge 1\) and \(m {\gt} 1\). </p>
+</li>
+</ol>
+</div>
+
+    <a class="latex_link" href="sect0003.html#thm:composite_radix">LaTeX</a>
+    
+    
+  
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:divisor_multiplicative_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:divisor_multiplicative" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">0.3.6</span><span class="theorem_thmtitle">Multiplicative Factorization of Divisor Functions</span></div>
+    <div class="thm_thmcontent"><p>   Let \(n = \prod _{i=1}^k p_i^{a_i}\) be the canonical prime factorization of \(n \ge 2\). Then: </p>
+<div class="displaymath" id="<plasTeX.TeXFragment object at 0x000001AE1D227DD0>">
+  \begin{align}  \label{eq:d_n_formula} d(n) & = \prod _{i=1}^k (a_i + 1), \\ \label{eq:sigma_1_formula} \sigma _1(n) & = \prod _{i=1}^k \left( \frac{p_i^{a_i+1} - 1}{p_i - 1} \right). \end{align}
+</div>
+</div>
+
+    <a class="latex_link" href="sect0003.html#thm:divisor_multiplicative">LaTeX</a>
+    
+    
+  
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:divisor_weighted_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:divisor_weighted" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">0.4.6</span><span class="theorem_thmtitle">Divisor-Weighted Composite Series</span></div>
+    <div class="thm_thmcontent"><p>    For all \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the shifted square of the Riemann zeta function annihilates the unit \(1\) and every prime \(p \in \mathbb {P}\), generating a pure Dirichlet series supported strictly on the composite numbers \(\mathbb {C}\): </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D49D8B0>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:weighted_composite_series} Z_{\mathrm{weighted}}(s) \equiv (\zeta (s) - 1)^2 = \sum _{c \in \mathbb {C}} \frac{d(c) - 2}{c^s}, \end{equation}
+  </div>
+  <span class="equation_label">52</span>
+</p>
+</div>
+<p> where \(d(c) = \sum _{d \mid c} 1\) is the divisor function. </p>
+</div>
+
+    <a class="latex_link" href="sec-construction_composite_zeta.html#thm:divisor_weighted">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section4_CompositeZeta.divisor_weight_primes_and_composites">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:eta_continuation_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:eta_continuation" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">0.6.4</span><span class="theorem_thmtitle">Analytic Continuation to \(\operatorname {Re}(s) {\gt} 0\)</span></div>
+    <div class="thm_thmcontent"><p>    The series&#160;?? converges conditionally for all \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 0\) and defines a holomorphic function. Furthermore, for all \(s\) in this half-plane: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D69EBD0>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:eta_zeta_identity} \eta (s) = \left(1 - 2^{1-s}\right) \zeta (s). \end{equation}
+  </div>
+  <span class="equation_label">71</span>
+</p>
+</div>
+<p> Consequently, \(\zeta (s)\) extends meromorphically to \(\operatorname {Re}(s) {\gt} 0\) via: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D69FAD0>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:zeta_via_eta} \zeta (s) = \frac{\eta (s)}{1 - 2^{1-s}}, \end{equation}
+  </div>
+  <span class="equation_label">72</span>
+</p>
+</div>
+<p> with its sole singularity being a simple pole at \(s = 1\) with residue \(\operatorname {Res}_{s=1} \zeta (s) = 1\). </p>
+</div>
+
+    <a class="latex_link" href="sec-critical_strip_audit.html#thm:eta_continuation">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section6_CriticalStripAudit.dirichlet_eta_relation">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:flt_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:flt" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">0.2.6</span><span class="theorem_thmtitle">Fermat’s Little Theorem</span></div>
+    <div class="thm_thmcontent"><p>   Let \(p \in \mathbb {P}\) and let \(a \in \mathbb {Z}\) such that \(\gcd (a, p) = 1\). Then: </p>
+<div class="equation" id="eq:flt">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:flt} a^{p-1} \equiv 1 \pmod p. \end{equation}
+  </div>
+  <span class="equation_label">10</span>
+</p>
+</div>
+<p> Equivalently, for all integers \(a \in \mathbb {Z}\), \(a^p \equiv a \pmod p\). </p>
+</div>
+
+    <a class="latex_link" href="sect0002.html#thm:flt">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section2_PrimeAtoms.fermats_little_theorem">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:fta_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:fta" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">0.2.4</span><span class="theorem_thmtitle">Fundamental Theorem of Arithmetic</span></div>
+    <div class="thm_thmcontent"><p>    Every integer \(n \ge 2\) admits a factorization into primes: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE7F865430>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:fta_factorization} n = \prod _{i=1}^k p_i^{a_i} = p_1^{a_1} p_2^{a_2} \cdots p_k^{a_k}, \end{equation}
+  </div>
+  <span class="equation_label">8</span>
+</p>
+</div>
+<p> where \(p_1 {\lt} p_2 {\lt} \dots {\lt} p_k\) are distinct primes in \(\mathbb {P}\), and \(a_i \ge 1\) are positive integers. Moreover, this factorization is unique up to the order of the prime factors. </p>
+</div>
+
+    <a class="latex_link" href="sect0002.html#thm:fta">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:mertens_riemann_equiv_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:mertens_riemann_equiv" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">0.5.6</span><span class="theorem_thmtitle">Mertens–Riemann Equivalence</span></div>
+    <div class="thm_thmcontent"><p>    The Riemann Hypothesis is equivalent to the statement that for every \(\epsilon {\gt} 0\): </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D60F8F0>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:mertens_bound} M(x) = \mathcal{O}\left(x^{\frac{1}{2} + \epsilon }\right) \quad \text{as } x \to \infty . \end{equation}
+  </div>
+  <span class="equation_label">66</span>
+</p>
+</div>
+<p> Specifically, \(\zeta (s)\) has no zeros in the half-plane \(\operatorname {Re}(s) {\gt} \frac{1}{2}\) if and only if&#160;?? holds. </p>
+</div>
+
+    <a class="latex_link" href="sec-reciprocal_euler_mertens.html#thm:mertens_riemann_equiv">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section5_MobiusMertens.mertens_riemann_equivalence">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:mobius_bridge_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:mobius_bridge" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">0.4.5</span><span class="theorem_thmtitle">Möbius-Logarithmic Bridge for \(\zeta _C(s)\)</span></div>
+    <div class="thm_thmcontent"><p>   For all \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the Composite Zeta Function satisfies the closed-form Möbius series representation: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D49C530>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:zeta_C_mobius} \zeta _C(s) = \zeta (s) - 1 - \sum _{k=1}^\infty \frac{\mu (k)}{k} \ln \zeta (k s), \end{equation}
+  </div>
+  <span class="equation_label">51</span>
+</p>
+</div>
+<p> where \(\mu (k)\) is the arithmetic Möbius function. </p>
+</div>
+
+    <a class="latex_link" href="sec-construction_composite_zeta.html#thm:mobius_bridge">LaTeX</a>
+    
+    
+  
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:mod6_confinement_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:mod6_confinement" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">0.2.5</span><span class="theorem_thmtitle">Modulo 6 Sieve Confinement</span></div>
+    <div class="thm_thmcontent"><p>    Every prime number \(p \in \mathbb {P}\) strictly greater than \(3\) satisfies: </p>
+<div class="equation" id="eq:mod6">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:mod6} p \equiv 1 \pmod6 \quad \text{or} \quad p \equiv 5 \equiv -1 \pmod6. \end{equation}
+  </div>
+  <span class="equation_label">9</span>
+</p>
+</div>
+<p> Equivalently, for every \(p {\gt} 3\), there exists a unique integer \(k \in \mathbb {N}\) such that \(p = 6k \pm 1\). </p>
+</div>
+
+    <a class="latex_link" href="sect0002.html#thm:mod6_confinement">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section2_PrimeAtoms.modulo_6_sieve_confinement">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:natural_boundary_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:natural_boundary" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">0.4.8</span><span class="theorem_thmtitle">Meromorphic Continuation vs. Natural Boundary</span></div>
+    <div class="thm_thmcontent"><p>    The analytic continuations of the weighted and unweighted composite generating functions exhibit fundamentally different global structures: </p>
+<ol class="enumerate">
+  <li><p><b class="bfseries">Global Meromorphic Continuation of \(Z_{\mathrm{weighted}}(s)\):</b> The divisor-weighted composite series \(Z_{\mathrm{weighted}}(s) = (\zeta (s) - 1)^2\) extends meromorphically to the entire complex plane \(\mathbb {C}\). It possesses: </p>
+<ul class="itemize">
+  <li><p>A single double pole at \(s = 1\) with Laurent expansion: </p>
+<div class="equation" id="a0000000118">
+<p>
+  <div class="equation_content">
+    \begin{equation}  Z_{\mathrm{weighted}}(s) = \frac{1}{(s-1)^2} + \frac{2(\gamma - 1)}{s-1} + \mathcal{O}(1) \quad (s \to 1). \end{equation}
+  </div>
+  <span class="equation_label">53</span>
+</p>
+</div>
+</li>
+  <li><p>Double zeros at the trivial zeros of the Riemann zeta function \(s = -2m\) for \(m \in \mathbb {N}\): </p>
+<div class="displaymath" id="a0000000119">
+  \[ Z_{\mathrm{weighted}}(-2m) = (\zeta (-2m) - 1)^2 = (0 - 1)^2 = 1 \neq 0, \]
+</div>
+<p> and zeros wherever \(\zeta (s) = 1\). </p>
+</li>
+  <li><p>No natural boundary anywhere in \(\mathbb {C}\). </p>
+</li>
+</ul>
+</li>
+  <li><p><b class="bfseries">Natural Boundary of \(\zeta _C(s)\) and \(P(s)\) at \(\operatorname {Re}(s) = 0\):</b> The unweighted Composite Zeta Function \(\zeta _C(s) = \zeta (s) - 1 - P(s)\) cannot be analytically continued past the imaginary axis \(\operatorname {Re}(s) = 0\). The line \(\operatorname {Re}(s) = 0\) is a <b class="bfseries">dense natural boundary</b> formed by the accumulation of logarithmic branch-point singularities. </p>
+</li>
+</ol>
+</div>
+
+    <a class="latex_link" href="sec-construction_composite_zeta.html#thm:natural_boundary">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section4_CompositeZeta.analytic_discrepancy_theorem">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:radix_periodicity_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:radix_periodicity" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">0.2.9</span><span class="theorem_thmtitle">Base-10 Radix Periodicity of Prime Reciprocals</span></div>
+    <div class="thm_thmcontent"><p>    Let \(p \in \mathbb {P}\) be a prime. </p>
+<ol class="enumerate">
+  <li><p><b class="bfseries">Terminating Decimals:</b> The decimal expansion of \(1/p\) terminates if and only if \(p \in \{ 2, 5\} \), the prime divisors of the base \(10 = 2 \cdot 5\): </p>
+<div class="equation" id="a0000000055">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \frac{1}{2} = 0.5, \qquad \frac{1}{5} = 0.2. \end{equation}
+  </div>
+  <span class="equation_label">13</span>
+</p>
+</div>
+</li>
+  <li><p><b class="bfseries">Purely Periodic Decimals:</b> For all primes \(p \in \mathbb {P}\setminus \{ 2, 5\} \) (so \(\gcd (p, 10) = 1\)), the decimal expansion of \(1/p\) is <b class="bfseries">purely periodic</b> (with zero pre-period) of the form: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D1CCF50>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:reptend_form} \frac{1}{p} = 0.\overline{d_1 d_2 \dots d_L} = \sum _{j=1}^\infty \frac{M}{(10^L)^j} = \frac{M}{10^L - 1}, \end{equation}
+  </div>
+  <span class="equation_label">14</span>
+</p>
+</div>
+<p> where \(M = \sum _{k=1}^L d_k 10^{L-k} \in \mathbb {N}\) is the integer formed by the repetend. </p>
+</li>
+  <li><p><b class="bfseries">Divisibility of Period Length:</b> The period length \(L\) equals the multiplicative order of \(10\) modulo \(p\): </p>
+<div class="equation" id="a0000000056">
+<p>
+  <div class="equation_content">
+    \begin{equation}  L = \operatorname {ord}_p(10), \end{equation}
+  </div>
+  <span class="equation_label">15</span>
+</p>
+</div>
+<p> and strictly divides \(p - 1\): </p>
+<div class="equation" id="a0000000057">
+<p>
+  <div class="equation_content">
+    \begin{equation}  L \mid (p - 1). \end{equation}
+  </div>
+  <span class="equation_label">16</span>
+</p>
+</div>
+</li>
+  <li><p><b class="bfseries">Full-Reptend Cyclic Primes:</b> The maximum possible period length is \(L_{\max } = p - 1\). This maximum is attained if and only if \(10\) is a primitive root modulo \(p\), in which case the repetend digits \(M\) generate a cyclic number. </p>
+</li>
+</ol>
+</div>
+
+    <a class="latex_link" href="sect0002.html#thm:radix_periodicity">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section2_PrimeAtoms.base10_radix_periodicity">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:reciprocal_euler_product_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:reciprocal_euler_product" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">0.5.1</span><span class="theorem_thmtitle">Reciprocal Euler Product &amp; Möbius Dirichlet Series</span></div>
+    <div class="thm_thmcontent"><p>   For every complex number \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the reciprocal of the Riemann zeta function admits the absolutely convergent Euler product expansion: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D5519D0>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:reciprocal_euler_product} \frac{1}{\zeta (s)} = \prod _{p \in \mathbb {P}} \left(1 - \frac{1}{p^s}\right). \end{equation}
+  </div>
+  <span class="equation_label">55</span>
+</p>
+</div>
+<p> Furthermore, the term-by-term expansion of this product across the Fundamental Theorem of Arithmetic yields the Dirichlet series: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D551DF0>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:mobius_dirichlet_series} \frac{1}{\zeta (s)} = \sum _{n=1}^\infty \frac{\mu (n)}{n^s}, \end{equation}
+  </div>
+  <span class="equation_label">56</span>
+</p>
+</div>
+<p> where \(\mu : \mathbb {N}\to \{ -1, 0, 1\} \) is the Möbius arithmetic function defined by: </p>
+<div class="equation" id="a0000000127">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \mu (n) = \begin{cases}  1 &  \text{if } n = 1, \\ (-1)^k &  \text{if } n = p_1 p_2 \cdots p_k \text{ with distinct primes } p_i \text{ (square-free)}, \\ 0 &  \text{if } p^2 \mid n \text{ for some prime } p \text{ (square-divisible)}. \end{cases} \end{equation}
+  </div>
+  <span class="equation_label">57</span>
+</p>
+</div>
+<p> The series&#160;?? converges absolutely in the half-plane \(\operatorname {Re}(s) {\gt} 1\). </p>
+</div>
+
+    <a class="latex_link" href="sec-reciprocal_euler_mertens.html#thm:reciprocal_euler_product">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section5_MobiusMertens.ReciprocalZeta">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:riemann_explicit_formula_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:riemann_explicit_formula" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">0.7.4</span><span class="theorem_thmtitle">Riemann’s Explicit Formula</span></div>
+    <div class="thm_thmcontent"><p>   For every \(x {\gt} 1\): </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D7F69F0>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:riemann_explicit_formula} \psi _0(x) = x - \sum _{\rho } \frac{x^\rho }{\rho } - \ln (2\pi ) - \frac{1}{2}\ln \left(1 - x^{-2}\right), \end{equation}
+  </div>
+  <span class="equation_label">83</span>
+</p>
+</div>
+<p> where the sum over \(\rho \) runs over all non-trivial zeros of \(\zeta (s)\) in the critical strip \(0 {\lt} \operatorname {Re}(\rho ) {\lt} 1\), paired symmetrically as: </p>
+<div class="equation" id="a0000000203">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \sum _{\rho } \frac{x^\rho }{\rho } \coloneqq \lim _{T \to \infty } \sum _{|\operatorname {Im}(\rho )| \le T} \frac{x^\rho }{\rho }. \end{equation}
+  </div>
+  <span class="equation_label">84</span>
+</p>
+</div>
+</div>
+
+    <a class="latex_link" href="sec-spectral_bridge.html#thm:riemann_explicit_formula">LaTeX</a>
+    
+    
+  
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:spectral_stability_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:spectral_stability" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">0.7.5</span><span class="theorem_thmtitle">Spectral Stability Theorem</span></div>
+    <div class="thm_thmcontent"><p>    Let \(\Theta \coloneqq \sup \{  \operatorname {Re}(\rho ) : \zeta (\rho ) = 0, \;  0 {\lt} \operatorname {Re}(\rho ) {\lt} 1 \} \). Then: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D8477D0>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:psi_error_bound} \psi (x) - x = \mathcal{O}\left( x^\Theta \ln ^2 x \right) \quad \text{as } x \to \infty . \end{equation}
+  </div>
+  <span class="equation_label">87</span>
+</p>
+</div>
+<p> In particular, the Riemann Hypothesis (\(\Theta = \frac{1}{2}\)) holds if and only if: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D8A0590>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:psi_rh_bound} \psi (x) = x + \mathcal{O}\left( x^{1/2} \ln ^2 x \right). \end{equation}
+  </div>
+  <span class="equation_label">88</span>
+</p>
+</div>
+<p> Furthermore, this is equivalent to Helge von Koch’s theorem (1901) for the prime counting function: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D8A0890>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:pi_von_koch} \pi (x) = \operatorname {Li}(x) + \mathcal{O}\left( x^{1/2} \ln x \right). \end{equation}
+  </div>
+  <span class="equation_label">89</span>
+</p>
+</div>
+</div>
+
+    <a class="latex_link" href="sec-spectral_bridge.html#thm:spectral_stability">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section7_SpectralBridge.spectral_stability_theorem">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:three_obstructions_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:three_obstructions" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">0.6.2</span><span class="theorem_thmtitle">The Three Analytic Obstructions at \(\operatorname {Re}(s) \le 1\)</span></div>
+    <div class="thm_thmcontent"><p>   Any attempt to extend the additive-multiplicative completeness of \(\zeta (s) = 1 + P(s) + \zeta _C(s)\) point-wise into the critical strip \(0 {\lt} \operatorname {Re}(s) \le 1\) fails due to the following three structural barriers: </p>
+<ol class="enumerate">
+  <li><p><b class="bfseries">Obstruction 1 (Divergence of Coordinate Series):</b> For every \(\sigma \in (0, 1]\), the Prime Zeta series and the Composite Zeta series diverge identically: </p>
+<div class="equation" id="a0000000171">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \sum _{p \in \mathbb {P}} p^{-\sigma } = \infty \quad \text{and} \quad \sum _{c \in \mathbb {C}_{\mathrm{comp}}} c^{-\sigma } = \infty . \end{equation}
+  </div>
+  <span class="equation_label">69</span>
+</p>
+</div>
+<p> Consequently, the sum \(1 + P(s) + \zeta _C(s)\) degenerates into the undefined indeterminate form \(\infty - \infty \). </p>
+</li>
+  <li><p><b class="bfseries">Obstruction 2 (Failure of Pointwise Euler Product Convergence):</b> For any \(s = \sigma + i t\) with \(0 {\lt} \sigma {\lt} 1\), the partial Euler products \(\Pi _X(s) = \prod _{p \le X} (1 - p^{-s})^{-1}\) do not converge point-wise as \(X \to \infty \). They oscillate indefinitely and fail to define \(\zeta (s)\) point-by-point. </p>
+</li>
+  <li><p><b class="bfseries">Obstruction 3 (The Riemann Series Rearrangement Violation):</b> For \(0 {\lt} \sigma \le 1\), the series \(\sum n^{-s}\) is not absolutely convergent (\(\sum n^{-\sigma } = \infty \)). By the Riemann Series Theorem, conditionally convergent series cannot be arbitrarily partitioned or rearranged into primes, composites, or modular sub-lattices without altering the sum or inducing divergence. </p>
+</li>
+</ol>
+</div>
+
+    <a class="latex_link" href="sec-critical_strip_audit.html#thm:three_obstructions">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section6_CriticalStripAudit.additive_partition_firewall">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:wilson_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:wilson" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">0.2.7</span><span class="theorem_thmtitle">Wilson’s Theorem</span></div>
+    <div class="thm_thmcontent"><p>   An integer \(p \ge 2\) is prime if and only if: </p>
+<div class="equation" id="eq:wilson">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:wilson} (p-1)! \equiv -1 \pmod p. \end{equation}
+  </div>
+  <span class="equation_label">11</span>
+</p>
+</div>
+</div>
+
+    <a class="latex_link" href="sect0002.html#thm:wilson">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section2_PrimeAtoms.wilsons_theorem">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:zero_free_re_gt_1_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:zero_free_re_gt_1" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">0.6.1</span><span class="theorem_thmtitle">Completeness and Zero-Freeness in \(\operatorname {Re}(s) {\gt} 1\)</span></div>
+    <div class="thm_thmcontent"><p>   For every \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\): </p>
+<ol class="enumerate">
+  <li><p>The Dirichlet series \(\zeta (s) = \sum _{n=1}^\infty n^{-s}\) converges absolutely and uniformly on compact subsets. </p>
+</li>
+  <li><p>The Euler product \(\prod _{p \in \mathbb {P}} (1 - p^{-s})^{-1}\) converges absolutely to \(\zeta (s)\). </p>
+</li>
+  <li><p>The Riemann zeta function has no zeros: </p>
+<div class="equation" id="a0000000166">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \zeta (s) \neq 0 \quad \text{for all } s \text{ with } \operatorname {Re}(s) {\gt} 1. \end{equation}
+  </div>
+  <span class="equation_label">68</span>
+</p>
+</div>
+</li>
+</ol>
+</div>
+
+    <a class="latex_link" href="sec-critical_strip_audit.html#thm:zero_free_re_gt_1">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section6_CriticalStripAudit.zero_free_half_plane">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+</div>
+</div> <!-- content -->
+</div> <!-- wrapper -->
+<script src="js/jquery.min.js" type="text/javascript"></script>
+
+<script src="js/d3.min.js"></script>
+<script src="js/hpcc.min.js"></script>
+<script src="js/d3-graphviz.js"></script>
+
+<script type="text/javascript">
+const graphContainer = d3.select("#graph");
+const width = graphContainer.node().clientWidth;
+const height = graphContainer.node().clientHeight;
+
+
+graphContainer.graphviz({useWorker: true})
+    .width(width)
+    .height(height)
+    .fit(true)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"lem:bezout"	[color=green,		fillcolor="#1CAC78",		label=bezout,		shape=ellipse,		style=filled];	"lem:euclid"	[color=green,		fillcolor="#1CAC78",		label=euclid,		shape=ellipse,		style=filled];	"lem:bezout" -> "lem:euclid"	[style=dashed];	"thm:fta"	[color=green,		fillcolor="#1CAC78",		label=fta,		shape=ellipse,		style=filled];	"lem:euclid" -> "thm:fta"	[style=dashed];	"thm:mod6_confinement"	[color=green,		fillcolor="#1CAC78",		label=mod6_confinement,		shape=ellipse,		style=filled];	"thm:fta" -> "thm:mod6_confinement"	[style=dashed];	"thm:divisor_multiplicative"	[color=green,		fillcolor="#1CAC78",		label=divisor_multiplicative,		shape=ellipse,		style=filled];	"thm:fta" -> "thm:divisor_multiplicative"	[style=dashed];	"prop:arithmetic_classification"	[color=green,		label=arithmetic_classification,		shape=ellipse];	"def:local_euler"	[color=green,		fillcolor="#B0ECA3",		label=local_euler,		shape=box,		style=filled];	"def:chebyshev_functions"	[color=green,		fillcolor="#B0ECA3",		label=chebyshev_functions,		shape=box,		style=filled];	"lem:log_derivative_zeta"	[color=green,		fillcolor="#1CAC78",		label=log_derivative_zeta,		shape=ellipse,		style=filled];	"def:chebyshev_functions" -> "lem:log_derivative_zeta"	[style=dashed];	"thm:riemann_explicit_formula"	[color=green,		fillcolor="#1CAC78",		label=riemann_explicit_formula,		shape=ellipse,		style=filled];	"lem:log_derivative_zeta" -> "thm:riemann_explicit_formula"	[style=dashed];	"thm:spectral_stability"	[color=green,		fillcolor="#1CAC78",		label=spectral_stability,		shape=ellipse,		style=filled];	"thm:riemann_explicit_formula" -> "thm:spectral_stability"	[style=dashed];	"lem:mellin_reciprocal_zeta"	[color=green,		fillcolor="#1CAC78",		label=mellin_reciprocal_zeta,		shape=ellipse,		style=filled];	"thm:mertens_riemann_equiv"	[color=green,		fillcolor="#1CAC78",		label=mertens_riemann_equiv,		shape=ellipse,		style=filled];	"lem:mellin_reciprocal_zeta" -> "thm:mertens_riemann_equiv"	[style=dashed];	"thm:additive_identity"	[color=green,		fillcolor="#1CAC78",		label=additive_identity,		shape=ellipse,		style=filled];	"thm:mobius_bridge"	[color=green,		fillcolor="#1CAC78",		label=mobius_bridge,		shape=ellipse,		style=filled];	"thm:additive_identity" -> "thm:mobius_bridge"	[style=dashed];	"cor:phasor_symmetry"	[color=green,		fillcolor="#1CAC78",		label=phasor_symmetry,		shape=ellipse,		style=filled];	"def:divisor_functions"	[color=green,		fillcolor="#B0ECA3",		label=divisor_functions,		shape=box,		style=filled];	"def:ord10"	[color=green,		fillcolor="#B0ECA3",		label=ord10,		shape=box,		style=filled];	"thm:radix_periodicity"	[color=green,		fillcolor="#1CAC78",		label=radix_periodicity,		shape=ellipse,		style=filled];	"def:ord10" -> "thm:radix_periodicity"	[style=dashed];	"cor:divisor_bounds"	[color=green,		fillcolor="#1CAC78",		label=divisor_bounds,		shape=ellipse,		style=filled];	"thm:divisor_weighted"	[color=green,		fillcolor="#1CAC78",		label=divisor_weighted,		shape=ellipse,		style=filled];	"cor:divisor_bounds" -> "thm:divisor_weighted"	[style=dashed];	"prop:totient_gap"	[color=green,		fillcolor="#1CAC78",		label=totient_gap,		shape=ellipse,		style=filled];	"cor:divisor_bounds" -> "prop:totient_gap"	[style=dashed];	"thm:natural_boundary"	[color=green,		fillcolor="#1CAC78",		label=natural_boundary,		shape=ellipse,		style=filled];	"thm:divisor_weighted" -> "thm:natural_boundary"	[style=dashed];	"thm:composite_radix"	[color=green,		fillcolor="#1CAC78",		label=composite_radix,		shape=ellipse,		style=filled];	"prop:totient_gap" -> "thm:composite_radix"	[style=dashed];	"def:mertens_function"	[color=green,		fillcolor="#B0ECA3",		label=mertens_function,		shape=box,		style=filled];	"def:mertens_function" -> "lem:mellin_reciprocal_zeta"	[style=dashed];	"def:normalized_chebyshev"	[color=green,		fillcolor="#B0ECA3",		label=normalized_chebyshev,		shape=box,		style=filled];	"prop:reciprocal_partition"	[color=green,		fillcolor="#1CAC78",		label=reciprocal_partition,		shape=ellipse,		style=filled];	"thm:flt"	[color=green,		fillcolor="#1CAC78",		label=flt,		shape=ellipse,		style=filled];	"thm:flt" -> "thm:radix_periodicity"	[style=dashed];	"thm:zero_free_re_gt_1"	[color=green,		fillcolor="#1CAC78",		label=zero_free_re_gt_1,		shape=ellipse,		style=filled];	"thm:wilson"	[color=green,		fillcolor="#1CAC78",		label=wilson,		shape=ellipse,		style=filled];	"def:primes_units"	[color=green,		fillcolor="#B0ECA3",		label=primes_units,		shape=box,		style=filled];	"def:P_and_zetaC"	[color=green,		fillcolor="#B0ECA3",		label=P_and_zetaC,		shape=box,		style=filled];	"def:P_and_zetaC" -> "thm:additive_identity"	[style=dashed];	"def:omega_Omega"	[color=green,		fillcolor="#B0ECA3",		label=omega_Omega,		shape=box,		style=filled];	"def:pure_mixed_composites"	[color=green,		fillcolor="#B0ECA3",		label=pure_mixed_composites,		shape=box,		style=filled];	"def:omega_Omega" -> "def:pure_mixed_composites"	[style=dashed];	"prop:von_mangoldt"	[color=green,		fillcolor="#1CAC78",		label=von_mangoldt,		shape=ellipse,		style=filled];	"def:pure_mixed_composites" -> "prop:von_mangoldt"	[style=dashed];	"def:totient_function"	[color=green,		fillcolor="#B0ECA3",		label=totient_function,		shape=box,		style=filled];	"prop:composite_lattice"	[color=green,		label=composite_lattice,		shape=ellipse];	"thm:eta_continuation"	[color=green,		fillcolor="#1CAC78",		label=eta_continuation,		shape=ellipse,		style=filled];	"thm:approx_functional_equation"	[color=green,		fillcolor="#1CAC78",		label=approx_functional_equation,		shape=ellipse,		style=filled];	"thm:eta_continuation" -> "thm:approx_functional_equation"	[style=dashed];	"thm:approx_functional_equation" -> "cor:phasor_symmetry"	[style=dashed];	"def:dirichlet_eta"	[color=green,		fillcolor="#B0ECA3",		label=dirichlet_eta,		shape=box,		style=filled];	"def:dirichlet_eta" -> "thm:eta_continuation"	[style=dashed];	"thm:reciprocal_euler_product"	[color=green,		fillcolor="#1CAC78",		label=reciprocal_euler_product,		shape=ellipse,		style=filled];	"thm:reciprocal_euler_product" -> "prop:reciprocal_partition"	[style=dashed];	"thm:three_obstructions"	[color=green,		fillcolor="#1CAC78",		label=three_obstructions,		shape=ellipse,		style=filled];}`)
+    .on("end", interactive);
+
+latexLabelEscaper = function(label) {
+  return label.replace(/\./g, '\\.').replace(/:/g, '\\:')
+}
+
+clickNode = function() {
+  $("#statements div").hide()
+  var node_id = $('text', this).text();
+  $('.thm').hide();
+  $('#'+latexLabelEscaper(node_id)).show().children().show();
+}
+function interactive() {
+    $("span#legend_title").on("click", function () {
+           $(this).siblings('dl').toggle();
+        })
+
+    d3.selectAll('.node')
+        .attr('pointer-events', 'fill')
+        .on('click', function () {
+           var title = d3.select(this).selectAll('title').text().trim();
+           $('#statements > div').hide()
+           $('.thm').hide();
+           $('#'+latexLabelEscaper(title)+'_modal').show().children().show().children().show();
+           $('#statements').show()
+        });
+
+    d3.selectAll('.dep-closebtn').on('click', function() {
+        var modal =
+            d3.select(this).node().parentNode.parentNode.parentNode ;
+        d3.select(modal).style('display', 'none');
+    });
+}
+
+</script>
+
+</body>
+</html>

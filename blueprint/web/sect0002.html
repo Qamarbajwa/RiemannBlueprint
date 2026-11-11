@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  MathJax = { 
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<meta name="generator" content="plasTeX" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Additive-Multiplicative Completeness of Prime and Composite Dirichlet Systems: Structural Partitions, Natural Boundaries, and Spectral Equivalences of the Riemann Hypothesis: Multiplicative Atoms and Modular Sieve Structures of \(\mathbb {P}\)</title>
+<link rel="next" href="sect0003.html" title="Algebraic and Modular Taxonomy of the Composite System " />
+<link rel="prev" href="sect0001.html" title="Introduction" />
+<link rel="up" href="index.html" title="Additive-Multiplicative Completeness of Prime and Composite Dirichlet Systems: Structural Partitions, Natural Boundaries, and Spectral Equivalences of the Riemann Hypothesis" />
+<link rel="stylesheet" href="styles/theme-white.css" />
+<link rel="stylesheet" href="styles/amsthm.css" />
+<link rel="stylesheet" href="styles/showmore.css" />
+<link rel="stylesheet" href="styles/blueprint.css" />
+<link rel="stylesheet" href="styles/extra_styles.css" />
+</head>
+
+<body>
+<header>
+<svg  id="toc-toggle" class="icon icon-list-numbered "><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<h1 id="doc_title"><a href="index.html">Additive-Multiplicative Completeness of Prime and Composite Dirichlet Systems: Structural Partitions, Natural Boundaries, and Spectral Equivalences of the Riemann Hypothesis</a></h1>
+</header>
+
+<div class="wrapper">
+<nav class="toc">
+<ul class="sub-toc-0">
+<li class="">
+  <a href="sect0001.html"><span class="toc_ref">0.1</span> <span class="toc_entry">Introduction</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sect0001.html#a0000000006"><span class="toc_ref">0.1.1</span> <span class="toc_entry">Central Thesis and Outline of the Monograph</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class=" active current">
+  <a href="sect0002.html"><span class="toc_ref">0.2</span> <span class="toc_entry">Multiplicative Atoms and Modular Sieve Structures of \(\mathbb {P}\)</span></a>
+  <span class="expand-toc">▼</span>
+  <ul class="sub-toc-1 active">
+     <li class="">
+  <a href="sect0002.html#a0000000007"><span class="toc_ref">0.2.1</span> <span class="toc_entry">The Fundamental Theorem of Arithmetic and Euclid’s Lemma</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html#a0000000008"><span class="toc_ref">0.2.2</span> <span class="toc_entry">Modular Confinement of Primes Modulo 6</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html#a0000000009"><span class="toc_ref">0.2.3</span> <span class="toc_entry">Fermat’s Little Theorem and Wilson’s Theorem</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html#a0000000010"><span class="toc_ref">0.2.4</span> <span class="toc_entry">Base-10 Radix Periodicity Theorem</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0003.html"><span class="toc_ref">0.3</span> <span class="toc_entry">Algebraic and Modular Taxonomy of the Composite System \(\mathbb {C}\)</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sect0003.html#a0000000011"><span class="toc_ref">0.3.1</span> <span class="toc_entry">Partition of Composites: Pure Prime Powers vs. Mixed Composites</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000012"><span class="toc_ref">0.3.2</span> <span class="toc_entry">Divisor Function and Totient Algebra on \(\mathbb {C}\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000013"><span class="toc_ref">0.3.3</span> <span class="toc_entry">Composite Base-10 Decomposition Theorem</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000014"><span class="toc_ref">0.3.4</span> <span class="toc_entry">Parametric Coprime Composite Lattice</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sec-construction_composite_zeta.html"><span class="toc_ref">0.4</span> <span class="toc_entry">Construction of the Composite Zeta Functions (\(\operatorname {Re}(s) {\gt} 1\))</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sec-construction_composite_zeta.html#a0000000015"><span class="toc_ref">0.4.1</span> <span class="toc_entry">Method 1: Additive Partition and the 50/50 Equilibrium</span></a>
+ </li>
+<li class="">
+  <a href="sec-construction_composite_zeta.html#a0000000016"><span class="toc_ref">0.4.2</span> <span class="toc_entry">Method 2: Local Prime-Power Factors and the Möbius-Logarithmic Bridge</span></a>
+ </li>
+<li class="">
+  <a href="sec-construction_composite_zeta.html#a0000000017"><span class="toc_ref">0.4.3</span> <span class="toc_entry">Method 3: Divisor-Weighted Composite Dirichlet Series</span></a>
+ </li>
+<li class="">
+  <a href="sec-construction_composite_zeta.html#a0000000018"><span class="toc_ref">0.4.4</span> <span class="toc_entry">Analytic Continuation vs. Natural Boundary Theorem</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sec-reciprocal_euler_mertens.html"><span class="toc_ref">0.5</span> <span class="toc_entry">Reciprocal Euler Product, Möbius Inversion, and the Mertens Equivalence</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sec-reciprocal_euler_mertens.html#a0000000019"><span class="toc_ref">0.5.1</span> <span class="toc_entry">Derivation of the Reciprocal Euler Product</span></a>
+ </li>
+<li class="">
+  <a href="sec-reciprocal_euler_mertens.html#a0000000020"><span class="toc_ref">0.5.2</span> <span class="toc_entry">Parity Cancellation in the Prime-Composite Decomposition</span></a>
+ </li>
+<li class="">
+  <a href="sec-reciprocal_euler_mertens.html#a0000000021"><span class="toc_ref">0.5.3</span> <span class="toc_entry">Abel Summation and the Mellin Representation</span></a>
+ </li>
+<li class="">
+  <a href="sec-reciprocal_euler_mertens.html#a0000000022"><span class="toc_ref">0.5.4</span> <span class="toc_entry">The Mertens–Riemann Equivalence Theorem</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sec-critical_strip_audit.html"><span class="toc_ref">0.6</span> <span class="toc_entry">Crossing the \(\operatorname {Re}(s) = 1\) Barrier and the Critical Strip Audit</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sec-critical_strip_audit.html#a0000000023"><span class="toc_ref">0.6.1</span> <span class="toc_entry">The \(\operatorname {Re}(s) {\gt} 1\) Completeness and Zero-Free Theorem</span></a>
+ </li>
+<li class="">
+  <a href="sec-critical_strip_audit.html#a0000000024"><span class="toc_ref">0.6.2</span> <span class="toc_entry">Formal Audit of the \(\operatorname {Re}(s) = 1\) Breakdown</span></a>
+ </li>
+<li class="">
+  <a href="sec-critical_strip_audit.html#a0000000025"><span class="toc_ref">0.6.3</span> <span class="toc_entry">Analytic Continuation via the Dirichlet Eta Function</span></a>
+ </li>
+<li class="">
+  <a href="sec-critical_strip_audit.html#a0000000026"><span class="toc_ref">0.6.4</span> <span class="toc_entry">The Approximate Functional Equation and Phasor Symmetry</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sec-spectral_bridge.html"><span class="toc_ref">0.7</span> <span class="toc_entry">The Spectral Bridge: Chebyshev’s \(\psi (x)\) and Riemann’s Explicit Formula</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sec-spectral_bridge.html#a0000000027"><span class="toc_ref">0.7.1</span> <span class="toc_entry">Chebyshev’s Functions and the Logarithmic Derivative</span></a>
+ </li>
+<li class="">
+  <a href="sec-spectral_bridge.html#a0000000028"><span class="toc_ref">0.7.2</span> <span class="toc_entry">Derivation of Riemann’s Explicit Formula</span></a>
+ </li>
+<li class="">
+  <a href="sec-spectral_bridge.html#a0000000029"><span class="toc_ref">0.7.3</span> <span class="toc_entry">The Spectral Stability Theorem</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sec-conclusion.html"><span class="toc_ref">0.8</span> <span class="toc_entry">Conclusion and Synthesis Matrix</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sec-conclusion.html#a0000000030"><span class="toc_ref">0.8.1</span> <span class="toc_entry">The Comprehensive Synthesis Matrix</span></a>
+ </li>
+<li class="">
+  <a href="sec-conclusion.html#a0000000031"><span class="toc_ref">0.8.2</span> <span class="toc_entry">Final Epistemological Assessment</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li ><a href="dep_graph_document.html">Dependency graph</a></li>
+</ul>
+</nav>
+
+<div class="content">
+<div class="content-wrapper">
+
+
+<div class="main-text">
+<h1 id="a0000000003">0.2 Multiplicative Atoms and Modular Sieve Structures of \(\mathbb {P}\)</h1>
+<p>We begin by establishing the formal algebraic properties of the prime numbers \(\mathbb {P}\) within the ring of integers \(\mathbb {Z}\). </p>
+<div class="definition_thmwrapper theorem-style-definition" id="def:primes_units">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">0.2.1</span>
+    <span class="definition_thmtitle">Primes, Units, and Divisibility</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#def:primes_units">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section2_PrimeAtoms.Primes" class="lean_decl">RiemannBlueprint.Section2_PrimeAtoms.Primes</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>   Let \(a, b \in \mathbb {Z}\). We say that \(a\) divides \(b\), written \(a \mid b\), if there exists an integer \(c \in \mathbb {Z}\) such that \(b = a \cdot c\). An element \(u \in \mathbb {Z}\) is a <em>unit</em> if \(u \mid 1\), which in \(\mathbb {Z}\) implies \(u \in \{ -1, +1\} \). An integer \(p \in \mathbb {Z}\setminus \{ -1, 0, 1\} \) is called <em>prime</em> if its only divisors are \(\pm 1\) and \(\pm p\). Throughout this monograph, \(\mathbb {P}\) denotes the positive primes: </p>
+<div class="equation" id="a0000000032">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \mathbb {P}\equiv \{ n \in \mathbb {N}\mid n \ge 2 \text{ and } (d \mid n \implies d \in \{ 1, n\} )\} . \end{equation}
+  </div>
+  <span class="equation_label">6</span>
+</p>
+</div>
+<p> Two integers \(a, b \in \mathbb {Z}\) are called <em>coprime</em> (or relatively prime), denoted \(\gcd (a, b) = 1\), if their only common positive divisor is \(1\). </p>
+
+  </div>
+</div>
+<h2 id="a0000000007">0.2.1 The Fundamental Theorem of Arithmetic and Euclid’s Lemma</h2>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:bezout">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">0.2.2</span>
+    <span class="lemma_thmtitle">Bézout’s Identity</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#lem:bezout">#</a>
+    
+    <a class="icon proof" href="sect0002.html#a0000000033"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section2_PrimeAtoms.bezout_identity" class="lean_decl">RiemannBlueprint.Section2_PrimeAtoms.bezout_identity</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>   Let \(a, b \in \mathbb {Z}\) not both zero, and let \(g = \gcd (a, b)\). Then there exist integers \(x, y \in \mathbb {Z}\) such that: </p>
+<div class="equation" id="eq:bezout">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:bezout} a x + b y = g. \end{equation}
+  </div>
+  <span class="equation_label">7</span>
+</p>
+</div>
+<p> In particular, \(a\) and \(b\) are coprime if and only if there exist integers \(x, y \in \mathbb {Z}\) such that \(a x + b y = 1\). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000033">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Consider the set of all positive linear combinations of \(a\) and \(b\): </p>
+<div class="displaymath" id="a0000000034">
+  \[ S \equiv \{ a u + b v \mid u, v \in \mathbb {Z}, \;  a u + b v {\gt} 0\} . \]
+</div>
+<p> Since \(a^2 + b^2 {\gt} 0\), the set \(S\) is non-empty. By the Well-Ordering Principle of the natural numbers, \(S\) contains a least element, say \(d = a x + b y \in S\). </p>
+<p>By the Euclidean division algorithm, there exist unique integers \(q, r \in \mathbb {Z}\) such that \(a = q d + r\) with \(0 \le r {\lt} d\). Substituting \(d\): </p>
+<div class="displaymath" id="a0000000035">
+  \[ r = a - q d = a - q(a x + b y) = a(1 - q x) + b(-q y). \]
+</div>
+<p> If \(r {\gt} 0\), then \(r \in S\), which contradicts the minimality of \(d\) since \(r {\lt} d\). Therefore, \(r = 0\), which proves \(d \mid a\). By an identical argument, \(d \mid b\). Hence \(d\) is a common divisor of \(a\) and \(b\). </p>
+<p>If \(c\) is any common divisor of \(a\) and \(b\), say \(a = c k_1\) and \(b = c k_2\), then \(d = a x + b y = c(k_1 x + k_2 y)\), which implies \(c \mid d\), and therefore \(c \le d\). Thus \(d = \gcd (a, b)\), completing the proof. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:euclid">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">0.2.3</span>
+    <span class="lemma_thmtitle">Euclid’s Lemma</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#lem:euclid">#</a>
+    
+    <a class="icon proof" href="sect0002.html#a0000000036"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="sect0002.html#lem:bezout">Lemma 0.2.2</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section2_PrimeAtoms.euclid_lemma" class="lean_decl">RiemannBlueprint.Section2_PrimeAtoms.euclid_lemma</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>    Let \(p \in \mathbb {P}\) and let \(a, b \in \mathbb {Z}\). If \(p \mid a b\), then \(p \mid a\) or \(p \mid b\). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000036">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Assume that \(p \mid a b\) and \(p \nmid a\). Since the only positive divisors of \(p\) are \(1\) and \(p\), and \(p\) does not divide \(a\), we have \(\gcd (p, a) = 1\). </p>
+<p>By Bézout’s Identity (Lemma&#160;<a href="sect0002.html#lem:bezout">0.2.2</a>), there exist integers \(x, y \in \mathbb {Z}\) such that: </p>
+<div class="displaymath" id="a0000000037">
+  \[ p x + a y = 1. \]
+</div>
+<p> Multiplying both sides of this equation by \(b\): </p>
+<div class="displaymath" id="a0000000038">
+  \[ p b x + a b y = b. \]
+</div>
+<p> Since \(p \mid a b\), there exists an integer \(k \in \mathbb {Z}\) such that \(a b = p k\). Substituting this into the identity yields: </p>
+<div class="displaymath" id="a0000000039">
+  \[ p(b x + k y) = b. \]
+</div>
+<p> Since \(b x + k y \in \mathbb {Z}\), it follows that \(p \mid b\). </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:fta">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">0.2.4</span>
+    <span class="theorem_thmtitle">Fundamental Theorem of Arithmetic</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#thm:fta">#</a>
+    
+    <a class="icon proof" href="sect0002.html#a0000000040"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="sect0002.html#lem:euclid">Lemma 0.2.3</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic" class="lean_decl">RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>    Every integer \(n \ge 2\) admits a factorization into primes: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE7F865430>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:fta_factorization} n = \prod _{i=1}^k p_i^{a_i} = p_1^{a_1} p_2^{a_2} \cdots p_k^{a_k}, \end{equation}
+  </div>
+  <span class="equation_label">8</span>
+</p>
+</div>
+<p> where \(p_1 {\lt} p_2 {\lt} \dots {\lt} p_k\) are distinct primes in \(\mathbb {P}\), and \(a_i \ge 1\) are positive integers. Moreover, this factorization is unique up to the order of the prime factors. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000040">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>We divide the proof into two parts: existence and uniqueness. </p>
+<p><b class="bfseries">Part 1: Existence.</b> We proceed by strong mathematical induction on \(n \ge 2\). </p>
+<ul class="itemize">
+  <li><p><em>Base Case (\(n = 2\)):</em> Since \(2 \in \mathbb {P}\), it is trivially a product of a single prime (\(2^1\)). </p>
+</li>
+  <li><p><em>Inductive Step:</em> Assume that every integer \(m\) with \(2 \le m {\lt} n\) can be factored into primes. If \(n\) is prime, then \(n = n^1\) is already factored. If \(n\) is composite, then by Definition&#160;??, there exist integers \(a, b\) such that \(n = a \cdot b\) with \(2 \le a {\lt} n\) and \(2 \le b {\lt} n\). By the induction hypothesis, both \(a\) and \(b\) can be factored into products of primes: </p>
+<div class="displaymath" id="a0000000041">
+  \[ a = q_1 q_2 \cdots q_r, \qquad b = q_1' q_2' \cdots q_s', \quad (q_i, q_j' \in \mathbb {P}). \]
+</div>
+<p> Therefore, \(n = a b = q_1 \cdots q_r q_1' \cdots q_s'\) is a product of primes. Grouping identical primes establishes the representation&#160;??. </p>
+</li>
+</ul>
+<p><b class="bfseries">Part 2: Uniqueness.</b> Assume there exists an integer \(n \ge 2\) with two distinct prime factorizations: </p>
+<div class="displaymath" id="a0000000042">
+  \[ n = p_1 p_2 \cdots p_r = q_1 q_2 \cdots q_s, \]
+</div>
+<p> where \(p_i, q_j \in \mathbb {P}\). Since \(p_1 \mid n\), we have \(p_1 \mid (q_1 q_2 \cdots q_s)\). By generalized Euclid’s Lemma (Lemma&#160;<a href="sect0002.html#lem:euclid">0.2.3</a> applied inductively), \(p_1\) must divide at least one factor \(q_j\). Since \(q_j\) is prime, its only divisors are \(1\) and \(q_j\), so \(p_1 = q_j\). </p>
+<p>Canceling \(p_1\) and \(q_j\) from both sides, we obtain an identity for \(n / p_1 {\lt} n\). By induction on \(n\), the remaining factors must be identical up to order. Hence the prime factorization of \(n\) is strictly unique. </p>
+
+  </div>
+</div>
+<h2 id="a0000000008">0.2.2 Modular Confinement of Primes Modulo 6</h2>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:mod6_confinement">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">0.2.5</span>
+    <span class="theorem_thmtitle">Modulo 6 Sieve Confinement</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#thm:mod6_confinement">#</a>
+    
+    <a class="icon proof" href="sect0002.html#a0000000043"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="sect0002.html#thm:fta">Theorem 0.2.4</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section2_PrimeAtoms.modulo_6_sieve_confinement" class="lean_decl">RiemannBlueprint.Section2_PrimeAtoms.modulo_6_sieve_confinement</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>    Every prime number \(p \in \mathbb {P}\) strictly greater than \(3\) satisfies: </p>
+<div class="equation" id="eq:mod6">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:mod6} p \equiv 1 \pmod6 \quad \text{or} \quad p \equiv 5 \equiv -1 \pmod6. \end{equation}
+  </div>
+  <span class="equation_label">9</span>
+</p>
+</div>
+<p> Equivalently, for every \(p {\gt} 3\), there exists a unique integer \(k \in \mathbb {N}\) such that \(p = 6k \pm 1\). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000043">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>By the division algorithm, every integer \(n \in \mathbb {Z}\) belongs to exactly one residue class modulo \(6\): </p>
+<div class="displaymath" id="a0000000044">
+  \[ n \in \{ 6k, \;  6k + 1, \;  6k + 2, \;  6k + 3, \;  6k + 4, \;  6k + 5\}  \quad (k \in \mathbb {Z}). \]
+</div>
+<p> We evaluate the divisibility of each residue class: </p>
+<ol class="enumerate">
+  <li><p>If \(n = 6k = 2(3k)\), then \(2 \mid n\). For \(n {\gt} 2\), \(n\) is composite. </p>
+</li>
+  <li><p>If \(n = 6k + 2 = 2(3k + 1)\), then \(2 \mid n\). For \(k \ge 1\), \(n \ge 8\) and \(n\) is composite. (If \(k = 0\), \(n = 2 \in \mathbb {P}\)). </p>
+</li>
+  <li><p>If \(n = 6k + 3 = 3(2k + 1)\), then \(3 \mid n\). For \(k \ge 1\), \(n \ge 9\) and \(n\) is composite. (If \(k = 0\), \(n = 3 \in \mathbb {P}\)). </p>
+</li>
+  <li><p>If \(n = 6k + 4 = 2(3k + 2)\), then \(2 \mid n\). For \(k \ge 0\), \(n \ge 4\) and \(n\) is composite. </p>
+</li>
+</ol>
+<p> Therefore, if \(n {\gt} 3\) is prime, \(n\) cannot belong to \(6k, 6k+2, 6k+3,\) or \(6k+4\). It must belong to \(6k+1\) or \(6k+5 \equiv 6(k+1) - 1\). </p>
+
+  </div>
+</div>
+<h2 id="a0000000009">0.2.3 Fermat’s Little Theorem and Wilson’s Theorem</h2>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:flt">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">0.2.6</span>
+    <span class="theorem_thmtitle">Fermat’s Little Theorem</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#thm:flt">#</a>
+    
+    <a class="icon proof" href="sect0002.html#a0000000045"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section2_PrimeAtoms.fermats_little_theorem" class="lean_decl">RiemannBlueprint.Section2_PrimeAtoms.fermats_little_theorem</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>   Let \(p \in \mathbb {P}\) and let \(a \in \mathbb {Z}\) such that \(\gcd (a, p) = 1\). Then: </p>
+<div class="equation" id="eq:flt">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:flt} a^{p-1} \equiv 1 \pmod p. \end{equation}
+  </div>
+  <span class="equation_label">10</span>
+</p>
+</div>
+<p> Equivalently, for all integers \(a \in \mathbb {Z}\), \(a^p \equiv a \pmod p\). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000045">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Consider the set of non-zero residue classes modulo \(p\): </p>
+<div class="displaymath" id="a0000000046">
+  \[ S = \{ 1, 2, 3, \dots , p-1\} . \]
+</div>
+<p> Multiply each element of \(S\) by \(a\) modulo \(p\), forming the set: </p>
+<div class="displaymath" id="a0000000047">
+  \[ a S \equiv \{ a \cdot 1, \;  a \cdot 2, \;  a \cdot 3, \;  \dots , \;  a \cdot (p-1)\}  \pmod p. \]
+</div>
+<p> We claim that the elements of \(a S\) are distinct modulo \(p\). Suppose \(a \cdot i \equiv a \cdot j \pmod p\) for \(1 \le i \le j \le p-1\). Then \(p \mid a(j - i)\). Since \(\gcd (a, p) = 1\), Euclid’s Lemma (Lemma&#160;<a href="sect0002.html#lem:euclid">0.2.3</a>) implies \(p \mid (j - i)\). But \(0 \le j - i {\lt} p\), which forces \(j - i = 0\), hence \(i = j\). </p>
+<p>Therefore, \(a S\) is a permutation of \(S\) in the field \(\mathbb {Z}/p\mathbb {Z}\). Taking the product of all elements in both sets: </p>
+<div class="displaymath" id="a0000000048">
+  \[ \prod _{k=1}^{p-1} (a \cdot k) \equiv \prod _{k=1}^{p-1} k \pmod p \implies a^{p-1} (p-1)! \equiv (p-1)! \pmod p. \]
+</div>
+<p> Since \(\gcd (k, p) = 1\) for all \(1 \le k \le p-1\), we have \(\gcd ((p-1)!, p) = 1\). Multiplying by the modular inverse of \((p-1)!\) modulo \(p\) yields \(a^{p-1} \equiv 1 \pmod p\). </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:wilson">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">0.2.7</span>
+    <span class="theorem_thmtitle">Wilson’s Theorem</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#thm:wilson">#</a>
+    
+    <a class="icon proof" href="sect0002.html#a0000000049"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section2_PrimeAtoms.wilsons_theorem" class="lean_decl">RiemannBlueprint.Section2_PrimeAtoms.wilsons_theorem</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>   An integer \(p \ge 2\) is prime if and only if: </p>
+<div class="equation" id="eq:wilson">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:wilson} (p-1)! \equiv -1 \pmod p. \end{equation}
+  </div>
+  <span class="equation_label">11</span>
+</p>
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000049">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p><b class="bfseries">Direction 1: If \(p\) is prime, then \((p-1)! \equiv -1 \pmod p\).</b> For \(p = 2\), \((2-1)! = 1 \equiv -1 \pmod2\), which holds. For \(p = 3\), \((3-1)! = 2 \equiv -1 \pmod3\), which holds. Assume \(p \ge 5\). </p>
+<p>For each \(x \in \{ 1, 2, \dots , p-1\} \), since \(\gcd (x, p) = 1\), there exists a unique modular inverse \(x^{-1} \in \{ 1, 2, \dots , p-1\} \) such that \(x \cdot x^{-1} \equiv 1 \pmod p\). An element is its own inverse if and only if: </p>
+<div class="displaymath" id="a0000000050">
+  \[ x^2 \equiv 1 \pmod p \iff p \mid (x^2 - 1) \iff p \mid (x - 1)(x + 1). \]
+</div>
+<p> By Euclid’s Lemma, \(p \mid (x - 1)\) or \(p \mid (x + 1)\), which implies \(x \equiv 1 \pmod p\) or \(x \equiv p-1 \equiv -1 \pmod p\). Thus, the only self-inverse elements in \(\{ 1, 2, \dots , p-1\} \) are \(1\) and \(p-1\). </p>
+<p>The remaining \(p - 3\) elements \(\{ 2, 3, \dots , p-2\} \) can be paired into \((p-3)/2\) disjoint pairs \((x, x^{-1})\) such that \(x \cdot x^{-1} \equiv 1 \pmod p\). Multiplying all elements together: </p>
+<div class="displaymath" id="a0000000051">
+  \[ (p-1)! = 1 \cdot (p-1) \cdot \prod _{\text{pairs}} (x \cdot x^{-1}) \equiv 1 \cdot (-1) \cdot 1^{(p-3)/2} \equiv -1 \pmod p. \]
+</div>
+<p><b class="bfseries">Direction 2: If \((p-1)! \equiv -1 \pmod p\), then \(p\) is prime.</b> Suppose \(p\) is composite. Then there exists a proper divisor \(d \mid p\) with \(1 {\lt} d {\lt} p\). Since \(d \le p-1\), \(d\) appears as a factor in the product \((p-1)! = 1 \cdot 2 \cdots d \cdots (p-1)\), so \(d \mid (p-1)!\). If \((p-1)! \equiv -1 \pmod p\), then \(p \mid ((p-1)! + 1)\). Since \(d \mid p\), it follows that \(d \mid ((p-1)! + 1)\). Since \(d \mid (p-1)!\) and \(d \mid ((p-1)! + 1)\), \(d\) must divide their difference: </p>
+<div class="displaymath" id="a0000000052">
+  \[ d \mid ((p-1)! + 1 - (p-1)!) \implies d \mid 1, \]
+</div>
+<p> which contradicts \(d {\gt} 1\). Therefore, \(p\) must be prime. </p>
+
+  </div>
+</div>
+<h2 id="a0000000010">0.2.4 Base-10 Radix Periodicity Theorem</h2>
+<div class="definition_thmwrapper theorem-style-definition" id="def:ord10">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">0.2.8</span>
+    <span class="definition_thmtitle">Multiplicative Order and Reptend Period</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#def:ord10">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section2_PrimeAtoms.ord10" class="lean_decl">RiemannBlueprint.Section2_PrimeAtoms.ord10</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>   Let \(a, n \in \mathbb {N}\) with \(\gcd (a, n) = 1\). The <em>multiplicative order</em> of \(a\) modulo \(n\), denoted \(\operatorname {ord}_n(a)\), is the smallest positive integer \(k\) such that: </p>
+<div class="equation" id="a0000000053">
+<p>
+  <div class="equation_content">
+    \begin{equation}  a^k \equiv 1 \pmod n. \end{equation}
+  </div>
+  <span class="equation_label">12</span>
+</p>
+</div>
+<p> For a fraction \(1/n\) with \(\gcd (n, 10) = 1\), the decimal expansion takes the form of an infinite recurring repetend \(0.\overline{d_1 d_2 \dots d_L}\). The minimal length \(L\) of this repeating block is called the <em>period length</em> of \(1/n\). </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:radix_periodicity">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">0.2.9</span>
+    <span class="theorem_thmtitle">Base-10 Radix Periodicity of Prime Reciprocals</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#thm:radix_periodicity">#</a>
+    
+    <a class="icon proof" href="sect0002.html#a0000000054"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="sect0002.html#thm:flt">Theorem 0.2.6</a></li>
+          
+          <li><a href="sect0002.html#def:ord10">Definition 0.2.8</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section2_PrimeAtoms.base10_radix_periodicity" class="lean_decl">RiemannBlueprint.Section2_PrimeAtoms.base10_radix_periodicity</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>    Let \(p \in \mathbb {P}\) be a prime. </p>
+<ol class="enumerate">
+  <li><p><b class="bfseries">Terminating Decimals:</b> The decimal expansion of \(1/p\) terminates if and only if \(p \in \{ 2, 5\} \), the prime divisors of the base \(10 = 2 \cdot 5\): </p>
+<div class="equation" id="a0000000055">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \frac{1}{2} = 0.5, \qquad \frac{1}{5} = 0.2. \end{equation}
+  </div>
+  <span class="equation_label">13</span>
+</p>
+</div>
+</li>
+  <li><p><b class="bfseries">Purely Periodic Decimals:</b> For all primes \(p \in \mathbb {P}\setminus \{ 2, 5\} \) (so \(\gcd (p, 10) = 1\)), the decimal expansion of \(1/p\) is <b class="bfseries">purely periodic</b> (with zero pre-period) of the form: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D1CCF50>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:reptend_form} \frac{1}{p} = 0.\overline{d_1 d_2 \dots d_L} = \sum _{j=1}^\infty \frac{M}{(10^L)^j} = \frac{M}{10^L - 1}, \end{equation}
+  </div>
+  <span class="equation_label">14</span>
+</p>
+</div>
+<p> where \(M = \sum _{k=1}^L d_k 10^{L-k} \in \mathbb {N}\) is the integer formed by the repetend. </p>
+</li>
+  <li><p><b class="bfseries">Divisibility of Period Length:</b> The period length \(L\) equals the multiplicative order of \(10\) modulo \(p\): </p>
+<div class="equation" id="a0000000056">
+<p>
+  <div class="equation_content">
+    \begin{equation}  L = \operatorname {ord}_p(10), \end{equation}
+  </div>
+  <span class="equation_label">15</span>
+</p>
+</div>
+<p> and strictly divides \(p - 1\): </p>
+<div class="equation" id="a0000000057">
+<p>
+  <div class="equation_content">
+    \begin{equation}  L \mid (p - 1). \end{equation}
+  </div>
+  <span class="equation_label">16</span>
+</p>
+</div>
+</li>
+  <li><p><b class="bfseries">Full-Reptend Cyclic Primes:</b> The maximum possible period length is \(L_{\max } = p - 1\). This maximum is attained if and only if \(10\) is a primitive root modulo \(p\), in which case the repetend digits \(M\) generate a cyclic number. </p>
+</li>
+</ol>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000054">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p><b class="bfseries">Proof of (a):</b> A real number \(x \in (0, 1)\) has a terminating decimal expansion of length \(k \ge 1\) if and only if \(x = \frac{N}{10^k}\) for some integer \(N \in \mathbb {N}\) with \(\gcd (N, 10) = 1\). Setting \(x = 1/p\), we require: </p>
+<div class="displaymath" id="a0000000058">
+  \[ \frac{1}{p} = \frac{N}{10^k} \implies p \cdot N = 10^k = 2^k \cdot 5^k. \]
+</div>
+<p> By the Fundamental Theorem of Arithmetic (Theorem&#160;<a href="sect0002.html#thm:fta">0.2.4</a>), the only prime factors of \(10^k\) are \(2\) and \(5\). Since \(p\) is prime, \(p \mid 10^k\) implies \(p = 2\) or \(p = 5\). </p>
+<p><b class="bfseries">Proof of (b) and (c):</b> Assume \(p \notin \{ 2, 5\} \), so \(\gcd (p, 10) = 1\). By Fermat’s Little Theorem (Theorem&#160;<a href="sect0002.html#thm:flt">0.2.6</a>), \(10^{p-1} \equiv 1 \pmod p\). Hence, the set: </p>
+<div class="displaymath" id="a0000000059">
+  \[ \mathcal{K} \equiv \{ k \in \mathbb {N}\mid 10^k \equiv 1 \pmod p\}  \]
+</div>
+<p> is non-empty, since \(p - 1 \in \mathcal{K}\). By the Well-Ordering Principle, \(\mathcal{K}\) contains a minimal positive element, which is by definition \(L = \operatorname {ord}_p(10)\). </p>
+<p>By elementary group theory, the order of an element in the multiplicative group \((\mathbb {Z}/p\mathbb {Z})^\times \) divides the order of the group, which is \(|\mathbb {Z}/p\mathbb {Z}^\times | = p - 1\). Therefore, \(L \mid (p - 1)\). </p>
+<p>Since \(10^L \equiv 1 \pmod p\), there exists an integer \(M \in \mathbb {N}\) such that: </p>
+<div class="displaymath" id="a0000000060">
+  \[ 10^L - 1 = M \cdot p \implies \frac{1}{p} = \frac{M}{10^L - 1}. \]
+</div>
+<p> Since \(p \ge 3\), we have \(M = \frac{10^L - 1}{p} {\lt} 10^L\). Writing \(M\) in standard base-10 notation with leading zeros if necessary so that it has exactly \(L\) digits: </p>
+<div class="displaymath" id="a0000000061">
+  \[ M = d_1 10^{L-1} + d_2 10^{L-2} + \dots + d_L. \]
+</div>
+<p> Expanding \(\frac{1}{10^L - 1}\) as a geometric series for \(10^{-L} {\lt} 1\): </p>
+<div class="displaymath" id="a0000000062">
+  \[ \frac{1}{10^L - 1} = \frac{10^{-L}}{1 - 10^{-L}} = \sum _{j=1}^\infty 10^{-j L} = \sum _{j=1}^\infty \frac{1}{(10^L)^j}. \]
+</div>
+<p> Substituting this into \(\frac{1}{p} = M \sum _{j=1}^\infty (10^L)^{-j}\): </p>
+<div class="displaymath" id="a0000000063">
+  \[ \frac{1}{p} = \sum _{j=1}^\infty \frac{M}{(10^L)^j} = 0.\overline{d_1 d_2 \dots d_L}. \]
+</div>
+<p> This establishes that \(1/p\) is purely periodic with period \(L\). </p>
+<p>To prove \(L\) is minimal, suppose \(1/p\) has period \(k {\lt} L\). Then: </p>
+<div class="displaymath" id="a0000000064">
+  \[ \frac{10^k}{p} - \frac{1}{p} = \lfloor 10^k / p \rfloor \in \mathbb {Z}\implies \frac{10^k - 1}{p} \in \mathbb {Z}\implies 10^k \equiv 1 \pmod p, \]
+</div>
+<p> which contradicts the minimality of \(L = \operatorname {ord}_p(10)\). Thus the period length is strictly \(L = \operatorname {ord}_p(10)\). </p>
+<p><b class="bfseries">Proof of (d):</b> Since \(L \mid (p - 1)\), the maximum possible period is \(L = p - 1\). In the finite field \(\mathbb {Z}/p\mathbb {Z}\), the group \((\mathbb {Z}/p\mathbb {Z})^\times \) is cyclic of order \(p - 1\). An element \(g\) has order \(p - 1\) if and only if \(g\) is a primitive root modulo \(p\). Hence \(L = p - 1\) if and only if \(10\) is a primitive root modulo \(p\). </p>
+
+  </div>
+</div>
+<div class="example_thmwrapper theorem-style-definition" id="a0000000065">
+  <div class="example_thmheading">
+    <span class="example_thmcaption">
+    Example
+    </span>
+    <span class="example_thmlabel">0.2.10</span>
+    <span class="example_thmtitle">Full-Reptend Prime \(p = 7\)</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#a0000000065">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="example_thmcontent">
+  <p> For \(p = 7\), we have \(p - 1 = 6\). Evaluating powers of \(10\) modulo \(7\): </p>
+<div class="displaymath" id="a0000000066">
+  \[ 10^1 \equiv 3, \quad 10^2 \equiv 2, \quad 10^3 \equiv 6, \quad 10^4 \equiv 4, \quad 10^5 \equiv 5, \quad 10^6 \equiv 1 \pmod7. \]
+</div>
+<p> Thus \(L = \operatorname {ord}_7(10) = 6 = p - 1\). The repetend is: </p>
+<div class="displaymath" id="a0000000067">
+  \[ M = \frac{10^6 - 1}{7} = \frac{999999}{7} = 142857 \implies \frac{1}{7} = 0.\overline{142857}. \]
+</div>
+
+  </div>
+</div>
+
+</div> <!--main-text -->
+</div> <!-- content-wrapper -->
+</div> <!-- content -->
+</div> <!-- wrapper -->
+
+<nav class="prev_up_next">
+  <svg  id="showmore-minus" class="icon icon-eye-minus showmore"><use xlink:href="symbol-defs.svg#icon-eye-minus"></use></svg>
+
+  <svg  id="showmore-plus" class="icon icon-eye-plus showmore"><use xlink:href="symbol-defs.svg#icon-eye-plus"></use></svg>
+
+  <a href="sect0001.html" title="Introduction"><svg  class="icon icon-arrow-left "><use xlink:href="symbol-defs.svg#icon-arrow-left"></use></svg>
+</a>
+  <a href="index.html" title="Additive-Multiplicative Completeness of Prime and Composite Dirichlet Systems: Structural Partitions, Natural Boundaries, and Spectral Equivalences of the Riemann Hypothesis"><svg  class="icon icon-arrow-up "><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg>
+</a>
+  <a href="sect0003.html" title="Algebraic and Modular Taxonomy of the Composite System \(\mathbb {C}\)"><svg  class="icon icon-arrow-right "><use xlink:href="symbol-defs.svg#icon-arrow-right"></use></svg>
+</a>
+</nav>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/plastex.js"></script>
+<script type="text/javascript" src="js/svgxuse.js"></script>
+<script type="text/javascript" src="js/js.cookie.min.js"></script>
+<script type="text/javascript" src="js/showmore.js"></script>
+</body>
+</html>

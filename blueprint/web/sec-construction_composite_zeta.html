@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  MathJax = { 
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<meta name="generator" content="plasTeX" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Additive-Multiplicative Completeness of Prime and Composite Dirichlet Systems: Structural Partitions, Natural Boundaries, and Spectral Equivalences of the Riemann Hypothesis: Construction of the Composite Zeta Functions (\(\operatorname {Re}(s) {\gt} 1\))</title>
+<link rel="next" href="sec-reciprocal_euler_mertens.html" title="Reciprocal Euler Product, Möbius Inversion, and the Mertens Equivalence" />
+<link rel="prev" href="sect0003.html" title="Algebraic and Modular Taxonomy of the Composite System " />
+<link rel="up" href="index.html" title="Additive-Multiplicative Completeness of Prime and Composite Dirichlet Systems: Structural Partitions, Natural Boundaries, and Spectral Equivalences of the Riemann Hypothesis" />
+<link rel="stylesheet" href="styles/theme-white.css" />
+<link rel="stylesheet" href="styles/amsthm.css" />
+<link rel="stylesheet" href="styles/showmore.css" />
+<link rel="stylesheet" href="styles/blueprint.css" />
+<link rel="stylesheet" href="styles/extra_styles.css" />
+</head>
+
+<body>
+<header>
+<svg  id="toc-toggle" class="icon icon-list-numbered "><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<h1 id="doc_title"><a href="index.html">Additive-Multiplicative Completeness of Prime and Composite Dirichlet Systems: Structural Partitions, Natural Boundaries, and Spectral Equivalences of the Riemann Hypothesis</a></h1>
+</header>
+
+<div class="wrapper">
+<nav class="toc">
+<ul class="sub-toc-0">
+<li class="">
+  <a href="sect0001.html"><span class="toc_ref">0.1</span> <span class="toc_entry">Introduction</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sect0001.html#a0000000006"><span class="toc_ref">0.1.1</span> <span class="toc_entry">Central Thesis and Outline of the Monograph</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0002.html"><span class="toc_ref">0.2</span> <span class="toc_entry">Multiplicative Atoms and Modular Sieve Structures of \(\mathbb {P}\)</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sect0002.html#a0000000007"><span class="toc_ref">0.2.1</span> <span class="toc_entry">The Fundamental Theorem of Arithmetic and Euclid’s Lemma</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html#a0000000008"><span class="toc_ref">0.2.2</span> <span class="toc_entry">Modular Confinement of Primes Modulo 6</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html#a0000000009"><span class="toc_ref">0.2.3</span> <span class="toc_entry">Fermat’s Little Theorem and Wilson’s Theorem</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html#a0000000010"><span class="toc_ref">0.2.4</span> <span class="toc_entry">Base-10 Radix Periodicity Theorem</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0003.html"><span class="toc_ref">0.3</span> <span class="toc_entry">Algebraic and Modular Taxonomy of the Composite System \(\mathbb {C}\)</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sect0003.html#a0000000011"><span class="toc_ref">0.3.1</span> <span class="toc_entry">Partition of Composites: Pure Prime Powers vs. Mixed Composites</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000012"><span class="toc_ref">0.3.2</span> <span class="toc_entry">Divisor Function and Totient Algebra on \(\mathbb {C}\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000013"><span class="toc_ref">0.3.3</span> <span class="toc_entry">Composite Base-10 Decomposition Theorem</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000014"><span class="toc_ref">0.3.4</span> <span class="toc_entry">Parametric Coprime Composite Lattice</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class=" active current">
+  <a href="sec-construction_composite_zeta.html"><span class="toc_ref">0.4</span> <span class="toc_entry">Construction of the Composite Zeta Functions (\(\operatorname {Re}(s) {\gt} 1\))</span></a>
+  <span class="expand-toc">▼</span>
+  <ul class="sub-toc-1 active">
+     <li class="">
+  <a href="sec-construction_composite_zeta.html#a0000000015"><span class="toc_ref">0.4.1</span> <span class="toc_entry">Method 1: Additive Partition and the 50/50 Equilibrium</span></a>
+ </li>
+<li class="">
+  <a href="sec-construction_composite_zeta.html#a0000000016"><span class="toc_ref">0.4.2</span> <span class="toc_entry">Method 2: Local Prime-Power Factors and the Möbius-Logarithmic Bridge</span></a>
+ </li>
+<li class="">
+  <a href="sec-construction_composite_zeta.html#a0000000017"><span class="toc_ref">0.4.3</span> <span class="toc_entry">Method 3: Divisor-Weighted Composite Dirichlet Series</span></a>
+ </li>
+<li class="">
+  <a href="sec-construction_composite_zeta.html#a0000000018"><span class="toc_ref">0.4.4</span> <span class="toc_entry">Analytic Continuation vs. Natural Boundary Theorem</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sec-reciprocal_euler_mertens.html"><span class="toc_ref">0.5</span> <span class="toc_entry">Reciprocal Euler Product, Möbius Inversion, and the Mertens Equivalence</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sec-reciprocal_euler_mertens.html#a0000000019"><span class="toc_ref">0.5.1</span> <span class="toc_entry">Derivation of the Reciprocal Euler Product</span></a>
+ </li>
+<li class="">
+  <a href="sec-reciprocal_euler_mertens.html#a0000000020"><span class="toc_ref">0.5.2</span> <span class="toc_entry">Parity Cancellation in the Prime-Composite Decomposition</span></a>
+ </li>
+<li class="">
+  <a href="sec-reciprocal_euler_mertens.html#a0000000021"><span class="toc_ref">0.5.3</span> <span class="toc_entry">Abel Summation and the Mellin Representation</span></a>
+ </li>
+<li class="">
+  <a href="sec-reciprocal_euler_mertens.html#a0000000022"><span class="toc_ref">0.5.4</span> <span class="toc_entry">The Mertens–Riemann Equivalence Theorem</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sec-critical_strip_audit.html"><span class="toc_ref">0.6</span> <span class="toc_entry">Crossing the \(\operatorname {Re}(s) = 1\) Barrier and the Critical Strip Audit</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sec-critical_strip_audit.html#a0000000023"><span class="toc_ref">0.6.1</span> <span class="toc_entry">The \(\operatorname {Re}(s) {\gt} 1\) Completeness and Zero-Free Theorem</span></a>
+ </li>
+<li class="">
+  <a href="sec-critical_strip_audit.html#a0000000024"><span class="toc_ref">0.6.2</span> <span class="toc_entry">Formal Audit of the \(\operatorname {Re}(s) = 1\) Breakdown</span></a>
+ </li>
+<li class="">
+  <a href="sec-critical_strip_audit.html#a0000000025"><span class="toc_ref">0.6.3</span> <span class="toc_entry">Analytic Continuation via the Dirichlet Eta Function</span></a>
+ </li>
+<li class="">
+  <a href="sec-critical_strip_audit.html#a0000000026"><span class="toc_ref">0.6.4</span> <span class="toc_entry">The Approximate Functional Equation and Phasor Symmetry</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sec-spectral_bridge.html"><span class="toc_ref">0.7</span> <span class="toc_entry">The Spectral Bridge: Chebyshev’s \(\psi (x)\) and Riemann’s Explicit Formula</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sec-spectral_bridge.html#a0000000027"><span class="toc_ref">0.7.1</span> <span class="toc_entry">Chebyshev’s Functions and the Logarithmic Derivative</span></a>
+ </li>
+<li class="">
+  <a href="sec-spectral_bridge.html#a0000000028"><span class="toc_ref">0.7.2</span> <span class="toc_entry">Derivation of Riemann’s Explicit Formula</span></a>
+ </li>
+<li class="">
+  <a href="sec-spectral_bridge.html#a0000000029"><span class="toc_ref">0.7.3</span> <span class="toc_entry">The Spectral Stability Theorem</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sec-conclusion.html"><span class="toc_ref">0.8</span> <span class="toc_entry">Conclusion and Synthesis Matrix</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sec-conclusion.html#a0000000030"><span class="toc_ref">0.8.1</span> <span class="toc_entry">The Comprehensive Synthesis Matrix</span></a>
+ </li>
+<li class="">
+  <a href="sec-conclusion.html#a0000000031"><span class="toc_ref">0.8.2</span> <span class="toc_entry">Final Epistemological Assessment</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li ><a href="dep_graph_document.html">Dependency graph</a></li>
+</ul>
+</nav>
+
+<div class="content">
+<div class="content-wrapper">
+
+
+<div class="main-text">
+<h1 id="sec:construction_composite_zeta">0.4 Construction of the Composite Zeta Functions (\(\operatorname {Re}(s) {\gt} 1\))</h1>
+
+<p>We now construct the Dirichlet generating functions for the composite system \(\mathbb {C}\) for \(\operatorname {Re}(s) {\gt} 1\) using three distinct mathematical formulations. </p>
+<h2 id="a0000000015">0.4.1 Method 1: Additive Partition and the 50/50 Equilibrium</h2>
+<div class="definition_thmwrapper theorem-style-definition" id="def:P_and_zetaC">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">0.4.1</span>
+    <span class="definition_thmtitle">Unweighted Composite Zeta Function</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-construction_composite_zeta.html#def:P_and_zetaC">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section4_CompositeZeta.PrimeZeta" class="lean_decl">RiemannBlueprint.Section4_CompositeZeta.PrimeZeta</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>   For \(s = \sigma + i t\) with \(\sigma {\gt} 1\), the <em>Prime Zeta Function</em> \(P(s)\) and the <em>Composite Zeta Function</em> \(\zeta _C(s)\) are defined by: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D43D0D0>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:P_and_zetaC} P(s) \equiv \sum _{p \in \mathbb {P}} \frac{1}{p^s}, \qquad \zeta _C(s) \equiv \sum _{c \in \mathbb {C}} \frac{1}{c^s}. \end{equation}
+  </div>
+  <span class="equation_label">45</span>
+</p>
+</div>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:additive_identity">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">0.4.2</span>
+    <span class="theorem_thmtitle">Exact Additive Decomposition Identity</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-construction_composite_zeta.html#thm:additive_identity">#</a>
+    
+    <a class="icon proof" href="sec-construction_composite_zeta.html#a0000000094"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="sec-construction_composite_zeta.html#def:P_and_zetaC">Definition 0.4.1</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section4_CompositeZeta.additive_identity_relation" class="lean_decl">RiemannBlueprint.Section4_CompositeZeta.additive_identity_relation</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>    For all \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the Riemann zeta function decomposes into the exact three-term identity: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D43C410>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:zeta_additive_identity} \zeta (s) = 1 + P(s) + \zeta _C(s). \end{equation}
+  </div>
+  <span class="equation_label">46</span>
+</p>
+</div>
+<p> Equivalently: </p>
+<div class="equation" id="a0000000095">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \zeta _C(s) = \zeta (s) - 1 - P(s). \end{equation}
+  </div>
+  <span class="equation_label">47</span>
+</p>
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000094">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>By the arithmetic partition \(\mathbb {N}= \{ 1\}  \; \dot{\cup }\;  \mathbb {P}\; \dot{\cup }\;  \mathbb {C}\) (Eq.&#160;??): </p>
+<div class="displaymath" id="a0000000096">
+  \[ \sum _{n=1}^\infty \frac{1}{n^s} = \frac{1}{1^s} + \sum _{p \in \mathbb {P}} \frac{1}{p^s} + \sum _{c \in \mathbb {C}} \frac{1}{c^s}. \]
+</div>
+<p> For \(\sigma {\gt} 1\), the Dirichlet series \(\sum _{n=1}^\infty n^{-\sigma }\) converges absolutely. Since subseries of an absolutely convergent series converge absolutely to the sum of their partitions, \(\zeta (s) = 1 + P(s) + \zeta _C(s)\). </p>
+
+  </div>
+</div>
+<div class="example_thmwrapper theorem-style-definition" id="a0000000097">
+  <div class="example_thmheading">
+    <span class="example_thmcaption">
+    Example
+    </span>
+    <span class="example_thmlabel">0.4.3</span>
+    <span class="example_thmtitle">Evaluation at the Basel Value \(s = 2\)</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-construction_composite_zeta.html#a0000000097">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="example_thmcontent">
+  <p> At \(s = 2\), \(\zeta (2) = \sum _{n=1}^\infty n^{-2} = \frac{\pi ^2}{6} \approx 1.644934066848\). The Prime Zeta value at \(s = 2\) is: </p>
+<div class="displaymath" id="a0000000098">
+  \[ P(2) = \sum _{p \in \mathbb {P}} \frac{1}{p^2} \approx 0.452247420041. \]
+</div>
+<p> Therefore, the Composite Zeta Function at \(s = 2\) evaluates in closed form to: </p>
+<div class="equation" id="a0000000099">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \zeta _C(2) = \frac{\pi ^2}{6} - 1 - P(2) \approx 1.644934066848 - 1.0 - 0.452247420041 = \mathbf{0.192686646807}. \end{equation}
+  </div>
+  <span class="equation_label">48</span>
+</p>
+</div>
+<p> Relative to the non-unit sum \(\zeta (2) - 1 \approx 0.644934\): </p>
+<div class="displaymath" id="a0000000100">
+  \[ \text{Prime Share: } \frac{P(2)}{\zeta (2) - 1} \approx 70.12\% , \qquad \text{Composite Share: } \frac{\zeta _C(2)}{\zeta (2) - 1} \approx 29.88\% . \]
+</div>
+
+  </div>
+</div>
+<h2 id="a0000000016">0.4.2 Method 2: Local Prime-Power Factors and the Möbius-Logarithmic Bridge</h2>
+<div class="definition_thmwrapper theorem-style-definition" id="def:local_euler">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">0.4.4</span>
+    <span class="definition_thmtitle">Local Prime Euler Factor Decomposition</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-construction_composite_zeta.html#def:local_euler">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>  For each prime \(p \in \mathbb {P}\) and \(\operatorname {Re}(s) {\gt} 1\), the local Euler factor decomposes additively into: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D43F230>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:local_factor} \left(1 - \frac{1}{p^s}\right)^{-1} = \sum _{k=0}^\infty \frac{1}{p^{k s}} = 1 + \frac{1}{p^s} + \sum _{k=2}^\infty \frac{1}{p^{k s}} = 1 + \frac{1}{p^s} + \zeta _{\mathrm{pure}, p}(s), \end{equation}
+  </div>
+  <span class="equation_label">49</span>
+</p>
+</div>
+<p> where: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D43CE30>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:pure_prime_factor} \zeta _{\mathrm{pure}, p}(s) \equiv \sum _{k=2}^\infty \frac{1}{p^{k s}} = \frac{p^{-2s}}{1 - p^{-s}} = \frac{1}{p^s(p^s - 1)} \end{equation}
+  </div>
+  <span class="equation_label">50</span>
+</p>
+</div>
+<p> is the <b class="bfseries">local pure composite factor</b> generating all pure powers of \(p\) (\(\{ p^2, p^3, p^4, \dots \}  \subset \mathbb {C}_{\mathrm{pure}}\)). </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:mobius_bridge">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">0.4.5</span>
+    <span class="theorem_thmtitle">Möbius-Logarithmic Bridge for \(\zeta _C(s)\)</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-construction_composite_zeta.html#thm:mobius_bridge">#</a>
+    
+    <a class="icon proof" href="sec-construction_composite_zeta.html#a0000000101"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="sec-construction_composite_zeta.html#thm:additive_identity">Theorem 0.4.2</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>   For all \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the Composite Zeta Function satisfies the closed-form Möbius series representation: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D49C530>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:zeta_C_mobius} \zeta _C(s) = \zeta (s) - 1 - \sum _{k=1}^\infty \frac{\mu (k)}{k} \ln \zeta (k s), \end{equation}
+  </div>
+  <span class="equation_label">51</span>
+</p>
+</div>
+<p> where \(\mu (k)\) is the arithmetic Möbius function. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000101">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Taking the principal complex logarithm of Euler’s product&#160;?? for \(\operatorname {Re}(s) {\gt} 1\): </p>
+<div class="displaymath" id="a0000000102">
+  \[ \ln \zeta (s) = \ln \prod _{p \in \mathbb {P}} \left(1 - p^{-s}\right)^{-1} = -\sum _{p \in \mathbb {P}} \ln \left(1 - p^{-s}\right). \]
+</div>
+<p> Using the Taylor series expansion \(-\ln (1 - x) = \sum _{m=1}^\infty \frac{x^m}{m}\) valid for \(|x| = |p^{-s}| = p^{-\sigma } {\lt} 1\): </p>
+<div class="displaymath" id="a0000000103">
+  \[ \ln \zeta (s) = \sum _{p \in \mathbb {P}} \sum _{m=1}^\infty \frac{1}{m p^{m s}} = \sum _{m=1}^\infty \frac{1}{m} \sum _{p \in \mathbb {P}} \frac{1}{p^{m s}} = \sum _{m=1}^\infty \frac{1}{m} P(m s). \]
+</div>
+<p> Let \(f(s) \equiv \ln \zeta (s)\) and \(g(s) \equiv P(s)\). We have \(f(s) = \sum _{m=1}^\infty \frac{1}{m} g(m s)\). Applying Möbius inversion on the multiplicative semigroup: </p>
+<div class="displaymath" id="a0000000104">
+  \[ g(s) = \sum _{k=1}^\infty \frac{\mu (k)}{k} f(k s) \implies P(s) = \sum _{k=1}^\infty \frac{\mu (k)}{k} \ln \zeta (k s). \]
+</div>
+<p> Substituting this expression into Theorem&#160;<a href="sec-construction_composite_zeta.html#thm:additive_identity">0.4.2</a> establishes&#160;??. </p>
+
+  </div>
+</div>
+<h2 id="a0000000017">0.4.3 Method 3: Divisor-Weighted Composite Dirichlet Series</h2>
+<p>While Methods 1 and 2 define unweighted sums over \(\mathbb {C}\), multiplicative arithmetic generates natural divisor-weighted series through Dirichlet convolutions. </p>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:divisor_weighted">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">0.4.6</span>
+    <span class="theorem_thmtitle">Divisor-Weighted Composite Series</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-construction_composite_zeta.html#thm:divisor_weighted">#</a>
+    
+    <a class="icon proof" href="sec-construction_composite_zeta.html#a0000000105"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="sect0003.html#cor:divisor_bounds">Corollary 0.3.7</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section4_CompositeZeta.divisor_weight_primes_and_composites" class="lean_decl">RiemannBlueprint.Section4_CompositeZeta.divisor_weight_primes_and_composites</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>    For all \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the shifted square of the Riemann zeta function annihilates the unit \(1\) and every prime \(p \in \mathbb {P}\), generating a pure Dirichlet series supported strictly on the composite numbers \(\mathbb {C}\): </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D49D8B0>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:weighted_composite_series} Z_{\mathrm{weighted}}(s) \equiv (\zeta (s) - 1)^2 = \sum _{c \in \mathbb {C}} \frac{d(c) - 2}{c^s}, \end{equation}
+  </div>
+  <span class="equation_label">52</span>
+</p>
+</div>
+<p> where \(d(c) = \sum _{d \mid c} 1\) is the divisor function. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000105">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Recall that the Dirichlet convolution of \(\zeta (s)\) with itself generates the divisor function: </p>
+<div class="displaymath" id="a0000000106">
+  \[ \zeta (s)^2 = \left( \sum _{n=1}^\infty \frac{1}{n^s} \right)\left( \sum _{m=1}^\infty \frac{1}{m^s} \right) = \sum _{n=1}^\infty \sum _{m=1}^\infty \frac{1}{(n m)^s} = \sum _{k=1}^\infty \frac{d(k)}{k^s} \quad (\sigma {\gt} 1). \]
+</div>
+<p> Expand the binomial square \((\zeta (s) - 1)^2\): </p>
+<div class="displaymath" id="a0000000107">
+  \[ (\zeta (s) - 1)^2 = \zeta (s)^2 - 2 \zeta (s) + 1. \]
+</div>
+<p> Substitute the Dirichlet series for \(\zeta (s)^2\) and \(\zeta (s)\): </p>
+<div class="displaymath" id="a0000000108">
+  \[ (\zeta (s) - 1)^2 = \sum _{n=1}^\infty \frac{d(n)}{n^s} - 2 \sum _{n=1}^\infty \frac{1}{n^s} + 1 = 1 + \sum _{n=1}^\infty \frac{d(n) - 2}{n^s}. \]
+</div>
+<p> Evaluate the \(n = 1\) term: since \(d(1) = 1\), the \(n = 1\) term is: </p>
+<div class="displaymath" id="a0000000109">
+  \[ \frac{d(1) - 2}{1^s} = \frac{1 - 2}{1} = -1. \]
+</div>
+<p> Adding \(1\) exactly cancels the \(n = 1\) term: </p>
+<div class="displaymath" id="a0000000110">
+  \[ 1 + \frac{d(1) - 2}{1^s} = 1 - 1 = 0. \]
+</div>
+<p> Therefore, the summation begins at \(n = 2\): </p>
+<div class="displaymath" id="a0000000111">
+  \[ (\zeta (s) - 1)^2 = \sum _{n=2}^\infty \frac{d(n) - 2}{n^s}. \]
+</div>
+<p> Now evaluate the numerator coefficient \(d(n) - 2\) across the arithmetic partition \(\mathbb {N}\setminus \{ 1\}  = \mathbb {P}\; \dot{\cup }\;  \mathbb {C}\): </p>
+<ol class="enumerate">
+  <li><p><b class="bfseries">Primes (\(n = p \in \mathbb {P}\)):</b> By Corollary&#160;<a href="sect0003.html#cor:divisor_bounds">0.3.7</a>(b), every prime has exactly two divisors (\(1\) and \(p\)), so \(d(p) = 2\). Therefore: </p>
+<div class="displaymath" id="a0000000112">
+  \[ d(p) - 2 = 2 - 2 = 0 \quad (\forall p \in \mathbb {P}). \]
+</div>
+<p> Every prime term in the series vanishes identically! </p>
+</li>
+  <li><p><b class="bfseries">Composites (\(n = c \in \mathbb {C}\)):</b> By Corollary&#160;<a href="sect0003.html#cor:divisor_bounds">0.3.7</a>(c), every composite number has \(d(c) \ge 3\). Therefore: </p>
+<div class="displaymath" id="a0000000113">
+  \[ d(c) - 2 \ge 3 - 2 = 1 {\gt} 0 \quad (\forall c \in \mathbb {C}). \]
+</div>
+</li>
+</ol>
+<p> Since the coefficients vanish for \(n = 1\) and for all \(n \in \mathbb {P}\), the non-zero terms are supported strictly on \(n \in \mathbb {C}\): </p>
+<div class="displaymath" id="a0000000114">
+  \[ (\zeta (s) - 1)^2 = \sum _{c \in \mathbb {C}} \frac{d(c) - 2}{c^s}. \]
+</div>
+<p> This completes the proof. </p>
+
+  </div>
+</div>
+<div class="example_thmwrapper theorem-style-definition" id="a0000000115">
+  <div class="example_thmheading">
+    <span class="example_thmcaption">
+    Example
+    </span>
+    <span class="example_thmlabel">0.4.7</span>
+    <span class="example_thmtitle">Initial Terms of the Weighted Composite Series</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-construction_composite_zeta.html#a0000000115">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="example_thmcontent">
+  <p> Evaluating the first few non-zero terms of \(Z_{\mathrm{weighted}}(s) = (\zeta (s)-1)^2\): </p>
+<div class="displaymath" id="a0000000116">
+  \begin{align*}  Z_{\mathrm{weighted}}(s) & = \frac{d(4)-2}{4^s} + \frac{d(6)-2}{6^s} + \frac{d(8)-2}{8^s} + \frac{d(9)-2}{9^s} + \frac{d(10)-2}{10^s} + \frac{d(12)-2}{12^s} + \dots \\ & = \frac{3-2}{4^s} + \frac{4-2}{6^s} + \frac{4-2}{8^s} + \frac{3-2}{9^s} + \frac{4-2}{10^s} + \frac{6-2}{12^s} + \dots \\ & = \frac{1}{4^s} + \frac{2}{6^s} + \frac{2}{8^s} + \frac{1}{9^s} + \frac{2}{10^s} + \frac{4}{12^s} + \frac{2}{14^s} + \frac{2}{15^s} + \frac{3}{16^s} + \dots \end{align*}
+</div>
+<p> Primes \(2, 3, 5, 7, 11, 13\) are completely absent from the spectrum. </p>
+
+  </div>
+</div>
+<h2 id="a0000000018">0.4.4 Analytic Continuation vs. Natural Boundary Theorem</h2>
+<p>A central theorem of this monograph contrasts the global analytic continuation of the weighted composite series against the unweighted additive split. </p>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:natural_boundary">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">0.4.8</span>
+    <span class="theorem_thmtitle">Meromorphic Continuation vs. Natural Boundary</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-construction_composite_zeta.html#thm:natural_boundary">#</a>
+    
+    <a class="icon proof" href="sec-construction_composite_zeta.html#a0000000117"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="sec-construction_composite_zeta.html#thm:divisor_weighted">Theorem 0.4.6</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section4_CompositeZeta.analytic_discrepancy_theorem" class="lean_decl">RiemannBlueprint.Section4_CompositeZeta.analytic_discrepancy_theorem</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>    The analytic continuations of the weighted and unweighted composite generating functions exhibit fundamentally different global structures: </p>
+<ol class="enumerate">
+  <li><p><b class="bfseries">Global Meromorphic Continuation of \(Z_{\mathrm{weighted}}(s)\):</b> The divisor-weighted composite series \(Z_{\mathrm{weighted}}(s) = (\zeta (s) - 1)^2\) extends meromorphically to the entire complex plane \(\mathbb {C}\). It possesses: </p>
+<ul class="itemize">
+  <li><p>A single double pole at \(s = 1\) with Laurent expansion: </p>
+<div class="equation" id="a0000000118">
+<p>
+  <div class="equation_content">
+    \begin{equation}  Z_{\mathrm{weighted}}(s) = \frac{1}{(s-1)^2} + \frac{2(\gamma - 1)}{s-1} + \mathcal{O}(1) \quad (s \to 1). \end{equation}
+  </div>
+  <span class="equation_label">53</span>
+</p>
+</div>
+</li>
+  <li><p>Double zeros at the trivial zeros of the Riemann zeta function \(s = -2m\) for \(m \in \mathbb {N}\): </p>
+<div class="displaymath" id="a0000000119">
+  \[ Z_{\mathrm{weighted}}(-2m) = (\zeta (-2m) - 1)^2 = (0 - 1)^2 = 1 \neq 0, \]
+</div>
+<p> and zeros wherever \(\zeta (s) = 1\). </p>
+</li>
+  <li><p>No natural boundary anywhere in \(\mathbb {C}\). </p>
+</li>
+</ul>
+</li>
+  <li><p><b class="bfseries">Natural Boundary of \(\zeta _C(s)\) and \(P(s)\) at \(\operatorname {Re}(s) = 0\):</b> The unweighted Composite Zeta Function \(\zeta _C(s) = \zeta (s) - 1 - P(s)\) cannot be analytically continued past the imaginary axis \(\operatorname {Re}(s) = 0\). The line \(\operatorname {Re}(s) = 0\) is a <b class="bfseries">dense natural boundary</b> formed by the accumulation of logarithmic branch-point singularities. </p>
+</li>
+</ol>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000117">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p><b class="bfseries">Proof of (a):</b> Riemann proved that \(\zeta (s)\) extends meromorphically to all of \(\mathbb {C}\) with its sole singularity being a simple pole at \(s = 1\) with residue \(1\): </p>
+<div class="displaymath" id="a0000000120">
+  \[ \zeta (s) = \frac{1}{s-1} + \gamma + \gamma _1(s-1) + \dots  \]
+</div>
+<p> Subtracting \(1\): </p>
+<div class="displaymath" id="a0000000121">
+  \[ \zeta (s) - 1 = \frac{1}{s-1} + (\gamma - 1) + \gamma _1(s-1) + \dots  \]
+</div>
+<p> Squaring this expression: </p>
+<div class="displaymath" id="a0000000122">
+  \[ Z_{\mathrm{weighted}}(s) = (\zeta (s) - 1)^2 = \frac{1}{(s-1)^2} + \frac{2(\gamma - 1)}{s-1} + \mathcal{O}(1). \]
+</div>
+<p> Since \(\zeta (s) - 1\) is holomorphic on \(\mathbb {C}\setminus \{ 1\} \), its square \(Z_{\mathrm{weighted}}(s)\) is holomorphic on \(\mathbb {C}\setminus \{ 1\} \) with a single pole of order \(2\) at \(s = 1\). It has no other singularities and therefore no natural boundary. </p>
+<p><b class="bfseries">Proof of (b):</b> By Theorem&#160;<a href="sec-construction_composite_zeta.html#thm:mobius_bridge">0.4.5</a>: </p>
+<div class="displaymath" id="a0000000123">
+  \[ \zeta _C(s) = \zeta (s) - 1 - \sum _{k=1}^\infty \frac{\mu (k)}{k} \ln \zeta (k s). \]
+</div>
+<p> The singularities of \(\zeta _C(s)\) are governed by the singularities of \(P(s) = \sum _{k=1}^\infty \frac{\mu (k)}{k} \ln \zeta (k s)\). The function \(\ln \zeta (w)\) possesses logarithmic branch points at: </p>
+<ol class="enumerate">
+  <li><p>Every pole of \(\zeta (w)\), which occurs uniquely at \(w = 1\). </p>
+</li>
+  <li><p>Every zero of \(\zeta (w)\), which occurs at the trivial zeros \(w = -2m\) (\(m \in \mathbb {N}\)) and the non-trivial zeros \(w = \rho _n = \beta _n + i \gamma _n\) with \(\beta _n \in (0, 1)\). </p>
+</li>
+</ol>
+<p> Setting \(w = k s\), we find that \(\ln \zeta (k s)\) has branch points at: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D503650>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:branch_points} s = \frac{1}{k} \quad (k \in \mathbb {N}), \qquad s = \frac{\rho _n}{k} = \frac{\beta _n + i \gamma _n}{k} \quad (k \in \mathbb {N}, \;  n \in \mathbb {Z}\setminus \{ 0\} ). \end{equation}
+  </div>
+  <span class="equation_label">54</span>
+</p>
+</div>
+<p> Now consider the limit as \(k \to \infty \): </p>
+<ul class="itemize">
+  <li><p>The harmonic pole pre-images \(s_k = 1/k\) form a sequence of real branch points accumulating at \(s = 0\): </p>
+<div class="displaymath" id="a0000000124">
+  \[ \lim _{k \to \infty } \frac{1}{k} = 0. \]
+</div>
+</li>
+  <li><p>For each non-trivial zero \(\rho _n = \beta _n + i \gamma _n\), the sequence of branch points \(s_{n, k} = \frac{\beta _n + i \gamma _n}{k}\) has real part \(\operatorname {Re}(s_{n, k}) = \frac{\beta _n}{k}\). Since \(\beta _n \in (0, 1)\): </p>
+<div class="displaymath" id="a0000000125">
+  \[ \lim _{k \to \infty } \operatorname {Re}(s_{n, k}) = \lim _{k \to \infty } \frac{\beta _n}{k} = 0. \]
+</div>
+<p> Because the imaginary parts \(\gamma _n\) of the non-trivial zeros are unbounded (there are infinitely many zeros, with \(N(T) \sim \frac{T}{2\pi }\ln \frac{T}{2\pi }\)), the set of points \(\left\{  \frac{\rho _n}{k} \right\} _{k \in \mathbb {N}, n \in \mathbb {Z}}\) forms a dense subset of the imaginary axis \(i \mathbb {R}\). </p>
+</li>
+</ul>
+<p> By the Landau–Walfisz theorem&#160;<span class="cite">
+	[
+	<a href="sec-conclusion.html#LandauWalfisz1920" >12</a>
+	]
+</span>, every neighborhood of every point on the imaginary line \(\operatorname {Re}(s) = 0\) contains infinitely many branch points of \(P(s)\). Any attempt to analytically continue \(P(s)\) or \(\zeta _C(s)\) across \(\operatorname {Re}(s) = 0\) encounters a non-isolated dense barrier of singularities. Therefore, the imaginary axis \(\operatorname {Re}(s) = 0\) is a <b class="bfseries">natural boundary</b> for \(\zeta _C(s)\), precluding single-valued analytic continuation into the half-plane \(\operatorname {Re}(s) \le 0\). </p>
+
+  </div>
+</div>
+
+</div> <!--main-text -->
+</div> <!-- content-wrapper -->
+</div> <!-- content -->
+</div> <!-- wrapper -->
+
+<nav class="prev_up_next">
+  <svg  id="showmore-minus" class="icon icon-eye-minus showmore"><use xlink:href="symbol-defs.svg#icon-eye-minus"></use></svg>
+
+  <svg  id="showmore-plus" class="icon icon-eye-plus showmore"><use xlink:href="symbol-defs.svg#icon-eye-plus"></use></svg>
+
+  <a href="sect0003.html" title="Algebraic and Modular Taxonomy of the Composite System \(\mathbb {C}\)"><svg  class="icon icon-arrow-left "><use xlink:href="symbol-defs.svg#icon-arrow-left"></use></svg>
+</a>
+  <a href="index.html" title="Additive-Multiplicative Completeness of Prime and Composite Dirichlet Systems: Structural Partitions, Natural Boundaries, and Spectral Equivalences of the Riemann Hypothesis"><svg  class="icon icon-arrow-up "><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg>
+</a>
+  <a href="sec-reciprocal_euler_mertens.html" title="Reciprocal Euler Product, Möbius Inversion, and the Mertens Equivalence"><svg  class="icon icon-arrow-right "><use xlink:href="symbol-defs.svg#icon-arrow-right"></use></svg>
+</a>
+</nav>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/plastex.js"></script>
+<script type="text/javascript" src="js/svgxuse.js"></script>
+<script type="text/javascript" src="js/js.cookie.min.js"></script>
+<script type="text/javascript" src="js/showmore.js"></script>
+</body>
+</html>

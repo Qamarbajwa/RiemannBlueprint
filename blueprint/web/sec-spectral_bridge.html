@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  MathJax = { 
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<meta name="generator" content="plasTeX" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Additive-Multiplicative Completeness of Prime and Composite Dirichlet Systems: Structural Partitions, Natural Boundaries, and Spectral Equivalences of the Riemann Hypothesis: The Spectral Bridge: Chebyshev’s \(\psi (x)\) and Riemann’s Explicit Formula</title>
+<link rel="next" href="sec-conclusion.html" title="Conclusion and Synthesis Matrix" />
+<link rel="prev" href="sec-critical_strip_audit.html" title="Crossing the  Barrier and the Critical Strip Audit" />
+<link rel="up" href="index.html" title="Additive-Multiplicative Completeness of Prime and Composite Dirichlet Systems: Structural Partitions, Natural Boundaries, and Spectral Equivalences of the Riemann Hypothesis" />
+<link rel="stylesheet" href="styles/theme-white.css" />
+<link rel="stylesheet" href="styles/amsthm.css" />
+<link rel="stylesheet" href="styles/showmore.css" />
+<link rel="stylesheet" href="styles/blueprint.css" />
+<link rel="stylesheet" href="styles/extra_styles.css" />
+</head>
+
+<body>
+<header>
+<svg  id="toc-toggle" class="icon icon-list-numbered "><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<h1 id="doc_title"><a href="index.html">Additive-Multiplicative Completeness of Prime and Composite Dirichlet Systems: Structural Partitions, Natural Boundaries, and Spectral Equivalences of the Riemann Hypothesis</a></h1>
+</header>
+
+<div class="wrapper">
+<nav class="toc">
+<ul class="sub-toc-0">
+<li class="">
+  <a href="sect0001.html"><span class="toc_ref">0.1</span> <span class="toc_entry">Introduction</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sect0001.html#a0000000006"><span class="toc_ref">0.1.1</span> <span class="toc_entry">Central Thesis and Outline of the Monograph</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0002.html"><span class="toc_ref">0.2</span> <span class="toc_entry">Multiplicative Atoms and Modular Sieve Structures of \(\mathbb {P}\)</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sect0002.html#a0000000007"><span class="toc_ref">0.2.1</span> <span class="toc_entry">The Fundamental Theorem of Arithmetic and Euclid’s Lemma</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html#a0000000008"><span class="toc_ref">0.2.2</span> <span class="toc_entry">Modular Confinement of Primes Modulo 6</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html#a0000000009"><span class="toc_ref">0.2.3</span> <span class="toc_entry">Fermat’s Little Theorem and Wilson’s Theorem</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html#a0000000010"><span class="toc_ref">0.2.4</span> <span class="toc_entry">Base-10 Radix Periodicity Theorem</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0003.html"><span class="toc_ref">0.3</span> <span class="toc_entry">Algebraic and Modular Taxonomy of the Composite System \(\mathbb {C}\)</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sect0003.html#a0000000011"><span class="toc_ref">0.3.1</span> <span class="toc_entry">Partition of Composites: Pure Prime Powers vs. Mixed Composites</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000012"><span class="toc_ref">0.3.2</span> <span class="toc_entry">Divisor Function and Totient Algebra on \(\mathbb {C}\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000013"><span class="toc_ref">0.3.3</span> <span class="toc_entry">Composite Base-10 Decomposition Theorem</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000014"><span class="toc_ref">0.3.4</span> <span class="toc_entry">Parametric Coprime Composite Lattice</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sec-construction_composite_zeta.html"><span class="toc_ref">0.4</span> <span class="toc_entry">Construction of the Composite Zeta Functions (\(\operatorname {Re}(s) {\gt} 1\))</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sec-construction_composite_zeta.html#a0000000015"><span class="toc_ref">0.4.1</span> <span class="toc_entry">Method 1: Additive Partition and the 50/50 Equilibrium</span></a>
+ </li>
+<li class="">
+  <a href="sec-construction_composite_zeta.html#a0000000016"><span class="toc_ref">0.4.2</span> <span class="toc_entry">Method 2: Local Prime-Power Factors and the Möbius-Logarithmic Bridge</span></a>
+ </li>
+<li class="">
+  <a href="sec-construction_composite_zeta.html#a0000000017"><span class="toc_ref">0.4.3</span> <span class="toc_entry">Method 3: Divisor-Weighted Composite Dirichlet Series</span></a>
+ </li>
+<li class="">
+  <a href="sec-construction_composite_zeta.html#a0000000018"><span class="toc_ref">0.4.4</span> <span class="toc_entry">Analytic Continuation vs. Natural Boundary Theorem</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sec-reciprocal_euler_mertens.html"><span class="toc_ref">0.5</span> <span class="toc_entry">Reciprocal Euler Product, Möbius Inversion, and the Mertens Equivalence</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sec-reciprocal_euler_mertens.html#a0000000019"><span class="toc_ref">0.5.1</span> <span class="toc_entry">Derivation of the Reciprocal Euler Product</span></a>
+ </li>
+<li class="">
+  <a href="sec-reciprocal_euler_mertens.html#a0000000020"><span class="toc_ref">0.5.2</span> <span class="toc_entry">Parity Cancellation in the Prime-Composite Decomposition</span></a>
+ </li>
+<li class="">
+  <a href="sec-reciprocal_euler_mertens.html#a0000000021"><span class="toc_ref">0.5.3</span> <span class="toc_entry">Abel Summation and the Mellin Representation</span></a>
+ </li>
+<li class="">
+  <a href="sec-reciprocal_euler_mertens.html#a0000000022"><span class="toc_ref">0.5.4</span> <span class="toc_entry">The Mertens–Riemann Equivalence Theorem</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sec-critical_strip_audit.html"><span class="toc_ref">0.6</span> <span class="toc_entry">Crossing the \(\operatorname {Re}(s) = 1\) Barrier and the Critical Strip Audit</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sec-critical_strip_audit.html#a0000000023"><span class="toc_ref">0.6.1</span> <span class="toc_entry">The \(\operatorname {Re}(s) {\gt} 1\) Completeness and Zero-Free Theorem</span></a>
+ </li>
+<li class="">
+  <a href="sec-critical_strip_audit.html#a0000000024"><span class="toc_ref">0.6.2</span> <span class="toc_entry">Formal Audit of the \(\operatorname {Re}(s) = 1\) Breakdown</span></a>
+ </li>
+<li class="">
+  <a href="sec-critical_strip_audit.html#a0000000025"><span class="toc_ref">0.6.3</span> <span class="toc_entry">Analytic Continuation via the Dirichlet Eta Function</span></a>
+ </li>
+<li class="">
+  <a href="sec-critical_strip_audit.html#a0000000026"><span class="toc_ref">0.6.4</span> <span class="toc_entry">The Approximate Functional Equation and Phasor Symmetry</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class=" active current">
+  <a href="sec-spectral_bridge.html"><span class="toc_ref">0.7</span> <span class="toc_entry">The Spectral Bridge: Chebyshev’s \(\psi (x)\) and Riemann’s Explicit Formula</span></a>
+  <span class="expand-toc">▼</span>
+  <ul class="sub-toc-1 active">
+     <li class="">
+  <a href="sec-spectral_bridge.html#a0000000027"><span class="toc_ref">0.7.1</span> <span class="toc_entry">Chebyshev’s Functions and the Logarithmic Derivative</span></a>
+ </li>
+<li class="">
+  <a href="sec-spectral_bridge.html#a0000000028"><span class="toc_ref">0.7.2</span> <span class="toc_entry">Derivation of Riemann’s Explicit Formula</span></a>
+ </li>
+<li class="">
+  <a href="sec-spectral_bridge.html#a0000000029"><span class="toc_ref">0.7.3</span> <span class="toc_entry">The Spectral Stability Theorem</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sec-conclusion.html"><span class="toc_ref">0.8</span> <span class="toc_entry">Conclusion and Synthesis Matrix</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sec-conclusion.html#a0000000030"><span class="toc_ref">0.8.1</span> <span class="toc_entry">The Comprehensive Synthesis Matrix</span></a>
+ </li>
+<li class="">
+  <a href="sec-conclusion.html#a0000000031"><span class="toc_ref">0.8.2</span> <span class="toc_entry">Final Epistemological Assessment</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li ><a href="dep_graph_document.html">Dependency graph</a></li>
+</ul>
+</nav>
+
+<div class="content">
+<div class="content-wrapper">
+
+
+<div class="main-text">
+<h1 id="sec:spectral_bridge">0.7 The Spectral Bridge: Chebyshev’s \(\psi (x)\) and Riemann’s Explicit Formula</h1>
+
+<p>In the preceding sections, we observed that while additive partitions of integers fail inside the critical strip due to conditional convergence traps, the multiplicative structure of primes and prime powers can be concentrated into a single arithmetic spectral measure: the von Mangoldt function \(\Lambda (n)\). In this section, we construct the exact spectral bridge connecting the distribution of primes to the non-trivial zeros \(\rho \) of \(\zeta (s)\), deriving Riemann’s Explicit Formula and establishing the Spectral Stability Theorem. </p>
+<h2 id="a0000000027">0.7.1 Chebyshev’s Functions and the Logarithmic Derivative</h2>
+<div class="definition_thmwrapper theorem-style-definition" id="def:chebyshev_functions">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">0.7.1</span>
+    <span class="definition_thmtitle">Chebyshev Functions</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-spectral_bridge.html#def:chebyshev_functions">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section7_SpectralBridge.chebyshevPsi" class="lean_decl">RiemannBlueprint.Section7_SpectralBridge.chebyshevPsi</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>   For \(x \ge 1\), Chebyshev’s theta and psi functions are defined by: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D7BF3B0>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:chebyshev_defs} \theta (x) \coloneqq \sum _{p \le x} \ln p, \qquad \psi (x) \coloneqq \sum _{n \le x} \Lambda (n) = \sum _{p^k \le x} \ln p. \end{equation}
+  </div>
+  <span class="equation_label">77</span>
+</p>
+</div>
+
+  </div>
+</div>
+<p>Notice that \(\psi (x)\) decomposes naturally across the prime and composite sets: </p>
+<div class="equation" id="a0000000194">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \psi (x) = \theta (x) + \sum _{k=2}^{\lfloor \log _2 x \rfloor } \theta \left(x^{1/k}\right). \end{equation}
+  </div>
+  <span class="equation_label">78</span>
+</p>
+</div>
+<p> The first term \(\theta (x)\) is the pure prime contribution, while the second term captures the exact contribution of the pure prime powers \(\mathbb {C}_{\mathrm{pure}}\). Mixed composites \(\mathbb {C}_{\mathrm{mixed}}\) have \(\Lambda (c) = 0\) and contribute nothing. </p>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:log_derivative_zeta">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">0.7.2</span>
+    <span class="lemma_thmtitle">Logarithmic Derivative of the Riemann Zeta Function</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-spectral_bridge.html#lem:log_derivative_zeta">#</a>
+    
+    <a class="icon proof" href="sec-spectral_bridge.html#a0000000195"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="sec-spectral_bridge.html#def:chebyshev_functions">Definition 0.7.1</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>   For every \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the logarithmic derivative of \(\zeta (s)\) is given by the Dirichlet series: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D7BF6B0>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:zeta_log_derivative} -\frac{\zeta '(s)}{\zeta (s)} = \sum _{n=1}^\infty \frac{\Lambda (n)}{n^s}. \end{equation}
+  </div>
+  <span class="equation_label">79</span>
+</p>
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000195">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>For \(\operatorname {Re}(s) {\gt} 1\), the Euler product converges absolutely: </p>
+<div class="displaymath" id="a0000000196">
+  \[ \zeta (s) = \prod _{p \in \mathbb {P}} \left(1 - p^{-s}\right)^{-1}. \]
+</div>
+<p> Taking the principal branch of the complex logarithm: </p>
+<div class="displaymath" id="a0000000197">
+  \[ \ln \zeta (s) = -\sum _{p \in \mathbb {P}} \ln \left(1 - p^{-s}\right). \]
+</div>
+<p> Differentiating both sides with respect to \(s\): </p>
+<div class="displaymath" id="a0000000198">
+  \[ \frac{\zeta '(s)}{\zeta (s)} = \frac{\mathrm{d}}{\mathrm{d}s} \ln \zeta (s) = -\sum _{p \in \mathbb {P}} \frac{\mathrm{d}}{\mathrm{d}s} \ln \left(1 - p^{-s}\right) = -\sum _{p \in \mathbb {P}} \frac{p^{-s} \ln p}{1 - p^{-s}}. \]
+</div>
+<p> Multiplying by \(-1\) and expanding the geometric series \(\frac{1}{1 - p^{-s}} = \sum _{m=0}^\infty p^{-m s}\) (valid because \(|p^{-s}| = p^{-\sigma } {\lt} 1\) for \(\sigma {\gt} 1\)): </p>
+<div class="displaymath" id="a0000000199">
+  \[ -\frac{\zeta '(s)}{\zeta (s)} = \sum _{p \in \mathbb {P}} \sum _{k=1}^\infty \frac{\ln p}{p^{k s}}. \]
+</div>
+<p> By the definition of the von Mangoldt function \(\Lambda (n)\) (Proposition&#160;<a href="sect0003.html#prop:von_mangoldt">0.3.4</a>), \(\Lambda (n) = \ln p\) if \(n = p^k\), and \(\Lambda (n) = 0\) otherwise. Re-indexing the double sum over all positive integers \(n \in \mathbb {N}\): </p>
+<div class="displaymath" id="a0000000200">
+  \[ -\frac{\zeta '(s)}{\zeta (s)} = \sum _{n=1}^\infty \frac{\Lambda (n)}{n^s}. \]
+</div>
+<p> Absolute convergence follows from \(\sum \Lambda (n) n^{-\sigma } = -\zeta '(\sigma )/\zeta (\sigma ) {\lt} \infty \) for \(\sigma {\gt} 1\). </p>
+
+  </div>
+</div>
+<h2 id="a0000000028">0.7.2 Derivation of Riemann’s Explicit Formula</h2>
+<p>We now apply Perron’s formula to the Dirichlet series&#160;?? to express \(\psi (x)\) as a contour integral, and evaluate it via the Residue Theorem. </p>
+<div class="definition_thmwrapper theorem-style-definition" id="def:normalized_chebyshev">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">0.7.3</span>
+    <span class="definition_thmtitle">Normalized Chebyshev Function</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-spectral_bridge.html#def:normalized_chebyshev">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>  For \(x {\gt} 1\), the normalized Chebyshev function \(\psi _0(x)\) is defined by: </p>
+<div class="equation" id="a0000000201">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \psi _0(x) \coloneqq \lim _{\epsilon \to 0^+} \frac{\psi (x + \epsilon ) + \psi (x - \epsilon )}{2} = \begin{cases}  \psi (x) &  \text{if } x \notin \{ p^k : k \in \mathbb {N}\} , \\ \psi (x) - \frac{1}{2}\Lambda (x) &  \text{if } x = p^k. \end{cases} \end{equation}
+  </div>
+  <span class="equation_label">80</span>
+</p>
+</div>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:riemann_explicit_formula">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">0.7.4</span>
+    <span class="theorem_thmtitle">Riemann’s Explicit Formula</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-spectral_bridge.html#thm:riemann_explicit_formula">#</a>
+    
+    <a class="icon proof" href="sec-spectral_bridge.html#a0000000202"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="sec-spectral_bridge.html#lem:log_derivative_zeta">Lemma 0.7.2</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>   For every \(x {\gt} 1\): </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D7F69F0>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:riemann_explicit_formula} \psi _0(x) = x - \sum _{\rho } \frac{x^\rho }{\rho } - \ln (2\pi ) - \frac{1}{2}\ln \left(1 - x^{-2}\right), \end{equation}
+  </div>
+  <span class="equation_label">83</span>
+</p>
+</div>
+<p> where the sum over \(\rho \) runs over all non-trivial zeros of \(\zeta (s)\) in the critical strip \(0 {\lt} \operatorname {Re}(\rho ) {\lt} 1\), paired symmetrically as: </p>
+<div class="equation" id="a0000000203">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \sum _{\rho } \frac{x^\rho }{\rho } \coloneqq \lim _{T \to \infty } \sum _{|\operatorname {Im}(\rho )| \le T} \frac{x^\rho }{\rho }. \end{equation}
+  </div>
+  <span class="equation_label">84</span>
+</p>
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000202">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Let \(c = 1 + \epsilon {\gt} 1\). By Perron’s formula: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D7F6FF0>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:perron_psi} \psi _0(x) = \frac{1}{2\pi i} \lim _{T \to \infty } \int _{c - i T}^{c + i T} \left( -\frac{\zeta '(s)}{\zeta (s)} \right) \frac{x^s}{s} \,  \mathrm{d}s. \end{equation}
+  </div>
+  <span class="equation_label">85</span>
+</p>
+</div>
+<p> We consider a closed rectangular contour \(\mathcal{C}_{T, U}\) with vertices: </p>
+<div class="displaymath" id="a0000000204">
+  \[ c - i T, \quad c + i T, \quad -U + i T, \quad -U - i T, \]
+</div>
+<p> where \(U = 2K + 1\) (\(K \in \mathbb {N}\)) is an odd integer chosen to pass midway between the trivial zeros at \(s = -2m\), and \(T\) is chosen in the range \([T_0, T_0 + 1]\) such that \(|T - \gamma _n| \gg \frac{1}{\ln T}\) for all ordinates \(\gamma _n\) of non-trivial zeros (avoiding singularities). </p>
+<p>By Cauchy’s Residue Theorem: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D7F79B0>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:cauchy_psi_integral} \frac{1}{2\pi i} \oint _{\mathcal{C}_{T, U}} \left( -\frac{\zeta '(s)}{\zeta (s)} \right) \frac{x^s}{s} \,  \mathrm{d}s = \sum _{s_0 \in \operatorname {Int}(\mathcal{C}_{T, U})} \operatorname {Res}_{s = s_0} \left[ \left(-\frac{\zeta '(s)}{\zeta (s)}\right) \frac{x^s}{s} \right]. \end{equation}
+  </div>
+  <span class="equation_label">86</span>
+</p>
+</div>
+<p> We evaluate the residues of the integrand \(F(s) \coloneqq \left(-\frac{\zeta '(s)}{\zeta (s)}\right) \frac{x^s}{s}\) at all its poles inside the contour: </p>
+<ol class="enumerate">
+  <li><p><b class="bfseries">The Pole at \(s = 1\):</b> Riemann showed that \(\zeta (s)\) has a simple pole at \(s = 1\) with residue \(1\). Near \(s = 1\): </p>
+<div class="displaymath" id="a0000000205">
+  \[ \zeta (s) = \frac{1}{s-1} + \mathcal{O}(1) \implies \zeta '(s) = -\frac{1}{(s-1)^2} + \mathcal{O}(1) \implies -\frac{\zeta '(s)}{\zeta (s)} = \frac{1}{s-1} + \mathcal{O}(1). \]
+</div>
+<p> Thus \(-\zeta '/\zeta \) has a simple pole at \(s = 1\) with residue \(+1\). Since \(x^s / s\) is holomorphic at \(s = 1\): </p>
+<div class="displaymath" id="a0000000206">
+  \[ \operatorname {Res}_{s=1} F(s) = \lim _{s \to 1} (s-1) \left(\frac{1}{s-1}\right) \frac{x^s}{s} = \frac{x^1}{1} = x. \]
+</div>
+</li>
+  <li><p><b class="bfseries">The Non-Trivial Zeros \(s = \rho \):</b> Let \(\rho = \beta + i \gamma \) be a non-trivial zero of \(\zeta (s)\) with multiplicity \(m_\rho \ge 1\). Near \(s = \rho \): </p>
+<div class="displaymath" id="a0000000207">
+  \[ \zeta (s) = (s - \rho )^{m_\rho } g(s) \quad \text{with } g(\rho ) \neq 0. \]
+</div>
+<p> Differentiating: </p>
+<div class="displaymath" id="a0000000208">
+  \[ \frac{\zeta '(s)}{\zeta (s)} = \frac{m_\rho }{s - \rho } + \frac{g'(s)}{g(s)} \implies -\frac{\zeta '(s)}{\zeta (s)} = -\frac{m_\rho }{s - \rho } + \mathcal{O}(1). \]
+</div>
+<p> Therefore, the residue of \(-\zeta '/\zeta \) at \(s = \rho \) is \(-m_\rho \). Assuming simplicity of zeros (\(m_\rho = 1\)): </p>
+<div class="displaymath" id="a0000000209">
+  \[ \operatorname {Res}_{s=\rho } F(s) = - \frac{x^\rho }{\rho }. \]
+</div>
+</li>
+  <li><p><b class="bfseries">The Pole at \(s = 0\):</b> At \(s = 0\), \(x^s / s\) has a simple pole with residue \(x^0 = 1\). The factor \(-\zeta '(s)/\zeta (s)\) is analytic at \(s = 0\). From the functional equation \(\zeta (s) = 2^s \pi ^{s-1} \sin (\pi s / 2) \Gamma (1-s) \zeta (1-s)\), Taylor expanding about \(s = 0\) yields: </p>
+<div class="displaymath" id="a0000000210">
+  \[ \zeta (0) = -\frac{1}{2}, \qquad \zeta '(0) = -\frac{1}{2}\ln (2\pi ). \]
+</div>
+<p> Therefore: </p>
+<div class="displaymath" id="a0000000211">
+  \[ \operatorname {Res}_{s=0} F(s) = -\frac{\zeta '(0)}{\zeta (0)} \cdot x^0 = -\frac{-\frac{1}{2}\ln (2\pi )}{-\frac{1}{2}} = -\ln (2\pi ). \]
+</div>
+</li>
+  <li><p><b class="bfseries">The Trivial Zeros \(s = -2m\) (\(m \in \mathbb {N}\)):</b> The trivial zeros of \(\zeta (s)\) are simple zeros at \(s = -2, -4, -6, \dots \). At each \(s = -2m\), \(-\zeta '/\zeta \) has residue \(-1\). Thus: </p>
+<div class="displaymath" id="a0000000212">
+  \[ \operatorname {Res}_{s = -2m} F(s) = - \frac{x^{-2m}}{-2m} = \frac{x^{-2m}}{2m}. \]
+</div>
+<p> Summing these residues over all \(m \ge 1\) inside the contour: </p>
+<div class="displaymath" id="a0000000213">
+  \[ \sum _{m=1}^\infty \frac{x^{-2m}}{2m} = \frac{1}{2} \sum _{m=1}^\infty \frac{(x^{-2})^m}{m}. \]
+</div>
+<p> Recalling the Taylor series expansion for the natural logarithm: \(\sum _{m=1}^\infty \frac{u^m}{m} = -\ln (1 - u)\) for \(|u| {\lt} 1\). Setting \(u = x^{-2}\) (which satisfies \(|x^{-2}| {\lt} 1\) since \(x {\gt} 1\)): </p>
+<div class="displaymath" id="a0000000214">
+  \[ \sum _{m=1}^\infty \frac{x^{-2m}}{2m} = -\frac{1}{2}\ln \left(1 - x^{-2}\right). \]
+</div>
+</li>
+</ol>
+<p>Now we estimate the contour integrals along the three non-essential segments: </p>
+<ul class="itemize">
+  <li><p>Along the horizontal segments \([-U \pm i T, c \pm i T]\): By standard bounds on \(\zeta '/\zeta \) (see Davenport&#160;<span class="cite">
+	[
+	<a href="sec-conclusion.html#Davenport1980" >4</a>
+	]
+</span>, Chapter&#160;17), \(\left|\frac{\zeta '(\sigma \pm i T)}{\zeta (\sigma \pm i T)}\right| = \mathcal{O}(\ln ^2 T)\) for \(\sigma \in [-U, c]\). The integral is bounded by \(\mathcal{O}\left(\frac{x^c \ln ^2 T}{T \ln x}\right) \to 0\) as \(T \to \infty \). </p>
+</li>
+  <li><p>Along the left vertical segment \([-U - i T, -U + i T]\): The integrand decays as \(x^{-U}\). As \(U \to \infty \), \(x^{-U} \to 0\) since \(x {\gt} 1\). </p>
+</li>
+</ul>
+<p> Taking the limits \(U \to \infty \) and \(T \to \infty \), the contour integral in&#160;?? reduces to the Perron integral&#160;??. Equating the Perron integral with the sum of all residues yields: </p>
+<div class="displaymath" id="a0000000215">
+  \[ \psi _0(x) = x - \sum _{\rho } \frac{x^\rho }{\rho } - \ln (2\pi ) - \frac{1}{2}\ln \left(1 - x^{-2}\right). \]
+</div>
+<p> This completes the formal proof. </p>
+
+  </div>
+</div>
+<h2 id="a0000000029">0.7.3 The Spectral Stability Theorem</h2>
+<p>Riemann’s Explicit Formula reveals that the primes are not scattered randomly, but oscillate around their mean density \(x\) according to the Fourier frequencies \(\gamma = \operatorname {Im}(\rho )\) of the non-trivial zeros: </p>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:spectral_stability">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">0.7.5</span>
+    <span class="theorem_thmtitle">Spectral Stability Theorem</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-spectral_bridge.html#thm:spectral_stability">#</a>
+    
+    <a class="icon proof" href="sec-spectral_bridge.html#a0000000216"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="sec-spectral_bridge.html#thm:riemann_explicit_formula">Theorem 0.7.4</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section7_SpectralBridge.spectral_stability_theorem" class="lean_decl">RiemannBlueprint.Section7_SpectralBridge.spectral_stability_theorem</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>    Let \(\Theta \coloneqq \sup \{  \operatorname {Re}(\rho ) : \zeta (\rho ) = 0, \;  0 {\lt} \operatorname {Re}(\rho ) {\lt} 1 \} \). Then: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D8477D0>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:psi_error_bound} \psi (x) - x = \mathcal{O}\left( x^\Theta \ln ^2 x \right) \quad \text{as } x \to \infty . \end{equation}
+  </div>
+  <span class="equation_label">87</span>
+</p>
+</div>
+<p> In particular, the Riemann Hypothesis (\(\Theta = \frac{1}{2}\)) holds if and only if: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D8A0590>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:psi_rh_bound} \psi (x) = x + \mathcal{O}\left( x^{1/2} \ln ^2 x \right). \end{equation}
+  </div>
+  <span class="equation_label">88</span>
+</p>
+</div>
+<p> Furthermore, this is equivalent to Helge von Koch’s theorem (1901) for the prime counting function: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D8A0890>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:pi_von_koch} \pi (x) = \operatorname {Li}(x) + \mathcal{O}\left( x^{1/2} \ln x \right). \end{equation}
+  </div>
+  <span class="equation_label">89</span>
+</p>
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000216">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>From Riemann’s Explicit Formula&#160;??: </p>
+<div class="displaymath" id="a0000000217">
+  \[ \psi (x) - x = -\sum _{|\gamma | \le T} \frac{x^\rho }{\rho } + \mathcal{O}\left( \frac{x \ln ^2 x}{T} + \ln x \right). \]
+</div>
+<p> For each non-trivial zero \(\rho = \beta + i \gamma \): </p>
+<div class="displaymath" id="a0000000218">
+  \[ \left| \frac{x^\rho }{\rho } \right| = \frac{|x^{\beta + i \gamma }|}{|\beta + i \gamma |} = \frac{x^\beta }{\sqrt{\beta ^2 + \gamma ^2}} \le \frac{x^\Theta }{|\gamma |}. \]
+</div>
+<p> Summing over all \(|\gamma | \le T\): </p>
+<div class="displaymath" id="a0000000219">
+  \[ \left| \sum _{|\gamma | \le T} \frac{x^\rho }{\rho } \right| \le x^\Theta \sum _{|\gamma | \le T} \frac{1}{|\gamma |}. \]
+</div>
+<p> By Riemann’s zero-counting formula \(N(T) = \frac{T}{2\pi }\ln \frac{T}{2\pi } - \frac{T}{2\pi } + \mathcal{O}(\ln T)\): </p>
+<div class="displaymath" id="a0000000220">
+  \[ \sum _{|\gamma | \le T} \frac{1}{|\gamma |} = \int _0^T \frac{\mathrm{d}N(t)}{t} = \left[ \frac{N(t)}{t} \right]_0^T + \int _0^T \frac{N(t)}{t^2} \,  \mathrm{d}t = \mathcal{O}\left( \ln ^2 T \right). \]
+</div>
+<p> Therefore: </p>
+<div class="displaymath" id="a0000000221">
+  \[ \psi (x) - x = \mathcal{O}\left( x^\Theta \ln ^2 T + \frac{x \ln ^2 x}{T} \right). \]
+</div>
+<p> Choosing \(T = x^{1 - \Theta + \epsilon }\) (or \(T = x\) when \(\Theta = 1/2\)) balances the terms, yielding: </p>
+<div class="displaymath" id="a0000000222">
+  \[ \psi (x) - x = \mathcal{O}\left( x^\Theta \ln ^2 x \right). \]
+</div>
+<p> If \(\Theta = 1/2\), the error is \(\mathcal{O}(x^{1/2} \ln ^2 x)\). Conversely, if \(\psi (x) - x = \mathcal{O}(x^{\Theta _0})\) for some \(\Theta _0 {\lt} 1\), then by Mellin inversion \(-\frac{\zeta '(s)}{\zeta (s)} - \frac{s}{s-1} = s \int _1^\infty \frac{\psi (x) - x}{x^{s+1}} \,  \mathrm{d}x\) converges and is holomorphic for \(\operatorname {Re}(s) {\gt} \Theta _0\). Hence \(\zeta (s)\) can have no zeros with \(\operatorname {Re}(\rho ) {\gt} \Theta _0\), which forces \(\Theta \le \Theta _0\). Finally, converting \(\psi (x)\) to \(\pi (x)\) via Riemann–Stieltjes integration: </p>
+<div class="displaymath" id="a0000000223">
+  \[ \pi (x) = \int _{2^-}^x \frac{\mathrm{d}\theta (u)}{\ln u} = \frac{\theta (x)}{\ln x} + \int _2^x \frac{\theta (u)}{u \ln ^2 u} \,  \mathrm{d}u. \]
+</div>
+<p> Since \(\psi (x) - \theta (x) = \mathcal{O}(x^{1/2})\), substituting \(\psi (x) = x + \mathcal{O}(x^{1/2}\ln ^2 x)\) yields von Koch’s formula&#160;??. </p>
+
+  </div>
+</div>
+<div class="remark_thmwrapper theorem-style-definition" id="a0000000224">
+  <div class="remark_thmheading">
+    <span class="remark_thmcaption">
+    Remark
+    </span>
+    <span class="remark_thmlabel">0.7.6</span>
+    <span class="remark_thmtitle">Harmonic Interpretation of the Non-Trivial Zeros</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-spectral_bridge.html#a0000000224">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="remark_thmcontent">
+  <p> Theorem&#160;<a href="sec-spectral_bridge.html#thm:spectral_stability">0.7.5</a> demonstrates that the non-trivial zeros \(\rho = \beta + i \gamma \) are the <b class="bfseries">harmonics of the prime spectrum</b>. The real part \(\beta \) dictates the <b class="bfseries">growth envelope</b> of the wave (\(x^\beta \)), while the imaginary part \(\gamma \) dictates the <b class="bfseries">frequency</b> of oscillation (\(e^{i \gamma \ln x}\)). If any zero existed with \(\beta {\gt} 1/2\), it would generate an amplified ripple \(x^\beta \gg x^{1/2}\), violating the optimal square-root error bound \(\psi (x) - x = \mathcal{O}(x^{1/2}\ln ^2 x)\) equivalent to the Riemann Hypothesis. Under RH (\(\beta = 1/2\) for all non-trivial zeros), every oscillatory mode is confined to the critical \(\sqrt{x}\) amplitude envelope (<b class="bfseries">maximal spectral resonance stability</b>). </p>
+
+  </div>
+</div>
+
+</div> <!--main-text -->
+</div> <!-- content-wrapper -->
+</div> <!-- content -->
+</div> <!-- wrapper -->
+
+<nav class="prev_up_next">
+  <svg  id="showmore-minus" class="icon icon-eye-minus showmore"><use xlink:href="symbol-defs.svg#icon-eye-minus"></use></svg>
+
+  <svg  id="showmore-plus" class="icon icon-eye-plus showmore"><use xlink:href="symbol-defs.svg#icon-eye-plus"></use></svg>
+
+  <a href="sec-critical_strip_audit.html" title="Crossing the \(\operatorname {Re}(s) = 1\) Barrier and the Critical Strip Audit"><svg  class="icon icon-arrow-left "><use xlink:href="symbol-defs.svg#icon-arrow-left"></use></svg>
+</a>
+  <a href="index.html" title="Additive-Multiplicative Completeness of Prime and Composite Dirichlet Systems: Structural Partitions, Natural Boundaries, and Spectral Equivalences of the Riemann Hypothesis"><svg  class="icon icon-arrow-up "><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg>
+</a>
+  <a href="sec-conclusion.html" title="Conclusion and Synthesis Matrix"><svg  class="icon icon-arrow-right "><use xlink:href="symbol-defs.svg#icon-arrow-right"></use></svg>
+</a>
+</nav>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/plastex.js"></script>
+<script type="text/javascript" src="js/svgxuse.js"></script>
+<script type="text/javascript" src="js/js.cookie.min.js"></script>
+<script type="text/javascript" src="js/showmore.js"></script>
+</body>
+</html>

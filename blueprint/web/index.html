@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  MathJax = { 
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<meta name="generator" content="plasTeX" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Additive-Multiplicative Completeness of Prime and Composite Dirichlet Systems: Structural Partitions, Natural Boundaries, and Spectral Equivalences of the Riemann Hypothesis</title>
+<link rel="next" href="sect0001.html" title="Introduction" />
+<link rel="stylesheet" href="styles/theme-white.css" />
+<link rel="stylesheet" href="styles/amsthm.css" />
+<link rel="stylesheet" href="styles/showmore.css" />
+<link rel="stylesheet" href="styles/blueprint.css" />
+<link rel="stylesheet" href="styles/extra_styles.css" />
+</head>
+
+<body>
+<header>
+<svg  id="toc-toggle" class="icon icon-list-numbered "><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+</header>
+
+<div class="wrapper">
+<nav class="toc">
+<ul class="sub-toc-0">
+<li class="">
+  <a href="sect0001.html"><span class="toc_ref">0.1</span> <span class="toc_entry">Introduction</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sect0001.html#a0000000006"><span class="toc_ref">0.1.1</span> <span class="toc_entry">Central Thesis and Outline of the Monograph</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0002.html"><span class="toc_ref">0.2</span> <span class="toc_entry">Multiplicative Atoms and Modular Sieve Structures of \(\mathbb {P}\)</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sect0002.html#a0000000007"><span class="toc_ref">0.2.1</span> <span class="toc_entry">The Fundamental Theorem of Arithmetic and Euclid’s Lemma</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html#a0000000008"><span class="toc_ref">0.2.2</span> <span class="toc_entry">Modular Confinement of Primes Modulo 6</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html#a0000000009"><span class="toc_ref">0.2.3</span> <span class="toc_entry">Fermat’s Little Theorem and Wilson’s Theorem</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html#a0000000010"><span class="toc_ref">0.2.4</span> <span class="toc_entry">Base-10 Radix Periodicity Theorem</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0003.html"><span class="toc_ref">0.3</span> <span class="toc_entry">Algebraic and Modular Taxonomy of the Composite System \(\mathbb {C}\)</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sect0003.html#a0000000011"><span class="toc_ref">0.3.1</span> <span class="toc_entry">Partition of Composites: Pure Prime Powers vs. Mixed Composites</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000012"><span class="toc_ref">0.3.2</span> <span class="toc_entry">Divisor Function and Totient Algebra on \(\mathbb {C}\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000013"><span class="toc_ref">0.3.3</span> <span class="toc_entry">Composite Base-10 Decomposition Theorem</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000014"><span class="toc_ref">0.3.4</span> <span class="toc_entry">Parametric Coprime Composite Lattice</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sec-construction_composite_zeta.html"><span class="toc_ref">0.4</span> <span class="toc_entry">Construction of the Composite Zeta Functions (\(\operatorname {Re}(s) {\gt} 1\))</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sec-construction_composite_zeta.html#a0000000015"><span class="toc_ref">0.4.1</span> <span class="toc_entry">Method 1: Additive Partition and the 50/50 Equilibrium</span></a>
+ </li>
+<li class="">
+  <a href="sec-construction_composite_zeta.html#a0000000016"><span class="toc_ref">0.4.2</span> <span class="toc_entry">Method 2: Local Prime-Power Factors and the Möbius-Logarithmic Bridge</span></a>
+ </li>
+<li class="">
+  <a href="sec-construction_composite_zeta.html#a0000000017"><span class="toc_ref">0.4.3</span> <span class="toc_entry">Method 3: Divisor-Weighted Composite Dirichlet Series</span></a>
+ </li>
+<li class="">
+  <a href="sec-construction_composite_zeta.html#a0000000018"><span class="toc_ref">0.4.4</span> <span class="toc_entry">Analytic Continuation vs. Natural Boundary Theorem</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sec-reciprocal_euler_mertens.html"><span class="toc_ref">0.5</span> <span class="toc_entry">Reciprocal Euler Product, Möbius Inversion, and the Mertens Equivalence</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sec-reciprocal_euler_mertens.html#a0000000019"><span class="toc_ref">0.5.1</span> <span class="toc_entry">Derivation of the Reciprocal Euler Product</span></a>
+ </li>
+<li class="">
+  <a href="sec-reciprocal_euler_mertens.html#a0000000020"><span class="toc_ref">0.5.2</span> <span class="toc_entry">Parity Cancellation in the Prime-Composite Decomposition</span></a>
+ </li>
+<li class="">
+  <a href="sec-reciprocal_euler_mertens.html#a0000000021"><span class="toc_ref">0.5.3</span> <span class="toc_entry">Abel Summation and the Mellin Representation</span></a>
+ </li>
+<li class="">
+  <a href="sec-reciprocal_euler_mertens.html#a0000000022"><span class="toc_ref">0.5.4</span> <span class="toc_entry">The Mertens–Riemann Equivalence Theorem</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sec-critical_strip_audit.html"><span class="toc_ref">0.6</span> <span class="toc_entry">Crossing the \(\operatorname {Re}(s) = 1\) Barrier and the Critical Strip Audit</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sec-critical_strip_audit.html#a0000000023"><span class="toc_ref">0.6.1</span> <span class="toc_entry">The \(\operatorname {Re}(s) {\gt} 1\) Completeness and Zero-Free Theorem</span></a>
+ </li>
+<li class="">
+  <a href="sec-critical_strip_audit.html#a0000000024"><span class="toc_ref">0.6.2</span> <span class="toc_entry">Formal Audit of the \(\operatorname {Re}(s) = 1\) Breakdown</span></a>
+ </li>
+<li class="">
+  <a href="sec-critical_strip_audit.html#a0000000025"><span class="toc_ref">0.6.3</span> <span class="toc_entry">Analytic Continuation via the Dirichlet Eta Function</span></a>
+ </li>
+<li class="">
+  <a href="sec-critical_strip_audit.html#a0000000026"><span class="toc_ref">0.6.4</span> <span class="toc_entry">The Approximate Functional Equation and Phasor Symmetry</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sec-spectral_bridge.html"><span class="toc_ref">0.7</span> <span class="toc_entry">The Spectral Bridge: Chebyshev’s \(\psi (x)\) and Riemann’s Explicit Formula</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sec-spectral_bridge.html#a0000000027"><span class="toc_ref">0.7.1</span> <span class="toc_entry">Chebyshev’s Functions and the Logarithmic Derivative</span></a>
+ </li>
+<li class="">
+  <a href="sec-spectral_bridge.html#a0000000028"><span class="toc_ref">0.7.2</span> <span class="toc_entry">Derivation of Riemann’s Explicit Formula</span></a>
+ </li>
+<li class="">
+  <a href="sec-spectral_bridge.html#a0000000029"><span class="toc_ref">0.7.3</span> <span class="toc_entry">The Spectral Stability Theorem</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sec-conclusion.html"><span class="toc_ref">0.8</span> <span class="toc_entry">Conclusion and Synthesis Matrix</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sec-conclusion.html#a0000000030"><span class="toc_ref">0.8.1</span> <span class="toc_entry">The Comprehensive Synthesis Matrix</span></a>
+ </li>
+<li class="">
+  <a href="sec-conclusion.html#a0000000031"><span class="toc_ref">0.8.2</span> <span class="toc_entry">Final Epistemological Assessment</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li ><a href="dep_graph_document.html">Dependency graph</a></li>
+</ul>
+</nav>
+
+<div class="content">
+<div class="content-wrapper">
+
+
+<div class="main-text">
+<div class="titlepage">
+<h1>Additive-Multiplicative Completeness of Prime and Composite Dirichlet Systems: Structural Partitions, Natural Boundaries, and Spectral Equivalences of the Riemann Hypothesis</h1>
+<p class="authors">
+<span class="author">Qamar Munawer</span>
+</p>
+</div>
+<div class="abstract"><p> We formulate an exact arithmetic and analytic framework for the Riemann zeta function \(\zeta (s)\) based on the fundamental partition of the positive integers into three mutually exclusive structural classes: the multiplicative unit \(\{ 1\} \), the prime atoms \(\mathbb {P}\), and the composite lattice \(\mathbb {C}\). We investigate how additive decompositions and multiplicative convolutions over these sets behave across the critical abscissa of convergence \(\operatorname {Re}(s) = 1\). </p>
+<p>In the half-plane \(\operatorname {Re}(s) {\gt} 1\), we establish the exact additive split \(\zeta (s) = 1 + P(s) + \zeta _C(s)\), where \(P(s)\) is the Prime Zeta Function and \(\zeta _C(s)\) is the unweighted Composite Zeta Function, and evaluate the certified 50/50 critical parity exponent \(s^* \approx 1.446537622...\) where prime and composite Dirichlet energies balance. We construct the divisor-weighted composite series \(Z_{\mathrm{weighted}}(s) = (\zeta (s)-1)^2 = \sum _{c \in \mathbb {C}} \frac{d(c)-2}{c^s}\), which isolates composites by algebraically annihilating all prime and unit terms. We prove that while \(Z_{\mathrm{weighted}}(s)\) extends meromorphically to all of \(\mathbb {C}\) with a single double pole at \(s=1\), the unweighted additive function \(\zeta _C(s)\) inherits a dense natural boundary along the imaginary axis \(\operatorname {Re}(s) = 0\) formed by logarithmic branch-point accumulations. </p>
+<p>We conduct a rigorous functional-analytic audit of the \(\operatorname {Re}(s) = 1\) boundary, demonstrating why additive and multiplicative completeness arguments cannot be extended into the critical strip \(0 {\lt} \operatorname {Re}(s) {\lt} 1\) without confronting the divergence of coordinate series, the failure of point-wise Euler product convergence, and the Riemann Series Rearrangement Theorem. Finally, we establish the bridge connecting the prime-composite arithmetic system to the non-trivial zeros \(\rho = \beta + i\gamma \) through the reciprocal Euler product via the Mertens equivalence, and through Chebyshev’s \(\psi (x)\) via Perron’s formula and Riemann’s Explicit Formula, proving that the horizontal spectral stability of the explicit oscillatory modes is strictly equivalent to the Riemann Hypothesis. </p>
+</div>
+
+</div> <!--main-text -->
+<nav class=local_toc>
+<ul>
+  <li>	
+  <a href="sect0001.html"><span class="toc_ref">0.1</span> <span class="toc_entry">Introduction</span></a>
+	<ul>
+		   <li>	
+  <a href="sect0001.html#a0000000006"><span class="toc_ref">0.1.1</span> <span class="toc_entry">Central Thesis and Outline of the Monograph</span></a>
+  </li>
+
+	</ul>
+  </li>
+  <li>	
+  <a href="sect0002.html"><span class="toc_ref">0.2</span> <span class="toc_entry">Multiplicative Atoms and Modular Sieve Structures of \(\mathbb {P}\)</span></a>
+	<ul>
+		   <li>	
+  <a href="sect0002.html#a0000000007"><span class="toc_ref">0.2.1</span> <span class="toc_entry">The Fundamental Theorem of Arithmetic and Euclid’s Lemma</span></a>
+  </li>
+  <li>	
+  <a href="sect0002.html#a0000000008"><span class="toc_ref">0.2.2</span> <span class="toc_entry">Modular Confinement of Primes Modulo 6</span></a>
+  </li>
+  <li>	
+  <a href="sect0002.html#a0000000009"><span class="toc_ref">0.2.3</span> <span class="toc_entry">Fermat’s Little Theorem and Wilson’s Theorem</span></a>
+  </li>
+  <li>	
+  <a href="sect0002.html#a0000000010"><span class="toc_ref">0.2.4</span> <span class="toc_entry">Base-10 Radix Periodicity Theorem</span></a>
+  </li>
+
+	</ul>
+  </li>
+  <li>	
+  <a href="sect0003.html"><span class="toc_ref">0.3</span> <span class="toc_entry">Algebraic and Modular Taxonomy of the Composite System \(\mathbb {C}\)</span></a>
+	<ul>
+		   <li>	
+  <a href="sect0003.html#a0000000011"><span class="toc_ref">0.3.1</span> <span class="toc_entry">Partition of Composites: Pure Prime Powers vs. Mixed Composites</span></a>
+  </li>
+  <li>	
+  <a href="sect0003.html#a0000000012"><span class="toc_ref">0.3.2</span> <span class="toc_entry">Divisor Function and Totient Algebra on \(\mathbb {C}\)</span></a>
+  </li>
+  <li>	
+  <a href="sect0003.html#a0000000013"><span class="toc_ref">0.3.3</span> <span class="toc_entry">Composite Base-10 Decomposition Theorem</span></a>
+  </li>
+  <li>	
+  <a href="sect0003.html#a0000000014"><span class="toc_ref">0.3.4</span> <span class="toc_entry">Parametric Coprime Composite Lattice</span></a>
+  </li>
+
+	</ul>
+  </li>
+  <li>	
+  <a href="sec-construction_composite_zeta.html"><span class="toc_ref">0.4</span> <span class="toc_entry">Construction of the Composite Zeta Functions (\(\operatorname {Re}(s) {\gt} 1\))</span></a>
+	<ul>
+		   <li>	
+  <a href="sec-construction_composite_zeta.html#a0000000015"><span class="toc_ref">0.4.1</span> <span class="toc_entry">Method 1: Additive Partition and the 50/50 Equilibrium</span></a>
+  </li>
+  <li>	
+  <a href="sec-construction_composite_zeta.html#a0000000016"><span class="toc_ref">0.4.2</span> <span class="toc_entry">Method 2: Local Prime-Power Factors and the Möbius-Logarithmic Bridge</span></a>
+  </li>
+  <li>	
+  <a href="sec-construction_composite_zeta.html#a0000000017"><span class="toc_ref">0.4.3</span> <span class="toc_entry">Method 3: Divisor-Weighted Composite Dirichlet Series</span></a>
+  </li>
+  <li>	
+  <a href="sec-construction_composite_zeta.html#a0000000018"><span class="toc_ref">0.4.4</span> <span class="toc_entry">Analytic Continuation vs. Natural Boundary Theorem</span></a>
+  </li>
+
+	</ul>
+  </li>
+  <li>	
+  <a href="sec-reciprocal_euler_mertens.html"><span class="toc_ref">0.5</span> <span class="toc_entry">Reciprocal Euler Product, Möbius Inversion, and the Mertens Equivalence</span></a>
+	<ul>
+		   <li>	
+  <a href="sec-reciprocal_euler_mertens.html#a0000000019"><span class="toc_ref">0.5.1</span> <span class="toc_entry">Derivation of the Reciprocal Euler Product</span></a>
+  </li>
+  <li>	
+  <a href="sec-reciprocal_euler_mertens.html#a0000000020"><span class="toc_ref">0.5.2</span> <span class="toc_entry">Parity Cancellation in the Prime-Composite Decomposition</span></a>
+  </li>
+  <li>	
+  <a href="sec-reciprocal_euler_mertens.html#a0000000021"><span class="toc_ref">0.5.3</span> <span class="toc_entry">Abel Summation and the Mellin Representation</span></a>
+  </li>
+  <li>	
+  <a href="sec-reciprocal_euler_mertens.html#a0000000022"><span class="toc_ref">0.5.4</span> <span class="toc_entry">The Mertens–Riemann Equivalence Theorem</span></a>
+  </li>
+
+	</ul>
+  </li>
+  <li>	
+  <a href="sec-critical_strip_audit.html"><span class="toc_ref">0.6</span> <span class="toc_entry">Crossing the \(\operatorname {Re}(s) = 1\) Barrier and the Critical Strip Audit</span></a>
+	<ul>
+		   <li>	
+  <a href="sec-critical_strip_audit.html#a0000000023"><span class="toc_ref">0.6.1</span> <span class="toc_entry">The \(\operatorname {Re}(s) {\gt} 1\) Completeness and Zero-Free Theorem</span></a>
+  </li>
+  <li>	
+  <a href="sec-critical_strip_audit.html#a0000000024"><span class="toc_ref">0.6.2</span> <span class="toc_entry">Formal Audit of the \(\operatorname {Re}(s) = 1\) Breakdown</span></a>
+  </li>
+  <li>	
+  <a href="sec-critical_strip_audit.html#a0000000025"><span class="toc_ref">0.6.3</span> <span class="toc_entry">Analytic Continuation via the Dirichlet Eta Function</span></a>
+  </li>
+  <li>	
+  <a href="sec-critical_strip_audit.html#a0000000026"><span class="toc_ref">0.6.4</span> <span class="toc_entry">The Approximate Functional Equation and Phasor Symmetry</span></a>
+  </li>
+
+	</ul>
+  </li>
+  <li>	
+  <a href="sec-spectral_bridge.html"><span class="toc_ref">0.7</span> <span class="toc_entry">The Spectral Bridge: Chebyshev’s \(\psi (x)\) and Riemann’s Explicit Formula</span></a>
+	<ul>
+		   <li>	
+  <a href="sec-spectral_bridge.html#a0000000027"><span class="toc_ref">0.7.1</span> <span class="toc_entry">Chebyshev’s Functions and the Logarithmic Derivative</span></a>
+  </li>
+  <li>	
+  <a href="sec-spectral_bridge.html#a0000000028"><span class="toc_ref">0.7.2</span> <span class="toc_entry">Derivation of Riemann’s Explicit Formula</span></a>
+  </li>
+  <li>	
+  <a href="sec-spectral_bridge.html#a0000000029"><span class="toc_ref">0.7.3</span> <span class="toc_entry">The Spectral Stability Theorem</span></a>
+  </li>
+
+	</ul>
+  </li>
+  <li>	
+  <a href="sec-conclusion.html"><span class="toc_ref">0.8</span> <span class="toc_entry">Conclusion and Synthesis Matrix</span></a>
+	<ul>
+		   <li>	
+  <a href="sec-conclusion.html#a0000000030"><span class="toc_ref">0.8.1</span> <span class="toc_entry">The Comprehensive Synthesis Matrix</span></a>
+  </li>
+  <li>	
+  <a href="sec-conclusion.html#a0000000031"><span class="toc_ref">0.8.2</span> <span class="toc_entry">Final Epistemological Assessment</span></a>
+  </li>
+
+	</ul>
+  </li>
+</ul>
+</nav>
+</div> <!-- content-wrapper -->
+</div> <!-- content -->
+</div> <!-- wrapper -->
+
+<nav class="prev_up_next">
+  <svg  id="showmore-minus" class="icon icon-eye-minus showmore"><use xlink:href="symbol-defs.svg#icon-eye-minus"></use></svg>
+
+  <svg  id="showmore-plus" class="icon icon-eye-plus showmore"><use xlink:href="symbol-defs.svg#icon-eye-plus"></use></svg>
+
+  <a href="sect0001.html" title="Introduction"><svg  class="icon icon-arrow-right "><use xlink:href="symbol-defs.svg#icon-arrow-right"></use></svg>
+</a>
+</nav>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/plastex.js"></script>
+<script type="text/javascript" src="js/svgxuse.js"></script>
+<script type="text/javascript" src="js/js.cookie.min.js"></script>
+<script type="text/javascript" src="js/showmore.js"></script>
+</body>
+</html>

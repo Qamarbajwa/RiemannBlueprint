@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  MathJax = { 
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<meta name="generator" content="plasTeX" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Additive-Multiplicative Completeness of Prime and Composite Dirichlet Systems: Structural Partitions, Natural Boundaries, and Spectral Equivalences of the Riemann Hypothesis: Reciprocal Euler Product, Möbius Inversion, and the Mertens Equivalence</title>
+<link rel="next" href="sec-critical_strip_audit.html" title="Crossing the  Barrier and the Critical Strip Audit" />
+<link rel="prev" href="sec-construction_composite_zeta.html" title="Construction of the Composite Zeta Functions ()" />
+<link rel="up" href="index.html" title="Additive-Multiplicative Completeness of Prime and Composite Dirichlet Systems: Structural Partitions, Natural Boundaries, and Spectral Equivalences of the Riemann Hypothesis" />
+<link rel="stylesheet" href="styles/theme-white.css" />
+<link rel="stylesheet" href="styles/amsthm.css" />
+<link rel="stylesheet" href="styles/showmore.css" />
+<link rel="stylesheet" href="styles/blueprint.css" />
+<link rel="stylesheet" href="styles/extra_styles.css" />
+</head>
+
+<body>
+<header>
+<svg  id="toc-toggle" class="icon icon-list-numbered "><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<h1 id="doc_title"><a href="index.html">Additive-Multiplicative Completeness of Prime and Composite Dirichlet Systems: Structural Partitions, Natural Boundaries, and Spectral Equivalences of the Riemann Hypothesis</a></h1>
+</header>
+
+<div class="wrapper">
+<nav class="toc">
+<ul class="sub-toc-0">
+<li class="">
+  <a href="sect0001.html"><span class="toc_ref">0.1</span> <span class="toc_entry">Introduction</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sect0001.html#a0000000006"><span class="toc_ref">0.1.1</span> <span class="toc_entry">Central Thesis and Outline of the Monograph</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0002.html"><span class="toc_ref">0.2</span> <span class="toc_entry">Multiplicative Atoms and Modular Sieve Structures of \(\mathbb {P}\)</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sect0002.html#a0000000007"><span class="toc_ref">0.2.1</span> <span class="toc_entry">The Fundamental Theorem of Arithmetic and Euclid’s Lemma</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html#a0000000008"><span class="toc_ref">0.2.2</span> <span class="toc_entry">Modular Confinement of Primes Modulo 6</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html#a0000000009"><span class="toc_ref">0.2.3</span> <span class="toc_entry">Fermat’s Little Theorem and Wilson’s Theorem</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html#a0000000010"><span class="toc_ref">0.2.4</span> <span class="toc_entry">Base-10 Radix Periodicity Theorem</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0003.html"><span class="toc_ref">0.3</span> <span class="toc_entry">Algebraic and Modular Taxonomy of the Composite System \(\mathbb {C}\)</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sect0003.html#a0000000011"><span class="toc_ref">0.3.1</span> <span class="toc_entry">Partition of Composites: Pure Prime Powers vs. Mixed Composites</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000012"><span class="toc_ref">0.3.2</span> <span class="toc_entry">Divisor Function and Totient Algebra on \(\mathbb {C}\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000013"><span class="toc_ref">0.3.3</span> <span class="toc_entry">Composite Base-10 Decomposition Theorem</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000014"><span class="toc_ref">0.3.4</span> <span class="toc_entry">Parametric Coprime Composite Lattice</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sec-construction_composite_zeta.html"><span class="toc_ref">0.4</span> <span class="toc_entry">Construction of the Composite Zeta Functions (\(\operatorname {Re}(s) {\gt} 1\))</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sec-construction_composite_zeta.html#a0000000015"><span class="toc_ref">0.4.1</span> <span class="toc_entry">Method 1: Additive Partition and the 50/50 Equilibrium</span></a>
+ </li>
+<li class="">
+  <a href="sec-construction_composite_zeta.html#a0000000016"><span class="toc_ref">0.4.2</span> <span class="toc_entry">Method 2: Local Prime-Power Factors and the Möbius-Logarithmic Bridge</span></a>
+ </li>
+<li class="">
+  <a href="sec-construction_composite_zeta.html#a0000000017"><span class="toc_ref">0.4.3</span> <span class="toc_entry">Method 3: Divisor-Weighted Composite Dirichlet Series</span></a>
+ </li>
+<li class="">
+  <a href="sec-construction_composite_zeta.html#a0000000018"><span class="toc_ref">0.4.4</span> <span class="toc_entry">Analytic Continuation vs. Natural Boundary Theorem</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class=" active current">
+  <a href="sec-reciprocal_euler_mertens.html"><span class="toc_ref">0.5</span> <span class="toc_entry">Reciprocal Euler Product, Möbius Inversion, and the Mertens Equivalence</span></a>
+  <span class="expand-toc">▼</span>
+  <ul class="sub-toc-1 active">
+     <li class="">
+  <a href="sec-reciprocal_euler_mertens.html#a0000000019"><span class="toc_ref">0.5.1</span> <span class="toc_entry">Derivation of the Reciprocal Euler Product</span></a>
+ </li>
+<li class="">
+  <a href="sec-reciprocal_euler_mertens.html#a0000000020"><span class="toc_ref">0.5.2</span> <span class="toc_entry">Parity Cancellation in the Prime-Composite Decomposition</span></a>
+ </li>
+<li class="">
+  <a href="sec-reciprocal_euler_mertens.html#a0000000021"><span class="toc_ref">0.5.3</span> <span class="toc_entry">Abel Summation and the Mellin Representation</span></a>
+ </li>
+<li class="">
+  <a href="sec-reciprocal_euler_mertens.html#a0000000022"><span class="toc_ref">0.5.4</span> <span class="toc_entry">The Mertens–Riemann Equivalence Theorem</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sec-critical_strip_audit.html"><span class="toc_ref">0.6</span> <span class="toc_entry">Crossing the \(\operatorname {Re}(s) = 1\) Barrier and the Critical Strip Audit</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sec-critical_strip_audit.html#a0000000023"><span class="toc_ref">0.6.1</span> <span class="toc_entry">The \(\operatorname {Re}(s) {\gt} 1\) Completeness and Zero-Free Theorem</span></a>
+ </li>
+<li class="">
+  <a href="sec-critical_strip_audit.html#a0000000024"><span class="toc_ref">0.6.2</span> <span class="toc_entry">Formal Audit of the \(\operatorname {Re}(s) = 1\) Breakdown</span></a>
+ </li>
+<li class="">
+  <a href="sec-critical_strip_audit.html#a0000000025"><span class="toc_ref">0.6.3</span> <span class="toc_entry">Analytic Continuation via the Dirichlet Eta Function</span></a>
+ </li>
+<li class="">
+  <a href="sec-critical_strip_audit.html#a0000000026"><span class="toc_ref">0.6.4</span> <span class="toc_entry">The Approximate Functional Equation and Phasor Symmetry</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sec-spectral_bridge.html"><span class="toc_ref">0.7</span> <span class="toc_entry">The Spectral Bridge: Chebyshev’s \(\psi (x)\) and Riemann’s Explicit Formula</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sec-spectral_bridge.html#a0000000027"><span class="toc_ref">0.7.1</span> <span class="toc_entry">Chebyshev’s Functions and the Logarithmic Derivative</span></a>
+ </li>
+<li class="">
+  <a href="sec-spectral_bridge.html#a0000000028"><span class="toc_ref">0.7.2</span> <span class="toc_entry">Derivation of Riemann’s Explicit Formula</span></a>
+ </li>
+<li class="">
+  <a href="sec-spectral_bridge.html#a0000000029"><span class="toc_ref">0.7.3</span> <span class="toc_entry">The Spectral Stability Theorem</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sec-conclusion.html"><span class="toc_ref">0.8</span> <span class="toc_entry">Conclusion and Synthesis Matrix</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sec-conclusion.html#a0000000030"><span class="toc_ref">0.8.1</span> <span class="toc_entry">The Comprehensive Synthesis Matrix</span></a>
+ </li>
+<li class="">
+  <a href="sec-conclusion.html#a0000000031"><span class="toc_ref">0.8.2</span> <span class="toc_entry">Final Epistemological Assessment</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li ><a href="dep_graph_document.html">Dependency graph</a></li>
+</ul>
+</nav>
+
+<div class="content">
+<div class="content-wrapper">
+
+
+<div class="main-text">
+<h1 id="sec:reciprocal_euler_mertens">0.5 Reciprocal Euler Product, Möbius Inversion, and the Mertens Equivalence</h1>
+
+<p>In Section&#160;<a href="sec-construction_composite_zeta.html">0.4</a>, we established that the unweighted composite zeta function \(\zeta _C(s)\) and the divisor-weighted series \(Z_{\mathrm{weighted}}(s) = (\zeta (s) - 1)^2\) capture the additive and multiplicative projections of the composite integers \(\mathbb {C}_{\mathrm{comp}}\). We now turn our investigation to the reciprocal of the Riemann zeta function, \(1/\zeta (s)\), which serves as the dual multiplicative filter of the arithmetic integers. Whereas the direct zeta function \(\zeta (s) = \sum n^{-s}\) sums all integers with uniform positive unit weight, its inverse inverts the Euler product, introducing signed arithmetic weights governed by the Möbius function \(\mu (n)\). </p>
+<h2 id="a0000000019">0.5.1 Derivation of the Reciprocal Euler Product</h2>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:reciprocal_euler_product">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">0.5.1</span>
+    <span class="theorem_thmtitle">Reciprocal Euler Product &amp; Möbius Dirichlet Series</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#thm:reciprocal_euler_product">#</a>
+    
+    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#a0000000126"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section5_MobiusMertens.ReciprocalZeta" class="lean_decl">RiemannBlueprint.Section5_MobiusMertens.ReciprocalZeta</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>   For every complex number \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the reciprocal of the Riemann zeta function admits the absolutely convergent Euler product expansion: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D5519D0>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:reciprocal_euler_product} \frac{1}{\zeta (s)} = \prod _{p \in \mathbb {P}} \left(1 - \frac{1}{p^s}\right). \end{equation}
+  </div>
+  <span class="equation_label">55</span>
+</p>
+</div>
+<p> Furthermore, the term-by-term expansion of this product across the Fundamental Theorem of Arithmetic yields the Dirichlet series: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D551DF0>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:mobius_dirichlet_series} \frac{1}{\zeta (s)} = \sum _{n=1}^\infty \frac{\mu (n)}{n^s}, \end{equation}
+  </div>
+  <span class="equation_label">56</span>
+</p>
+</div>
+<p> where \(\mu : \mathbb {N}\to \{ -1, 0, 1\} \) is the Möbius arithmetic function defined by: </p>
+<div class="equation" id="a0000000127">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \mu (n) = \begin{cases}  1 &  \text{if } n = 1, \\ (-1)^k &  \text{if } n = p_1 p_2 \cdots p_k \text{ with distinct primes } p_i \text{ (square-free)}, \\ 0 &  \text{if } p^2 \mid n \text{ for some prime } p \text{ (square-divisible)}. \end{cases} \end{equation}
+  </div>
+  <span class="equation_label">57</span>
+</p>
+</div>
+<p> The series&#160;?? converges absolutely in the half-plane \(\operatorname {Re}(s) {\gt} 1\). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000126">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Let \(s = \sigma + i t\) with \(\sigma {\gt} 1\). By Euler’s product formula (Euler’s product identity&#160;??), \(\zeta (s) = \prod _{p \in \mathbb {P}} (1 - p^{-s})^{-1}\). Since \(\sum _{p} |p^{-s}| = \sum _{p} p^{-\sigma } {\lt} \sum _{n=1}^\infty n^{-\sigma } {\lt} \infty \), the product converges absolutely. An absolutely convergent infinite product of non-zero factors is non-zero, and its reciprocal is the product of the reciprocals of its factors: </p>
+<div class="displaymath" id="a0000000128">
+  \[ \frac{1}{\zeta (s)} = \frac{1}{\prod _{p \in \mathbb {P}} (1 - p^{-s})^{-1}} = \prod _{p \in \mathbb {P}} \left(1 - p^{-s}\right). \]
+</div>
+<p> Now consider the finite partial product over all primes up to \(X {\gt} 2\): </p>
+<div class="displaymath" id="a0000000129">
+  \[ \Pi _X(s) \coloneqq \prod _{p \le X} \left(1 - \frac{1}{p^s}\right). \]
+</div>
+<p> Expanding this finite product by applying the distributive law over the finite set of primes \(\{ p \in \mathbb {P}: p \le X\} \): </p>
+<div class="displaymath" id="a0000000130">
+  \[ \Pi _X(s) = 1 + \sum _{k=1}^{\pi (X)} (-1)^k \sum _{p_1 {\lt} p_2 {\lt} \dots {\lt} p_k \le X} \frac{1}{(p_1 p_2 \cdots p_k)^s}. \]
+</div>
+<p> By the Fundamental Theorem of Arithmetic (Theorem&#160;<a href="sect0002.html#thm:fta">0.2.4</a>), every product \(n = p_1 p_2 \cdots p_k\) of distinct primes represents a unique square-free positive integer whose prime factors are all \(\le X\). Conversely, every square-divisible integer \(n\) contains at least one squared prime factor \(p^2 \mid n\), which cannot arise from expanding \(\prod (1 - p^{-s})\) where each factor is of degree at most \(1\) in \(p^{-s}\). Hence: </p>
+<div class="displaymath" id="a0000000131">
+  \[ \Pi _X(s) = \sum _{\substack {n \le X \\ \mu (n) \neq 0}} \frac{\mu (n)}{n^s} + \sum _{\substack {n {\gt} X \\ p \mid n \implies p \le X \\ \mu (n) \neq 0}} \frac{\mu (n)}{n^s}. \]
+</div>
+<p> Subtracting the full Dirichlet sum \(\sum _{n=1}^\infty \mu (n) n^{-s}\): </p>
+<div class="displaymath" id="a0000000132">
+  \[ \left| \Pi _X(s) - \sum _{n=1}^\infty \frac{\mu (n)}{n^s} \right| \le \sum _{n {\gt} X} \frac{|\mu (n)|}{n^\sigma } \le \sum _{n {\gt} X} \frac{1}{n^\sigma }. \]
+</div>
+<p> Because \(\sigma {\gt} 1\), the tail sum \(\sum _{n {\gt} X} n^{-\sigma }\) converges to \(0\) as \(X \to \infty \): </p>
+<div class="displaymath" id="a0000000133">
+  \[ \lim _{X \to \infty } \sum _{n {\gt} X} \frac{1}{n^\sigma } = 0. \]
+</div>
+<p> Therefore: </p>
+<div class="displaymath" id="a0000000134">
+  \[ \frac{1}{\zeta (s)} = \lim _{X \to \infty } \Pi _X(s) = \sum _{n=1}^\infty \frac{\mu (n)}{n^s}. \]
+</div>
+<p> Finally, absolute convergence follows immediately from \(|\mu (n) n^{-s}| \le n^{-\sigma }\) and \(\sum n^{-\sigma } {\lt} \infty \) for \(\sigma {\gt} 1\). </p>
+
+  </div>
+</div>
+<h2 id="a0000000020">0.5.2 Parity Cancellation in the Prime-Composite Decomposition</h2>
+<p>We can now express the reciprocal zeta function directly across our foundational three-set partition of \(\mathbb {N}= \{ 1\}  \; \dot{\cup }\;  \mathbb {P}\; \dot{\cup }\;  \mathbb {C}_{\mathrm{comp}}\): </p>
+<div class="proposition_thmwrapper theorem-style-plain" id="prop:reciprocal_partition">
+  <div class="proposition_thmheading">
+    <span class="proposition_thmcaption">
+    Proposition
+    </span>
+    <span class="proposition_thmlabel">0.5.2</span>
+    <span class="proposition_thmtitle">Additive-Multiplicative Reciprocal Decomposition</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#prop:reciprocal_partition">#</a>
+    
+    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#a0000000135"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="sec-reciprocal_euler_mertens.html#thm:reciprocal_euler_product">Theorem 0.5.1</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section5_MobiusMertens.reciprocal_partition_identity" class="lean_decl">RiemannBlueprint.Section5_MobiusMertens.reciprocal_partition_identity</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="proposition_thmcontent">
+  <p>    For \(\operatorname {Re}(s) {\gt} 1\), the reciprocal zeta function decomposes into the exact tripartite identity: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D5BD850>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:reciprocal_partition} \frac{1}{\zeta (s)} = 1 - P(s) + \zeta _{\mu , C}(s), \end{equation}
+  </div>
+  <span class="equation_label">61</span>
+</p>
+</div>
+<p> where \(P(s) = \sum _{p \in \mathbb {P}} p^{-s}\) is the Prime Zeta function, and \(\zeta _{\mu , C}(s)\) is the Möbius-signed Composite Dirichlet Series: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D5BDCD0>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:mobius_composite_series} \zeta _{\mu , C}(s) \coloneqq \sum _{c \in \mathbb {C}_{\mathrm{comp}}} \frac{\mu (c)}{c^s} = \sum _{\substack {c \in \mathbb {C}_{\mathrm{comp}}\\ \mu (c) \neq 0}} \frac{(-1)^{\omega (c)}}{c^s}. \end{equation}
+  </div>
+  <span class="equation_label">62</span>
+</p>
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000135">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>By Theorem&#160;<a href="sec-reciprocal_euler_mertens.html#thm:reciprocal_euler_product">0.5.1</a>, \(\frac{1}{\zeta (s)} = \sum _{n=1}^\infty \mu (n) n^{-s}\). Partitioning the index set \(\mathbb {N}\) into \(\{ 1\} \), \(\mathbb {P}\), and \(\mathbb {C}_{\mathrm{comp}}\): </p>
+<div class="displaymath" id="a0000000136">
+  \[ \sum _{n=1}^\infty \frac{\mu (n)}{n^s} = \frac{\mu (1)}{1^s} + \sum _{p \in \mathbb {P}} \frac{\mu (p)}{p^s} + \sum _{c \in \mathbb {C}_{\mathrm{comp}}} \frac{\mu (c)}{c^s}. \]
+</div>
+<p> We evaluate each term: </p>
+<ol class="enumerate">
+  <li><p>For \(n = 1\): \(\mu (1) = 1\), so \(\mu (1) 1^{-s} = 1\). </p>
+</li>
+  <li><p>For \(n = p \in \mathbb {P}\): \(p\) has exactly one prime factor (\(\omega (p) = 1\)) and is square-free, so \(\mu (p) = (-1)^1 = -1\). Thus: </p>
+<div class="displaymath" id="a0000000137">
+  \[ \sum _{p \in \mathbb {P}} \frac{\mu (p)}{p^s} = -\sum _{p \in \mathbb {P}} \frac{1}{p^s} = -P(s). \]
+</div>
+</li>
+  <li><p>For \(n = c \in \mathbb {C}_{\mathrm{comp}}\): If \(c \in \mathbb {C}_{\mathrm{pure}}\) or if \(c\) is divisible by any square (\(p^2 \mid c\)), then by definition \(\mu (c) = 0\). Such composites are completely annihilated. If \(c\) is square-free with prime factorization \(c = p_1 p_2 \cdots p_k\) (\(k = \omega (c) \ge 2\)), then \(\mu (c) = (-1)^k\). </p>
+</li>
+</ol>
+<p> Summing these three contributions gives identity&#160;??. </p>
+
+  </div>
+</div>
+<div class="remark_thmwrapper theorem-style-definition" id="a0000000138">
+  <div class="remark_thmheading">
+    <span class="remark_thmcaption">
+    Remark
+    </span>
+    <span class="remark_thmlabel">0.5.3</span>
+    <span class="remark_thmtitle">The Parity Cancellation Mechanism</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#a0000000138">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="remark_thmcontent">
+  <p> Identity&#160;?? exposes the algebraic mechanism of the Möbius function: </p>
+<ul class="itemize">
+  <li><p><b class="bfseries">Square-Divisible Annihilation:</b> Every composite with repeated prime factors (including all pure prime powers \(p^a\) with \(a \ge 2\)) carries weight \(\mu (c) = 0\). They exert zero direct influence on \(1/\zeta (s)\). </p>
+</li>
+  <li><p><b class="bfseries">Even-Odd Parity Balancing:</b> Square-free composites are partitioned into two opposing camps: </p>
+<div class="displaymath" id="a0000000139">
+  \begin{align*}  \mathbb {C}_{\mathrm{comp}}^{(+)} & = \{ c \in \mathbb {C}_{\mathrm{comp}}: \mu ^2(c) = 1, \;  \omega (c) \equiv 0 \pmod2\}  = \{ 6, 10, 14, 15, 21, 22, 26, 33, 34, 35, \dots \} , \\ \mathbb {C}_{\mathrm{comp}}^{(-)} & = \{ c \in \mathbb {C}_{\mathrm{comp}}: \mu ^2(c) = 1, \;  \omega (c) \equiv 1 \pmod2\}  = \{ 30, 42, 66, 70, 78, 102, 105, 110, 114, \dots \} . \end{align*}
+</div>
+<p> For \(c \in \mathbb {C}_{\mathrm{comp}}^{(+)}\), \(\mu (c) = +1\), which reinforces the leading unit \(+1\). For \(c \in \mathbb {C}_{\mathrm{comp}}^{(-)}\), \(\mu (c) = -1\), which reinforces the prime deflation \(-P(s)\). The cancellation between \(\mathbb {P}\cup \mathbb {C}_{\mathrm{comp}}^{(-)}\) and \(\{ 1\}  \cup \mathbb {C}_{\mathrm{comp}}^{(+)}\) governs the magnitude of \(1/\zeta (s)\). </p>
+</li>
+</ul>
+
+  </div>
+</div>
+<h2 id="a0000000021">0.5.3 Abel Summation and the Mellin Representation</h2>
+<p>To understand the analytic continuation of \(1/\zeta (s)\) into the critical strip, we introduce the Mertens summatory function: </p>
+<div class="definition_thmwrapper theorem-style-definition" id="def:mertens_function">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">0.5.4</span>
+    <span class="definition_thmtitle">Mertens Function</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#def:mertens_function">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section5_MobiusMertens.mertens" class="lean_decl">RiemannBlueprint.Section5_MobiusMertens.mertens</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>   The Mertens function \(M : [1, \infty ) \to \mathbb {Z}\) is the summatory function of the Möbius function: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D60C6B0>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:mertens_def} M(x) \coloneqq \sum _{1 \le n \le x} \mu (n). \end{equation}
+  </div>
+  <span class="equation_label">63</span>
+</p>
+</div>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:mellin_reciprocal_zeta">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">0.5.5</span>
+    <span class="lemma_thmtitle">Mellin Transform Representation of \(1/\zeta (s)\)</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#lem:mellin_reciprocal_zeta">#</a>
+    
+    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#a0000000140"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="sec-reciprocal_euler_mertens.html#def:mertens_function">Definition 0.5.4</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>   For every \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the reciprocal Riemann zeta function can be expressed as the Laplace–Mellin integral of the Mertens function: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D60C650>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:reciprocal_mellin} \frac{1}{\zeta (s)} = s \int _1^\infty \frac{M(x)}{x^{s+1}} \,  \mathrm{d}x. \end{equation}
+  </div>
+  <span class="equation_label">64</span>
+</p>
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000140">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Let \(s = \sigma + i t\) with \(\sigma {\gt} 1\). We apply Abel summation (integration by parts of the Riemann–Stieltjes integral) to the partial sums of the Dirichlet series \(\sum _{n=1}^N \mu (n) n^{-s}\): </p>
+<div class="displaymath" id="a0000000141">
+  \[ \sum _{n=1}^N \mu (n) n^{-s} = \int _{1^-}^N x^{-s} \,  \mathrm{d}M(x). \]
+</div>
+<p> Integrating by parts: </p>
+<div class="displaymath" id="a0000000142">
+  \[ \int _{1^-}^N x^{-s} \,  \mathrm{d}M(x) = \left[ M(x) x^{-s} \right]_{1^-}^N - \int _1^N M(x) \frac{\mathrm{d}}{\mathrm{d}x}(x^{-s}) \,  \mathrm{d}x. \]
+</div>
+<p> Since \(M(1^-) = 0\) and \(\frac{\mathrm{d}}{\mathrm{d}x}(x^{-s}) = -s x^{-s-1}\), we obtain: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D60DA90>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:abel_finite_mertens} \sum _{n=1}^N \frac{\mu (n)}{n^s} = \frac{M(N)}{N^s} + s \int _1^N \frac{M(x)}{x^{s+1}} \,  \mathrm{d}x. \end{equation}
+  </div>
+  <span class="equation_label">65</span>
+</p>
+</div>
+<p> We now analyze the boundary term as \(N \to \infty \). By the trivial bound \(|\mu (n)| \le 1\): </p>
+<div class="displaymath" id="a0000000143">
+  \[ |M(N)| = \left| \sum _{n \le N} \mu (n) \right| \le \sum _{n \le N} 1 = N. \]
+</div>
+<p> Therefore: </p>
+<div class="displaymath" id="a0000000144">
+  \[ \left| \frac{M(N)}{N^s} \right| = \frac{|M(N)|}{N^\sigma } \le \frac{N}{N^\sigma } = N^{1-\sigma }. \]
+</div>
+<p> Because \(\sigma {\gt} 1\), \(1 - \sigma {\lt} 0\), which implies: </p>
+<div class="displaymath" id="a0000000145">
+  \[ \lim _{N \to \infty } \frac{M(N)}{N^s} = 0. \]
+</div>
+<p> Furthermore, the improper integral converges absolutely: </p>
+<div class="displaymath" id="a0000000146">
+  \[ \int _1^\infty \left| \frac{M(x)}{x^{s+1}} \right| \mathrm{d}x \le \int _1^\infty \frac{x}{x^{\sigma +1}} \,  \mathrm{d}x = \int _1^\infty x^{-\sigma } \,  \mathrm{d}x = \left[ \frac{x^{1-\sigma }}{1-\sigma } \right]_1^\infty = \frac{1}{\sigma - 1} {\lt} \infty . \]
+</div>
+<p> Taking the limit \(N \to \infty \) on both sides of&#160;?? gives: </p>
+<div class="displaymath" id="a0000000147">
+  \[ \frac{1}{\zeta (s)} = \sum _{n=1}^\infty \frac{\mu (n)}{n^s} = s \int _1^\infty \frac{M(x)}{x^{s+1}} \,  \mathrm{d}x, \]
+</div>
+<p> which establishes&#160;??. </p>
+
+  </div>
+</div>
+<h2 id="a0000000022">0.5.4 The Mertens–Riemann Equivalence Theorem</h2>
+<p>The integral representation&#160;?? forms a profound bridge between the rate of growth of the arithmetic sum \(M(x)\) and the location of the non-trivial zeros of \(\zeta (s)\). </p>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:mertens_riemann_equiv">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">0.5.6</span>
+    <span class="theorem_thmtitle">Mertens–Riemann Equivalence</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#thm:mertens_riemann_equiv">#</a>
+    
+    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#a0000000148"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="sec-reciprocal_euler_mertens.html#lem:mellin_reciprocal_zeta">Lemma 0.5.5</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section5_MobiusMertens.mertens_riemann_equivalence" class="lean_decl">RiemannBlueprint.Section5_MobiusMertens.mertens_riemann_equivalence</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>    The Riemann Hypothesis is equivalent to the statement that for every \(\epsilon {\gt} 0\): </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D60F8F0>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:mertens_bound} M(x) = \mathcal{O}\left(x^{\frac{1}{2} + \epsilon }\right) \quad \text{as } x \to \infty . \end{equation}
+  </div>
+  <span class="equation_label">66</span>
+</p>
+</div>
+<p> Specifically, \(\zeta (s)\) has no zeros in the half-plane \(\operatorname {Re}(s) {\gt} \frac{1}{2}\) if and only if&#160;?? holds. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000148">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>We prove both directions of the equivalence: </p>
+<p><b class="bfseries">Direction 1:&#160;?? \(\implies \) Riemann Hypothesis.</b> </p>
+<p>Assume that for every \(\epsilon {\gt} 0\), \(M(x) = \mathcal{O}(x^{1/2 + \epsilon })\). Then for any fixed \(\epsilon {\gt} 0\), there exist constants \(C_\epsilon {\gt} 0\) and \(x_0 \ge 1\) such that for all \(x \ge 1\): </p>
+<div class="displaymath" id="a0000000149">
+  \[ |M(x)| \le C_\epsilon x^{\frac{1}{2} + \epsilon }. \]
+</div>
+<p> Consider the integral in&#160;??: </p>
+<div class="displaymath" id="a0000000150">
+  \[ I(s) \coloneqq s \int _1^\infty \frac{M(x)}{x^{s+1}} \,  \mathrm{d}x. \]
+</div>
+<p> We examine the domain of absolute convergence of this integral. For \(s = \sigma + i t\) with \(\sigma {\gt} \frac{1}{2} + \epsilon \): </p>
+<div class="displaymath" id="a0000000151">
+  \[ \int _1^\infty \left| \frac{M(x)}{x^{s+1}} \right| \mathrm{d}x \le C_\epsilon \int _1^\infty \frac{x^{\frac{1}{2} + \epsilon }}{x^{\sigma +1}} \,  \mathrm{d}x = C_\epsilon \int _1^\infty x^{-\left(\sigma - \frac{1}{2} - \epsilon + 1\right)} \,  \mathrm{d}x = \frac{C_\epsilon }{\sigma - \frac{1}{2} - \epsilon } {\lt} \infty . \]
+</div>
+<p> Thus, the integral converges absolutely and uniformly on any compact subset of the half-plane: </p>
+<div class="displaymath" id="a0000000152">
+  \[ U_\epsilon \coloneqq \left\{  s \in \mathbb {C}: \operatorname {Re}(s) {\gt} \frac{1}{2} + \epsilon \right\} . \]
+</div>
+<p> By standard complex analysis (differentiation under the integral sign), \(I(s)\) defines a holomorphic function on \(U_\epsilon \). Since \(\epsilon {\gt} 0\) was arbitrary, \(I(s)\) defines a holomorphic function on the entire half-plane: </p>
+<div class="displaymath" id="a0000000153">
+  \[ \mathcal{H}_{1/2} \coloneqq \left\{  s \in \mathbb {C}: \operatorname {Re}(s) {\gt} \frac{1}{2} \right\} . \]
+</div>
+<p> By Lemma&#160;<a href="sec-reciprocal_euler_mertens.html#lem:mellin_reciprocal_zeta">0.5.5</a>, \(I(s) = \frac{1}{\zeta (s)}\) on the half-plane \(\operatorname {Re}(s) {\gt} 1\). By the Identity Theorem for holomorphic functions, \(I(s)\) is the unique analytic continuation of \(1/\zeta (s)\) to the entire half-plane \(\mathcal{H}_{1/2}\). </p>
+<p>Now suppose for the sake of contradiction that \(\zeta (s)\) has a zero \(\rho _0 \in \mathcal{H}_{1/2}\), so that \(\operatorname {Re}(\rho _0) {\gt} \frac{1}{2}\) and \(\zeta (\rho _0) = 0\). Since \(\zeta (s)\) is meromorphic on \(\mathbb {C}\) and not identically zero, \(\rho _0\) is an isolated zero of order \(m \ge 1\). Consequently, its reciprocal \(1/\zeta (s)\) has an isolated pole of order \(m\) at \(s = \rho _0\): </p>
+<div class="displaymath" id="a0000000154">
+  \[ \lim _{s \to \rho _0} \left| \frac{1}{\zeta (s)} \right| = \infty . \]
+</div>
+<p> However, \(I(s)\) is holomorphic on all of \(\mathcal{H}_{1/2}\), meaning \(|I(s)|\) remains finite in a neighborhood of \(\rho _0\). This is a direct contradiction. Therefore, \(\zeta (s)\) cannot possess any zeros in \(\operatorname {Re}(s) {\gt} \frac{1}{2}\). By the functional equation \(\xi (s) = \xi (1-s)\) (which relates zeros at \(\rho \) to zeros at \(1 - \rho \)), any zero with \(\operatorname {Re}(\rho ) {\lt} 1/2\) would imply a zero at \(1 - \rho \) with \(\operatorname {Re}(1 - \rho ) {\gt} 1/2\). Hence, all non-trivial zeros of \(\zeta (s)\) must satisfy \(\operatorname {Re}(\rho ) = \frac{1}{2}\). </p>
+<p><b class="bfseries">Direction 2: Riemann Hypothesis \(\implies \)&#160;??.</b> </p>
+<p>Assume the Riemann Hypothesis holds: all non-trivial zeros satisfy \(\operatorname {Re}(\rho ) = \frac{1}{2}\). Then the function \(f(s) \coloneqq \frac{1}{\zeta (s)}\) is holomorphic in the open half-plane \(\operatorname {Re}(s) {\gt} \frac{1}{2}\). By Perron’s formula applied to the Dirichlet series \(\frac{1}{\zeta (s)} = \sum _{n=1}^\infty \mu (n) n^{-s}\), for \(c {\gt} 1\) and \(x \ge 2\) not an integer: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D65AA50>">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \label{eq:perron_mertens} M(x) = \frac{1}{2\pi i} \int _{c - i T}^{c + i T} \frac{1}{\zeta (s)} \frac{x^s}{s} \,  \mathrm{d}s + R(x, T), \end{equation}
+  </div>
+  <span class="equation_label">67</span>
+</p>
+</div>
+<p> where the truncation error satisfies: </p>
+<div class="displaymath" id="a0000000155">
+  \[ R(x, T) = \mathcal{O}\left( \frac{x^c}{T (c - 1)} + \frac{x \ln x}{T} \right). \]
+</div>
+<p> We construct a rectangular contour \(\Gamma \) with vertices \(c - i T\), \(c + i T\), \(\sigma _0 + i T\), and \(\sigma _0 - i T\), where: </p>
+<div class="displaymath" id="a0000000156">
+  \[ \sigma _0 \coloneqq \frac{1}{2} + \epsilon , \qquad 0 {\lt} \epsilon {\lt} \frac{1}{2}. \]
+</div>
+<p> Under RH, \(f(s) = 1/\zeta (s)\) has no poles inside or on the contour \(\Gamma \). By Cauchy’s Integral Theorem: </p>
+<div class="displaymath" id="a0000000157">
+  \[ \frac{1}{2\pi i} \oint _{\Gamma } \frac{1}{\zeta (s)} \frac{x^s}{s} \,  \mathrm{d}s = 0. \]
+</div>
+<p> Therefore: </p>
+<div class="displaymath" id="a0000000158">
+  \[ \frac{1}{2\pi i} \int _{c - i T}^{c + i T} \frac{1}{\zeta (s)} \frac{x^s}{s} \,  \mathrm{d}s = \frac{1}{2\pi i} \left( \int _{\sigma _0 - i T}^{\sigma _0 + i T} + \int _{\sigma _0 + i T}^{c + i T} - \int _{\sigma _0 - i T}^{c - i T} \right) \frac{1}{\zeta (s)} \frac{x^s}{s} \,  \mathrm{d}s. \]
+</div>
+<p> Under the Lindelöf Hypothesis for \(1/\zeta (s)\) (which is a consequence of RH, see Titchmarsh&#160;<span class="cite">
+	[
+	<a href="sec-conclusion.html#Titchmarsh1986" >18</a>
+	]
+</span>, Theorem&#160;14.2), for any \(\delta {\gt} 0\) and \(\sigma \ge \frac{1}{2} + \epsilon \): </p>
+<div class="displaymath" id="a0000000159">
+  \[ \left| \frac{1}{\zeta (\sigma + i t)} \right| = \mathcal{O}\left( |t|^\delta \right) \quad \text{as } |t| \to \infty . \]
+</div>
+<p> We estimate the integrals along each segment of the contour: </p>
+<ol class="enumerate">
+  <li><p>Along the vertical segment \([\sigma _0 - i T, \sigma _0 + i T]\): </p>
+<div class="displaymath" id="a0000000160">
+  \[ \left| \int _{\sigma _0 - i T}^{\sigma _0 + i T} \frac{1}{\zeta (s)} \frac{x^s}{s} \,  \mathrm{d}s \right| \le x^{\sigma _0} \int _{-T}^T \frac{|\zeta (\sigma _0 + i t)|^{-1}}{\sqrt{\sigma _0^2 + t^2}} \,  \mathrm{d}t \le x^{\frac{1}{2} + \epsilon } \int _{-T}^T \mathcal{O}\left( (1 + |t|)^{\delta - 1} \right) \mathrm{d}t = \mathcal{O}\left( x^{\frac{1}{2} + \epsilon } T^\delta \right). \]
+</div>
+</li>
+  <li><p>Along the horizontal segments \([\sigma _0 \pm i T, c \pm i T]\): </p>
+<div class="displaymath" id="a0000000161">
+  \[ \left| \int _{\sigma _0 \pm i T}^{c \pm i T} \frac{1}{\zeta (s)} \frac{x^s}{s} \,  \mathrm{d}s \right| \le \int _{\sigma _0}^c \frac{|\zeta (\sigma \pm i T)|^{-1}}{T} x^\sigma \,  \mathrm{d}\sigma = \mathcal{O}\left( \frac{T^\delta x^c}{T \ln x} \right). \]
+</div>
+</li>
+</ol>
+<p> Choosing \(c = 1 + \frac{1}{\ln x}\), \(T = x^2\), and \(\delta {\lt} \frac{\epsilon }{4}\), all error terms are dominated by \(x^{1/2 + \epsilon }\). Hence: </p>
+<div class="displaymath" id="a0000000162">
+  \[ M(x) = \mathcal{O}\left(x^{\frac{1}{2} + \epsilon }\right). \]
+</div>
+<p> This completes the bidirectional proof. </p>
+
+  </div>
+</div>
+<div class="remark_thmwrapper theorem-style-definition" id="a0000000163">
+  <div class="remark_thmheading">
+    <span class="remark_thmcaption">
+    Remark
+    </span>
+    <span class="remark_thmlabel">0.5.7</span>
+    <span class="remark_thmtitle">Historical Context on Mertens’ Conjecture</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#a0000000163">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="remark_thmcontent">
+  <p> In 1897, Franz Mertens conjectured the stronger bound \(|M(x)| {\lt} \sqrt{x}\) for all \(x {\gt} 1\)&#160;<span class="cite">
+	[
+	<a href="sec-conclusion.html#Mertens1897" >13</a>
+	]
+</span>. This conjecture would have implied the Riemann Hypothesis and the simplicity of all zeros. However, in 1985, Odlyzko and te Riele&#160;<span class="cite">
+	[
+	<a href="sec-conclusion.html#OdlyzkoteRiele1985" >16</a>
+	]
+</span> disproved Mertens’ conjecture by showing: </p>
+<div class="displaymath" id="a0000000164">
+  \[ \limsup _{x \to \infty } \frac{M(x)}{\sqrt{x}} {\gt} 1.06 \quad \text{and} \quad \liminf _{x \to \infty } \frac{M(x)}{\sqrt{x}} {\lt} -1.009. \]
+</div>
+<p> Subsequent refinements by Kotnik and van de Lune (2004) showed the extrema exceed \(1.218\) and \(-1.229\). Crucially, the failure of the absolute constant bound \(|M(x)| \le \sqrt{x}\) in no way invalidates the asymptotic exponent bound \(M(x) = \mathcal{O}(x^{1/2 + \epsilon })\), which remains an exact, unconditional equivalence of the Riemann Hypothesis. </p>
+
+  </div>
+</div>
+
+</div> <!--main-text -->
+</div> <!-- content-wrapper -->
+</div> <!-- content -->
+</div> <!-- wrapper -->
+
+<nav class="prev_up_next">
+  <svg  id="showmore-minus" class="icon icon-eye-minus showmore"><use xlink:href="symbol-defs.svg#icon-eye-minus"></use></svg>
+
+  <svg  id="showmore-plus" class="icon icon-eye-plus showmore"><use xlink:href="symbol-defs.svg#icon-eye-plus"></use></svg>
+
+  <a href="sec-construction_composite_zeta.html" title="Construction of the Composite Zeta Functions (\(\operatorname {Re}(s) {\gt} 1\))"><svg  class="icon icon-arrow-left "><use xlink:href="symbol-defs.svg#icon-arrow-left"></use></svg>
+</a>
+  <a href="index.html" title="Additive-Multiplicative Completeness of Prime and Composite Dirichlet Systems: Structural Partitions, Natural Boundaries, and Spectral Equivalences of the Riemann Hypothesis"><svg  class="icon icon-arrow-up "><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg>
+</a>
+  <a href="sec-critical_strip_audit.html" title="Crossing the \(\operatorname {Re}(s) = 1\) Barrier and the Critical Strip Audit"><svg  class="icon icon-arrow-right "><use xlink:href="symbol-defs.svg#icon-arrow-right"></use></svg>
+</a>
+</nav>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/plastex.js"></script>
+<script type="text/javascript" src="js/svgxuse.js"></script>
+<script type="text/javascript" src="js/js.cookie.min.js"></script>
+<script type="text/javascript" src="js/showmore.js"></script>
+</body>
+</html>
