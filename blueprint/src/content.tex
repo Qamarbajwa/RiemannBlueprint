@@ -945,12 +945,30 @@ which establishes~\eqref{eq:reciprocal_mellin}.
 
 \subsection{The Mertens--Riemann Equivalence Theorem}
 
-The integral representation~\eqref{eq:reciprocal_mellin} forms a profound bridge between the rate of growth of the arithmetic sum $M(x)$ and the location of the non-trivial zeros of $\zeta(s)$.
+The integral representation~\eqref{eq:reciprocal_mellin} forms a profound bridge between the rate of growth of the arithmetic sum $M(x)$ and the location of the non-trivial zeros of $\zeta(s)$. Notice that in our Lean~4 library (\texttt{LittlewoodForward.lean} and \texttt{Section5\_MobiusMertens.lean}), the forward direction (\textbf{Littlewood's Theorem}, $M(x) = \mathcal{O}(x^{1/2+\epsilon}) \implies \mathrm{RH}$) is now proved \emph{unconditionally} with zero custom axioms.
+
+\begin{theorem}[Littlewood's Forward Theorem (Unconditional in Lean~4)]
+\label{thm:mertens_implies_rh}
+\lean{RiemannBlueprint.Section5_MobiusMertens.mertens_implies_rh}
+\uses{lem:mellin_reciprocal_zeta}
+\leanok
+If $M(x) = \mathcal{O}(x^{\frac{1}{2}+\epsilon})$ for every $\epsilon > 0$, then $\zeta(s)$ has no zeros in $\{s \in \Cfield : \operatorname{Re}(s) > \frac{1}{2}\}$ (\texttt{zero\_free\_re\_gt\_half\_of\_mertens}) and hence the Riemann Hypothesis holds.
+\end{theorem}
+
+\begin{proof}
+\leanok
+Formalized unconditionally across Stages~A--C in \texttt{LittlewoodForward.lean}:
+\begin{enumerate}
+  \item \textbf{Stage A (\texttt{riemannZeta\_mul\_mellinMertens\_of\_one\_lt\_re}):} Via Mathlib's \texttt{LSeries\_eq\_mul\_integral'} and \texttt{LSeries\_one\_mul\_Lseries\_moebius}, $\zeta(s)\, M_\zeta(s) = 1$ holds for $\operatorname{Re}(s) > 1$, where $M_\zeta(s) = s \int_1^\infty M(t) t^{-(s+1)}\,\dee t$.
+  \item \textbf{Stage B (\texttt{mellinMertens\_differentiableAt}):} Rewriting $M_\zeta(s) = s\,\mathcal{M}[\mathbf{1}_{(1,\infty)} M](-s)$ and applying \texttt{mellin\_differentiableAt\_of\_isBigO\_rpow} yields complex differentiability across $\{s \in \Cfield : \operatorname{Re}(s) > 1/2\}$.
+  \item \textbf{Stage C (\texttt{mertens\_inversion\_of\_bound}):} Applying \texttt{AnalyticOnNhd.eqOn\_of\_preconnected\_of\_eventuallyEq} across three open convex domains covering $\{s : \operatorname{Re}(s) > 1/2\} \setminus \{1\}$ (together with $\zeta(1) \neq 0$ for the dummy evaluation at $1$) shows $\zeta(s) \neq 0$ for $\operatorname{Re}(s) > 1/2$; zero reflection (\texttt{zeta\_zero\_reflection}) then implies $\operatorname{Re}(\rho) = 1/2$ for every non-trivial zero.
+\end{enumerate}
+\end{proof}
 
 \begin{theorem}[Mertens--Riemann Equivalence]
 \label{thm:mertens_riemann_equiv}
 \lean{RiemannBlueprint.Section5_MobiusMertens.mertens_riemann_equivalence}
-\uses{lem:mellin_reciprocal_zeta}
+\uses{thm:mertens_implies_rh}
 \leanok
 The Riemann Hypothesis is equivalent to the statement that for every $\epsilon > 0$:
 \begin{equation}
@@ -1485,7 +1503,7 @@ Our investigation yields three fundamental conclusions for analytic number theor
 \label{rem:lean_classical_interface}
 \lean{RiemannBlueprint.ClassicalAnalyticInterface}
 \leanok
-In the formal Lean 4 companion library, all arithmetic foundations, pointwise and finite partial-sum partitions, unconditional Dirichlet series splittings for $\operatorname{Re}(s) > 1$ ($\zeta(s) = 1 + P(s) + \zeta_C(s)$ and $(\mu * \zeta_{\mathbb{Z}}) = 1$), zero reflection symmetry about $\operatorname{Re}(s) = 1/2$, critical-strip divergence obstructions, and the unitary phasor modulus $|\chi(1/2 + i t)| = 1$ are proved directly from Mathlib4 primitives with zero custom axioms. The four external complex-analytic theorems not yet internalized in Mathlib4 (natural boundary of $\zeta_C(s)$ at $\operatorname{Re}(s) = 0$, Mellin--Mertens analytic inversion, Perron contour shift $\mathrm{RH} \implies M(x) = \mathcal{O}(x^{1/2+\epsilon})$, and Riemann's Explicit Formula equivalence) are bundled inside an explicit hypothesis structure \texttt{ClassicalAnalyticInterface}, ensuring every theorem audits cleanly with \texttt{\#print axioms} returning strictly \texttt{[propext, Classical.choice, Quot.sound]}.
+In the formal Lean 4 companion library, all arithmetic foundations, pointwise and finite partial-sum partitions, unconditional Dirichlet series splittings for $\operatorname{Re}(s) > 1$ ($\zeta(s) = 1 + P(s) + \zeta_C(s)$ and $(\mu * \zeta_{\mathbb{Z}}) = 1$), zero reflection symmetry about $\operatorname{Re}(s) = 1/2$, Littlewood's forward theorem $M(x) = \mathcal{O}(x^{1/2+\epsilon}) \implies \mathrm{RH}$ (\texttt{LittlewoodForward.lean}), critical-strip divergence obstructions, and the unitary phasor modulus $|\chi(1/2 + i t)| = 1$ are proved directly from Mathlib4 primitives with zero custom axioms. Only the three remaining external complex-analytic theorems not yet internalized in Mathlib4 (natural boundary of $\zeta_C(s)$ at $\operatorname{Re}(s) = 0$, Perron contour shift $\mathrm{RH} \implies M(x) = \mathcal{O}(x^{1/2+\epsilon})$, and Riemann's Explicit Formula equivalence) are bundled inside the explicit hypothesis structure \texttt{ClassicalAnalyticInterface}, ensuring every theorem audits cleanly with \texttt{\#print axioms} returning strictly \texttt{[propext, Classical.choice, Quot.sound]}.
 \end{remark}
 
 % ===========================================================================
