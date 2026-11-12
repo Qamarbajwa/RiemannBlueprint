@@ -1,4 +1,6 @@
 import Mathlib.Analysis.SpecialFunctions.Pow.Complex
+import Mathlib.Analysis.SpecialFunctions.Pow.Deriv
+import Mathlib.Analysis.Complex.CauchyIntegral
 import Mathlib.Analysis.PSeriesComplex
 import Mathlib.NumberTheory.LSeries.RiemannZeta
 import Mathlib.NumberTheory.LSeries.Nonvanishing
@@ -160,6 +162,206 @@ abbrev RiemannHypothesis : Prop := _root_.RiemannHypothesis
 
 /-- Definition 5.14: The Mertens Growth Bound of Order 1/2 + ε. -/
 abbrev MertensBound : Prop := RiemannBlueprint.MertensBound
+
+section AbelSummation
+
+open intervalIntegral MeasureTheory Set Filter
+
+/-- Real-argument Mertens summatory function `M(x) = ∑_{1 ≤ n ≤ ⌊x⌋₊} μ(n)` in `ℂ`. -/
+noncomputable def mertensReal (x : ℝ) : ℂ :=
+  ∑ n ∈ Finset.Icc 1 ⌊x⌋₊, (ArithmeticFunction.moebius n : ℂ)
+
+/-- Discrete Abel summation (summation by parts) for the Möbius function on `[1, N]`. -/
+lemma abel_summation_moebius_finset (N : ℕ) (hN : 1 ≤ N) (a : ℕ → ℂ) :
+    ∑ n ∈ Finset.Icc 1 N, (ArithmeticFunction.moebius n : ℂ) * a n =
+      mertensReal N * a N +
+        ∑ n ∈ Finset.Icc 1 (N - 1), mertensReal n * (a n - a (n + 1)) := by
+  induction N, hN using Nat.le_induction with
+  | base =>
+    simp [mertensReal]
+  | succ k hk ih =>
+    rw [show Finset.Icc 1 (k + 1) = insert (k + 1) (Finset.Icc 1 k) from by
+      ext m; simp only [Finset.mem_Icc, Finset.mem_insert]; constructor <;> omega]
+    rw [Finset.sum_insert (by simp)]
+    rw [ih]
+    have h_step : (ArithmeticFunction.moebius (k + 1) : ℂ) =
+        mertensReal ((k + 1 : ℕ) : ℝ) - mertensReal (k : ℝ) := by
+      simp only [mertensReal, Nat.floor_natCast]
+      rw [show Finset.Icc 1 (k + 1) = insert (k + 1) (Finset.Icc 1 k) from by
+        ext m; simp only [Finset.mem_Icc, Finset.mem_insert]; constructor <;> omega]
+      rw [Finset.sum_insert (by simp)]
+      ring
+    have h_k : k + 1 - 1 = k := by omega
+    have hk_not : k ∉ Finset.Icc 1 (k - 1) := by simp only [Finset.mem_Icc]; omega
+    rw [h_k, show Finset.Icc 1 k = insert k (Finset.Icc 1 (k - 1)) from by
+      ext m; simp only [Finset.mem_Icc, Finset.mem_insert]; constructor <;> omega]
+    rw [Finset.sum_insert hk_not, h_step]
+    push_cast
+    ring
+
+/-- Trivial linear bound `‖M(x)‖ ≤ x` for `x ≥ 1`. -/
+lemma norm_mertensReal_le (x : ℝ) (hx : 1 ≤ x) : ‖mertensReal x‖ ≤ x := by
+  have h1 : ‖mertensReal x‖ ≤ (⌊x⌋₊ : ℝ) := by
+    calc ‖∑ n ∈ Finset.Icc 1 ⌊x⌋₊, (ArithmeticFunction.moebius n : ℂ)‖
+        ≤ ∑ n ∈ Finset.Icc 1 ⌊x⌋₊, ‖(ArithmeticFunction.moebius n : ℂ)‖ := norm_sum_le _ _
+      _ ≤ ∑ _n ∈ Finset.Icc 1 ⌊x⌋₊, (1 : ℝ) := by
+          refine Finset.sum_le_sum fun n _ => ?_
+          rw [Complex.norm_intCast]
+          exact_mod_cast ArithmeticFunction.abs_moebius_le_one (n := n)
+      _ = (Finset.Icc 1 ⌊x⌋₊).card := by simp
+      _ ≤ (⌊x⌋₊ : ℝ) := by norm_cast; simp [Nat.card_Icc]
+  exact h1.trans (Nat.floor_le (zero_le_one.trans hx))
+
+private lemma hasDerivAt_ofReal_cpow_neg (s : ℂ) {x : ℝ} (hx : 0 < x) :
+    HasDerivAt (fun y : ℝ => (y : ℂ) ^ (-s)) (-s * (x : ℂ) ^ (-s - 1)) x := by
+  have h0 : ((x : ℝ) : ℂ) ∈ Complex.slitPlane := Complex.ofReal_mem_slitPlane.mpr hx
+  have hc : HasDerivAt (fun z : ℂ => z ^ (-s)) ((-s) * (x : ℂ) ^ (-s - 1) * 1) (x : ℂ) :=
+    (hasDerivAt_id (x : ℂ)).cpow_const h0
+  simpa using hc.comp_ofReal
+
+private lemma unit_interval_cpow_integral (s : ℂ) (n : ℕ) (hn : 1 ≤ n) :
+    s * ∫ x in (n : ℝ)..((n + 1 : ℕ) : ℝ), (x : ℂ) ^ (-s - 1) =
+      (n : ℂ) ^ (-s) - ((n + 1 : ℕ) : ℂ) ^ (-s) := by
+  have hle : (n : ℝ) ≤ ((n + 1 : ℕ) : ℝ) := by exact_mod_cast Nat.le_succ n
+  have hn_pos : (0 : ℝ) < (n : ℝ) := Nat.cast_pos.mpr hn
+  have hderiv : ∀ x ∈ Set.uIcc (n : ℝ) ((n + 1 : ℕ) : ℝ),
+      HasDerivAt (fun y : ℝ => (y : ℂ) ^ (-s)) (-s * (x : ℂ) ^ (-s - 1)) x := by
+    intro x hx
+    rw [Set.uIcc_of_le hle] at hx
+    exact hasDerivAt_ofReal_cpow_neg s (lt_of_lt_of_le hn_pos hx.1)
+  have hcont : ContinuousOn (fun x : ℝ => -s * (x : ℂ) ^ (-s - 1))
+      (Set.uIcc (n : ℝ) ((n + 1 : ℕ) : ℝ)) := by
+    intro x hx
+    rw [Set.uIcc_of_le hle] at hx
+    have hx_pos : 0 < x := lt_of_lt_of_le hn_pos hx.1
+    have hc : ContinuousAt (fun z : ℂ => z ^ (-s - 1)) (x : ℂ) :=
+      ((hasDerivAt_id (x : ℂ)).cpow_const (Complex.ofReal_mem_slitPlane.mpr hx_pos)).continuousAt
+    exact (continuousAt_const.mul (hc.comp Complex.continuous_ofReal.continuousAt)).continuousWithinAt
+  have hftc := intervalIntegral.integral_eq_sub_of_hasDerivAt hderiv hcont.intervalIntegrable
+  rw [intervalIntegral.integral_const_mul] at hftc
+  have hrhs : (((n + 1 : ℕ) : ℝ) : ℂ) ^ (-s) - ((n : ℝ) : ℂ) ^ (-s) =
+      ((n + 1 : ℕ) : ℂ) ^ (-s) - (n : ℂ) ^ (-s) := by
+    simp only [Complex.ofReal_natCast]
+  calc s * ∫ x in (n : ℝ)..((n + 1 : ℕ) : ℝ), (x : ℂ) ^ (-s - 1)
+      = -(-s * ∫ x in (n : ℝ)..((n + 1 : ℕ) : ℝ), (x : ℂ) ^ (-s - 1)) := by ring
+    _ = -(((n + 1 : ℕ) : ℂ) ^ (-s) - (n : ℂ) ^ (-s)) := by rw [hftc, hrhs]
+    _ = (n : ℂ) ^ (-s) - ((n + 1 : ℕ) : ℂ) ^ (-s) := by ring
+
+private lemma intervalIntegrable_mertensReal_cpow_unit (s : ℂ) (n : ℕ) (hn : 1 ≤ n) :
+    IntervalIntegrable (fun x : ℝ => mertensReal x * (x : ℂ) ^ (-s - 1)) volume
+      (n : ℝ) ((n + 1 : ℕ) : ℝ) := by
+  have hle : (n : ℝ) ≤ ((n + 1 : ℕ) : ℝ) := by exact_mod_cast Nat.le_succ n
+  have hn_pos : (0 : ℝ) < (n : ℝ) := Nat.cast_pos.mpr hn
+  have hcont : ContinuousOn (fun x : ℝ => mertensReal (n : ℝ) * (x : ℂ) ^ (-s - 1))
+      (Set.uIcc (n : ℝ) ((n + 1 : ℕ) : ℝ)) := by
+    intro x hx
+    rw [Set.uIcc_of_le hle] at hx
+    have hx_pos : 0 < x := lt_of_lt_of_le hn_pos hx.1
+    have hc : ContinuousAt (fun z : ℂ => z ^ (-s - 1)) (x : ℂ) :=
+      ((hasDerivAt_id (x : ℂ)).cpow_const (Complex.ofReal_mem_slitPlane.mpr hx_pos)).continuousAt
+    exact (continuousAt_const.mul (hc.comp Complex.continuous_ofReal.continuousAt)).continuousWithinAt
+  have h_eq : Set.EqOn (fun x : ℝ => mertensReal (n : ℝ) * (x : ℂ) ^ (-s - 1))
+      (fun x : ℝ => mertensReal x * (x : ℂ) ^ (-s - 1)) (Set.Ioo (n : ℝ) ((n + 1 : ℕ) : ℝ)) := by
+    intro x hx
+    have hfl : ⌊x⌋₊ = n := (Nat.floor_eq_iff (hn_pos.le.trans hx.1.le)).mpr
+      ⟨hx.1.le, by simpa using hx.2⟩
+    dsimp only
+    unfold mertensReal
+    rw [Nat.floor_natCast, hfl]
+  have hint_oo : IntegrableOn (fun x : ℝ => mertensReal x * (x : ℂ) ^ (-s - 1))
+      (Set.Ioo (n : ℝ) ((n + 1 : ℕ) : ℝ)) volume :=
+    (hcont.integrableOn_uIcc.mono_set (by rw [Set.uIcc_of_le hle]; exact Set.Ioo_subset_Icc_self)).congr_fun h_eq measurableSet_Ioo
+  rw [intervalIntegrable_iff_integrableOn_Ioc_of_le hle]
+  exact hint_oo.congr_set_ae MeasureTheory.Ioo_ae_eq_Ioc.symm
+
+private lemma mertensReal_unit_interval_integral (s : ℂ) (n : ℕ) (hn : 1 ≤ n) :
+    s * ∫ x in (n : ℝ)..((n + 1 : ℕ) : ℝ), mertensReal x * (x : ℂ) ^ (-s - 1) =
+      mertensReal n * ((n : ℂ) ^ (-s) - ((n + 1 : ℕ) : ℂ) ^ (-s)) := by
+  have hle : (n : ℝ) ≤ ((n + 1 : ℕ) : ℝ) := by exact_mod_cast Nat.le_succ n
+  have h_eq : Set.EqOn (fun x : ℝ => mertensReal x * (x : ℂ) ^ (-s - 1))
+      (fun x : ℝ => mertensReal n * (x : ℂ) ^ (-s - 1)) (Set.Ioo (n : ℝ) ((n + 1 : ℕ) : ℝ)) := by
+    intro x hx
+    have hx_nonneg : 0 ≤ x := le_trans (Nat.cast_nonneg n) hx.1.le
+    have hfl : ⌊x⌋₊ = n := (Nat.floor_eq_iff hx_nonneg).mpr ⟨hx.1.le, by simpa using hx.2⟩
+    dsimp only
+    unfold mertensReal
+    rw [hfl, Nat.floor_natCast]
+  rw [intervalIntegral.integral_of_le hle, MeasureTheory.integral_Ioc_eq_integral_Ioo]
+  rw [MeasureTheory.setIntegral_congr_fun measurableSet_Ioo h_eq]
+  rw [← MeasureTheory.integral_Ioc_eq_integral_Ioo, ← intervalIntegral.integral_of_le hle]
+  rw [intervalIntegral.integral_const_mul]
+  calc s * (mertensReal n * ∫ x in (n : ℝ)..((n + 1 : ℕ) : ℝ), (x : ℂ) ^ (-s - 1))
+      = mertensReal n * (s * ∫ x in (n : ℝ)..((n + 1 : ℕ) : ℝ), (x : ℂ) ^ (-s - 1)) := by ring
+    _ = mertensReal n * ((n : ℂ) ^ (-s) - ((n + 1 : ℕ) : ℂ) ^ (-s)) := by
+        rw [unit_interval_cpow_integral s n hn]
+
+/-- Continuous Abel summation (Stieltjes integration by parts) identity for finite Möbius Dirichlet sums. -/
+theorem mertens_abel_integral_finset (N : ℕ) (hN : 1 ≤ N) (s : ℂ) :
+    ∑ n ∈ Finset.Icc 1 N, (ArithmeticFunction.moebius n : ℂ) * (n : ℂ) ^ (-s) =
+      mertensReal N * (N : ℂ) ^ (-s) +
+        s * ∫ x in (1 : ℝ)..(N : ℝ), mertensReal x * (x : ℂ) ^ (-s - 1) := by
+  suffices h : (∑ n ∈ Finset.Icc 1 N, (ArithmeticFunction.moebius n : ℂ) * (n : ℂ) ^ (-s) =
+      mertensReal N * (N : ℂ) ^ (-s) +
+        s * ∫ x in (1 : ℝ)..(N : ℝ), mertensReal x * (x : ℂ) ^ (-s - 1)) ∧
+      IntervalIntegrable (fun x : ℝ => mertensReal x * (x : ℂ) ^ (-s - 1)) volume (1 : ℝ) (N : ℝ) by
+    exact h.1
+  induction N, hN using Nat.le_induction with
+  | base =>
+    refine ⟨?_, ?_⟩
+    · simp [mertensReal]
+    · simp only [Nat.cast_one]
+      exact IntervalIntegrable.refl
+  | succ k hk ih =>
+    rcases ih with ⟨ih_eq, ih_int⟩
+    have hint_k : IntervalIntegrable (fun x : ℝ => mertensReal x * (x : ℂ) ^ (-s - 1)) volume
+        (k : ℝ) ((k + 1 : ℕ) : ℝ) := intervalIntegrable_mertensReal_cpow_unit s k hk
+    have hint_succ : IntervalIntegrable (fun x : ℝ => mertensReal x * (x : ℂ) ^ (-s - 1)) volume
+        (1 : ℝ) ((k + 1 : ℕ) : ℝ) := ih_int.trans hint_k
+    refine ⟨?_, hint_succ⟩
+    rw [show Finset.Icc 1 (k + 1) = insert (k + 1) (Finset.Icc 1 k) from by
+      ext m; simp only [Finset.mem_Icc, Finset.mem_insert]; constructor <;> omega]
+    rw [Finset.sum_insert (by simp), ih_eq]
+    have hsplit : ∫ x in (1 : ℝ)..((k + 1 : ℕ) : ℝ), mertensReal x * (x : ℂ) ^ (-s - 1) =
+        (∫ x in (1 : ℝ)..(k : ℝ), mertensReal x * (x : ℂ) ^ (-s - 1)) +
+        ∫ x in (k : ℝ)..((k + 1 : ℕ) : ℝ), mertensReal x * (x : ℂ) ^ (-s - 1) :=
+      (intervalIntegral.integral_add_adjacent_intervals ih_int hint_k).symm
+    have h_step : (ArithmeticFunction.moebius (k + 1) : ℂ) =
+        mertensReal ((k + 1 : ℕ) : ℝ) - mertensReal (k : ℝ) := by
+      unfold mertensReal
+      rw [Nat.floor_natCast, Nat.floor_natCast]
+      rw [show Finset.Icc 1 (k + 1) = insert (k + 1) (Finset.Icc 1 k) from by
+        ext m; simp only [Finset.mem_Icc, Finset.mem_insert]; constructor <;> omega]
+      rw [Finset.sum_insert (by simp)]
+      ring
+    have hunit := mertensReal_unit_interval_integral s k hk
+    have hcomb : (mertensReal ((k + 1 : ℕ) : ℝ) - mertensReal (k : ℝ)) * ((k + 1 : ℕ) : ℂ) ^ (-s) +
+          (mertensReal (k : ℝ) * (k : ℂ) ^ (-s) +
+            s * (∫ x in (1 : ℝ)..(k : ℝ), mertensReal x * (x : ℂ) ^ (-s - 1))) =
+        mertensReal ((k + 1 : ℕ) : ℝ) * ((k + 1 : ℕ) : ℂ) ^ (-s) +
+          (s * (∫ x in (1 : ℝ)..(k : ℝ), mertensReal x * (x : ℂ) ^ (-s - 1)) +
+           mertensReal (k : ℝ) * ((k : ℂ) ^ (-s) - ((k + 1 : ℕ) : ℂ) ^ (-s))) := by ring
+    rw [h_step, hcomb, ← hunit, hsplit, mul_add]
+
+/-- Vanishing of the boundary term `M(N) * N^(-s) → 0` for `Re(s) > 1`. -/
+theorem mertens_boundary_decay {s : ℂ} (hs : 1 < s.re) :
+    Tendsto (fun N : ℕ => mertensReal N * (N : ℂ) ^ (-s)) atTop (nhds 0) := by
+  have h_tend : Tendsto (fun N : ℕ => (N : ℝ) ^ (1 - s.re)) atTop (nhds 0) := by
+    have hlt : 0 < s.re - 1 := by linarith
+    have h1 := (tendsto_rpow_neg_atTop hlt).comp tendsto_natCast_atTop_atTop
+    exact h1.congr (fun N => by simp only [Function.comp_apply, neg_sub])
+  refine squeeze_zero_norm' ?_ h_tend
+  filter_upwards [eventually_ge_atTop 1] with N hN
+  have hN_pos : (0 : ℝ) < (N : ℝ) := Nat.cast_pos.mpr hN
+  rw [norm_mul, Complex.norm_natCast_cpow_of_pos hN]
+  have hrhs : (N : ℝ) * (N : ℝ) ^ (-s.re) = (N : ℝ) ^ (1 - s.re) := by
+    have h1 : (N : ℝ) * (N : ℝ) ^ (-s.re) = (N : ℝ) ^ (1 : ℝ) * (N : ℝ) ^ (-s.re) := by
+      rw [Real.rpow_one]
+    rw [h1, ← Real.rpow_add hN_pos]
+    congr 1
+  exact hrhs ▸ mul_le_mul_of_nonneg_right
+    (norm_mertensReal_le N (by exact_mod_cast hN)) (Real.rpow_nonneg hN_pos.le _)
+
+end AbelSummation
 
 /-- Lemma 5.15: Non-vanishing of invertible reciprocal. -/
 theorem ne_zero_of_reciprocal_product {s : ℂ} {I_s : ℂ} (h : riemannZeta s * I_s = 1) :

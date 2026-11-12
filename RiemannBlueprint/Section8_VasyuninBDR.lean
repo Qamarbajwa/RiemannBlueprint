@@ -1,5 +1,8 @@
 import Mathlib.Analysis.SpecialFunctions.Pow.Complex
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
+import Mathlib.Data.Matrix.Basic
+import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
+import Mathlib.Analysis.Complex.CauchyIntegral
 
 /-!
 # Section 8: Rank-4 Boundary-Dirichlet Reduction (BDR) of the Smooth Vasyunin Kernel
@@ -168,5 +171,143 @@ theorem constrained_nb_bdr_collapse (gamma_E Q_cot : ℝ) (c : ℕ → ℝ) (N :
   ring
 
 end BoundaryFunctionals
+
+section Rank4AndL2Calculus
+
+open intervalIntegral Matrix
+
+/-- The `4 × 4` leading principal basis block `U₄` evaluated on `k ∈ {1, 2, 3, 4}`. -/
+noncomputable def U4 : Matrix (Fin 4) (Fin 4) ℝ :=
+  ![![1, 0, 1, 0],
+    ![1, Real.log 2, 1 / 2, Real.log 2 / 2],
+    ![1, Real.log 3, 1 / 3, Real.log 3 / 3],
+    ![1, Real.log 4, 1 / 4, Real.log 4 / 4]]
+
+private lemma sa_00 : Fin.succAbove (0 : Fin 4) 0 = 1 := by decide
+private lemma sa_01 : Fin.succAbove (0 : Fin 4) 1 = 2 := by decide
+private lemma sa_02 : Fin.succAbove (0 : Fin 4) 2 = 3 := by decide
+private lemma sa_10 : Fin.succAbove (1 : Fin 4) 0 = 0 := by decide
+private lemma sa_11 : Fin.succAbove (1 : Fin 4) 1 = 2 := by decide
+private lemma sa_12 : Fin.succAbove (1 : Fin 4) 2 = 3 := by decide
+private lemma sa_20 : Fin.succAbove (2 : Fin 4) 0 = 0 := by decide
+private lemma sa_21 : Fin.succAbove (2 : Fin 4) 1 = 1 := by decide
+private lemma sa_22 : Fin.succAbove (2 : Fin 4) 2 = 3 := by decide
+private lemma sa_30 : Fin.succAbove (3 : Fin 4) 0 = 0 := by decide
+private lemma sa_31 : Fin.succAbove (3 : Fin 4) 1 = 1 := by decide
+private lemma sa_32 : Fin.succAbove (3 : Fin 4) 2 = 2 := by decide
+
+/-- Exact closed-form determinant `det U₄ = (ln 2 / 24) * ln (256 / 243)`. -/
+theorem det_U4_eq_log_ratio :
+    Matrix.det U4 = (Real.log 2 / 24) * Real.log (256 / 243 : ℝ) := by
+  rw [Matrix.det_succ_row_zero, Fin.sum_univ_four]
+  simp only [Matrix.det_fin_three, Matrix.submatrix_apply, Fin.succ_zero_eq_one,
+    Fin.succ_one_eq_two]
+  have f2 : Fin.succ (2 : Fin 3) = 3 := rfl
+  simp only [f2, sa_00, sa_01, sa_02, sa_10, sa_11, sa_12, sa_20, sa_21, sa_22,
+    sa_30, sa_31, sa_32, U4]
+  norm_num [Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_two, Matrix.cons_val_three]
+  have h4 : Real.log 4 = 2 * Real.log 2 := by
+    rw [show (4 : ℝ) = (2 : ℝ) ^ (2 : ℕ) by norm_num, Real.log_pow]; norm_num
+  have h256 : Real.log (256 : ℝ) = 8 * Real.log 2 := by
+    rw [show (256 : ℝ) = (2 : ℝ) ^ (8 : ℕ) by norm_num, Real.log_pow]; norm_num
+  have h243 : Real.log (243 : ℝ) = 5 * Real.log 3 := by
+    rw [show (243 : ℝ) = (3 : ℝ) ^ (5 : ℕ) by norm_num, Real.log_pow]; norm_num
+  have hdiv : Real.log (256 / 243 : ℝ) = Real.log 256 - Real.log 243 :=
+    Real.log_div (by norm_num) (by norm_num)
+  rw [h4, hdiv, h256, h243]
+  ring
+
+/-- Strict positivity `det U₄ > 0`, certifying full column rank 4 for all `N ≥ 4`. -/
+theorem det_U4_pos : 0 < Matrix.det U4 := by
+  rw [det_U4_eq_log_ratio]
+  have h1 : 0 < Real.log 2 := Real.log_pos (by norm_num)
+  have h2 : 0 < Real.log (256 / 243 : ℝ) := Real.log_pos (by norm_num)
+  positivity
+
+/-- Unit determinant of `U₄` over `ℝ`. -/
+theorem U4_isUnit_det : IsUnit (Matrix.det U4) := det_U4_pos.ne'.isUnit
+
+/-- The symmetric `4 × 4` rank-4 smooth Vasyunin core matrix `M₄(c₀)` with `c₀ = ln(2π) - γ`. -/
+noncomputable def M4 (c0 : ℝ) : Matrix (Fin 4) (Fin 4) ℝ :=
+  ![![0, 0, c0 / 2, 1 / 2],
+    ![0, 0, -1 / 2, 0],
+    ![c0 / 2, -1 / 2, -1, 0],
+    ![1 / 2, 0, 0, 0]]
+
+/-- Exact determinant `det M₄(c₀) = 1 / 16` independent of `c₀ = ln(2π) - γ`. -/
+theorem det_M4_eq (c0 : ℝ) : Matrix.det (M4 c0) = 1 / 16 := by
+  rw [Matrix.det_succ_row_zero, Fin.sum_univ_four]
+  simp only [Matrix.det_fin_three, Matrix.submatrix_apply, Fin.succ_zero_eq_one,
+    Fin.succ_one_eq_two]
+  have f2 : Fin.succ (2 : Fin 3) = 3 := rfl
+  simp only [f2, sa_00, sa_01, sa_02, sa_10, sa_11, sa_12, sa_20, sa_21, sa_22,
+    sa_30, sa_31, sa_32, M4]
+  norm_num [Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_two, Matrix.cons_val_three]
+
+/-- Strict non-singularity `0 < det M₄(c₀)`. -/
+theorem det_M4_pos (c0 : ℝ) : 0 < Matrix.det (M4 c0) := by
+  rw [det_M4_eq]; norm_num
+
+/-- Total isotropy of the top-left `2 × 2` block of `M₄` (forcing signature `(2, 2)`). -/
+theorem M4_top_left_isotropic (c0 : ℝ) (i j : Fin 2) :
+    M4 c0 (Fin.castAdd 2 i) (Fin.castAdd 2 j) = 0 := by
+  fin_cases i <;> fin_cases j <;> simp [M4]
+
+/-- Exact `L²(0, 1)` dilation integral `∫_{1/k}^1 (1 / (kx)) dx = (ln k) / k`. -/
+theorem intervalIntegral_linear_dilation (k : ℕ) (hk : 1 ≤ k) :
+    ∫ x in ((1 : ℝ) / (k : ℝ))..(1 : ℝ), (1 : ℝ) / ((k : ℝ) * x) = Real.log (k : ℝ) / (k : ℝ) := by
+  have hk_pos : (0 : ℝ) < (k : ℝ) := Nat.cast_pos.mpr hk
+  have hle : (1 : ℝ) / (k : ℝ) ≤ 1 := div_le_one_of_le₀ (by exact_mod_cast hk) hk_pos.le
+  have h_deriv : ∀ x ∈ Set.uIcc ((1 : ℝ) / (k : ℝ)) (1 : ℝ),
+      HasDerivAt (fun y : ℝ => Real.log y / (k : ℝ)) ((1 : ℝ) / ((k : ℝ) * x)) x := by
+    intro x hx
+    rw [Set.uIcc_of_le hle] at hx
+    have hx_pos : 0 < x := lt_of_lt_of_le (div_pos one_pos hk_pos) hx.1
+    simpa [div_eq_mul_inv, mul_comm, mul_left_comm, mul_assoc] using
+      (Real.hasDerivAt_log hx_pos.ne').div_const (k : ℝ)
+  have h_cont : ContinuousOn (fun x : ℝ => (1 : ℝ) / ((k : ℝ) * x))
+      (Set.uIcc ((1 : ℝ) / (k : ℝ)) (1 : ℝ)) := by
+    intro x hx
+    rw [Set.uIcc_of_le hle] at hx
+    have hx_pos : 0 < x := lt_of_lt_of_le (div_pos one_pos hk_pos) hx.1
+    exact (continuousAt_const.div (continuousAt_const.mul continuousAt_id)
+      (mul_ne_zero hk_pos.ne' hx_pos.ne')).continuousWithinAt
+  have hftc := intervalIntegral.integral_eq_sub_of_hasDerivAt h_deriv h_cont.intervalIntegrable
+  rw [hftc, Real.log_one, zero_div, zero_sub, one_div, Real.log_inv]
+  ring
+
+/-- Exact `L²(0, 1)` dilation energy `∫_{1/k}^1 (1 / (kx))² dx = 1/k - 1/k²`. -/
+theorem intervalIntegral_sq_dilation (k : ℕ) (hk : 1 ≤ k) :
+    ∫ x in ((1 : ℝ) / (k : ℝ))..(1 : ℝ), ((1 : ℝ) / ((k : ℝ) * x)) ^ 2 =
+      1 / (k : ℝ) - 1 / ((k : ℝ) ^ 2) := by
+  have hk_pos : (0 : ℝ) < (k : ℝ) := Nat.cast_pos.mpr hk
+  have hle : (1 : ℝ) / (k : ℝ) ≤ 1 := div_le_one_of_le₀ (by exact_mod_cast hk) hk_pos.le
+  have h_deriv : ∀ x ∈ Set.uIcc ((1 : ℝ) / (k : ℝ)) (1 : ℝ),
+      HasDerivAt (fun y : ℝ => -(1 : ℝ) / ((k : ℝ) ^ 2 * y))
+        (((1 : ℝ) / ((k : ℝ) * x)) ^ 2) x := by
+    intro x hx
+    rw [Set.uIcc_of_le hle] at hx
+    have hx_pos : 0 < x := lt_of_lt_of_le (div_pos one_pos hk_pos) hx.1
+    have hinv : HasDerivAt (fun y : ℝ => y⁻¹) (-(x ^ 2)⁻¹) x := hasDerivAt_inv hx_pos.ne'
+    have hconst := hinv.const_mul (-(1 : ℝ) / (k : ℝ) ^ 2)
+    have hEq : (fun y : ℝ => (-(1 : ℝ) / (k : ℝ) ^ 2) * y⁻¹) =
+        (fun y : ℝ => -(1 : ℝ) / ((k : ℝ) ^ 2 * y)) := by
+      funext y; ring
+    rw [hEq] at hconst
+    convert hconst using 1
+    field_simp [hk_pos.ne', hx_pos.ne']
+  have h_cont : ContinuousOn (fun x : ℝ => ((1 : ℝ) / ((k : ℝ) * x)) ^ 2)
+      (Set.uIcc ((1 : ℝ) / (k : ℝ)) (1 : ℝ)) := by
+    intro x hx
+    rw [Set.uIcc_of_le hle] at hx
+    have hx_pos : 0 < x := lt_of_lt_of_le (div_pos one_pos hk_pos) hx.1
+    exact ((continuousAt_const.div (continuousAt_const.mul continuousAt_id)
+      (mul_ne_zero hk_pos.ne' hx_pos.ne')).pow 2).continuousWithinAt
+  have hftc := intervalIntegral.integral_eq_sub_of_hasDerivAt h_deriv h_cont.intervalIntegrable
+  rw [hftc]
+  field_simp [hk_pos.ne']
+  ring
+
+end Rank4AndL2Calculus
 
 end RiemannBlueprint.Section8_VasyuninBDR

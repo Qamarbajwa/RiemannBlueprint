@@ -908,6 +908,16 @@ M(x) \coloneqq \sum_{1 \le n \le x} \mu(n).
 \end{equation}
 \end{definition}
 
+\begin{lemma}[Discrete and Continuous Abel Summation of $M(x)$]
+\label{lem:abel_mertens_identity}
+\lean{RiemannBlueprint.Section5_MobiusMertens.mertensReal, RiemannBlueprint.Section5_MobiusMertens.abel_summation_moebius_finset, RiemannBlueprint.Section5_MobiusMertens.norm_mertensReal_le, RiemannBlueprint.Section5_MobiusMertens.mertens_abel_integral_finset, RiemannBlueprint.Section5_MobiusMertens.mertens_boundary_decay}
+\uses{def:mertens_function}
+\leanok
+For every integer $N \ge 1$ and $s \in \Cfield$, the finite partial sum obeys exact summation by parts and Fundamental Theorem of Calculus integration:
+$$\sum_{n=1}^N \frac{\mu(n)}{n^s} = \frac{M(N)}{N^s} + s \int_1^N \frac{M(x)}{x^{s+1}} \, \dee x,$$
+with trivial bound $|M(x)| \le x$ ($x \ge 1$) and boundary decay $M(N) N^{-s} \to 0$ whenever $\operatorname{Re}(s) > 1$.
+\end{lemma}
+
 \begin{lemma}[Mellin Transform Representation of $1/\zeta(s)$]
 \label{lem:mellin_reciprocal_zeta}
 \uses{def:mertens_function}
@@ -1420,6 +1430,14 @@ To bridge discrete BNBD projections with critical-strip boundary behavior, we fo
 For $c : \Nset \to \Rset$ and $N \in \Nset$, define $D_N(0) = \sum_{k=1}^N c_k$, $D_N'(0) = -\sum_{k=1}^N c_k \ln k$, $D_N(1) = \sum_{k=1}^N c_k/k$, $D_N'(1) = -\sum_{k=1}^N (c_k \ln k)/k$, $U_N = [\mathbf{e}, \mathbf{l}, \mathbf{h}, \mathbf{m}] \in \Rset^{N \times 4}$, $4 \times 4$ core $M_4$ ($\det M_4 = 1/16$), and $G_{j,k}^{(\mathrm{smooth})} = \frac{(\ln(2\pi)-\gamma)(j+k) + (j-k)\ln(k/j) - 2}{2jk}$.
 \end{definition}
 
+\begin{lemma}[Exact $4 \times 4$ Determinants and Dilated $L^2(0,1)$ Integrals]
+\label{lem:rank4_det_and_dilations}
+\lean{RiemannBlueprint.Section8_VasyuninBDR.U4, RiemannBlueprint.Section8_VasyuninBDR.det_U4_eq_log_ratio, RiemannBlueprint.Section8_VasyuninBDR.det_U4_pos, RiemannBlueprint.Section8_VasyuninBDR.U4_isUnit_det, RiemannBlueprint.Section8_VasyuninBDR.M4, RiemannBlueprint.Section8_VasyuninBDR.det_M4_eq, RiemannBlueprint.Section8_VasyuninBDR.det_M4_pos, RiemannBlueprint.Section8_VasyuninBDR.M4_top_left_isotropic, RiemannBlueprint.Section8_VasyuninBDR.intervalIntegral_linear_dilation, RiemannBlueprint.Section8_VasyuninBDR.intervalIntegral_sq_dilation}
+\uses{def:bdr_functionals}
+\leanok
+The leading principal basis matrix $U_4$ and smooth core $M_4(c_0)$ satisfy $\det U_4 = \frac{\ln 2}{24}\ln\!\left(\frac{256}{243}\right) > 0$, $\det M_4(c_0) = \frac{1}{16} > 0$, and $M_4(c_0)_{i,j} = 0$ on the top-left $2 \times 2$ isotropic block; moreover, for every $k \ge 1$, $\int_{1/k}^1 \frac{\dee x}{k x} = \frac{\ln k}{k}$ and $\int_{1/k}^1 \frac{\dee x}{(k x)^2} = \frac{1}{k} - \frac{1}{k^2}$.
+\end{lemma}
+
 \begin{lemma}[Pointwise Rank-4 Outer-Product Factorization]
 \label{lem:gsmooth_rank4}
 \lean{RiemannBlueprint.Section8_VasyuninBDR.GSmooth_eq_rank4, RiemannBlueprint.Section8_VasyuninBDR.b_dot_c_eq_boundary}
@@ -1503,7 +1521,7 @@ Our investigation yields three fundamental conclusions for analytic number theor
 \label{rem:lean_classical_interface}
 \lean{RiemannBlueprint.ClassicalAnalyticInterface}
 \leanok
-In the formal Lean 4 companion library, all arithmetic foundations, pointwise and finite partial-sum partitions, unconditional Dirichlet series splittings for $\operatorname{Re}(s) > 1$ ($\zeta(s) = 1 + P(s) + \zeta_C(s)$ and $(\mu * \zeta_{\mathbb{Z}}) = 1$), zero reflection symmetry about $\operatorname{Re}(s) = 1/2$, Littlewood's forward theorem $M(x) = \mathcal{O}(x^{1/2+\epsilon}) \implies \mathrm{RH}$ (\texttt{LittlewoodForward.lean}), critical-strip divergence obstructions, and the unitary phasor modulus $|\chi(1/2 + i t)| = 1$ are proved directly from Mathlib4 primitives with zero custom axioms. Only the three remaining external complex-analytic theorems not yet internalized in Mathlib4 (natural boundary of $\zeta_C(s)$ at $\operatorname{Re}(s) = 0$, Perron contour shift $\mathrm{RH} \implies M(x) = \mathcal{O}(x^{1/2+\epsilon})$, and Riemann's Explicit Formula equivalence) are bundled inside the explicit hypothesis structure \texttt{ClassicalAnalyticInterface}, ensuring every theorem audits cleanly with \texttt{\#print axioms} returning strictly \texttt{[propext, Classical.choice, Quot.sound]}.
+In the formal Lean 4 companion library, all arithmetic foundations, pointwise and finite partial-sum partitions, unconditional Dirichlet series splittings for $\operatorname{Re}(s) > 1$ ($\zeta(s) = 1 + P(s) + \zeta_C(s)$ and $(\mu * \zeta_{\mathbb{Z}}) = 1$), discrete and continuous Abel summation of $M(x)$ with $M(N)N^{-s} \to 0$, zero reflection symmetry about $\operatorname{Re}(s) = 1/2$, Littlewood's forward theorem $M(x) = \mathcal{O}(x^{1/2+\epsilon}) \implies \mathrm{RH}$ (\texttt{LittlewoodForward.lean}), critical-strip divergence obstructions, unitary phasor modulus $|\chi(1/2 + i t)| = 1$, exact $4 \times 4$ determinants ($\det U_4 > 0, \det M_4 = 1/16$), dilated $L^2(0,1)$ integral evaluations, and Rank-4 BDR collapses are proved directly from Mathlib4 primitives with zero custom axioms ($82$ unconditional theorems across the $9$ imported modules plus $7$ standalone theorems in \texttt{MathlibPR\_LittlewoodMertens.lean}). Only the three remaining external complex-analytic theorems not yet internalized in Mathlib4 (natural boundary of $\zeta_C(s)$ at $\operatorname{Re}(s) = 0$, Perron contour shift $\mathrm{RH} \implies M(x) = \mathcal{O}(x^{1/2+\epsilon})$, and Riemann's Explicit Formula equivalence) are bundled inside the explicit hypothesis structure \texttt{ClassicalAnalyticInterface} ($4$ conditional theorems), ensuring every theorem audits cleanly with \texttt{\#print axioms} returning strictly \texttt{[propext, Classical.choice, Quot.sound]}.
 \end{remark}
 
 % ===========================================================================

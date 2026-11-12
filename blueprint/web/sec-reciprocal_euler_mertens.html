@@ -226,7 +226,7 @@
   </div>
   <div class="theorem_thmcontent">
   <p>   For every complex number \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the reciprocal of the Riemann zeta function admits the absolutely convergent Euler product expansion: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C7FDEFF0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001B3F1EEEFF0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:reciprocal_euler_product} \frac{1}{\zeta (s)} = \prod _{p \in \mathbb {P}} \left(1 - \frac{1}{p^s}\right). \end{equation}
@@ -235,7 +235,7 @@
 </p>
 </div>
 <p> Furthermore, the term-by-term expansion of this product across the Fundamental Theorem of Arithmetic yields the Dirichlet series: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C7FDF530>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001B3F1EEF530>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:mobius_dirichlet_series} \frac{1}{\zeta (s)} = \sum _{n=1}^\infty \frac{\mu (n)}{n^s}, \end{equation}
@@ -362,7 +362,7 @@
   </div>
   <div class="proposition_thmcontent">
   <p>    For \(\operatorname {Re}(s) {\gt} 1\), the reciprocal zeta function decomposes into the exact tripartite identity: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C8032E10>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001B3F1F42E10>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:reciprocal_partition} \frac{1}{\zeta (s)} = 1 - P(s) + \zeta _{\mu , C}(s), \end{equation}
@@ -371,7 +371,7 @@
 </p>
 </div>
 <p> where \(P(s) = \sum _{p \in \mathbb {P}} p^{-s}\) is the Prime Zeta function, and \(\zeta _{\mu , C}(s)\) is the Möbius-signed Composite Dirichlet Series: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C8033290>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001B3F1F43290>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:mobius_composite_series} \zeta _{\mu , C}(s) \coloneqq \sum _{c \in \mathbb {C}_{\mathrm{comp}}} \frac{\mu (c)}{c^s} = \sum _{\substack {c \in \mathbb {C}_{\mathrm{comp}}\\ \mu (c) \neq 0}} \frac{(-1)^{\omega (c)}}{c^s}. \end{equation}
@@ -486,7 +486,7 @@
   </div>
   <div class="definition_thmcontent">
   <p>   The Mertens function \(M : [1, \infty ) \to \mathbb {Z}\) is the summatory function of the Möbius function: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C805DBB0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001B3F1F6DBB0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:mertens_def} M(x) \coloneqq \sum _{1 \le n \le x} \mu (n). \end{equation}
@@ -497,12 +497,88 @@
 
   </div>
 </div>
-<div class="lemma_thmwrapper theorem-style-plain" id="lem:mellin_reciprocal_zeta">
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:abel_mertens_identity">
   <div class="lemma_thmheading">
     <span class="lemma_thmcaption">
     Lemma
     </span>
     <span class="lemma_thmlabel">0.5.5</span>
+    <span class="lemma_thmtitle">Discrete and Continuous Abel Summation of \(M(x)\)</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#lem:abel_mertens_identity">#</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="sec-reciprocal_euler_mertens.html#def:mertens_function">Definition 0.5.4</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section5_MobiusMertens.mertensReal" class="lean_decl">RiemannBlueprint.Section5_MobiusMertens.mertensReal</a></li>
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section5_MobiusMertens.abel_summation_moebius_finset" class="lean_decl">RiemannBlueprint.Section5_MobiusMertens.abel_summation_moebius_finset</a></li>
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section5_MobiusMertens.norm_mertensReal_le" class="lean_decl">RiemannBlueprint.Section5_MobiusMertens.norm_mertensReal_le</a></li>
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section5_MobiusMertens.mertens_abel_integral_finset" class="lean_decl">RiemannBlueprint.Section5_MobiusMertens.mertens_abel_integral_finset</a></li>
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section5_MobiusMertens.mertens_boundary_decay" class="lean_decl">RiemannBlueprint.Section5_MobiusMertens.mertens_boundary_decay</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>    For every integer \(N \ge 1\) and \(s \in \mathbb {C}\), the finite partial sum obeys exact summation by parts and Fundamental Theorem of Calculus integration: </p>
+<div class="displaymath" id="a0000000136">
+  \[ \sum _{n=1}^N \frac{\mu (n)}{n^s} = \frac{M(N)}{N^s} + s \int _1^N \frac{M(x)}{x^{s+1}} \,  \mathrm{d}x, \]
+</div>
+<p> with trivial bound \(|M(x)| \le x\) (\(x \ge 1\)) and boundary decay \(M(N) N^{-s} \to 0\) whenever \(\operatorname {Re}(s) {\gt} 1\). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:mellin_reciprocal_zeta">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">0.5.6</span>
     <span class="lemma_thmtitle">Mellin Transform Representation of \(1/\zeta (s)\)</span>
     <div class="thm_header_extras">
 
@@ -513,7 +589,7 @@
 
     <a class="icon proof" href="sec-reciprocal_euler_mertens.html#lem:mellin_reciprocal_zeta">#</a>
     
-    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#a0000000136"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#a0000000137"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -542,7 +618,7 @@
   </div>
   <div class="lemma_thmcontent">
   <p>   For every \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the reciprocal Riemann zeta function can be expressed as the Laplace–Mellin integral of the Mertens function: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C805DB50>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001B3F1F6E450>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:reciprocal_mellin} \frac{1}{\zeta (s)} = s \int _1^\infty \frac{M(x)}{x^{s+1}} \,  \mathrm{d}x. \end{equation}
@@ -553,7 +629,7 @@
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000136">
+<div class="proof_wrapper" id="a0000000137">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -562,15 +638,15 @@
   </div>
   <div class="proof_content">
   <p>Let \(s = \sigma + i t\) with \(\sigma {\gt} 1\). We apply Abel summation (integration by parts of the Riemann–Stieltjes integral) to the partial sums of the Dirichlet series \(\sum _{n=1}^N \mu (n) n^{-s}\): </p>
-<div class="displaymath" id="a0000000137">
+<div class="displaymath" id="a0000000138">
   \[ \sum _{n=1}^N \mu (n) n^{-s} = \int _{1^-}^N x^{-s} \,  \mathrm{d}M(x). \]
 </div>
 <p> Integrating by parts: </p>
-<div class="displaymath" id="a0000000138">
+<div class="displaymath" id="a0000000139">
   \[ \int _{1^-}^N x^{-s} \,  \mathrm{d}M(x) = \left[ M(x) x^{-s} \right]_{1^-}^N - \int _1^N M(x) \frac{\mathrm{d}}{\mathrm{d}x}(x^{-s}) \,  \mathrm{d}x. \]
 </div>
 <p> Since \(M(1^-) = 0\) and \(\frac{\mathrm{d}}{\mathrm{d}x}(x^{-s}) = -s x^{-s-1}\), we obtain: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C805F1D0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001B3F1F6FBF0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:abel_finite_mertens} \sum _{n=1}^N \frac{\mu (n)}{n^s} = \frac{M(N)}{N^s} + s \int _1^N \frac{M(x)}{x^{s+1}} \,  \mathrm{d}x. \end{equation}
@@ -579,23 +655,23 @@
 </p>
 </div>
 <p> We now analyze the boundary term as \(N \to \infty \). By the trivial bound \(|\mu (n)| \le 1\): </p>
-<div class="displaymath" id="a0000000139">
+<div class="displaymath" id="a0000000140">
   \[ |M(N)| = \left| \sum _{n \le N} \mu (n) \right| \le \sum _{n \le N} 1 = N. \]
 </div>
 <p> Therefore: </p>
-<div class="displaymath" id="a0000000140">
+<div class="displaymath" id="a0000000141">
   \[ \left| \frac{M(N)}{N^s} \right| = \frac{|M(N)|}{N^\sigma } \le \frac{N}{N^\sigma } = N^{1-\sigma }. \]
 </div>
 <p> Because \(\sigma {\gt} 1\), \(1 - \sigma {\lt} 0\), which implies: </p>
-<div class="displaymath" id="a0000000141">
+<div class="displaymath" id="a0000000142">
   \[ \lim _{N \to \infty } \frac{M(N)}{N^s} = 0. \]
 </div>
 <p> Furthermore, the improper integral converges absolutely: </p>
-<div class="displaymath" id="a0000000142">
+<div class="displaymath" id="a0000000143">
   \[ \int _1^\infty \left| \frac{M(x)}{x^{s+1}} \right| \mathrm{d}x \le \int _1^\infty \frac{x}{x^{\sigma +1}} \,  \mathrm{d}x = \int _1^\infty x^{-\sigma } \,  \mathrm{d}x = \left[ \frac{x^{1-\sigma }}{1-\sigma } \right]_1^\infty = \frac{1}{\sigma - 1} {\lt} \infty . \]
 </div>
 <p> Taking the limit \(N \to \infty \) on both sides of&#160;?? gives: </p>
-<div class="displaymath" id="a0000000143">
+<div class="displaymath" id="a0000000144">
   \[ \frac{1}{\zeta (s)} = \sum _{n=1}^\infty \frac{\mu (n)}{n^s} = s \int _1^\infty \frac{M(x)}{x^{s+1}} \,  \mathrm{d}x, \]
 </div>
 <p> which establishes&#160;??. </p>
@@ -603,14 +679,14 @@
   </div>
 </div>
 <h2 id="a0000000022">0.5.4 The Mertens–Riemann Equivalence Theorem</h2>
-<p>The integral representation&#160;?? forms a profound bridge between the rate of growth of the arithmetic sum \(M(x)\) and the location of the non-trivial zeros of \(\zeta (s)\). </p>
-<div class="theorem_thmwrapper theorem-style-plain" id="thm:mertens_riemann_equiv">
+<p>The integral representation&#160;?? forms a profound bridge between the rate of growth of the arithmetic sum \(M(x)\) and the location of the non-trivial zeros of \(\zeta (s)\). Notice that in our Lean&#160;4 library (<span class="ttfamily">LittlewoodForward.lean</span> and <span class="ttfamily">Section5_MobiusMertens.lean</span>), the forward direction (<b class="bfseries">Littlewood’s Theorem</b>, \(M(x) = \mathcal{O}(x^{1/2+\epsilon }) \implies \mathrm{RH}\)) is now proved <em>unconditionally</em> with zero custom axioms. </p>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:mertens_implies_rh">
   <div class="theorem_thmheading">
     <span class="theorem_thmcaption">
     Theorem
     </span>
-    <span class="theorem_thmlabel">0.5.6</span>
-    <span class="theorem_thmtitle">Mertens–Riemann Equivalence</span>
+    <span class="theorem_thmlabel">0.5.7</span>
+    <span class="theorem_thmtitle">Littlewood’s Forward Theorem (Unconditional in Lean&#160;4)</span>
     <div class="thm_header_extras">
 
     
@@ -618,9 +694,9 @@
         </div>
     <div class="thm_header_hidden_extras">
 
-    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#thm:mertens_riemann_equiv">#</a>
+    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#thm:mertens_implies_rh">#</a>
     
-    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#a0000000144"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#a0000000145"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -636,7 +712,94 @@
         
         <ul class="uses">
           
-          <li><a href="sec-reciprocal_euler_mertens.html#lem:mellin_reciprocal_zeta">Lemma 0.5.5</a></li>
+          <li><a href="sec-reciprocal_euler_mertens.html#lem:mellin_reciprocal_zeta">Lemma 0.5.6</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section5_MobiusMertens.mertens_implies_rh" class="lean_decl">RiemannBlueprint.Section5_MobiusMertens.mertens_implies_rh</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>    If \(M(x) = \mathcal{O}(x^{\frac{1}{2}+\epsilon })\) for every \(\epsilon {\gt} 0\), then \(\zeta (s)\) has no zeros in \(\{ s \in \mathbb {C}: \operatorname {Re}(s) {\gt} \frac{1}{2}\} \) (<span class="ttfamily">zero_free_re_gt_half_of_mertens</span>) and hence the Riemann Hypothesis holds. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000145">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Formalized unconditionally across Stages&#160;A–C in <span class="ttfamily">LittlewoodForward.lean</span>: </p>
+<ol class="enumerate">
+  <li><p><b class="bfseries">Stage A (<span class="ttfamily">riemannZeta_mul_mellinMertens_of_one_lt_re</span>):</b> Via Mathlib’s <span class="ttfamily">LSeries_eq_mul_integral’</span> and <span class="ttfamily">LSeries_one_mul_Lseries_moebius</span>, \(\zeta (s)\,  M_\zeta (s) = 1\) holds for \(\operatorname {Re}(s) {\gt} 1\), where \(M_\zeta (s) = s \int _1^\infty M(t) t^{-(s+1)}\, \mathrm{d}t\). </p>
+</li>
+  <li><p><b class="bfseries">Stage B (<span class="ttfamily">mellinMertens_differentiableAt</span>):</b> Rewriting \(M_\zeta (s) = s\, \mathcal{M}[\mathbf{1}_{(1,\infty )} M](-s)\) and applying <span class="ttfamily">mellin_differentiableAt_of_isBigO_rpow</span> yields complex differentiability across \(\{ s \in \mathbb {C}: \operatorname {Re}(s) {\gt} 1/2\} \). </p>
+</li>
+  <li><p><b class="bfseries">Stage C (<span class="ttfamily">mertens_inversion_of_bound</span>):</b> Applying <span class="ttfamily">AnalyticOnNhd.eqOn_of_preconnected_of_eventuallyEq</span> across three open convex domains covering \(\{ s : \operatorname {Re}(s) {\gt} 1/2\}  \setminus \{ 1\} \) (together with \(\zeta (1) \neq 0\) for the dummy evaluation at \(1\)) shows \(\zeta (s) \neq 0\) for \(\operatorname {Re}(s) {\gt} 1/2\); zero reflection (<span class="ttfamily">zeta_zero_reflection</span>) then implies \(\operatorname {Re}(\rho ) = 1/2\) for every non-trivial zero. </p>
+</li>
+</ol>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:mertens_riemann_equiv">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">0.5.8</span>
+    <span class="theorem_thmtitle">Mertens–Riemann Equivalence</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#thm:mertens_riemann_equiv">#</a>
+    
+    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#a0000000146"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="sec-reciprocal_euler_mertens.html#thm:mertens_implies_rh">Theorem 0.5.7</a></li>
           
         </ul>
     
@@ -668,7 +831,7 @@
   </div>
   <div class="theorem_thmcontent">
   <p>    The Riemann Hypothesis is equivalent to the statement that for every \(\epsilon {\gt} 0\): </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C80E1790>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x000001B3F1FEEAB0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:mertens_bound} M(x) = \mathcal{O}\left(x^{\frac{1}{2} + \epsilon }\right) \quad \text{as } x \to \infty . \end{equation}
@@ -680,7 +843,7 @@
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000144">
+<div class="proof_wrapper" id="a0000000146">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -691,28 +854,28 @@
   <p>We prove both directions of the equivalence: </p>
 <p><b class="bfseries">Direction 1:&#160;?? \(\implies \) Riemann Hypothesis.</b> </p>
 <p>Assume that for every \(\epsilon {\gt} 0\), \(M(x) = \mathcal{O}(x^{1/2 + \epsilon })\). Then for any fixed \(\epsilon {\gt} 0\), there exist constants \(C_\epsilon {\gt} 0\) and \(x_0 \ge 1\) such that for all \(x \ge 1\): </p>
-<div class="displaymath" id="a0000000145">
+<div class="displaymath" id="a0000000147">
   \[ |M(x)| \le C_\epsilon x^{\frac{1}{2} + \epsilon }. \]
 </div>
 <p> Consider the integral in&#160;??: </p>
-<div class="displaymath" id="a0000000146">
+<div class="displaymath" id="a0000000148">
   \[ I(s) \coloneqq s \int _1^\infty \frac{M(x)}{x^{s+1}} \,  \mathrm{d}x. \]
 </div>
 <p> We examine the domain of absolute convergence of this integral. For \(s = \sigma + i t\) with \(\sigma {\gt} \frac{1}{2} + \epsilon \): </p>
-<div class="displaymath" id="a0000000147">
+<div class="displaymath" id="a0000000149">
   \[ \int _1^\infty \left| \frac{M(x)}{x^{s+1}} \right| \mathrm{d}x \le C_\epsilon \int _1^\infty \frac{x^{\frac{1}{2} + \epsilon }}{x^{\sigma +1}} \,  \mathrm{d}x = C_\epsilon \int _1^\infty x^{-\left(\sigma - \frac{1}{2} - \epsilon + 1\right)} \,  \mathrm{d}x = \frac{C_\epsilon }{\sigma - \frac{1}{2} - \epsilon } {\lt} \infty . \]
 </div>
 <p> Thus, the integral converges absolutely and uniformly on any compact subset of the half-plane: </p>
-<div class="displaymath" id="a0000000148">
+<div class="displaymath" id="a0000000150">
   \[ U_\epsilon \coloneqq \left\{  s \in \mathbb {C}: \operatorname {Re}(s) {\gt} \frac{1}{2} + \epsilon \right\} . \]
 </div>
 <p> By standard complex analysis (differentiation under the integral sign), \(I(s)\) defines a holomorphic function on \(U_\epsilon \). Since \(\epsilon {\gt} 0\) was arbitrary, \(I(s)\) defines a holomorphic function on the entire half-plane: </p>
-<div class="displaymath" id="a0000000149">
+<div class="displaymath" id="a0000000151">
   \[ \mathcal{H}_{1/2} \coloneqq \left\{  s \in \mathbb {C}: \operatorname {Re}(s) {\gt} \frac{1}{2} \right\} . \]
 </div>
-<p> By Lemma&#160;<a href="sec-reciprocal_euler_mertens.html#lem:mellin_reciprocal_zeta">0.5.5</a>, \(I(s) = \frac{1}{\zeta (s)}\) on the half-plane \(\operatorname {Re}(s) {\gt} 1\). By the Identity Theorem for holomorphic functions, \(I(s)\) is the unique analytic continuation of \(1/\zeta (s)\) to the entire half-plane \(\mathcal{H}_{1/2}\). </p>
+<p> By Lemma&#160;<a href="sec-reciprocal_euler_mertens.html#lem:mellin_reciprocal_zeta">0.5.6</a>, \(I(s) = \frac{1}{\zeta (s)}\) on the half-plane \(\operatorname {Re}(s) {\gt} 1\). By the Identity Theorem for holomorphic functions, \(I(s)\) is the unique analytic continuation of \(1/\zeta (s)\) to the entire half-plane \(\mathcal{H}_{1/2}\). </p>
 <p>Now suppose for the sake of contradiction that \(\zeta (s)\) has a zero \(\rho _0 \in \mathcal{H}_{1/2}\), so that \(\operatorname {Re}(\rho _0) {\gt} \frac{1}{2}\) and \(\zeta (\rho _0) = 0\). Since \(\zeta (s)\) is meromorphic on \(\mathbb {C}\) and not identically zero, \(\rho _0\) is an isolated zero of order \(m \ge 1\). Consequently, its reciprocal \(1/\zeta (s)\) has an isolated pole of order \(m\) at \(s = \rho _0\): </p>
-<div class="displaymath" id="a0000000150">
+<div class="displaymath" id="a0000000152">
   \[ \lim _{s \to \rho _0} \left| \frac{1}{\zeta (s)} \right| = \infty . \]
 </div>
 <p> However, \(I(s)\) is holomorphic on all of \(\mathcal{H}_{1/2}\), meaning \(|I(s)|\) remains finite in a neighborhood of \(\rho _0\). This is a direct contradiction. Therefore, \(\zeta (s)\) cannot possess any zeros in \(\operatorname {Re}(s) {\gt} \frac{1}{2}\). By the functional equation \(\xi (s) = \xi (1-s)\) (which relates zeros at \(\rho \) to zeros at \(1 - \rho \)), any zero with \(\operatorname {Re}(\rho ) {\lt} 1/2\) would imply a zero at \(1 - \rho \) with \(\operatorname {Re}(1 - \rho ) {\gt} 1/2\). Hence, all non-trivial zeros of \(\zeta (s)\) must satisfy \(\operatorname {Re}(\rho ) = \frac{1}{2}\). </p>
@@ -725,19 +888,19 @@
 
   </div>
 </div>
-<div class="remark_thmwrapper theorem-style-definition" id="a0000000151">
+<div class="remark_thmwrapper theorem-style-definition" id="a0000000153">
   <div class="remark_thmheading">
     <span class="remark_thmcaption">
     Remark
     </span>
-    <span class="remark_thmlabel">0.5.7</span>
+    <span class="remark_thmlabel">0.5.9</span>
     <span class="remark_thmtitle">Historical Context on Mertens’ Conjecture</span>
     <div class="thm_header_extras">
 
         </div>
     <div class="thm_header_hidden_extras">
 
-    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#a0000000151">#</a>
+    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#a0000000153">#</a>
     
     
     
@@ -753,7 +916,7 @@
 	<a href="sec-conclusion.html#OdlyzkoteRiele1985" >16</a>
 	]
 </span> disproved Mertens’ conjecture by showing: </p>
-<div class="displaymath" id="a0000000152">
+<div class="displaymath" id="a0000000154">
   \[ \limsup _{x \to \infty } \frac{M(x)}{\sqrt{x}} {\gt} 1.06 \quad \text{and} \quad \liminf _{x \to \infty } \frac{M(x)}{\sqrt{x}} {\lt} -1.009. \]
 </div>
 <p> Subsequent refinements by Kotnik and van de Lune (2004) showed the extrema exceed \(1.218\) and \(-1.229\). Crucially, the failure of the absolute constant bound \(|M(x)| \le \sqrt{x}\) in no way invalidates the asymptotic exponent bound \(M(x) = \mathcal{O}(x^{1/2 + \epsilon })\), which remains an exact, unconditional equivalence of the Riemann Hypothesis. </p>

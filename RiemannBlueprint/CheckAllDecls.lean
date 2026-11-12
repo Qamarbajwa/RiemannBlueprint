@@ -54,6 +54,11 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check RiemannBlueprint.Section5_MobiusMertens.zero_free_re_gt_half_of_mertens
 #check RiemannBlueprint.Section5_MobiusMertens.mertens_implies_rh
 #check RiemannBlueprint.Section5_MobiusMertens.mertens_riemann_equivalence
+#check RiemannBlueprint.Section5_MobiusMertens.mertensReal
+#check RiemannBlueprint.Section5_MobiusMertens.abel_summation_moebius_finset
+#check RiemannBlueprint.Section5_MobiusMertens.norm_mertensReal_le
+#check RiemannBlueprint.Section5_MobiusMertens.mertens_abel_integral_finset
+#check RiemannBlueprint.Section5_MobiusMertens.mertens_boundary_decay
 
 #check RiemannBlueprint.Section6_CriticalStripAudit.zero_free_half_plane
 #check RiemannBlueprint.Section6_CriticalStripAudit.critical_strip_divergence_obstruction
@@ -78,6 +83,16 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check RiemannBlueprint.Section8_VasyuninBDR.smooth_vasyunin_double_sum_eq_boundary
 #check RiemannBlueprint.Section8_VasyuninBDR.full_bdr_distance_identity
 #check RiemannBlueprint.Section8_VasyuninBDR.constrained_nb_bdr_collapse
+#check RiemannBlueprint.Section8_VasyuninBDR.U4
+#check RiemannBlueprint.Section8_VasyuninBDR.det_U4_eq_log_ratio
+#check RiemannBlueprint.Section8_VasyuninBDR.det_U4_pos
+#check RiemannBlueprint.Section8_VasyuninBDR.U4_isUnit_det
+#check RiemannBlueprint.Section8_VasyuninBDR.M4
+#check RiemannBlueprint.Section8_VasyuninBDR.det_M4_eq
+#check RiemannBlueprint.Section8_VasyuninBDR.det_M4_pos
+#check RiemannBlueprint.Section8_VasyuninBDR.M4_top_left_isotropic
+#check RiemannBlueprint.Section8_VasyuninBDR.intervalIntegral_linear_dilation
+#check RiemannBlueprint.Section8_VasyuninBDR.intervalIntegral_sq_dilation
 
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
 #print axioms RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic
@@ -94,6 +109,10 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms RiemannBlueprint.Section5_MobiusMertens.zero_free_re_gt_half_of_mertens
 #print axioms RiemannBlueprint.Section5_MobiusMertens.mertens_implies_rh
 #print axioms RiemannBlueprint.Section5_MobiusMertens.mertens_riemann_equivalence
+#print axioms RiemannBlueprint.Section5_MobiusMertens.abel_summation_moebius_finset
+#print axioms RiemannBlueprint.Section5_MobiusMertens.norm_mertensReal_le
+#print axioms RiemannBlueprint.Section5_MobiusMertens.mertens_abel_integral_finset
+#print axioms RiemannBlueprint.Section5_MobiusMertens.mertens_boundary_decay
 #print axioms RiemannBlueprint.Section6_CriticalStripAudit.zero_free_half_plane
 #print axioms RiemannBlueprint.Section6_CriticalStripAudit.critical_strip_divergence_obstruction
 #print axioms RiemannBlueprint.Section6_CriticalStripAudit.additive_partition_firewall
@@ -105,3 +124,11 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.smooth_vasyunin_double_sum_eq_boundary
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.full_bdr_distance_identity
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.constrained_nb_bdr_collapse
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.det_U4_eq_log_ratio
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.det_U4_pos
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.U4_isUnit_det
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.det_M4_eq
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.det_M4_pos
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.M4_top_left_isotropic
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.intervalIntegral_linear_dilation
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.intervalIntegral_sq_dilation
