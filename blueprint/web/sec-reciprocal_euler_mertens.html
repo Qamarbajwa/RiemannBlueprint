@@ -91,7 +91,7 @@
   <a href="sec-construction_composite_zeta.html#a0000000016"><span class="toc_ref">0.4.2</span> <span class="toc_entry">Method 2: Local Prime-Power Factors and the Möbius-Logarithmic Bridge</span></a>
  </li>
 <li class="">
-  <a href="sec-construction_composite_zeta.html#a0000000017"><span class="toc_ref">0.4.3</span> <span class="toc_entry">Method 3: Divisor-Weighted Composite Dirichlet Series</span></a>
+  <a href="sec-construction_composite_zeta.html#a0000000017"><span class="toc_ref">0.4.3</span> <span class="toc_entry">Method 3: Elementary Divisor-Weighted Bookkeeping Series</span></a>
  </li>
 <li class="">
   <a href="sec-construction_composite_zeta.html#a0000000018"><span class="toc_ref">0.4.4</span> <span class="toc_entry">Analytic Continuation vs. Natural Boundary Theorem</span></a>
@@ -198,7 +198,7 @@
 
     <a class="icon proof" href="sec-reciprocal_euler_mertens.html#thm:reciprocal_euler_product">#</a>
     
-    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#a0000000126"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#a0000000122"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -226,37 +226,37 @@
   </div>
   <div class="theorem_thmcontent">
   <p>   For every complex number \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the reciprocal of the Riemann zeta function admits the absolutely convergent Euler product expansion: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF1119D0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC8D14F0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:reciprocal_euler_product} \frac{1}{\zeta (s)} = \prod _{p \in \mathbb {P}} \left(1 - \frac{1}{p^s}\right). \end{equation}
   </div>
-  <span class="equation_label">55</span>
+  <span class="equation_label">53</span>
 </p>
 </div>
 <p> Furthermore, the term-by-term expansion of this product across the Fundamental Theorem of Arithmetic yields the Dirichlet series: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF111DF0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC8D1A30>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:mobius_dirichlet_series} \frac{1}{\zeta (s)} = \sum _{n=1}^\infty \frac{\mu (n)}{n^s}, \end{equation}
   </div>
-  <span class="equation_label">56</span>
+  <span class="equation_label">54</span>
 </p>
 </div>
 <p> where \(\mu : \mathbb {N}\to \{ -1, 0, 1\} \) is the Möbius arithmetic function defined by: </p>
-<div class="equation" id="a0000000127">
+<div class="equation" id="a0000000123">
 <p>
   <div class="equation_content">
     \begin{equation}  \mu (n) = \begin{cases}  1 &  \text{if } n = 1, \\ (-1)^k &  \text{if } n = p_1 p_2 \cdots p_k \text{ with distinct primes } p_i \text{ (square-free)}, \\ 0 &  \text{if } p^2 \mid n \text{ for some prime } p \text{ (square-divisible)}. \end{cases} \end{equation}
   </div>
-  <span class="equation_label">57</span>
+  <span class="equation_label">55</span>
 </p>
 </div>
 <p> The series&#160;?? converges absolutely in the half-plane \(\operatorname {Re}(s) {\gt} 1\). </p>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000126">
+<div class="proof_wrapper" id="a0000000122">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -265,31 +265,31 @@
   </div>
   <div class="proof_content">
   <p>Let \(s = \sigma + i t\) with \(\sigma {\gt} 1\). By Euler’s product formula (Euler’s product identity&#160;??), \(\zeta (s) = \prod _{p \in \mathbb {P}} (1 - p^{-s})^{-1}\). Since \(\sum _{p} |p^{-s}| = \sum _{p} p^{-\sigma } {\lt} \sum _{n=1}^\infty n^{-\sigma } {\lt} \infty \), the product converges absolutely. An absolutely convergent infinite product of non-zero factors is non-zero, and its reciprocal is the product of the reciprocals of its factors: </p>
-<div class="displaymath" id="a0000000128">
+<div class="displaymath" id="a0000000124">
   \[ \frac{1}{\zeta (s)} = \frac{1}{\prod _{p \in \mathbb {P}} (1 - p^{-s})^{-1}} = \prod _{p \in \mathbb {P}} \left(1 - p^{-s}\right). \]
 </div>
 <p> Now consider the finite partial product over all primes up to \(X {\gt} 2\): </p>
-<div class="displaymath" id="a0000000129">
+<div class="displaymath" id="a0000000125">
   \[ \Pi _X(s) \coloneqq \prod _{p \le X} \left(1 - \frac{1}{p^s}\right). \]
 </div>
 <p> Expanding this finite product by applying the distributive law over the finite set of primes \(\{ p \in \mathbb {P}: p \le X\} \): </p>
-<div class="displaymath" id="a0000000130">
+<div class="displaymath" id="a0000000126">
   \[ \Pi _X(s) = 1 + \sum _{k=1}^{\pi (X)} (-1)^k \sum _{p_1 {\lt} p_2 {\lt} \dots {\lt} p_k \le X} \frac{1}{(p_1 p_2 \cdots p_k)^s}. \]
 </div>
 <p> By the Fundamental Theorem of Arithmetic (Theorem&#160;<a href="sect0002.html#thm:fta">0.2.4</a>), every product \(n = p_1 p_2 \cdots p_k\) of distinct primes represents a unique square-free positive integer whose prime factors are all \(\le X\). Conversely, every square-divisible integer \(n\) contains at least one squared prime factor \(p^2 \mid n\), which cannot arise from expanding \(\prod (1 - p^{-s})\) where each factor is of degree at most \(1\) in \(p^{-s}\). Hence: </p>
-<div class="displaymath" id="a0000000131">
+<div class="displaymath" id="a0000000127">
   \[ \Pi _X(s) = \sum _{\substack {n \le X \\ \mu (n) \neq 0}} \frac{\mu (n)}{n^s} + \sum _{\substack {n {\gt} X \\ p \mid n \implies p \le X \\ \mu (n) \neq 0}} \frac{\mu (n)}{n^s}. \]
 </div>
 <p> Subtracting the full Dirichlet sum \(\sum _{n=1}^\infty \mu (n) n^{-s}\): </p>
-<div class="displaymath" id="a0000000132">
+<div class="displaymath" id="a0000000128">
   \[ \left| \Pi _X(s) - \sum _{n=1}^\infty \frac{\mu (n)}{n^s} \right| \le \sum _{n {\gt} X} \frac{|\mu (n)|}{n^\sigma } \le \sum _{n {\gt} X} \frac{1}{n^\sigma }. \]
 </div>
 <p> Because \(\sigma {\gt} 1\), the tail sum \(\sum _{n {\gt} X} n^{-\sigma }\) converges to \(0\) as \(X \to \infty \): </p>
-<div class="displaymath" id="a0000000133">
+<div class="displaymath" id="a0000000129">
   \[ \lim _{X \to \infty } \sum _{n {\gt} X} \frac{1}{n^\sigma } = 0. \]
 </div>
 <p> Therefore: </p>
-<div class="displaymath" id="a0000000134">
+<div class="displaymath" id="a0000000130">
   \[ \frac{1}{\zeta (s)} = \lim _{X \to \infty } \Pi _X(s) = \sum _{n=1}^\infty \frac{\mu (n)}{n^s}. \]
 </div>
 <p> Finally, absolute convergence follows immediately from \(|\mu (n) n^{-s}| \le n^{-\sigma }\) and \(\sum n^{-\sigma } {\lt} \infty \) for \(\sigma {\gt} 1\). </p>
@@ -314,7 +314,7 @@
 
     <a class="icon proof" href="sec-reciprocal_euler_mertens.html#prop:reciprocal_partition">#</a>
     
-    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#a0000000135"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#a0000000131"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -362,27 +362,27 @@
   </div>
   <div class="proposition_thmcontent">
   <p>    For \(\operatorname {Re}(s) {\gt} 1\), the reciprocal zeta function decomposes into the exact tripartite identity: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF17D850>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC93D2B0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:reciprocal_partition} \frac{1}{\zeta (s)} = 1 - P(s) + \zeta _{\mu , C}(s), \end{equation}
   </div>
-  <span class="equation_label">61</span>
+  <span class="equation_label">59</span>
 </p>
 </div>
 <p> where \(P(s) = \sum _{p \in \mathbb {P}} p^{-s}\) is the Prime Zeta function, and \(\zeta _{\mu , C}(s)\) is the Möbius-signed Composite Dirichlet Series: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF17DCD0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC93D730>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:mobius_composite_series} \zeta _{\mu , C}(s) \coloneqq \sum _{c \in \mathbb {C}_{\mathrm{comp}}} \frac{\mu (c)}{c^s} = \sum _{\substack {c \in \mathbb {C}_{\mathrm{comp}}\\ \mu (c) \neq 0}} \frac{(-1)^{\omega (c)}}{c^s}. \end{equation}
   </div>
-  <span class="equation_label">62</span>
+  <span class="equation_label">60</span>
 </p>
 </div>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000135">
+<div class="proof_wrapper" id="a0000000131">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -391,7 +391,7 @@
   </div>
   <div class="proof_content">
   <p>By Theorem&#160;<a href="sec-reciprocal_euler_mertens.html#thm:reciprocal_euler_product">0.5.1</a>, \(\frac{1}{\zeta (s)} = \sum _{n=1}^\infty \mu (n) n^{-s}\). Partitioning the index set \(\mathbb {N}\) into \(\{ 1\} \), \(\mathbb {P}\), and \(\mathbb {C}_{\mathrm{comp}}\): </p>
-<div class="displaymath" id="a0000000136">
+<div class="displaymath" id="a0000000132">
   \[ \sum _{n=1}^\infty \frac{\mu (n)}{n^s} = \frac{\mu (1)}{1^s} + \sum _{p \in \mathbb {P}} \frac{\mu (p)}{p^s} + \sum _{c \in \mathbb {C}_{\mathrm{comp}}} \frac{\mu (c)}{c^s}. \]
 </div>
 <p> We evaluate each term: </p>
@@ -399,7 +399,7 @@
   <li><p>For \(n = 1\): \(\mu (1) = 1\), so \(\mu (1) 1^{-s} = 1\). </p>
 </li>
   <li><p>For \(n = p \in \mathbb {P}\): \(p\) has exactly one prime factor (\(\omega (p) = 1\)) and is square-free, so \(\mu (p) = (-1)^1 = -1\). Thus: </p>
-<div class="displaymath" id="a0000000137">
+<div class="displaymath" id="a0000000133">
   \[ \sum _{p \in \mathbb {P}} \frac{\mu (p)}{p^s} = -\sum _{p \in \mathbb {P}} \frac{1}{p^s} = -P(s). \]
 </div>
 </li>
@@ -410,7 +410,7 @@
 
   </div>
 </div>
-<div class="remark_thmwrapper theorem-style-definition" id="a0000000138">
+<div class="remark_thmwrapper theorem-style-definition" id="a0000000134">
   <div class="remark_thmheading">
     <span class="remark_thmcaption">
     Remark
@@ -422,7 +422,7 @@
         </div>
     <div class="thm_header_hidden_extras">
 
-    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#a0000000138">#</a>
+    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#a0000000134">#</a>
     
     
     
@@ -434,7 +434,7 @@
   <li><p><b class="bfseries">Square-Divisible Annihilation:</b> Every composite with repeated prime factors (including all pure prime powers \(p^a\) with \(a \ge 2\)) carries weight \(\mu (c) = 0\). They exert zero direct influence on \(1/\zeta (s)\). </p>
 </li>
   <li><p><b class="bfseries">Even-Odd Parity Balancing:</b> Square-free composites are partitioned into two opposing camps: </p>
-<div class="displaymath" id="a0000000139">
+<div class="displaymath" id="a0000000135">
   \begin{align*}  \mathbb {C}_{\mathrm{comp}}^{(+)} & = \{ c \in \mathbb {C}_{\mathrm{comp}}: \mu ^2(c) = 1, \;  \omega (c) \equiv 0 \pmod2\}  = \{ 6, 10, 14, 15, 21, 22, 26, 33, 34, 35, \dots \} , \\ \mathbb {C}_{\mathrm{comp}}^{(-)} & = \{ c \in \mathbb {C}_{\mathrm{comp}}: \mu ^2(c) = 1, \;  \omega (c) \equiv 1 \pmod2\}  = \{ 30, 42, 66, 70, 78, 102, 105, 110, 114, \dots \} . \end{align*}
 </div>
 <p> For \(c \in \mathbb {C}_{\mathrm{comp}}^{(+)}\), \(\mu (c) = +1\), which reinforces the leading unit \(+1\). For \(c \in \mathbb {C}_{\mathrm{comp}}^{(-)}\), \(\mu (c) = -1\), which reinforces the prime deflation \(-P(s)\). The cancellation between \(\mathbb {P}\cup \mathbb {C}_{\mathrm{comp}}^{(-)}\) and \(\{ 1\}  \cup \mathbb {C}_{\mathrm{comp}}^{(+)}\) governs the magnitude of \(1/\zeta (s)\). </p>
@@ -486,12 +486,12 @@
   </div>
   <div class="definition_thmcontent">
   <p>   The Mertens function \(M : [1, \infty ) \to \mathbb {Z}\) is the summatory function of the Möbius function: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF1CC6B0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC98C170>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:mertens_def} M(x) \coloneqq \sum _{1 \le n \le x} \mu (n). \end{equation}
   </div>
-  <span class="equation_label">63</span>
+  <span class="equation_label">61</span>
 </p>
 </div>
 
@@ -513,7 +513,7 @@
 
     <a class="icon proof" href="sec-reciprocal_euler_mertens.html#lem:mellin_reciprocal_zeta">#</a>
     
-    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#a0000000140"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#a0000000136"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -542,18 +542,18 @@
   </div>
   <div class="lemma_thmcontent">
   <p>   For every \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the reciprocal Riemann zeta function can be expressed as the Laplace–Mellin integral of the Mertens function: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF1CC650>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC98C230>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:reciprocal_mellin} \frac{1}{\zeta (s)} = s \int _1^\infty \frac{M(x)}{x^{s+1}} \,  \mathrm{d}x. \end{equation}
   </div>
-  <span class="equation_label">64</span>
+  <span class="equation_label">62</span>
 </p>
 </div>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000140">
+<div class="proof_wrapper" id="a0000000136">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -562,40 +562,40 @@
   </div>
   <div class="proof_content">
   <p>Let \(s = \sigma + i t\) with \(\sigma {\gt} 1\). We apply Abel summation (integration by parts of the Riemann–Stieltjes integral) to the partial sums of the Dirichlet series \(\sum _{n=1}^N \mu (n) n^{-s}\): </p>
-<div class="displaymath" id="a0000000141">
+<div class="displaymath" id="a0000000137">
   \[ \sum _{n=1}^N \mu (n) n^{-s} = \int _{1^-}^N x^{-s} \,  \mathrm{d}M(x). \]
 </div>
 <p> Integrating by parts: </p>
-<div class="displaymath" id="a0000000142">
+<div class="displaymath" id="a0000000138">
   \[ \int _{1^-}^N x^{-s} \,  \mathrm{d}M(x) = \left[ M(x) x^{-s} \right]_{1^-}^N - \int _1^N M(x) \frac{\mathrm{d}}{\mathrm{d}x}(x^{-s}) \,  \mathrm{d}x. \]
 </div>
 <p> Since \(M(1^-) = 0\) and \(\frac{\mathrm{d}}{\mathrm{d}x}(x^{-s}) = -s x^{-s-1}\), we obtain: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF1CDA90>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC93F770>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:abel_finite_mertens} \sum _{n=1}^N \frac{\mu (n)}{n^s} = \frac{M(N)}{N^s} + s \int _1^N \frac{M(x)}{x^{s+1}} \,  \mathrm{d}x. \end{equation}
   </div>
-  <span class="equation_label">65</span>
+  <span class="equation_label">63</span>
 </p>
 </div>
 <p> We now analyze the boundary term as \(N \to \infty \). By the trivial bound \(|\mu (n)| \le 1\): </p>
-<div class="displaymath" id="a0000000143">
+<div class="displaymath" id="a0000000139">
   \[ |M(N)| = \left| \sum _{n \le N} \mu (n) \right| \le \sum _{n \le N} 1 = N. \]
 </div>
 <p> Therefore: </p>
-<div class="displaymath" id="a0000000144">
+<div class="displaymath" id="a0000000140">
   \[ \left| \frac{M(N)}{N^s} \right| = \frac{|M(N)|}{N^\sigma } \le \frac{N}{N^\sigma } = N^{1-\sigma }. \]
 </div>
 <p> Because \(\sigma {\gt} 1\), \(1 - \sigma {\lt} 0\), which implies: </p>
-<div class="displaymath" id="a0000000145">
+<div class="displaymath" id="a0000000141">
   \[ \lim _{N \to \infty } \frac{M(N)}{N^s} = 0. \]
 </div>
 <p> Furthermore, the improper integral converges absolutely: </p>
-<div class="displaymath" id="a0000000146">
+<div class="displaymath" id="a0000000142">
   \[ \int _1^\infty \left| \frac{M(x)}{x^{s+1}} \right| \mathrm{d}x \le \int _1^\infty \frac{x}{x^{\sigma +1}} \,  \mathrm{d}x = \int _1^\infty x^{-\sigma } \,  \mathrm{d}x = \left[ \frac{x^{1-\sigma }}{1-\sigma } \right]_1^\infty = \frac{1}{\sigma - 1} {\lt} \infty . \]
 </div>
 <p> Taking the limit \(N \to \infty \) on both sides of&#160;?? gives: </p>
-<div class="displaymath" id="a0000000147">
+<div class="displaymath" id="a0000000143">
   \[ \frac{1}{\zeta (s)} = \sum _{n=1}^\infty \frac{\mu (n)}{n^s} = s \int _1^\infty \frac{M(x)}{x^{s+1}} \,  \mathrm{d}x, \]
 </div>
 <p> which establishes&#160;??. </p>
@@ -620,7 +620,7 @@
 
     <a class="icon proof" href="sec-reciprocal_euler_mertens.html#thm:mertens_riemann_equiv">#</a>
     
-    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#a0000000148"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#a0000000144"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -668,19 +668,19 @@
   </div>
   <div class="theorem_thmcontent">
   <p>    The Riemann Hypothesis is equivalent to the statement that for every \(\epsilon {\gt} 0\): </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF1CF8F0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC98F2F0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:mertens_bound} M(x) = \mathcal{O}\left(x^{\frac{1}{2} + \epsilon }\right) \quad \text{as } x \to \infty . \end{equation}
   </div>
-  <span class="equation_label">66</span>
+  <span class="equation_label">64</span>
 </p>
 </div>
 <p> Specifically, \(\zeta (s)\) has no zeros in the half-plane \(\operatorname {Re}(s) {\gt} \frac{1}{2}\) if and only if&#160;?? holds. </p>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000148">
+<div class="proof_wrapper" id="a0000000144">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -691,87 +691,41 @@
   <p>We prove both directions of the equivalence: </p>
 <p><b class="bfseries">Direction 1:&#160;?? \(\implies \) Riemann Hypothesis.</b> </p>
 <p>Assume that for every \(\epsilon {\gt} 0\), \(M(x) = \mathcal{O}(x^{1/2 + \epsilon })\). Then for any fixed \(\epsilon {\gt} 0\), there exist constants \(C_\epsilon {\gt} 0\) and \(x_0 \ge 1\) such that for all \(x \ge 1\): </p>
-<div class="displaymath" id="a0000000149">
+<div class="displaymath" id="a0000000145">
   \[ |M(x)| \le C_\epsilon x^{\frac{1}{2} + \epsilon }. \]
 </div>
 <p> Consider the integral in&#160;??: </p>
-<div class="displaymath" id="a0000000150">
+<div class="displaymath" id="a0000000146">
   \[ I(s) \coloneqq s \int _1^\infty \frac{M(x)}{x^{s+1}} \,  \mathrm{d}x. \]
 </div>
 <p> We examine the domain of absolute convergence of this integral. For \(s = \sigma + i t\) with \(\sigma {\gt} \frac{1}{2} + \epsilon \): </p>
-<div class="displaymath" id="a0000000151">
+<div class="displaymath" id="a0000000147">
   \[ \int _1^\infty \left| \frac{M(x)}{x^{s+1}} \right| \mathrm{d}x \le C_\epsilon \int _1^\infty \frac{x^{\frac{1}{2} + \epsilon }}{x^{\sigma +1}} \,  \mathrm{d}x = C_\epsilon \int _1^\infty x^{-\left(\sigma - \frac{1}{2} - \epsilon + 1\right)} \,  \mathrm{d}x = \frac{C_\epsilon }{\sigma - \frac{1}{2} - \epsilon } {\lt} \infty . \]
 </div>
 <p> Thus, the integral converges absolutely and uniformly on any compact subset of the half-plane: </p>
-<div class="displaymath" id="a0000000152">
+<div class="displaymath" id="a0000000148">
   \[ U_\epsilon \coloneqq \left\{  s \in \mathbb {C}: \operatorname {Re}(s) {\gt} \frac{1}{2} + \epsilon \right\} . \]
 </div>
 <p> By standard complex analysis (differentiation under the integral sign), \(I(s)\) defines a holomorphic function on \(U_\epsilon \). Since \(\epsilon {\gt} 0\) was arbitrary, \(I(s)\) defines a holomorphic function on the entire half-plane: </p>
-<div class="displaymath" id="a0000000153">
+<div class="displaymath" id="a0000000149">
   \[ \mathcal{H}_{1/2} \coloneqq \left\{  s \in \mathbb {C}: \operatorname {Re}(s) {\gt} \frac{1}{2} \right\} . \]
 </div>
 <p> By Lemma&#160;<a href="sec-reciprocal_euler_mertens.html#lem:mellin_reciprocal_zeta">0.5.5</a>, \(I(s) = \frac{1}{\zeta (s)}\) on the half-plane \(\operatorname {Re}(s) {\gt} 1\). By the Identity Theorem for holomorphic functions, \(I(s)\) is the unique analytic continuation of \(1/\zeta (s)\) to the entire half-plane \(\mathcal{H}_{1/2}\). </p>
 <p>Now suppose for the sake of contradiction that \(\zeta (s)\) has a zero \(\rho _0 \in \mathcal{H}_{1/2}\), so that \(\operatorname {Re}(\rho _0) {\gt} \frac{1}{2}\) and \(\zeta (\rho _0) = 0\). Since \(\zeta (s)\) is meromorphic on \(\mathbb {C}\) and not identically zero, \(\rho _0\) is an isolated zero of order \(m \ge 1\). Consequently, its reciprocal \(1/\zeta (s)\) has an isolated pole of order \(m\) at \(s = \rho _0\): </p>
-<div class="displaymath" id="a0000000154">
+<div class="displaymath" id="a0000000150">
   \[ \lim _{s \to \rho _0} \left| \frac{1}{\zeta (s)} \right| = \infty . \]
 </div>
 <p> However, \(I(s)\) is holomorphic on all of \(\mathcal{H}_{1/2}\), meaning \(|I(s)|\) remains finite in a neighborhood of \(\rho _0\). This is a direct contradiction. Therefore, \(\zeta (s)\) cannot possess any zeros in \(\operatorname {Re}(s) {\gt} \frac{1}{2}\). By the functional equation \(\xi (s) = \xi (1-s)\) (which relates zeros at \(\rho \) to zeros at \(1 - \rho \)), any zero with \(\operatorname {Re}(\rho ) {\lt} 1/2\) would imply a zero at \(1 - \rho \) with \(\operatorname {Re}(1 - \rho ) {\gt} 1/2\). Hence, all non-trivial zeros of \(\zeta (s)\) must satisfy \(\operatorname {Re}(\rho ) = \frac{1}{2}\). </p>
-<p><b class="bfseries">Direction 2: Riemann Hypothesis \(\implies \)&#160;??.</b> </p>
-<p>Assume the Riemann Hypothesis holds: all non-trivial zeros satisfy \(\operatorname {Re}(\rho ) = \frac{1}{2}\). Then the function \(f(s) \coloneqq \frac{1}{\zeta (s)}\) is holomorphic in the open half-plane \(\operatorname {Re}(s) {\gt} \frac{1}{2}\). By Perron’s formula applied to the Dirichlet series \(\frac{1}{\zeta (s)} = \sum _{n=1}^\infty \mu (n) n^{-s}\), for \(c {\gt} 1\) and \(x \ge 2\) not an integer: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF21AA50>">
-<p>
-  <div class="equation_content">
-    \begin{equation}  \label{eq:perron_mertens} M(x) = \frac{1}{2\pi i} \int _{c - i T}^{c + i T} \frac{1}{\zeta (s)} \frac{x^s}{s} \,  \mathrm{d}s + R(x, T), \end{equation}
-  </div>
-  <span class="equation_label">67</span>
-</p>
-</div>
-<p> where the truncation error satisfies: </p>
-<div class="displaymath" id="a0000000155">
-  \[ R(x, T) = \mathcal{O}\left( \frac{x^c}{T (c - 1)} + \frac{x \ln x}{T} \right). \]
-</div>
-<p> We construct a rectangular contour \(\Gamma \) with vertices \(c - i T\), \(c + i T\), \(\sigma _0 + i T\), and \(\sigma _0 - i T\), where: </p>
-<div class="displaymath" id="a0000000156">
-  \[ \sigma _0 \coloneqq \frac{1}{2} + \epsilon , \qquad 0 {\lt} \epsilon {\lt} \frac{1}{2}. \]
-</div>
-<p> Under RH, \(f(s) = 1/\zeta (s)\) has no poles inside or on the contour \(\Gamma \). By Cauchy’s Integral Theorem: </p>
-<div class="displaymath" id="a0000000157">
-  \[ \frac{1}{2\pi i} \oint _{\Gamma } \frac{1}{\zeta (s)} \frac{x^s}{s} \,  \mathrm{d}s = 0. \]
-</div>
-<p> Therefore: </p>
-<div class="displaymath" id="a0000000158">
-  \[ \frac{1}{2\pi i} \int _{c - i T}^{c + i T} \frac{1}{\zeta (s)} \frac{x^s}{s} \,  \mathrm{d}s = \frac{1}{2\pi i} \left( \int _{\sigma _0 - i T}^{\sigma _0 + i T} + \int _{\sigma _0 + i T}^{c + i T} - \int _{\sigma _0 - i T}^{c - i T} \right) \frac{1}{\zeta (s)} \frac{x^s}{s} \,  \mathrm{d}s. \]
-</div>
-<p> Under the Lindelöf Hypothesis for \(1/\zeta (s)\) (which is a consequence of RH, see Titchmarsh&#160;<span class="cite">
+<p><b class="bfseries">Direction 2: Riemann Hypothesis \(\implies \)&#160;?? (Littlewood–Titchmarsh Contour Shift).</b> </p>
+<p>Assume RH so \(1/\zeta (s)\) is holomorphic on \(\operatorname {Re}(s) {\gt} \frac{1}{2}\). Fix \(0 {\lt} \epsilon {\lt} \frac{1}{2}\), set \(\sigma _0 \coloneqq \frac{1}{2} + \frac{\epsilon }{2}\), evaluate at half-integers \(x = \lfloor x \rfloor + \frac{1}{2} \ge \frac{5}{2}\), and take \(c = 1 + \frac{1}{\ln x}\). Shifting Perron’s integral over \([c - iT, c + iT]\) across the zero-free rectangle with vertices \(c \pm iT\) and \(\sigma _0 \pm iT\), and applying the RH-conditional bound \(|1/\zeta (\sigma + it)| = \mathcal{O}_\epsilon (|t|^{\epsilon /4})\) (\(\sigma \ge \sigma _0\); Titchmarsh&#160;<span class="cite">
 	[
 	<a href="sec-conclusion.html#Titchmarsh1986" >18</a>
 	]
-</span>, Theorem&#160;14.2), for any \(\delta {\gt} 0\) and \(\sigma \ge \frac{1}{2} + \epsilon \): </p>
-<div class="displaymath" id="a0000000159">
-  \[ \left| \frac{1}{\zeta (\sigma + i t)} \right| = \mathcal{O}\left( |t|^\delta \right) \quad \text{as } |t| \to \infty . \]
-</div>
-<p> We estimate the integrals along each segment of the contour: </p>
-<ol class="enumerate">
-  <li><p>Along the vertical segment \([\sigma _0 - i T, \sigma _0 + i T]\): </p>
-<div class="displaymath" id="a0000000160">
-  \[ \left| \int _{\sigma _0 - i T}^{\sigma _0 + i T} \frac{1}{\zeta (s)} \frac{x^s}{s} \,  \mathrm{d}s \right| \le x^{\sigma _0} \int _{-T}^T \frac{|\zeta (\sigma _0 + i t)|^{-1}}{\sqrt{\sigma _0^2 + t^2}} \,  \mathrm{d}t \le x^{\frac{1}{2} + \epsilon } \int _{-T}^T \mathcal{O}\left( (1 + |t|)^{\delta - 1} \right) \mathrm{d}t = \mathcal{O}\left( x^{\frac{1}{2} + \epsilon } T^\delta \right). \]
-</div>
-</li>
-  <li><p>Along the horizontal segments \([\sigma _0 \pm i T, c \pm i T]\): </p>
-<div class="displaymath" id="a0000000161">
-  \[ \left| \int _{\sigma _0 \pm i T}^{c \pm i T} \frac{1}{\zeta (s)} \frac{x^s}{s} \,  \mathrm{d}s \right| \le \int _{\sigma _0}^c \frac{|\zeta (\sigma \pm i T)|^{-1}}{T} x^\sigma \,  \mathrm{d}\sigma = \mathcal{O}\left( \frac{T^\delta x^c}{T \ln x} \right). \]
-</div>
-</li>
-</ol>
-<p> Choosing \(c = 1 + \frac{1}{\ln x}\), \(T = x^2\), and \(\delta {\lt} \frac{\epsilon }{4}\), all error terms are dominated by \(x^{1/2 + \epsilon }\). Hence: </p>
-<div class="displaymath" id="a0000000162">
-  \[ M(x) = \mathcal{O}\left(x^{\frac{1}{2} + \epsilon }\right). \]
-</div>
-<p> This completes the bidirectional proof. </p>
+</span>, Theorem&#160;14.2 and §14.25), gives vertical contribution \(\mathcal{O}_\epsilon (x^{\frac{1}{2}+\frac{\epsilon }{2}} T^{\epsilon /4})\), horizontal contribution \(\mathcal{O}_\epsilon (x^c T^{\frac{\epsilon }{4}-1})\), and truncation error \(R(x,T) = \mathcal{O}(\frac{x\ln x}{T})\). Setting \(T \coloneqq x^2\) bounds every term by \(\mathcal{O}_\epsilon (x^{\frac{1}{2}+\epsilon })\). </p>
 
   </div>
 </div>
-<div class="remark_thmwrapper theorem-style-definition" id="a0000000163">
+<div class="remark_thmwrapper theorem-style-definition" id="a0000000151">
   <div class="remark_thmheading">
     <span class="remark_thmcaption">
     Remark
@@ -783,7 +737,7 @@
         </div>
     <div class="thm_header_hidden_extras">
 
-    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#a0000000163">#</a>
+    <a class="icon proof" href="sec-reciprocal_euler_mertens.html#a0000000151">#</a>
     
     
     
@@ -799,7 +753,7 @@
 	<a href="sec-conclusion.html#OdlyzkoteRiele1985" >16</a>
 	]
 </span> disproved Mertens’ conjecture by showing: </p>
-<div class="displaymath" id="a0000000164">
+<div class="displaymath" id="a0000000152">
   \[ \limsup _{x \to \infty } \frac{M(x)}{\sqrt{x}} {\gt} 1.06 \quad \text{and} \quad \liminf _{x \to \infty } \frac{M(x)}{\sqrt{x}} {\lt} -1.009. \]
 </div>
 <p> Subsequent refinements by Kotnik and van de Lune (2004) showed the extrema exceed \(1.218\) and \(-1.229\). Crucially, the failure of the absolute constant bound \(|M(x)| \le \sqrt{x}\) in no way invalidates the asymptotic exponent bound \(M(x) = \mathcal{O}(x^{1/2 + \epsilon })\), which remains an exact, unconditional equivalence of the Riemann Hypothesis. </p>

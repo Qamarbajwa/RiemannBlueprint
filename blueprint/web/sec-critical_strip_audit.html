@@ -91,7 +91,7 @@
   <a href="sec-construction_composite_zeta.html#a0000000016"><span class="toc_ref">0.4.2</span> <span class="toc_entry">Method 2: Local Prime-Power Factors and the Möbius-Logarithmic Bridge</span></a>
  </li>
 <li class="">
-  <a href="sec-construction_composite_zeta.html#a0000000017"><span class="toc_ref">0.4.3</span> <span class="toc_entry">Method 3: Divisor-Weighted Composite Dirichlet Series</span></a>
+  <a href="sec-construction_composite_zeta.html#a0000000017"><span class="toc_ref">0.4.3</span> <span class="toc_entry">Method 3: Elementary Divisor-Weighted Bookkeeping Series</span></a>
  </li>
 <li class="">
   <a href="sec-construction_composite_zeta.html#a0000000018"><span class="toc_ref">0.4.4</span> <span class="toc_entry">Analytic Continuation vs. Natural Boundary Theorem</span></a>
@@ -199,7 +199,7 @@
 
     <a class="icon proof" href="sec-critical_strip_audit.html#thm:zero_free_re_gt_1">#</a>
     
-    <a class="icon proof" href="sec-critical_strip_audit.html#a0000000165"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="sec-critical_strip_audit.html#a0000000153"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -233,12 +233,12 @@
   <li><p>The Euler product \(\prod _{p \in \mathbb {P}} (1 - p^{-s})^{-1}\) converges absolutely to \(\zeta (s)\). </p>
 </li>
   <li><p>The Riemann zeta function has no zeros: </p>
-<div class="equation" id="a0000000166">
+<div class="equation" id="a0000000154">
 <p>
   <div class="equation_content">
     \begin{equation}  \zeta (s) \neq 0 \quad \text{for all } s \text{ with } \operatorname {Re}(s) {\gt} 1. \end{equation}
   </div>
-  <span class="equation_label">68</span>
+  <span class="equation_label">65</span>
 </p>
 </div>
 </li>
@@ -246,7 +246,7 @@
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000165">
+<div class="proof_wrapper" id="a0000000153">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -257,7 +257,7 @@
   <p>Let \(s = \sigma + i t\) with \(\sigma {\gt} 1\). </p>
 <ol class="enumerate">
   <li><p>For each \(n \in \mathbb {N}\), \(|n^{-s}| = n^{-\sigma }\). Since \(\sigma {\gt} 1\), the real series \(\sum _{n=1}^\infty n^{-\sigma }\) converges by the integral test: </p>
-<div class="displaymath" id="a0000000167">
+<div class="displaymath" id="a0000000155">
   \[ \sum _{n=1}^\infty n^{-\sigma } \le 1 + \int _1^\infty x^{-\sigma } \,  \mathrm{d}x = 1 + \frac{1}{\sigma - 1} {\lt} \infty . \]
 </div>
 <p> By the Weierstrass \(M\)-test, \(\sum n^{-s}\) converges absolutely and uniformly on any half-plane \(\operatorname {Re}(s) \ge \sigma _0 {\gt} 1\). </p>
@@ -265,11 +265,11 @@
   <li><p>A product \(\prod (1 - a_n)\) with \(|a_n| {\lt} 1\) converges absolutely if and only if \(\sum |a_n|\) converges. Here \(a_p = p^{-s}\), and \(\sum _p |p^{-s}| = \sum _p p^{-\sigma } {\lt} \sum _{n=1}^\infty n^{-\sigma } {\lt} \infty \). Hence the product converges absolutely. </p>
 </li>
   <li><p>By the absolute convergence of the Euler product, we have: </p>
-<div class="displaymath" id="a0000000168">
+<div class="displaymath" id="a0000000156">
   \[ \left| \frac{1}{\zeta (s)} \right| = \left| \prod _{p \in \mathbb {P}} \left(1 - p^{-s}\right) \right| \le \prod _{p \in \mathbb {P}} \left(1 + p^{-\sigma }\right) = \exp \left( \sum _{p \in \mathbb {P}} \ln (1 + p^{-\sigma }) \right) \le \exp \left( \sum _{p \in \mathbb {P}} p^{-\sigma } \right) {\lt} \infty . \]
 </div>
 <p> Since \(1/\zeta (s)\) is uniformly bounded in modulus for \(\operatorname {Re}(s) \ge \sigma _0 {\gt} 1\): </p>
-<div class="displaymath" id="a0000000169">
+<div class="displaymath" id="a0000000157">
   \[ |\zeta (s)| \ge \exp \left( -\sum _{p \in \mathbb {P}} p^{-\sigma } \right) {\gt} 0. \]
 </div>
 <p> Therefore, \(\zeta (s)\) cannot vanish anywhere in the half-plane \(\operatorname {Re}(s) {\gt} 1\). </p>
@@ -296,7 +296,7 @@
 
     <a class="icon proof" href="sec-critical_strip_audit.html#thm:three_obstructions">#</a>
     
-    <a class="icon proof" href="sec-critical_strip_audit.html#a0000000170"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="sec-critical_strip_audit.html#a0000000158"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -323,28 +323,19 @@
         </div>
   </div>
   <div class="theorem_thmcontent">
-  <p>   Any attempt to extend the additive-multiplicative completeness of \(\zeta (s) = 1 + P(s) + \zeta _C(s)\) point-wise into the critical strip \(0 {\lt} \operatorname {Re}(s) \le 1\) fails due to the following three structural barriers: </p>
+  <p>   Any attempt to transport the additive-multiplicative completeness of \(\zeta (s) = 1 + P(s) + \zeta _C(s)\) point-wise into \(0 {\lt} \operatorname {Re}(s) \le 1\) (or \(\operatorname {Re}(s) \le 0\)) fails due to three barriers: </p>
 <ol class="enumerate">
-  <li><p><b class="bfseries">Obstruction 1 (Divergence of Coordinate Series):</b> For every \(\sigma \in (0, 1]\), the Prime Zeta series and the Composite Zeta series diverge identically: </p>
-<div class="equation" id="a0000000171">
-<p>
-  <div class="equation_content">
-    \begin{equation}  \sum _{p \in \mathbb {P}} p^{-\sigma } = \infty \quad \text{and} \quad \sum _{c \in \mathbb {C}_{\mathrm{comp}}} c^{-\sigma } = \infty . \end{equation}
-  </div>
-  <span class="equation_label">69</span>
-</p>
-</div>
-<p> Consequently, the sum \(1 + P(s) + \zeta _C(s)\) degenerates into the undefined indeterminate form \(\infty - \infty \). </p>
+  <li><p><b class="bfseries">Obstruction 1 (Divergence of Ordinary Dirichlet Series):</b> For \(0 {\lt} \sigma \le 1\) (and \(\sigma \le 0\)), \(\sum _{n=1}^\infty n^{-s}\) diverges outright, while \(\sum _{p \in \mathbb {P}} p^{-\sigma } = \infty \) and \(\sum _{c \in \mathbb {C}_{\mathrm{comp}}} c^{-\sigma } = \infty \). </p>
 </li>
-  <li><p><b class="bfseries">Obstruction 2 (Failure of Pointwise Euler Product Convergence):</b> For any \(s = \sigma + i t\) with \(0 {\lt} \sigma {\lt} 1\), the partial Euler products \(\Pi _X(s) = \prod _{p \le X} (1 - p^{-s})^{-1}\) do not converge point-wise as \(X \to \infty \). They oscillate indefinitely and fail to define \(\zeta (s)\) point-by-point. </p>
+  <li><p><b class="bfseries">Obstruction 2 (Divergence of the Infinite Euler Product):</b> Convergence of \(\Pi _X = \prod _{p \le X}(1 - p^{-s})^{-1}\) requires a non-zero finite limit (convergence of \(\sum _p \operatorname {Log}(1 - p^{-s})^{-1}\)), which fails along the critical line \(\operatorname {Re}(s) = 1/2\) and at every zero \(\zeta (\rho ) = 0\). </p>
 </li>
-  <li><p><b class="bfseries">Obstruction 3 (The Riemann Series Rearrangement Violation):</b> For \(0 {\lt} \sigma \le 1\), the series \(\sum n^{-s}\) is not absolutely convergent (\(\sum n^{-\sigma } = \infty \)). By the Riemann Series Theorem, conditionally convergent series cannot be arbitrarily partitioned or rearranged into primes, composites, or modular sub-lattices without altering the sum or inducing divergence. </p>
+  <li><p><b class="bfseries">Obstruction 3 (Subseries Partitioning in the Conditionally Convergent Eta Series):</b> For \(0 {\lt} \operatorname {Re}(s) \le 1\), the alternating series \(\eta (s) = \sum _{n=1}^\infty (-1)^{n-1} n^{-s}\) converges conditionally, so by the Riemann and Lévy–Steinitz theorems it cannot be partitioned into separate prime and composite subseries without absolute convergence, which fails for \(\sigma \le 1\). </p>
 </li>
 </ol>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000170">
+<div class="proof_wrapper" id="a0000000158">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -352,25 +343,9 @@
     <span class="expand-proof">▶</span>
   </div>
   <div class="proof_content">
-  <p><b class="bfseries">Proof of Obstruction 1:</b> Euler (1737) established that \(\sum _{p \in \mathbb {P}} p^{-1} = \infty \). For any \(\sigma \le 1\) and \(p \ge 2\), \(p^{-\sigma } \ge p^{-1} {\gt} 0\). By the direct comparison test: </p>
-<div class="displaymath" id="a0000000172">
-  \[ \sum _{p \in \mathbb {P}} p^{-\sigma } \ge \sum _{p \in \mathbb {P}} p^{-1} = \infty . \]
-</div>
-<p> Similarly, the composites \(\mathbb {C}_{\mathrm{comp}}\) contain all powers of \(2\): \(\{ 2^2, 2^3, 2^4, \dots \}  \subset \mathbb {C}_{\mathrm{comp}}\). For \(\sigma \le 1\): </p>
-<div class="displaymath" id="a0000000173">
-  \[ \sum _{c \in \mathbb {C}_{\mathrm{comp}}} c^{-\sigma } \ge \sum _{k=2}^\infty (2^k)^{-\sigma } \ge \sum _{k=2}^\infty 2^{-k} = \frac{1}{2} {\gt} 0. \]
-</div>
-<p> Moreover, the square-free semiprimes \(c = 2p\) (\(p \in \mathbb {P}\setminus \{ 2\} \)) belong to \(\mathbb {C}_{\mathrm{comp}}\), yielding: </p>
-<div class="displaymath" id="a0000000174">
-  \[ \sum _{c \in \mathbb {C}_{\mathrm{comp}}} c^{-\sigma } \ge 2^{-\sigma } \sum _{p {\gt} 2} p^{-\sigma } \ge \frac{1}{2} \sum _{p {\gt} 2} p^{-1} = \infty . \]
-</div>
-<p> Hence, both coordinate sums diverge for every \(\sigma \le 1\). </p>
-<p><b class="bfseries">Proof of Obstruction 2:</b> By Hadamard’s factorization theorem, \(\zeta (s)\) has non-trivial zeros \(\rho = \beta + i \gamma \) in \(0 {\lt} \beta {\lt} 1\). If \(\Pi _X(s)\) converged point-wise to \(\zeta (s)\) for \(\sigma \in (0, 1)\), then by Hurwitz’s theorem, an absolutely convergent infinite product of non-zero terms could never vanish. However, \(\zeta (\rho ) = 0\). Hence, the Euler product cannot converge point-wise to \(\zeta (s)\) on the critical strip. Although Montgomery and Vaughan&#160;<span class="cite">
-	[
-	<a href="sec-conclusion.html#MontgomeryVaughan2007" >14</a>
-	]
-</span> established convergence in the mean-square (\(L^2\)) sense along vertical lines, point-wise evaluation fails everywhere zeros exist. </p>
-<p><b class="bfseries">Proof of Obstruction 3:</b> Absolute convergence is necessary and sufficient for series rearrangement invariance. Because \(\sum |n^{-s}| = \sum n^{-\sigma } = \infty \) for \(\sigma \le 1\), the series \(\sum n^{-s}\) is conditionally convergent (where it converges at all). By the Riemann Series Theorem, the terms can be reordered to converge to any prescribed real number or to diverge, proving that separating \(\sum n^{-s}\) into \(\sum _{p} p^{-s} + \sum _{c} c^{-s}\) is an illicit rearrangement that destroys the analytic identity. </p>
+  <p><b class="bfseries">Proof of Obstruction 1:</b> For \(\sigma \le 0\), \(|n^{-s}| \ge 1 \not\to 0\); for \(0 {\lt} \sigma \le 1\), Cauchy condensation and the integral test give \(\sum n^{-\sigma } = \infty \), while \(\sum _{p} p^{-\sigma } \ge \sum _p p^{-1} = \infty \) and \(\sum _{c} c^{-\sigma } \ge 2^{-\sigma }\sum _{p{\gt}2} p^{-1} = \infty \). </p>
+<p><b class="bfseries">Proof of Obstruction 2:</b> A convergent infinite product of non-zero factors cannot vanish at Hadamard’s zeros \(\zeta (\rho ) = 0\), and \(\sum _p \operatorname {Log}(1 - p^{-s})^{-1}\) diverges identically along \(\operatorname {Re}(s) = 1/2\). </p>
+<p><b class="bfseries">Proof of Obstruction 3:</b> Since \((-1)^{p-1} p^{-\sigma } = -p^{-\sigma }\) for every odd prime \(p\) and \(\sum _{p{\gt}2} p^{-\sigma } = \infty \), the prime subseries of \(\eta (s)\) diverges directly on \((0, 1]\), obstructing prime–composite splitting of \(\eta (s)\). </p>
 
   </div>
 </div>
@@ -417,12 +392,12 @@
   </div>
   <div class="definition_thmcontent">
   <p>   The Dirichlet Eta function \(\eta : \{ s \in \mathbb {C}: \operatorname {Re}(s) {\gt} 0\}  \to \mathbb {C}\) is defined by the alternating series: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF25F0B0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DCA4B1D0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:eta_def} \eta (s) \coloneqq \sum _{n=1}^\infty \frac{(-1)^{n-1}}{n^s} = 1 - \frac{1}{2^s} + \frac{1}{3^s} - \frac{1}{4^s} + \frac{1}{5^s} - \dots \end{equation}
   </div>
-  <span class="equation_label">70</span>
+  <span class="equation_label">66</span>
 </p>
 </div>
 
@@ -444,7 +419,7 @@
 
     <a class="icon proof" href="sec-critical_strip_audit.html#thm:eta_continuation">#</a>
     
-    <a class="icon proof" href="sec-critical_strip_audit.html#a0000000175"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="sec-critical_strip_audit.html#a0000000159"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -492,28 +467,28 @@
   </div>
   <div class="theorem_thmcontent">
   <p>    The series&#160;?? converges conditionally for all \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 0\) and defines a holomorphic function. Furthermore, for all \(s\) in this half-plane: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF25EBD0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DCA4BB90>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:eta_zeta_identity} \eta (s) = \left(1 - 2^{1-s}\right) \zeta (s). \end{equation}
   </div>
-  <span class="equation_label">71</span>
+  <span class="equation_label">67</span>
 </p>
 </div>
 <p> Consequently, \(\zeta (s)\) extends meromorphically to \(\operatorname {Re}(s) {\gt} 0\) via: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF25FAD0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DCA4B4D0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:zeta_via_eta} \zeta (s) = \frac{\eta (s)}{1 - 2^{1-s}}, \end{equation}
   </div>
-  <span class="equation_label">72</span>
+  <span class="equation_label">68</span>
 </p>
 </div>
 <p> with its sole singularity being a simple pole at \(s = 1\) with residue \(\operatorname {Res}_{s=1} \zeta (s) = 1\). </p>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000175">
+<div class="proof_wrapper" id="a0000000159">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -522,40 +497,40 @@
   </div>
   <div class="proof_content">
   <p>We first prove the identity&#160;?? for \(\operatorname {Re}(s) {\gt} 1\) where absolute convergence permits rearrangement: </p>
-<div class="displaymath" id="a0000000176">
+<div class="displaymath" id="a0000000160">
   \begin{align*}  \zeta (s) - \eta (s) & = \sum _{n=1}^\infty \frac{1}{n^s} - \sum _{n=1}^\infty \frac{(-1)^{n-1}}{n^s} = \sum _{n=1}^\infty \frac{1 - (-1)^{n-1}}{n^s}. \end{align*}
 </div>
 <p> The numerator \(1 - (-1)^{n-1}\) equals \(0\) when \(n\) is odd, and equals \(2\) when \(n\) is even (\(n = 2k\)). Hence: </p>
-<div class="displaymath" id="a0000000177">
+<div class="displaymath" id="a0000000161">
   \[ \zeta (s) - \eta (s) = \sum _{k=1}^\infty \frac{2}{(2k)^s} = 2 \cdot 2^{-s} \sum _{k=1}^\infty \frac{1}{k^s} = 2^{1-s} \zeta (s). \]
 </div>
 <p> Rearranging terms: </p>
-<div class="displaymath" id="a0000000178">
+<div class="displaymath" id="a0000000162">
   \[ \eta (s) = \zeta (s) - 2^{1-s} \zeta (s) = \left(1 - 2^{1-s}\right) \zeta (s). \]
 </div>
 <p> Now we prove that \(\eta (s)\) converges for all \(\operatorname {Re}(s) {\gt} 0\). Let \(s = \sigma + i t\) with \(\sigma {\gt} 0\). We write the partial sums using summation by parts. Let \(a_n = (-1)^{n-1}\) and \(A(u) = \sum _{1 \le n \le u} (-1)^{n-1}\). Notice that \(A(u) = 1\) if \(\lfloor u \rfloor \) is odd, and \(A(u) = 0\) if \(\lfloor u \rfloor \) is even. In particular, \(|A(u)| \le 1\) for all \(u \ge 1\). Applying Abel summation: </p>
-<div class="displaymath" id="a0000000179">
+<div class="displaymath" id="a0000000163">
   \[ \sum _{n=1}^N \frac{(-1)^{n-1}}{n^s} = \frac{A(N)}{N^s} + s \int _1^N \frac{A(u)}{u^{s+1}} \,  \mathrm{d}u. \]
 </div>
 <p> Since \(\sigma {\gt} 0\): </p>
-<div class="displaymath" id="a0000000180">
+<div class="displaymath" id="a0000000164">
   \[ \left| \frac{A(N)}{N^s} \right| \le \frac{1}{N^\sigma } \to 0 \quad \text{as } N \to \infty . \]
 </div>
 <p> Moreover, the integral converges absolutely: </p>
-<div class="displaymath" id="a0000000181">
+<div class="displaymath" id="a0000000165">
   \[ \int _1^\infty \left| \frac{A(u)}{u^{s+1}} \right| \mathrm{d}u \le \int _1^\infty \frac{1}{u^{\sigma +1}} \,  \mathrm{d}u = \frac{1}{\sigma } {\lt} \infty . \]
 </div>
 <p> Thus, \(\eta (s) = s \int _1^\infty A(u) u^{-s-1} \,  \mathrm{d}u\) converges and defines a holomorphic function on \(\operatorname {Re}(s) {\gt} 0\). </p>
 <p>Finally, the denominator \(1 - 2^{1-s}\) in&#160;?? vanishes if and only if \(2^{1-s} = 1\), which occurs when: </p>
-<div class="displaymath" id="a0000000182">
+<div class="displaymath" id="a0000000166">
   \[ e^{(1-s)\ln 2} = 1 \iff (1-s)\ln 2 = 2\pi i k \iff s = 1 - \frac{2\pi i k}{\ln 2} \quad (k \in \mathbb {Z}). \]
 </div>
 <p> For \(k = 0\), \(s = 1\). Near \(s = 1\): </p>
-<div class="displaymath" id="a0000000183">
+<div class="displaymath" id="a0000000167">
   \[ 1 - 2^{1-s} = 1 - e^{-(s-1)\ln 2} = (s-1)\ln 2 + \mathcal{O}\left((s-1)^2\right). \]
 </div>
 <p> Since \(\eta (1) = 1 - \frac{1}{2} + \frac{1}{3} - \frac{1}{4} + \dots = \ln 2\), we find: </p>
-<div class="displaymath" id="a0000000184">
+<div class="displaymath" id="a0000000168">
   \[ \lim _{s \to 1} (s-1)\zeta (s) = \lim _{s \to 1} \frac{(s-1)\eta (s)}{(s-1)\ln 2} = \frac{\ln 2}{\ln 2} = 1. \]
 </div>
 <p> For \(k \neq 0\), the points \(s_k = 1 - \frac{2\pi i k}{\ln 2}\) are removable singularities of&#160;?? because the analytic continuation of \(\zeta (s)\) via the functional equation has no poles other than \(s = 1\). </p>
@@ -584,7 +559,7 @@
 
     <a class="icon proof" href="sec-critical_strip_audit.html#thm:approx_functional_equation">#</a>
     
-    <a class="icon proof" href="sec-critical_strip_audit.html#a0000000185"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="sec-critical_strip_audit.html#a0000000169"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -613,27 +588,27 @@
   </div>
   <div class="theorem_thmcontent">
   <p>   Let \(s = \sigma + i t\) with \(0 {\lt} \sigma {\lt} 1\). For any \(x, y \ge 1\) satisfying \(2\pi x y = |t|\): </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF323050>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DCA96F90>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:approx_functional_equation} \zeta (s) = \sum _{n \le x} \frac{1}{n^s} + \chi (s) \sum _{n \le y} \frac{1}{n^{1-s}} + \mathcal{O}\left(x^{-\sigma } + |t|^{\frac{1}{2}-\sigma } y^{\sigma -1}\right), \end{equation}
   </div>
-  <span class="equation_label">73</span>
+  <span class="equation_label">69</span>
 </p>
 </div>
 <p> where \(\chi (s)\) is the functional equation factor: </p>
-<div class="equation" id="a0000000186">
+<div class="equation" id="a0000000170">
 <p>
   <div class="equation_content">
     \begin{equation}  \chi (s) \coloneqq 2^s \pi ^{s-1} \sin \left(\frac{\pi s}{2}\right) \Gamma (1-s). \end{equation}
   </div>
-  <span class="equation_label">74</span>
+  <span class="equation_label">70</span>
 </p>
 </div>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000185">
+<div class="proof_wrapper" id="a0000000169">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -665,7 +640,7 @@
 
     <a class="icon proof" href="sec-critical_strip_audit.html#cor:phasor_symmetry">#</a>
     
-    <a class="icon proof" href="sec-critical_strip_audit.html#a0000000187"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="sec-critical_strip_audit.html#a0000000171"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -713,27 +688,27 @@
   </div>
   <div class="corollary_thmcontent">
   <p>    On the critical line \(\sigma = \frac{1}{2}\), and choosing \(x = y = \sqrt{\frac{|t|}{2\pi }}\), the two Dirichlet polynomials in&#160;?? have identical phasor decay lengths: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF37C110>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DCA97E90>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:critical_phasor_balance} \left| \frac{1}{n^s} \right| = n^{-1/2} \quad \text{and} \quad \left| \chi \left(\frac{1}{2} + i t\right) \frac{1}{n^{1-s}} \right| = n^{-1/2} + \mathcal{O}\left(|t|^{-1}\right). \end{equation}
   </div>
-  <span class="equation_label">75</span>
+  <span class="equation_label">71</span>
 </p>
 </div>
 <p> Off the critical line (\(\sigma \neq \frac{1}{2}\)), the two sums experience asymmetric exponential imbalance: </p>
-<div class="equation" id="a0000000188">
+<div class="equation" id="a0000000172">
 <p>
   <div class="equation_content">
     \begin{equation}  |\chi (\sigma + i t)| \sim \left(\frac{|t|}{2\pi }\right)^{\frac{1}{2} - \sigma } \quad \text{as } |t| \to \infty . \end{equation}
   </div>
-  <span class="equation_label">76</span>
+  <span class="equation_label">72</span>
 </p>
 </div>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000187">
+<div class="proof_wrapper" id="a0000000171">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -742,23 +717,23 @@
   </div>
   <div class="proof_content">
   <p>By Stirling’s approximation for the complex Gamma function: </p>
-<div class="displaymath" id="a0000000189">
+<div class="displaymath" id="a0000000173">
   \[ |\Gamma (\sigma + i t)| = \sqrt{2\pi } |t|^{\sigma - 1/2} e^{-\pi |t| / 2} \left(1 + \mathcal{O}\left(|t|^{-1}\right)\right). \]
 </div>
 <p> Applying this to \(\chi (s) = 2^s \pi ^{s-1} \sin (\pi s / 2) \Gamma (1-s)\) with \(s = \sigma + i t\): </p>
-<div class="displaymath" id="a0000000190">
+<div class="displaymath" id="a0000000174">
   \[ |\sin (\pi s / 2)| = \frac{1}{2} e^{\pi |t| / 2} \left(1 + \mathcal{O}\left(e^{-\pi |t|}\right)\right). \]
 </div>
 <p> Multiplying the terms: </p>
-<div class="displaymath" id="a0000000191">
+<div class="displaymath" id="a0000000175">
   \[ |\chi (\sigma + i t)| = 2^\sigma \pi ^{\sigma -1} \cdot \frac{1}{2} e^{\pi |t| / 2} \cdot \sqrt{2\pi } |t|^{1/2 - \sigma } e^{-\pi |t| / 2} \left(1 + \mathcal{O}\left(|t|^{-1}\right)\right) = \left(\frac{|t|}{2\pi }\right)^{\frac{1}{2} - \sigma } \left(1 + \mathcal{O}\left(|t|^{-1}\right)\right). \]
 </div>
 <p> When \(\sigma = \frac{1}{2}\), the exponent \(\frac{1}{2} - \sigma = 0\), so: </p>
-<div class="displaymath" id="a0000000192">
+<div class="displaymath" id="a0000000176">
   \[ \left|\chi \left(\frac{1}{2} + i t\right)\right| = 1 + \mathcal{O}\left(|t|^{-1}\right). \]
 </div>
 <p> Thus the term magnitudes in the first sum are \(|n^{-s}| = n^{-1/2}\), and in the second sum: </p>
-<div class="displaymath" id="a0000000193">
+<div class="displaymath" id="a0000000177">
   \[ \left| \chi (s) n^{-(1-s)} \right| = |\chi (s)| n^{-(1 - 1/2)} = 1 \cdot n^{-1/2} = n^{-1/2}. \]
 </div>
 <p> If \(\sigma {\gt} \frac{1}{2}\), \(\frac{1}{2} - \sigma {\lt} 0\), so \(|\chi (s)| \to 0\) as \(|t| \to \infty \), making the dual sum asymptotically negligible. If \(\sigma {\lt} \frac{1}{2}\), \(\frac{1}{2} - \sigma {\gt} 0\), so \(|\chi (s)| \to \infty \) as \(|t| \to \infty \), making the dual sum dominate exponentially. Therefore, the critical line \(\sigma = \frac{1}{2}\) is the unique geometric locus where the forward additive series and its multiplicative reflection stand in exact amplitude equilibrium. </p>

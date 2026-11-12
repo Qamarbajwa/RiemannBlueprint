@@ -91,7 +91,7 @@
   <a href="sec-construction_composite_zeta.html#a0000000016"><span class="toc_ref">0.4.2</span> <span class="toc_entry">Method 2: Local Prime-Power Factors and the Möbius-Logarithmic Bridge</span></a>
  </li>
 <li class="">
-  <a href="sec-construction_composite_zeta.html#a0000000017"><span class="toc_ref">0.4.3</span> <span class="toc_entry">Method 3: Divisor-Weighted Composite Dirichlet Series</span></a>
+  <a href="sec-construction_composite_zeta.html#a0000000017"><span class="toc_ref">0.4.3</span> <span class="toc_entry">Method 3: Elementary Divisor-Weighted Bookkeeping Series</span></a>
  </li>
 <li class="">
   <a href="sec-construction_composite_zeta.html#a0000000018"><span class="toc_ref">0.4.4</span> <span class="toc_entry">Analytic Continuation vs. Natural Boundary Theorem</span></a>
@@ -468,7 +468,7 @@
   </div>
   <div class="theorem_thmcontent">
   <p>    Every integer \(n \ge 2\) admits a factorization into primes: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECDBB5430>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DADDF8F0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:fta_factorization} n = \prod _{i=1}^k p_i^{a_i} = p_1^{a_1} p_2^{a_2} \cdots p_k^{a_k}, \end{equation}
@@ -493,7 +493,7 @@
 <ul class="itemize">
   <li><p><em>Base Case (\(n = 2\)):</em> Since \(2 \in \mathbb {P}\), it is trivially a product of a single prime (\(2^1\)). </p>
 </li>
-  <li><p><em>Inductive Step:</em> Assume that every integer \(m\) with \(2 \le m {\lt} n\) can be factored into primes. If \(n\) is prime, then \(n = n^1\) is already factored. If \(n\) is composite, then by Definition&#160;??, there exist integers \(a, b\) such that \(n = a \cdot b\) with \(2 \le a {\lt} n\) and \(2 \le b {\lt} n\). By the induction hypothesis, both \(a\) and \(b\) can be factored into products of primes: </p>
+  <li><p><em>Inductive Step:</em> Assume that every integer \(m\) with \(2 \le m {\lt} n\) can be factored into primes. If \(n\) is prime, then \(n = n^1\) is already factored. If \(n\) is composite, then by Definition&#160;<a href="sect0001.html#def:composite_set">0.1.1</a>, there exist integers \(a, b\) such that \(n = a \cdot b\) with \(2 \le a {\lt} n\) and \(2 \le b {\lt} n\). By the induction hypothesis, both \(a\) and \(b\) can be factored into products of primes: </p>
 <div class="displaymath" id="a0000000041">
   \[ a = q_1 q_2 \cdots q_r, \qquad b = q_1' q_2' \cdots q_s', \quad (q_i, q_j' \in \mathbb {P}). \]
 </div>
@@ -908,7 +908,7 @@
 </div>
 </li>
   <li><p><b class="bfseries">Purely Periodic Decimals:</b> For all primes \(p \in \mathbb {P}\setminus \{ 2, 5\} \) (so \(\gcd (p, 10) = 1\)), the decimal expansion of \(1/p\) is <b class="bfseries">purely periodic</b> (with zero pre-period) of the form: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECEE9CF50>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC661190>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:reptend_form} \frac{1}{p} = 0.\overline{d_1 d_2 \dots d_L} = \sum _{j=1}^\infty \frac{M}{(10^L)^j} = \frac{M}{10^L - 1}, \end{equation}

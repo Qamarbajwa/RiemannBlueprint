@@ -21,6 +21,8 @@ By Euler's product formula, the multiplicative independence of the primes transl
 \zeta(s) = \prod_{p \in \Pset} \left(1 - \frac{1}{p^s}\right)^{-1} \quad (\sigma > 1).
 \end{equation}
 
+\begin{definition}[Fundamental Partition and Composite Set]
+\label{def:composite_set}
 The set of positive integers admits a canonical, mutually disjoint set-theoretic partition:
 \begin{equation}
 \label{eq:fundamental_partition}
@@ -32,6 +34,7 @@ where:
 \Cset \equiv \{n \in \Nset \mid n = a \cdot b \text{ for integers } a \ge 2, \; b \ge 2\} = \{4, 6, 8, 9, 10, 12, 14, 15, \dots\}
 \end{equation}
 denotes the set of non-prime composite numbers.
+\end{definition}
 
 While classical analytic number theory primarily utilizes primes to study the zeros and distribution of $\zeta(s)$, the structural properties of the complementary set $\Cset$ contain deep, dual analytic information. Every composite number is an element of the infinite union of multiplication tables:
 \begin{equation}
@@ -140,7 +143,7 @@ We divide the proof into two parts: existence and uniqueness.
 \textbf{Part 1: Existence.} We proceed by strong mathematical induction on $n \ge 2$.
 \begin{itemize}
   \item \emph{Base Case ($n = 2$):} Since $2 \in \Pset$, it is trivially a product of a single prime ($2^1$).
-  \item \emph{Inductive Step:} Assume that every integer $m$ with $2 \le m < n$ can be factored into primes. If $n$ is prime, then $n = n^1$ is already factored. If $n$ is composite, then by Definition~\ref{eq:composite_set_def}, there exist integers $a, b$ such that $n = a \cdot b$ with $2 \le a < n$ and $2 \le b < n$. By the induction hypothesis, both $a$ and $b$ can be factored into products of primes:
+  \item \emph{Inductive Step:} Assume that every integer $m$ with $2 \le m < n$ can be factored into primes. If $n$ is prime, then $n = n^1$ is already factored. If $n$ is composite, then by Definition~\ref{def:composite_set}, there exist integers $a, b$ such that $n = a \cdot b$ with $2 \le a < n$ and $2 \le b < n$. By the induction hypothesis, both $a$ and $b$ can be factored into products of primes:
   $$a = q_1 q_2 \cdots q_r, \qquad b = q_1' q_2' \cdots q_s', \quad (q_i, q_j' \in \Pset).$$
   Therefore, $n = a b = q_1 \cdots q_r q_1' \cdots q_s'$ is a product of primes. Grouping identical primes establishes the representation~\eqref{eq:fta_factorization}.
 \end{itemize}
@@ -461,7 +464,7 @@ For all $n \in \Nset$:
 
 \begin{proof}
 \leanok
-Parts (a) and (b) follow immediately from Definition~\ref{eq:composite_set_def}.
+Parts (a) and (b) follow immediately from Definition~\ref{def:composite_set}.
 For part (c), if $n \in \Cset$, then $\Omega(n) = \sum a_i \ge 2$. If $k = 1$, then $a_1 \ge 2$, so $d(n) = a_1 + 1 \ge 3$. If $k \ge 2$, then $a_1 \ge 1$ and $a_2 \ge 1$, so $d(n) \ge (1+1)(1+1) \ge 4 > 3$. Thus $d(c) \ge 3$ for all $c \in \Cset$.
 
 For part (d), by~\eqref{eq:d_n_formula}, $d(n) = \prod_{i=1}^k (a_i + 1)$ is odd if and only if every factor $a_i + 1$ is odd. An integer $a_i + 1$ is odd if and only if $a_i$ is even: $a_i = 2 m_i$ for some integer $m_i \ge 1$.
@@ -612,28 +615,30 @@ P(s) \equiv \sum_{p \in \Pset} \frac{1}{p^s}, \qquad \zeta_C(s) \equiv \sum_{c \
 \end{equation}
 \end{definition}
 
-\begin{theorem}[Exact Additive Decomposition Identity]
+\begin{proposition}[Elementary Additive Partition Bookkeeping Identity]
 \label{thm:additive_identity}
 \lean{RiemannBlueprint.Section4_CompositeZeta.additive_identity_relation}
 \uses{def:P_and_zetaC}
 \leanok
-For all $s \in \Cfield$ with $\operatorname{Re}(s) > 1$, the Riemann zeta function decomposes into the exact three-term identity:
+For all $s \in \Cfield$ with $\operatorname{Re}(s) > 1$, absolute convergence and the partition~\eqref{eq:fundamental_partition} yield the foundational bookkeeping identity:
 \begin{equation}
 \label{eq:zeta_additive_identity}
-\zeta(s) = 1 + P(s) + \zeta_C(s).
+\zeta(s) = 1 + P(s) + \zeta_C(s), \qquad \text{equivalently} \qquad \zeta_C(s) = \zeta(s) - 1 - P(s).
 \end{equation}
-Equivalently:
-\begin{equation}
-\zeta_C(s) = \zeta(s) - 1 - P(s).
-\end{equation}
-\end{theorem}
+\end{proposition}
 
 \begin{proof}
 \leanok
-By the arithmetic partition $\Nset = \{1\} \;\dot{\cup}\; \Pset \;\dot{\cup}\; \Cset$ (Eq.~\ref{eq:fundamental_partition}):
+By Definition~\ref{def:composite_set} ($\Nset = \{1\} \;\dot{\cup}\; \Pset \;\dot{\cup}\; \Cset$):
 $$\sum_{n=1}^\infty \frac{1}{n^s} = \frac{1}{1^s} + \sum_{p \in \Pset} \frac{1}{p^s} + \sum_{c \in \Cset} \frac{1}{c^s}.$$
-For $\sigma > 1$, the Dirichlet series $\sum_{n=1}^\infty n^{-\sigma}$ converges absolutely. Since subseries of an absolutely convergent series converge absolutely to the sum of their partitions, $\zeta(s) = 1 + P(s) + \zeta_C(s)$.
+For $\sigma > 1$, the Dirichlet series $\sum_{n=1}^\infty n^{-\sigma}$ converges absolutely, so its disjoint subseries sum to~\eqref{eq:zeta_additive_identity}.
 \end{proof}
+
+\begin{theorem}[Smooth-Cofactor Factorization and Uniqueness of the 50/50 Parity Exponent $s^*$]
+\label{thm:smooth_cofactor_parity_uniqueness}
+\uses{thm:additive_identity}
+For each prime $p \in \Pset$ and $\operatorname{Re}(s) > 1$, set $E_p(s) \coloneqq \prod_{q \le p}(1 - q^{-s})^{-1}$. Factoring every composite $c \in \Cset$ by its largest prime factor $p = P^+(c)$ yields $\zeta_C(s) = \sum_{p \in \Pset} p^{-s}(E_p(s)-1)$ and $f(s) \coloneqq P(s) - \zeta_C(s) = \sum_{p \in \Pset} p^{-s}(2 - E_p(s))$. On $(1, \infty)$, $P(s) = \zeta_C(s)$ has a unique root $s^* \in (1, 1.50]$ ($s^* \approx 1.446537622476006$, $P(s^*) = \zeta_C(s^*) \approx 0.924095391941443$), established by termwise positivity of $f'(s) = \sum_p p^{-s} B_p(s) > 0$ on $(1, 1.50]$, monotone bracketing ($P(1.55) > \zeta_C(1.50)$, $P(1.65) > \zeta_C(1.55)$, $P(1.73) > \zeta_C(1.65)$) on $[1.50, 1.73]$, and $E_p(s) < \zeta(s) \le \zeta(1.73) < 2$ on $[1.73, \infty)$.
+\end{theorem}
 
 \begin{example}[Evaluation at the Basel Value $s = 2$]
 At $s = 2$, $\zeta(2) = \sum_{n=1}^\infty n^{-2} = \frac{\pi^2}{6} \approx 1.644934066848$.
@@ -686,25 +691,25 @@ $$\ln \zeta(s) = \sum_{p \in \Pset} \sum_{m=1}^\infty \frac{1}{m p^{m s}} = \sum
 Let $f(s) \equiv \ln \zeta(s)$ and $g(s) \equiv P(s)$. We have $f(s) = \sum_{m=1}^\infty \frac{1}{m} g(m s)$.
 Applying M\"obius inversion on the multiplicative semigroup:
 $$g(s) = \sum_{k=1}^\infty \frac{\mu(k)}{k} f(k s) \implies P(s) = \sum_{k=1}^\infty \frac{\mu(k)}{k} \ln \zeta(k s).$$
-Substituting this expression into Theorem~\ref{thm:additive_identity} establishes~\eqref{eq:zeta_C_mobius}.
+Substituting this expression into Proposition~\ref{thm:additive_identity} establishes~\eqref{eq:zeta_C_mobius}.
 \end{proof}
 
-\subsection{Method 3: Divisor-Weighted Composite Dirichlet Series}
+\subsection{Method 3: Elementary Divisor-Weighted Bookkeeping Series}
 
-While Methods 1 and 2 define unweighted sums over $\Cset$, multiplicative arithmetic generates natural divisor-weighted series through Dirichlet convolutions.
+Complementing the unweighted additive split, squaring $\zeta(s) - 1$ yields a foundational multiplicative bookkeeping series supported strictly on $\Cset$.
 
-\begin{theorem}[Divisor-Weighted Composite Series]
+\begin{proposition}[Elementary Divisor-Weighted Composite Identity]
 \label{thm:divisor_weighted}
 \lean{RiemannBlueprint.Section4_CompositeZeta.divisor_weight_primes_and_composites}
 \uses{cor:divisor_bounds}
 \leanok
-For all $s \in \Cfield$ with $\operatorname{Re}(s) > 1$, the shifted square of the Riemann zeta function annihilates the unit $1$ and every prime $p \in \Pset$, generating a pure Dirichlet series supported strictly on the composite numbers $\Cset$:
+For all $s \in \Cfield$ with $\operatorname{Re}(s) > 1$, the shifted square $(\zeta(s) - 1)^2$ annihilates the unit $1$ and every prime $p \in \Pset$, generating a pure Dirichlet series supported strictly on the composite numbers $\Cset$:
 \begin{equation}
 \label{eq:weighted_composite_series}
 Z_{\mathrm{weighted}}(s) \equiv (\zeta(s) - 1)^2 = \sum_{c \in \Cset} \frac{d(c) - 2}{c^s},
 \end{equation}
 where $d(c) = \sum_{d \mid c} 1$ is the divisor function.
-\end{theorem}
+\end{proposition}
 
 \begin{proof}
 \leanok
@@ -781,29 +786,7 @@ Squaring this expression:
 $$Z_{\mathrm{weighted}}(s) = (\zeta(s) - 1)^2 = \frac{1}{(s-1)^2} + \frac{2(\gamma - 1)}{s-1} + \mathcal{O}(1).$$
 Since $\zeta(s) - 1$ is holomorphic on $\Cfield \setminus \{1\}$, its square $Z_{\mathrm{weighted}}(s)$ is holomorphic on $\Cfield \setminus \{1\}$ with a single pole of order $2$ at $s = 1$. It has no other singularities and therefore no natural boundary.
 
-\textbf{Proof of (b):} By Theorem~\ref{thm:mobius_bridge}:
-$$\zeta_C(s) = \zeta(s) - 1 - \sum_{k=1}^\infty \frac{\mu(k)}{k} \ln \zeta(k s).$$
-The singularities of $\zeta_C(s)$ are governed by the singularities of $P(s) = \sum_{k=1}^\infty \frac{\mu(k)}{k} \ln \zeta(k s)$.
-The function $\ln \zeta(w)$ possesses logarithmic branch points at:
-\begin{enumerate}
-  \item Every pole of $\zeta(w)$, which occurs uniquely at $w = 1$.
-  \item Every zero of $\zeta(w)$, which occurs at the trivial zeros $w = -2m$ ($m \in \Nset$) and the non-trivial zeros $w = \rho_n = \beta_n + i \gamma_n$ with $\beta_n \in (0, 1)$.
-\end{enumerate}
-Setting $w = k s$, we find that $\ln \zeta(k s)$ has branch points at:
-\begin{equation}
-\label{eq:branch_points}
-s = \frac{1}{k} \quad (k \in \Nset), \qquad s = \frac{\rho_n}{k} = \frac{\beta_n + i \gamma_n}{k} \quad (k \in \Nset, \; n \in \Zset \setminus \{0\}).
-\end{equation}
-Now consider the limit as $k \to \infty$:
-\begin{itemize}
-  \item The harmonic pole pre-images $s_k = 1/k$ form a sequence of real branch points accumulating at $s = 0$:
-  $$\lim_{k \to \infty} \frac{1}{k} = 0.$$
-  \item For each non-trivial zero $\rho_n = \beta_n + i \gamma_n$, the sequence of branch points $s_{n, k} = \frac{\beta_n + i \gamma_n}{k}$ has real part $\operatorname{Re}(s_{n, k}) = \frac{\beta_n}{k}$. Since $\beta_n \in (0, 1)$:
-  $$\lim_{k \to \infty} \operatorname{Re}(s_{n, k}) = \lim_{k \to \infty} \frac{\beta_n}{k} = 0.$$
-  Because the imaginary parts $\gamma_n$ of the non-trivial zeros are unbounded (there are infinitely many zeros, with $N(T) \sim \frac{T}{2\pi}\ln\frac{T}{2\pi}$), the set of points $\left\{ \frac{\rho_n}{k} \right\}_{k \in \Nset, n \in \Zset}$ forms a dense subset of the imaginary axis $i \Rset$.
-\end{itemize}
-By the Landau--Walfisz theorem~\cite{LandauWalfisz1920}, every neighborhood of every point on the imaginary line $\operatorname{Re}(s) = 0$ contains infinitely many branch points of $P(s)$. Any attempt to analytically continue $P(s)$ or $\zeta_C(s)$ across $\operatorname{Re}(s) = 0$ encounters a non-isolated dense barrier of singularities.
-Therefore, the imaginary axis $\operatorname{Re}(s) = 0$ is a \textbf{natural boundary} for $\zeta_C(s)$, precluding single-valued analytic continuation into the half-plane $\operatorname{Re}(s) \le 0$.
+\textbf{Proof of (b):} By Theorem~\ref{thm:mobius_bridge}, $\zeta_C(s) = \zeta(s) - 1 - \sum_{k=1}^\infty \frac{\mu(k)}{k}\ln\zeta(ks)$ on $\operatorname{Re}(s) > 1$. Fix $t_0 > 0$ and $\epsilon > 0$. By the Riemann--von Mangoldt zero-counting formula $N(T) = \frac{T}{2\pi}\ln\frac{T}{2\pi} - \frac{T}{2\pi} + \mathcal{O}(\ln T)$, $N(k(t_0+\epsilon)) - N(k t_0) = \frac{k\epsilon}{2\pi}\ln k + \mathcal{O}(k) \to \infty$ as $k \to \infty$. Choosing large square-free integers $k$ ($\mu(k) \neq 0$, $k > 1/\epsilon$) yields logarithmic branch points $s_k = \rho_k / k$ with $0 < \operatorname{Re}(s_k) < 1/k < \epsilon$ and $|\operatorname{Im}(s_k) - t_0| \le \epsilon$, accumulating symmetrically at every point on $i\Rset$. By Landau and Walfisz~\cite{LandauWalfisz1920} and Fr\"oberg~\cite{Froberg1968}, $\operatorname{Re}(s) = 0$ is a dense natural boundary for $P(s)$ and $\zeta_C(s)$.
 \end{proof}
 
 % ===========================================================================
@@ -1006,36 +989,9 @@ Hence, all non-trivial zeros of $\zeta(s)$ must satisfy $\operatorname{Re}(\rho)
 
 \medskip
 \noindent
-\textbf{Direction 2: Riemann Hypothesis $\implies$~\eqref{eq:mertens_bound}.}
+\textbf{Direction 2: Riemann Hypothesis $\implies$~\eqref{eq:mertens_bound} (Littlewood--Titchmarsh Contour Shift).}
 
-Assume the Riemann Hypothesis holds: all non-trivial zeros satisfy $\operatorname{Re}(\rho) = \frac{1}{2}$.
-Then the function $f(s) \coloneqq \frac{1}{\zeta(s)}$ is holomorphic in the open half-plane $\operatorname{Re}(s) > \frac{1}{2}$.
-By Perron's formula applied to the Dirichlet series $\frac{1}{\zeta(s)} = \sum_{n=1}^\infty \mu(n) n^{-s}$, for $c > 1$ and $x \ge 2$ not an integer:
-\begin{equation}
-\label{eq:perron_mertens}
-M(x) = \frac{1}{2\pi i} \int_{c - i T}^{c + i T} \frac{1}{\zeta(s)} \frac{x^s}{s} \, \dee s + R(x, T),
-\end{equation}
-where the truncation error satisfies:
-$$R(x, T) = \mathcal{O}\left( \frac{x^c}{T (c - 1)} + \frac{x \ln x}{T} \right).$$
-We construct a rectangular contour $\Gamma$ with vertices $c - i T$, $c + i T$, $\sigma_0 + i T$, and $\sigma_0 - i T$, where:
-$$\sigma_0 \coloneqq \frac{1}{2} + \epsilon, \qquad 0 < \epsilon < \frac{1}{2}.$$
-Under RH, $f(s) = 1/\zeta(s)$ has no poles inside or on the contour $\Gamma$. By Cauchy's Integral Theorem:
-$$\frac{1}{2\pi i} \oint_{\Gamma} \frac{1}{\zeta(s)} \frac{x^s}{s} \, \dee s = 0.$$
-Therefore:
-$$\frac{1}{2\pi i} \int_{c - i T}^{c + i T} \frac{1}{\zeta(s)} \frac{x^s}{s} \, \dee s = \frac{1}{2\pi i} \left( \int_{\sigma_0 - i T}^{\sigma_0 + i T} + \int_{\sigma_0 + i T}^{c + i T} - \int_{\sigma_0 - i T}^{c - i T} \right) \frac{1}{\zeta(s)} \frac{x^s}{s} \, \dee s.$$
-Under the Lindel\"of Hypothesis for $1/\zeta(s)$ (which is a consequence of RH, see Titchmarsh~\cite{Titchmarsh1986}, Theorem~14.2), for any $\delta > 0$ and $\sigma \ge \frac{1}{2} + \epsilon$:
-$$\left| \frac{1}{\zeta(\sigma + i t)} \right| = \mathcal{O}\left( |t|^\delta \right) \quad \text{as } |t| \to \infty.$$
-We estimate the integrals along each segment of the contour:
-\begin{enumerate}
-  \item Along the vertical segment $[\sigma_0 - i T, \sigma_0 + i T]$:
-  $$\left| \int_{\sigma_0 - i T}^{\sigma_0 + i T} \frac{1}{\zeta(s)} \frac{x^s}{s} \, \dee s \right| \le x^{\sigma_0} \int_{-T}^T \frac{|\zeta(\sigma_0 + i t)|^{-1}}{\sqrt{\sigma_0^2 + t^2}} \, \dee t \le x^{\frac{1}{2} + \epsilon} \int_{-T}^T \mathcal{O}\left( (1 + |t|)^{\delta - 1} \right) \dee t = \mathcal{O}\left( x^{\frac{1}{2} + \epsilon} T^\delta \right).$$
-  \item Along the horizontal segments $[\sigma_0 \pm i T, c \pm i T]$:
-  $$\left| \int_{\sigma_0 \pm i T}^{c \pm i T} \frac{1}{\zeta(s)} \frac{x^s}{s} \, \dee s \right| \le \int_{\sigma_0}^c \frac{|\zeta(\sigma \pm i T)|^{-1}}{T} x^\sigma \, \dee \sigma = \mathcal{O}\left( \frac{T^\delta x^c}{T \ln x} \right).$$
-\end{enumerate}
-Choosing $c = 1 + \frac{1}{\ln x}$, $T = x^2$, and $\delta < \frac{\epsilon}{4}$, all error terms are dominated by $x^{1/2 + \epsilon}$.
-Hence:
-$$M(x) = \mathcal{O}\left(x^{\frac{1}{2} + \epsilon}\right).$$
-This completes the bidirectional proof.
+Assume RH so $1/\zeta(s)$ is holomorphic on $\operatorname{Re}(s) > \frac{1}{2}$. Fix $0 < \epsilon < \frac{1}{2}$, set $\sigma_0 \coloneqq \frac{1}{2} + \frac{\epsilon}{2}$, evaluate at half-integers $x = \lfloor x \rfloor + \frac{1}{2} \ge \frac{5}{2}$, and take $c = 1 + \frac{1}{\ln x}$. Shifting Perron's integral over $[c - iT, c + iT]$ across the zero-free rectangle with vertices $c \pm iT$ and $\sigma_0 \pm iT$, and applying the RH-conditional bound $|1/\zeta(\sigma + it)| = \mathcal{O}_\epsilon(|t|^{\epsilon/4})$ ($\sigma \ge \sigma_0$; Titchmarsh~\cite{Titchmarsh1986}, Theorem~14.2 and \S14.25), gives vertical contribution $\mathcal{O}_\epsilon(x^{\frac{1}{2}+\frac{\epsilon}{2}} T^{\epsilon/4})$, horizontal contribution $\mathcal{O}_\epsilon(x^c T^{\frac{\epsilon}{4}-1})$, and truncation error $R(x,T) = \mathcal{O}(\frac{x\ln x}{T})$. Setting $T \coloneqq x^2$ bounds every term by $\mathcal{O}_\epsilon(x^{\frac{1}{2}+\epsilon})$.
 \end{proof}
 
 \begin{remark}[Historical Context on Mertens' Conjecture]
@@ -1097,31 +1053,21 @@ Why can we not simply evaluate the additive decomposition $\zeta(s) = 1 + P(s) +
 \label{thm:three_obstructions}
 \lean{RiemannBlueprint.Section6_CriticalStripAudit.additive_partition_firewall}
 \leanok
-Any attempt to extend the additive-multiplicative completeness of $\zeta(s) = 1 + P(s) + \zeta_C(s)$ point-wise into the critical strip $0 < \operatorname{Re}(s) \le 1$ fails due to the following three structural barriers:
+Any attempt to transport the additive-multiplicative completeness of $\zeta(s) = 1 + P(s) + \zeta_C(s)$ point-wise into $0 < \operatorname{Re}(s) \le 1$ (or $\operatorname{Re}(s) \le 0$) fails due to three barriers:
 \begin{enumerate}
-  \item \textbf{Obstruction 1 (Divergence of Coordinate Series):} For every $\sigma \in (0, 1]$, the Prime Zeta series and the Composite Zeta series diverge identically:
-  \begin{equation}
-  \sum_{p \in \Pset} p^{-\sigma} = \infty \quad \text{and} \quad \sum_{c \in \Ccomp} c^{-\sigma} = \infty.
-  \end{equation}
-  Consequently, the sum $1 + P(s) + \zeta_C(s)$ degenerates into the undefined indeterminate form $\infty - \infty$.
-  \item \textbf{Obstruction 2 (Failure of Pointwise Euler Product Convergence):} For any $s = \sigma + i t$ with $0 < \sigma < 1$, the partial Euler products $\Pi_X(s) = \prod_{p \le X} (1 - p^{-s})^{-1}$ do not converge point-wise as $X \to \infty$. They oscillate indefinitely and fail to define $\zeta(s)$ point-by-point.
-  \item \textbf{Obstruction 3 (The Riemann Series Rearrangement Violation):} For $0 < \sigma \le 1$, the series $\sum n^{-s}$ is not absolutely convergent ($\sum n^{-\sigma} = \infty$). By the Riemann Series Theorem, conditionally convergent series cannot be arbitrarily partitioned or rearranged into primes, composites, or modular sub-lattices without altering the sum or inducing divergence.
+  \item \textbf{Obstruction 1 (Divergence of Ordinary Dirichlet Series):} For $0 < \sigma \le 1$ (and $\sigma \le 0$), $\sum_{n=1}^\infty n^{-s}$ diverges outright, while $\sum_{p \in \Pset} p^{-\sigma} = \infty$ and $\sum_{c \in \Ccomp} c^{-\sigma} = \infty$.
+  \item \textbf{Obstruction 2 (Divergence of the Infinite Euler Product):} Convergence of $\Pi_X = \prod_{p \le X}(1 - p^{-s})^{-1}$ requires a non-zero finite limit (convergence of $\sum_p \operatorname{Log}(1 - p^{-s})^{-1}$), which fails along the critical line $\operatorname{Re}(s) = 1/2$ and at every zero $\zeta(\rho) = 0$.
+  \item \textbf{Obstruction 3 (Subseries Partitioning in the Conditionally Convergent Eta Series):} For $0 < \operatorname{Re}(s) \le 1$, the alternating series $\eta(s) = \sum_{n=1}^\infty (-1)^{n-1} n^{-s}$ converges conditionally, so by the Riemann and L\'evy--Steinitz theorems it cannot be partitioned into separate prime and composite subseries without absolute convergence, which fails for $\sigma \le 1$.
 \end{enumerate}
 \end{theorem}
 
 \begin{proof}
 \leanok
-\textbf{Proof of Obstruction 1:} Euler (1737) established that $\sum_{p \in \Pset} p^{-1} = \infty$. For any $\sigma \le 1$ and $p \ge 2$, $p^{-\sigma} \ge p^{-1} > 0$. By the direct comparison test:
-$$\sum_{p \in \Pset} p^{-\sigma} \ge \sum_{p \in \Pset} p^{-1} = \infty.$$
-Similarly, the composites $\Ccomp$ contain all powers of $2$: $\{2^2, 2^3, 2^4, \dots\} \subset \Ccomp$. For $\sigma \le 1$:
-$$\sum_{c \in \Ccomp} c^{-\sigma} \ge \sum_{k=2}^\infty (2^k)^{-\sigma} \ge \sum_{k=2}^\infty 2^{-k} = \frac{1}{2} > 0.$$
-Moreover, the square-free semiprimes $c = 2p$ ($p \in \Pset \setminus \{2\}$) belong to $\Ccomp$, yielding:
-$$\sum_{c \in \Ccomp} c^{-\sigma} \ge 2^{-\sigma} \sum_{p > 2} p^{-\sigma} \ge \frac{1}{2} \sum_{p > 2} p^{-1} = \infty.$$
-Hence, both coordinate sums diverge for every $\sigma \le 1$.
+\textbf{Proof of Obstruction 1:} For $\sigma \le 0$, $|n^{-s}| \ge 1 \not\to 0$; for $0 < \sigma \le 1$, Cauchy condensation and the integral test give $\sum n^{-\sigma} = \infty$, while $\sum_{p} p^{-\sigma} \ge \sum_p p^{-1} = \infty$ and $\sum_{c} c^{-\sigma} \ge 2^{-\sigma}\sum_{p>2} p^{-1} = \infty$.
 
-\textbf{Proof of Obstruction 2:} By Hadamard's factorization theorem, $\zeta(s)$ has non-trivial zeros $\rho = \beta + i \gamma$ in $0 < \beta < 1$. If $\Pi_X(s)$ converged point-wise to $\zeta(s)$ for $\sigma \in (0, 1)$, then by Hurwitz's theorem, an absolutely convergent infinite product of non-zero terms could never vanish. However, $\zeta(\rho) = 0$. Hence, the Euler product cannot converge point-wise to $\zeta(s)$ on the critical strip. Although Montgomery and Vaughan~\cite{MontgomeryVaughan2007} established convergence in the mean-square ($L^2$) sense along vertical lines, point-wise evaluation fails everywhere zeros exist.
+\textbf{Proof of Obstruction 2:} A convergent infinite product of non-zero factors cannot vanish at Hadamard's zeros $\zeta(\rho) = 0$, and $\sum_p \operatorname{Log}(1 - p^{-s})^{-1}$ diverges identically along $\operatorname{Re}(s) = 1/2$.
 
-\textbf{Proof of Obstruction 3:} Absolute convergence is necessary and sufficient for series rearrangement invariance. Because $\sum |n^{-s}| = \sum n^{-\sigma} = \infty$ for $\sigma \le 1$, the series $\sum n^{-s}$ is conditionally convergent (where it converges at all). By the Riemann Series Theorem, the terms can be reordered to converge to any prescribed real number or to diverge, proving that separating $\sum n^{-s}$ into $\sum_{p} p^{-s} + \sum_{c} c^{-s}$ is an illicit rearrangement that destroys the analytic identity.
+\textbf{Proof of Obstruction 3:} Since $(-1)^{p-1} p^{-\sigma} = -p^{-\sigma}$ for every odd prime $p$ and $\sum_{p>2} p^{-\sigma} = \infty$, the prime subseries of $\eta(s)$ diverges directly on $(0, 1]$, obstructing prime--composite splitting of $\eta(s)$.
 \end{proof}
 
 \subsection{Analytic Continuation via the Dirichlet Eta Function}
@@ -1446,13 +1392,13 @@ If any zero existed with $\beta > 1/2$, it would generate an amplified ripple $x
 \subsection{Rank-4 Boundary-Dirichlet Reduction of the Smooth Vasyunin Kernel}
 \label{subsec:rank4_boundary_dirichlet}
 
-To bridge discrete BNBD projections with critical-strip boundary behavior, we formalize the exact algebraic collapse of Vasyunin's smooth logarithmic kernel $G_N^{(\mathrm{smooth})}$.
+To bridge discrete BNBD projections with critical-strip boundary behavior, we formalize the exact algebraic collapse $G_N^{(\mathrm{smooth})} = U_N M_4 U_N^T$ ($\det M_4 = 1/16 > 0$, exact rank~$4$ for $N \ge 4$ via $\det U_4 = \frac{\ln 2}{24}\ln(256/243) > 0$, signature $(2,2,N-4)$, and Courant--Fischer $n_+(G_N^{(\mathrm{cot})}) \ge N - 2$).
 
-\begin{definition}[Finite Boundary Functionals and Smooth Kernel]
+\begin{definition}[Finite Boundary Functionals, $U_N$, $M_4$, and Smooth Kernel]
 \label{def:bdr_functionals}
 \lean{RiemannBlueprint.Section8_VasyuninBDR.D0, RiemannBlueprint.Section8_VasyuninBDR.D1, RiemannBlueprint.Section8_VasyuninBDR.GSmooth}
 \leanok
-For $c : \Nset \to \Rset$ and $N \in \Nset$, define $D_N(0) = \sum_{k=1}^N c_k$, $D_N'(0) = -\sum_{k=1}^N c_k \ln k$, $D_N(1) = \sum_{k=1}^N c_k/k$, $D_N'(1) = -\sum_{k=1}^N (c_k \ln k)/k$, and the smooth Vasyunin kernel $G_{j,k}^{(\mathrm{smooth})} = \frac{(\ln(2\pi)-\gamma)(j+k) + (j-k)\ln(k/j) - 2}{2jk}$.
+For $c : \Nset \to \Rset$ and $N \in \Nset$, define $D_N(0) = \sum_{k=1}^N c_k$, $D_N'(0) = -\sum_{k=1}^N c_k \ln k$, $D_N(1) = \sum_{k=1}^N c_k/k$, $D_N'(1) = -\sum_{k=1}^N (c_k \ln k)/k$, $U_N = [\mathbf{e}, \mathbf{l}, \mathbf{h}, \mathbf{m}] \in \Rset^{N \times 4}$, $4 \times 4$ core $M_4$ ($\det M_4 = 1/16$), and $G_{j,k}^{(\mathrm{smooth})} = \frac{(\ln(2\pi)-\gamma)(j+k) + (j-k)\ln(k/j) - 2}{2jk}$.
 \end{definition}
 
 \begin{lemma}[Pointwise Rank-4 Outer-Product Factorization]
