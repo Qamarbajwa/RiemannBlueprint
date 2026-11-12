@@ -1443,6 +1443,49 @@ Theorem~\ref{thm:spectral_stability} demonstrates that the non-trivial zeros $\r
 If any zero existed with $\beta > 1/2$, it would generate an amplified ripple $x^\beta \gg x^{1/2}$, violating the optimal square-root error bound $\psi(x) - x = \mathcal{O}(x^{1/2}\ln^2 x)$ equivalent to the Riemann Hypothesis. Under RH ($\beta = 1/2$ for all non-trivial zeros), every oscillatory mode is confined to the critical $\sqrt{x}$ amplitude envelope (\textbf{maximal spectral resonance stability}).
 \end{remark}
 
+\subsection{Rank-4 Boundary-Dirichlet Reduction of the Smooth Vasyunin Kernel}
+\label{subsec:rank4_boundary_dirichlet}
+
+To bridge discrete BNBD projections with critical-strip boundary behavior, we formalize the exact algebraic collapse of Vasyunin's smooth logarithmic kernel $G_N^{(\mathrm{smooth})}$.
+
+\begin{definition}[Finite Boundary Functionals and Smooth Kernel]
+\label{def:bdr_functionals}
+\lean{RiemannBlueprint.Section8_VasyuninBDR.D0, RiemannBlueprint.Section8_VasyuninBDR.D1, RiemannBlueprint.Section8_VasyuninBDR.GSmooth}
+\leanok
+For $c : \Nset \to \Rset$ and $N \in \Nset$, define $D_N(0) = \sum_{k=1}^N c_k$, $D_N'(0) = -\sum_{k=1}^N c_k \ln k$, $D_N(1) = \sum_{k=1}^N c_k/k$, $D_N'(1) = -\sum_{k=1}^N (c_k \ln k)/k$, and the smooth Vasyunin kernel $G_{j,k}^{(\mathrm{smooth})} = \frac{(\ln(2\pi)-\gamma)(j+k) + (j-k)\ln(k/j) - 2}{2jk}$.
+\end{definition}
+
+\begin{lemma}[Pointwise Rank-4 Outer-Product Factorization]
+\label{lem:gsmooth_rank4}
+\lean{RiemannBlueprint.Section8_VasyuninBDR.GSmooth_eq_rank4, RiemannBlueprint.Section8_VasyuninBDR.b_dot_c_eq_boundary}
+\uses{def:bdr_functionals}
+\leanok
+For all $j, k \ge 1$, $G_{j,k}^{(\mathrm{smooth})}$ factors exactly into the symmetric Rank-$4$ outer product of $\mathbf{e}_k = 1$, $\mathbf{l}_k = \ln k$, $\mathbf{h}_k = k^{-1}$, and $\mathbf{m}_k = k^{-1}\ln k$. Moreover, the BNBD target inner product satisfies $\sum_{k=1}^N c_k \frac{\ln k + 1 - \gamma}{k} = (1 - \gamma) D_N(1) - D_N'(1)$.
+\end{lemma}
+
+\begin{theorem}[Double-Sum Boundary-Dirichlet Collapse]
+\label{thm:rank4_boundary_reduction}
+\lean{RiemannBlueprint.Section8_VasyuninBDR.smooth_vasyunin_double_sum_eq_boundary, RiemannBlueprint.Section8_VasyuninBDR.full_bdr_distance_identity}
+\uses{lem:gsmooth_rank4}
+\leanok
+For every $N \ge 1$ and $c : \Nset \to \Rset$, the $\mathcal{O}(N^2)$ smooth Vasyunin quadratic form collapses identically to critical-strip boundary evaluations at $s = 0$ and $s = 1$:
+\begin{equation}
+\sum_{j=1}^N \sum_{k=1}^N c_j c_k G_{j,k}^{(\mathrm{smooth})} = (\ln(2\pi) - \gamma) D_N(0) D_N(1) - D_N(0) D_N'(1) + D_N'(0) D_N(1) - \big(D_N(1)\big)^2,
+\end{equation}
+whence the complete squared $L^2(0,1)$ BNBD residual satisfies
+\begin{equation}
+\mathcal{E}_N(c) = 1 - 2(1 - \gamma) D_N(1) - \big(D_N(1)\big)^2 + 2 D_N'(1) + D_N(0)\Big[(\ln(2\pi) - \gamma) D_N(1) - D_N'(1)\Big] + D_N'(0) D_N(1) + Q_N^{(\mathrm{cot})}(c).
+\end{equation}
+\end{theorem}
+
+\begin{corollary}[Constrained Nyman--Beurling Boundary Collapse]
+\label{cor:constrained_bdr_collapse}
+\lean{RiemannBlueprint.Section8_VasyuninBDR.constrained_nb_bdr_collapse}
+\uses{thm:rank4_boundary_reduction}
+\leanok
+On the constrained Nyman--Beurling subspace $D_N(1) = \sum_{k=1}^N c_k/k = 0$, five smooth boundary terms vanish identically, yielding $\mathcal{E}_N(c) = 1 + (2 - D_N(0)) D_N'(1) + Q_N^{(\mathrm{cot})}(c)$.
+\end{corollary}
+
 % ===========================================================================
 % SECTION 8: CONCLUSION & SYNTHESIS MATRIX
 % ===========================================================================

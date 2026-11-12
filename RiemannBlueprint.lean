@@ -5,3 +5,4 @@ import RiemannBlueprint.Section4_CompositeZeta
 import RiemannBlueprint.Section5_MobiusMertens
 import RiemannBlueprint.Section6_CriticalStripAudit
 import RiemannBlueprint.Section7_SpectralBridge
+import RiemannBlueprint.Section8_VasyuninBDR

@@ -64,6 +64,18 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check RiemannBlueprint.Section7_SpectralBridge.spectral_stability_theorem
 #check RiemannBlueprint.Section7_SpectralBridge.master_dual_system_equivalence
 
+#check RiemannBlueprint.Section8_VasyuninBDR.D0
+#check RiemannBlueprint.Section8_VasyuninBDR.D0_deriv
+#check RiemannBlueprint.Section8_VasyuninBDR.D1
+#check RiemannBlueprint.Section8_VasyuninBDR.D1_deriv
+#check RiemannBlueprint.Section8_VasyuninBDR.GSmooth
+#check RiemannBlueprint.Section8_VasyuninBDR.GSmoothRank4
+#check RiemannBlueprint.Section8_VasyuninBDR.GSmooth_eq_rank4
+#check RiemannBlueprint.Section8_VasyuninBDR.b_dot_c_eq_boundary
+#check RiemannBlueprint.Section8_VasyuninBDR.smooth_vasyunin_double_sum_eq_boundary
+#check RiemannBlueprint.Section8_VasyuninBDR.full_bdr_distance_identity
+#check RiemannBlueprint.Section8_VasyuninBDR.constrained_nb_bdr_collapse
+
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
 #print axioms RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic
 #print axioms RiemannBlueprint.Section3_CompositeTaxonomy.arithmetic_classification_partition
@@ -82,3 +94,8 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms RiemannBlueprint.Section6_CriticalStripAudit.chi_critical_line_modulus
 #print axioms RiemannBlueprint.Section7_SpectralBridge.spectral_stability_theorem
 #print axioms RiemannBlueprint.Section7_SpectralBridge.master_dual_system_equivalence
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.GSmooth_eq_rank4
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.b_dot_c_eq_boundary
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.smooth_vasyunin_double_sum_eq_boundary
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.full_bdr_distance_identity
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.constrained_nb_bdr_collapse

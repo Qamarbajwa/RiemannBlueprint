@@ -150,6 +150,9 @@
 <li class="">
   <a href="sec-spectral_bridge.html#a0000000029"><span class="toc_ref">0.7.3</span> <span class="toc_entry">The Spectral Stability Theorem</span></a>
  </li>
+<li class="">
+  <a href="sec-spectral_bridge.html#subsec:rank4_boundary_dirichlet"><span class="toc_ref">0.7.4</span> <span class="toc_entry">Rank-4 Boundary-Dirichlet Reduction of the Smooth Vasyunin Kernel</span></a>
+ </li>
 
   </ul>
  </li>
@@ -220,7 +223,7 @@
   </div>
   <div class="definition_thmcontent">
   <p>   For \(s = \sigma + i t\) with \(\sigma {\gt} 1\), the <em>Prime Zeta Function</em> \(P(s)\) and the <em>Composite Zeta Function</em> \(\zeta _C(s)\) are defined by: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D43D0D0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECEFFD0D0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:P_and_zetaC} P(s) \equiv \sum _{p \in \mathbb {P}} \frac{1}{p^s}, \qquad \zeta _C(s) \equiv \sum _{c \in \mathbb {C}} \frac{1}{c^s}. \end{equation}
@@ -295,7 +298,7 @@
   </div>
   <div class="theorem_thmcontent">
   <p>    For all \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the Riemann zeta function decomposes into the exact three-term identity: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D43C410>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECEFFC410>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:zeta_additive_identity} \zeta (s) = 1 + P(s) + \zeta _C(s). \end{equation}
@@ -393,7 +396,7 @@
   </div>
   <div class="definition_thmcontent">
   <p>  For each prime \(p \in \mathbb {P}\) and \(\operatorname {Re}(s) {\gt} 1\), the local Euler factor decomposes additively into: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D43F230>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECEFFF230>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:local_factor} \left(1 - \frac{1}{p^s}\right)^{-1} = \sum _{k=0}^\infty \frac{1}{p^{k s}} = 1 + \frac{1}{p^s} + \sum _{k=2}^\infty \frac{1}{p^{k s}} = 1 + \frac{1}{p^s} + \zeta _{\mathrm{pure}, p}(s), \end{equation}
@@ -402,7 +405,7 @@
 </p>
 </div>
 <p> where: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D43CE30>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECEFFCE30>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:pure_prime_factor} \zeta _{\mathrm{pure}, p}(s) \equiv \sum _{k=2}^\infty \frac{1}{p^{k s}} = \frac{p^{-2s}}{1 - p^{-s}} = \frac{1}{p^s(p^s - 1)} \end{equation}
@@ -459,7 +462,7 @@
   </div>
   <div class="theorem_thmcontent">
   <p>   For all \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the Composite Zeta Function satisfies the closed-form Möbius series representation: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D49C530>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF05C530>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:zeta_C_mobius} \zeta _C(s) = \zeta (s) - 1 - \sum _{k=1}^\infty \frac{\mu (k)}{k} \ln \zeta (k s), \end{equation}
@@ -561,7 +564,7 @@
   </div>
   <div class="theorem_thmcontent">
   <p>    For all \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the shifted square of the Riemann zeta function annihilates the unit \(1\) and every prime \(p \in \mathbb {P}\), generating a pure Dirichlet series supported strictly on the composite numbers \(\mathbb {C}\): </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D49D8B0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF05D8B0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:weighted_composite_series} Z_{\mathrm{weighted}}(s) \equiv (\zeta (s) - 1)^2 = \sum _{c \in \mathbb {C}} \frac{d(c) - 2}{c^s}, \end{equation}
@@ -782,7 +785,7 @@
 </li>
 </ol>
 <p> Setting \(w = k s\), we find that \(\ln \zeta (k s)\) has branch points at: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D503650>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF0C3650>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:branch_points} s = \frac{1}{k} \quad (k \in \mathbb {N}), \qquad s = \frac{\rho _n}{k} = \frac{\beta _n + i \gamma _n}{k} \quad (k \in \mathbb {N}, \;  n \in \mathbb {Z}\setminus \{ 0\} ). \end{equation}

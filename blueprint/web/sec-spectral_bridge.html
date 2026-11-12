@@ -150,6 +150,9 @@
 <li class="">
   <a href="sec-spectral_bridge.html#a0000000029"><span class="toc_ref">0.7.3</span> <span class="toc_entry">The Spectral Stability Theorem</span></a>
  </li>
+<li class="">
+  <a href="sec-spectral_bridge.html#subsec:rank4_boundary_dirichlet"><span class="toc_ref">0.7.4</span> <span class="toc_entry">Rank-4 Boundary-Dirichlet Reduction of the Smooth Vasyunin Kernel</span></a>
+ </li>
 
   </ul>
  </li>
@@ -220,7 +223,7 @@
   </div>
   <div class="definition_thmcontent">
   <p>   For \(x \ge 1\), Chebyshev’s theta and psi functions are defined by: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D7BF3B0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF37F3B0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:chebyshev_defs} \theta (x) \coloneqq \sum _{p \le x} \ln p, \qquad \psi (x) \coloneqq \sum _{n \le x} \Lambda (n) = \sum _{p^k \le x} \ln p. \end{equation}
@@ -286,7 +289,7 @@
   </div>
   <div class="lemma_thmcontent">
   <p>   For every \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the logarithmic derivative of \(\zeta (s)\) is given by the Dirichlet series: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D7BF6B0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF37F6B0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:zeta_log_derivative} -\frac{\zeta '(s)}{\zeta (s)} = \sum _{n=1}^\infty \frac{\Lambda (n)}{n^s}. \end{equation}
@@ -409,7 +412,7 @@
   </div>
   <div class="theorem_thmcontent">
   <p>   For every \(x {\gt} 1\): </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D7F69F0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF3B69F0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:riemann_explicit_formula} \psi _0(x) = x - \sum _{\rho } \frac{x^\rho }{\rho } - \ln (2\pi ) - \frac{1}{2}\ln \left(1 - x^{-2}\right), \end{equation}
@@ -438,7 +441,7 @@
   </div>
   <div class="proof_content">
   <p>Let \(c = 1 + \epsilon {\gt} 1\). By Perron’s formula: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D7F6FF0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF3B6FF0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:perron_psi} \psi _0(x) = \frac{1}{2\pi i} \lim _{T \to \infty } \int _{c - i T}^{c + i T} \left( -\frac{\zeta '(s)}{\zeta (s)} \right) \frac{x^s}{s} \,  \mathrm{d}s. \end{equation}
@@ -452,7 +455,7 @@
 </div>
 <p> where \(U = 2K + 1\) (\(K \in \mathbb {N}\)) is an odd integer chosen to pass midway between the trivial zeros at \(s = -2m\), and \(T\) is chosen in the range \([T_0, T_0 + 1]\) such that \(|T - \gamma _n| \gg \frac{1}{\ln T}\) for all ordinates \(\gamma _n\) of non-trivial zeros (avoiding singularities). </p>
 <p>By Cauchy’s Residue Theorem: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D7F79B0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF3B79B0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:cauchy_psi_integral} \frac{1}{2\pi i} \oint _{\mathcal{C}_{T, U}} \left( -\frac{\zeta '(s)}{\zeta (s)} \right) \frac{x^s}{s} \,  \mathrm{d}s = \sum _{s_0 \in \operatorname {Int}(\mathcal{C}_{T, U})} \operatorname {Res}_{s = s_0} \left[ \left(-\frac{\zeta '(s)}{\zeta (s)}\right) \frac{x^s}{s} \right]. \end{equation}
@@ -592,7 +595,7 @@
   </div>
   <div class="theorem_thmcontent">
   <p>    Let \(\Theta \coloneqq \sup \{  \operatorname {Re}(\rho ) : \zeta (\rho ) = 0, \;  0 {\lt} \operatorname {Re}(\rho ) {\lt} 1 \} \). Then: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D8477D0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF4077D0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:psi_error_bound} \psi (x) - x = \mathcal{O}\left( x^\Theta \ln ^2 x \right) \quad \text{as } x \to \infty . \end{equation}
@@ -601,7 +604,7 @@
 </p>
 </div>
 <p> In particular, the Riemann Hypothesis (\(\Theta = \frac{1}{2}\)) holds if and only if: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D8A0590>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF460590>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:psi_rh_bound} \psi (x) = x + \mathcal{O}\left( x^{1/2} \ln ^2 x \right). \end{equation}
@@ -610,7 +613,7 @@
 </p>
 </div>
 <p> Furthermore, this is equivalent to Helge von Koch’s theorem (1901) for the prime counting function: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D8A0890>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF460890>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:pi_von_koch} \pi (x) = \operatorname {Li}(x) + \mathcal{O}\left( x^{1/2} \ln x \right). \end{equation}
@@ -681,6 +684,270 @@
   </div>
   <div class="remark_thmcontent">
   <p> Theorem&#160;<a href="sec-spectral_bridge.html#thm:spectral_stability">0.7.5</a> demonstrates that the non-trivial zeros \(\rho = \beta + i \gamma \) are the <b class="bfseries">harmonics of the prime spectrum</b>. The real part \(\beta \) dictates the <b class="bfseries">growth envelope</b> of the wave (\(x^\beta \)), while the imaginary part \(\gamma \) dictates the <b class="bfseries">frequency</b> of oscillation (\(e^{i \gamma \ln x}\)). If any zero existed with \(\beta {\gt} 1/2\), it would generate an amplified ripple \(x^\beta \gg x^{1/2}\), violating the optimal square-root error bound \(\psi (x) - x = \mathcal{O}(x^{1/2}\ln ^2 x)\) equivalent to the Riemann Hypothesis. Under RH (\(\beta = 1/2\) for all non-trivial zeros), every oscillatory mode is confined to the critical \(\sqrt{x}\) amplitude envelope (<b class="bfseries">maximal spectral resonance stability</b>). </p>
+
+  </div>
+</div>
+<h2 id="subsec:rank4_boundary_dirichlet">0.7.4 Rank-4 Boundary-Dirichlet Reduction of the Smooth Vasyunin Kernel</h2>
+
+<p>To bridge discrete BNBD projections with critical-strip boundary behavior, we formalize the exact algebraic collapse of Vasyunin’s smooth logarithmic kernel \(G_N^{(\mathrm{smooth})}\). </p>
+<div class="definition_thmwrapper theorem-style-definition" id="def:bdr_functionals">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">0.7.7</span>
+    <span class="definition_thmtitle">Finite Boundary Functionals and Smooth Kernel</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-spectral_bridge.html#def:bdr_functionals">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section8_VasyuninBDR.D0" class="lean_decl">RiemannBlueprint.Section8_VasyuninBDR.D0</a></li>
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section8_VasyuninBDR.D1" class="lean_decl">RiemannBlueprint.Section8_VasyuninBDR.D1</a></li>
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section8_VasyuninBDR.GSmooth" class="lean_decl">RiemannBlueprint.Section8_VasyuninBDR.GSmooth</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>   For \(c : \mathbb {N}\to \mathbb {R}\) and \(N \in \mathbb {N}\), define \(D_N(0) = \sum _{k=1}^N c_k\), \(D_N'(0) = -\sum _{k=1}^N c_k \ln k\), \(D_N(1) = \sum _{k=1}^N c_k/k\), \(D_N'(1) = -\sum _{k=1}^N (c_k \ln k)/k\), and the smooth Vasyunin kernel \(G_{j,k}^{(\mathrm{smooth})} = \frac{(\ln (2\pi )-\gamma )(j+k) + (j-k)\ln (k/j) - 2}{2jk}\). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:gsmooth_rank4">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">0.7.8</span>
+    <span class="lemma_thmtitle">Pointwise Rank-4 Outer-Product Factorization</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-spectral_bridge.html#lem:gsmooth_rank4">#</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="sec-spectral_bridge.html#def:bdr_functionals">Definition 0.7.7</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section8_VasyuninBDR.GSmooth_eq_rank4" class="lean_decl">RiemannBlueprint.Section8_VasyuninBDR.GSmooth_eq_rank4</a></li>
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section8_VasyuninBDR.b_dot_c_eq_boundary" class="lean_decl">RiemannBlueprint.Section8_VasyuninBDR.b_dot_c_eq_boundary</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>    For all \(j, k \ge 1\), \(G_{j,k}^{(\mathrm{smooth})}\) factors exactly into the symmetric Rank-\(4\) outer product of \(\mathbf{e}_k = 1\), \(\mathbf{l}_k = \ln k\), \(\mathbf{h}_k = k^{-1}\), and \(\mathbf{m}_k = k^{-1}\ln k\). Moreover, the BNBD target inner product satisfies \(\sum _{k=1}^N c_k \frac{\ln k + 1 - \gamma }{k} = (1 - \gamma ) D_N(1) - D_N'(1)\). </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:rank4_boundary_reduction">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">0.7.9</span>
+    <span class="theorem_thmtitle">Double-Sum Boundary-Dirichlet Collapse</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-spectral_bridge.html#thm:rank4_boundary_reduction">#</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="sec-spectral_bridge.html#lem:gsmooth_rank4">Lemma 0.7.8</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section8_VasyuninBDR.smooth_vasyunin_double_sum_eq_boundary" class="lean_decl">RiemannBlueprint.Section8_VasyuninBDR.smooth_vasyunin_double_sum_eq_boundary</a></li>
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section8_VasyuninBDR.full_bdr_distance_identity" class="lean_decl">RiemannBlueprint.Section8_VasyuninBDR.full_bdr_distance_identity</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>    For every \(N \ge 1\) and \(c : \mathbb {N}\to \mathbb {R}\), the \(\mathcal{O}(N^2)\) smooth Vasyunin quadratic form collapses identically to critical-strip boundary evaluations at \(s = 0\) and \(s = 1\): </p>
+<div class="equation" id="a0000000225">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \sum _{j=1}^N \sum _{k=1}^N c_j c_k G_{j,k}^{(\mathrm{smooth})} = (\ln (2\pi ) - \gamma ) D_N(0) D_N(1) - D_N(0) D_N'(1) + D_N'(0) D_N(1) - \big(D_N(1)\big)^2, \end{equation}
+  </div>
+  <span class="equation_label">90</span>
+</p>
+</div>
+<p> whence the complete squared \(L^2(0,1)\) BNBD residual satisfies </p>
+<div class="equation" id="a0000000226">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \mathcal{E}_N(c) = 1 - 2(1 - \gamma ) D_N(1) - \big(D_N(1)\big)^2 + 2 D_N'(1) + D_N(0)\Big[(\ln (2\pi ) - \gamma ) D_N(1) - D_N'(1)\Big] + D_N'(0) D_N(1) + Q_N^{(\mathrm{cot})}(c). \end{equation}
+  </div>
+  <span class="equation_label">91</span>
+</p>
+</div>
+
+  </div>
+</div>
+<div class="corollary_thmwrapper theorem-style-plain" id="cor:constrained_bdr_collapse">
+  <div class="corollary_thmheading">
+    <span class="corollary_thmcaption">
+    Corollary
+    </span>
+    <span class="corollary_thmlabel">0.7.10</span>
+    <span class="corollary_thmtitle">Constrained Nyman–Beurling Boundary Collapse</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-spectral_bridge.html#cor:constrained_bdr_collapse">#</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="sec-spectral_bridge.html#thm:rank4_boundary_reduction">Theorem 0.7.9</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://qamar-munawer.github.io/additive-multiplicative-zeta-blueprint/docs/find/#doc/RiemannBlueprint.Section8_VasyuninBDR.constrained_nb_bdr_collapse" class="lean_decl">RiemannBlueprint.Section8_VasyuninBDR.constrained_nb_bdr_collapse</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="corollary_thmcontent">
+  <p>    On the constrained Nyman–Beurling subspace \(D_N(1) = \sum _{k=1}^N c_k/k = 0\), five smooth boundary terms vanish identically, yielding \(\mathcal{E}_N(c) = 1 + (2 - D_N(0)) D_N'(1) + Q_N^{(\mathrm{cot})}(c)\). </p>
 
   </div>
 </div>

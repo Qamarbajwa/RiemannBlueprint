@@ -150,6 +150,9 @@
 <li class="">
   <a href="sec-spectral_bridge.html#a0000000029"><span class="toc_ref">0.7.3</span> <span class="toc_entry">The Spectral Stability Theorem</span></a>
  </li>
+<li class="">
+  <a href="sec-spectral_bridge.html#subsec:rank4_boundary_dirichlet"><span class="toc_ref">0.7.4</span> <span class="toc_entry">Rank-4 Boundary-Dirichlet Reduction of the Smooth Vasyunin Kernel</span></a>
+ </li>
 
   </ul>
  </li>
@@ -223,7 +226,7 @@
   </div>
   <div class="theorem_thmcontent">
   <p>   For every complex number \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the reciprocal of the Riemann zeta function admits the absolutely convergent Euler product expansion: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D5519D0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF1119D0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:reciprocal_euler_product} \frac{1}{\zeta (s)} = \prod _{p \in \mathbb {P}} \left(1 - \frac{1}{p^s}\right). \end{equation}
@@ -232,7 +235,7 @@
 </p>
 </div>
 <p> Furthermore, the term-by-term expansion of this product across the Fundamental Theorem of Arithmetic yields the Dirichlet series: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D551DF0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF111DF0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:mobius_dirichlet_series} \frac{1}{\zeta (s)} = \sum _{n=1}^\infty \frac{\mu (n)}{n^s}, \end{equation}
@@ -359,7 +362,7 @@
   </div>
   <div class="proposition_thmcontent">
   <p>    For \(\operatorname {Re}(s) {\gt} 1\), the reciprocal zeta function decomposes into the exact tripartite identity: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D5BD850>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF17D850>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:reciprocal_partition} \frac{1}{\zeta (s)} = 1 - P(s) + \zeta _{\mu , C}(s), \end{equation}
@@ -368,7 +371,7 @@
 </p>
 </div>
 <p> where \(P(s) = \sum _{p \in \mathbb {P}} p^{-s}\) is the Prime Zeta function, and \(\zeta _{\mu , C}(s)\) is the Möbius-signed Composite Dirichlet Series: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D5BDCD0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF17DCD0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:mobius_composite_series} \zeta _{\mu , C}(s) \coloneqq \sum _{c \in \mathbb {C}_{\mathrm{comp}}} \frac{\mu (c)}{c^s} = \sum _{\substack {c \in \mathbb {C}_{\mathrm{comp}}\\ \mu (c) \neq 0}} \frac{(-1)^{\omega (c)}}{c^s}. \end{equation}
@@ -483,7 +486,7 @@
   </div>
   <div class="definition_thmcontent">
   <p>   The Mertens function \(M : [1, \infty ) \to \mathbb {Z}\) is the summatory function of the Möbius function: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D60C6B0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF1CC6B0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:mertens_def} M(x) \coloneqq \sum _{1 \le n \le x} \mu (n). \end{equation}
@@ -539,7 +542,7 @@
   </div>
   <div class="lemma_thmcontent">
   <p>   For every \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the reciprocal Riemann zeta function can be expressed as the Laplace–Mellin integral of the Mertens function: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D60C650>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF1CC650>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:reciprocal_mellin} \frac{1}{\zeta (s)} = s \int _1^\infty \frac{M(x)}{x^{s+1}} \,  \mathrm{d}x. \end{equation}
@@ -567,7 +570,7 @@
   \[ \int _{1^-}^N x^{-s} \,  \mathrm{d}M(x) = \left[ M(x) x^{-s} \right]_{1^-}^N - \int _1^N M(x) \frac{\mathrm{d}}{\mathrm{d}x}(x^{-s}) \,  \mathrm{d}x. \]
 </div>
 <p> Since \(M(1^-) = 0\) and \(\frac{\mathrm{d}}{\mathrm{d}x}(x^{-s}) = -s x^{-s-1}\), we obtain: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D60DA90>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF1CDA90>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:abel_finite_mertens} \sum _{n=1}^N \frac{\mu (n)}{n^s} = \frac{M(N)}{N^s} + s \int _1^N \frac{M(x)}{x^{s+1}} \,  \mathrm{d}x. \end{equation}
@@ -665,7 +668,7 @@
   </div>
   <div class="theorem_thmcontent">
   <p>    The Riemann Hypothesis is equivalent to the statement that for every \(\epsilon {\gt} 0\): </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D60F8F0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF1CF8F0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:mertens_bound} M(x) = \mathcal{O}\left(x^{\frac{1}{2} + \epsilon }\right) \quad \text{as } x \to \infty . \end{equation}
@@ -715,7 +718,7 @@
 <p> However, \(I(s)\) is holomorphic on all of \(\mathcal{H}_{1/2}\), meaning \(|I(s)|\) remains finite in a neighborhood of \(\rho _0\). This is a direct contradiction. Therefore, \(\zeta (s)\) cannot possess any zeros in \(\operatorname {Re}(s) {\gt} \frac{1}{2}\). By the functional equation \(\xi (s) = \xi (1-s)\) (which relates zeros at \(\rho \) to zeros at \(1 - \rho \)), any zero with \(\operatorname {Re}(\rho ) {\lt} 1/2\) would imply a zero at \(1 - \rho \) with \(\operatorname {Re}(1 - \rho ) {\gt} 1/2\). Hence, all non-trivial zeros of \(\zeta (s)\) must satisfy \(\operatorname {Re}(\rho ) = \frac{1}{2}\). </p>
 <p><b class="bfseries">Direction 2: Riemann Hypothesis \(\implies \)&#160;??.</b> </p>
 <p>Assume the Riemann Hypothesis holds: all non-trivial zeros satisfy \(\operatorname {Re}(\rho ) = \frac{1}{2}\). Then the function \(f(s) \coloneqq \frac{1}{\zeta (s)}\) is holomorphic in the open half-plane \(\operatorname {Re}(s) {\gt} \frac{1}{2}\). By Perron’s formula applied to the Dirichlet series \(\frac{1}{\zeta (s)} = \sum _{n=1}^\infty \mu (n) n^{-s}\), for \(c {\gt} 1\) and \(x \ge 2\) not an integer: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x000001AE1D65AA50>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x0000018ECF21AA50>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:perron_mertens} M(x) = \frac{1}{2\pi i} \int _{c - i T}^{c + i T} \frac{1}{\zeta (s)} \frac{x^s}{s} \,  \mathrm{d}s + R(x, T), \end{equation}
