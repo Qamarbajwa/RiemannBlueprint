@@ -111,7 +111,7 @@
 </li>
   <li><p>\(d(n) = 2\) if and only if \(n \in \mathbb {P}\). </p>
 </li>
-  <li><p>\(d(n) \ge 3\) for all composite numbers \(n \in \mathbb {C}\). </p>
+  <li><p>\(d(n) \ge 3\) for all composite numbers \(n \in \mathbb {C}_{\mathrm{comp}}\). </p>
 </li>
   <li><p>\(d(n)\) is an <b class="bfseries">odd integer</b> if and only if \(n\) is a <b class="bfseries">perfect square</b> (\(n = m^2\) for some \(m \in \mathbb {N}\)). </p>
 </li>
@@ -146,7 +146,7 @@
       </span>
       <span class="corollary_thmlabel">0.6.6</span><span class="corollary_thmtitle">Phasor Symmetry on the Critical Line</span></div>
     <div class="thm_thmcontent"><p>    On the critical line \(\sigma = \frac{1}{2}\), and choosing \(x = y = \sqrt{\frac{|t|}{2\pi }}\), the two Dirichlet polynomials in&#160;?? have identical phasor decay lengths: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DCA97E90>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C81F9D90>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:critical_phasor_balance} \left| \frac{1}{n^s} \right| = n^{-1/2} \quad \text{and} \quad \left| \chi \left(\frac{1}{2} + i t\right) \frac{1}{n^{1-s}} \right| = n^{-1/2} + \mathcal{O}\left(|t|^{-1}\right). \end{equation}
@@ -234,7 +234,7 @@
       </span>
       <span class="definition_thmlabel">0.7.1</span><span class="definition_thmtitle">Chebyshev Functions</span></div>
     <div class="thm_thmcontent"><p>   For \(x \ge 1\), Chebyshev’s theta and psi functions are defined by: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DCAE7110>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C8239250>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:chebyshev_defs} \theta (x) \coloneqq \sum _{p \le x} \ln p, \qquad \psi (x) \coloneqq \sum _{n \le x} \Lambda (n) = \sum _{p^k \le x} \ln p. \end{equation}
@@ -272,19 +272,19 @@
       </span>
       <span class="definition_thmlabel">0.1.1</span><span class="definition_thmtitle">Fundamental Partition and Composite Set</span></div>
     <div class="thm_thmcontent"><p>  The set of positive integers admits a canonical, mutually disjoint set-theoretic partition: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DADDE330>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C650E4B0>">
 <p>
   <div class="equation_content">
-    \begin{equation}  \label{eq:fundamental_partition} \mathbb {N}= \{ 1\}  \; \dot{\cup }\;  \mathbb {P}\; \dot{\cup }\;  \mathbb {C}, \end{equation}
+    \begin{equation}  \label{eq:fundamental_partition} \mathbb {N}= \{ 1\}  \; \dot{\cup }\;  \mathbb {P}\; \dot{\cup }\;  \mathbb {C}_{\mathrm{comp}}, \end{equation}
   </div>
   <span class="equation_label">3</span>
 </p>
 </div>
 <p> where: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DADDE450>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C650E990>">
 <p>
   <div class="equation_content">
-    \begin{equation}  \label{eq:composite_set_def} \mathbb {C}\equiv \{ n \in \mathbb {N}\mid n = a \cdot b \text{ for integers } a \ge 2, \;  b \ge 2\}  = \{ 4, 6, 8, 9, 10, 12, 14, 15, \dots \}  \end{equation}
+    \begin{equation}  \label{eq:composite_set_def} \mathbb {C}_{\mathrm{comp}}\equiv \{ n \in \mathbb {N}\mid n = a \cdot b \text{ for integers } a \ge 2, \;  b \ge 2\}  = \{ 4, 6, 8, 9, 10, 12, 14, 15, \dots \}  \end{equation}
   </div>
   <span class="equation_label">4</span>
 </p>
@@ -320,7 +320,7 @@
       </span>
       <span class="definition_thmlabel">0.6.3</span><span class="definition_thmtitle">Dirichlet Eta Function</span></div>
     <div class="thm_thmcontent"><p>   The Dirichlet Eta function \(\eta : \{ s \in \mathbb {C}: \operatorname {Re}(s) {\gt} 0\}  \to \mathbb {C}\) is defined by the alternating series: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DCA4B1D0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C819C590>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:eta_def} \eta (s) \coloneqq \sum _{n=1}^\infty \frac{(-1)^{n-1}}{n^s} = 1 - \frac{1}{2^s} + \frac{1}{3^s} - \frac{1}{4^s} + \frac{1}{5^s} - \dots \end{equation}
@@ -397,7 +397,7 @@
       </span>
       <span class="definition_thmlabel">0.4.5</span><span class="definition_thmtitle">Local Prime Euler Factor Decomposition</span></div>
     <div class="thm_thmcontent"><p>  For each prime \(p \in \mathbb {P}\) and \(\operatorname {Re}(s) {\gt} 1\), the local Euler factor decomposes additively into: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC7D3770>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C7F40EF0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:local_factor} \left(1 - \frac{1}{p^s}\right)^{-1} = \sum _{k=0}^\infty \frac{1}{p^{k s}} = 1 + \frac{1}{p^s} + \sum _{k=2}^\infty \frac{1}{p^{k s}} = 1 + \frac{1}{p^s} + \zeta _{\mathrm{pure}, p}(s), \end{equation}
@@ -406,7 +406,7 @@
 </p>
 </div>
 <p> where: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC82C650>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C7F41430>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:pure_prime_factor} \zeta _{\mathrm{pure}, p}(s) \equiv \sum _{k=2}^\infty \frac{1}{p^{k s}} = \frac{p^{-2s}}{1 - p^{-s}} = \frac{1}{p^s(p^s - 1)} \end{equation}
@@ -445,7 +445,7 @@
       </span>
       <span class="definition_thmlabel">0.5.4</span><span class="definition_thmtitle">Mertens Function</span></div>
     <div class="thm_thmcontent"><p>   The Mertens function \(M : [1, \infty ) \to \mathbb {Z}\) is the summatory function of the Möbius function: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC98C170>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C805DBB0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:mertens_def} M(x) \coloneqq \sum _{1 \le n \le x} \mu (n). \end{equation}
@@ -597,10 +597,10 @@
       </span>
       <span class="definition_thmlabel">0.4.1</span><span class="definition_thmtitle">Unweighted Composite Zeta Function</span></div>
     <div class="thm_thmcontent"><p>   For \(s = \sigma + i t\) with \(\sigma {\gt} 1\), the <em>Prime Zeta Function</em> \(P(s)\) and the <em>Composite Zeta Function</em> \(\zeta _C(s)\) are defined by: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC7D1250>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C7EE1C70>">
 <p>
   <div class="equation_content">
-    \begin{equation}  \label{eq:P_and_zetaC} P(s) \equiv \sum _{p \in \mathbb {P}} \frac{1}{p^s}, \qquad \zeta _C(s) \equiv \sum _{c \in \mathbb {C}} \frac{1}{c^s}. \end{equation}
+    \begin{equation}  \label{eq:P_and_zetaC} P(s) \equiv \sum _{p \in \mathbb {P}} \frac{1}{p^s}, \qquad \zeta _C(s) \equiv \sum _{c \in \mathbb {C}_{\mathrm{comp}}} \frac{1}{c^s}. \end{equation}
   </div>
   <span class="equation_label">45</span>
 </p>
@@ -673,11 +673,11 @@
       Definition
       </span>
       <span class="definition_thmlabel">0.3.3</span><span class="definition_thmtitle">Pure and Mixed Composites</span></div>
-    <div class="thm_thmcontent"><p>    The composite set \(\mathbb {C}\) decomposes disjointly into two structurally distinct arithmetic families: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC6B5EB0>">
+    <div class="thm_thmcontent"><p>    The composite set \(\mathbb {C}_{\mathrm{comp}}\) decomposes disjointly into two structurally distinct arithmetic families: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C7DCE6F0>">
 <p>
   <div class="equation_content">
-    \begin{equation}  \label{eq:composite_subpartition} \mathbb {C}= \mathbb {C}_{\mathrm{pure}}\; \dot{\cup }\;  \mathbb {C}_{\mathrm{mixed}}, \end{equation}
+    \begin{equation}  \label{eq:composite_subpartition} \mathbb {C}_{\mathrm{comp}}= \mathbb {C}_{\mathrm{pure}}\; \dot{\cup }\;  \mathbb {C}_{\mathrm{mixed}}, \end{equation}
   </div>
   <span class="equation_label">21</span>
 </p>
@@ -688,7 +688,7 @@
 <div class="equation" id="a0000000070">
 <p>
   <div class="equation_content">
-    \begin{equation}  \mathbb {C}_{\mathrm{pure}}\equiv \{ n \in \mathbb {C}\mid \omega (n) = 1, \;  \Omega (n) \ge 2\}  = \{ p^a \mid p \in \mathbb {P}, \;  a \ge 2\}  = \{ 4, 8, 9, 16, 25, 27, 32, \dots \} . \end{equation}
+    \begin{equation}  \mathbb {C}_{\mathrm{pure}}\equiv \{ n \in \mathbb {C}_{\mathrm{comp}}\mid \omega (n) = 1, \;  \Omega (n) \ge 2\}  = \{ p^a \mid p \in \mathbb {P}, \;  a \ge 2\}  = \{ 4, 8, 9, 16, 25, 27, 32, \dots \} . \end{equation}
   </div>
   <span class="equation_label">22</span>
 </p>
@@ -698,7 +698,7 @@
 <div class="equation" id="a0000000071">
 <p>
   <div class="equation_content">
-    \begin{equation}  \mathbb {C}_{\mathrm{mixed}}\equiv \{ n \in \mathbb {C}\mid \omega (n) \ge 2\}  = \{ 6, 10, 12, 14, 15, 18, 20, 21, 22, 24, \dots \} . \end{equation}
+    \begin{equation}  \mathbb {C}_{\mathrm{mixed}}\equiv \{ n \in \mathbb {C}_{\mathrm{comp}}\mid \omega (n) \ge 2\}  = \{ 6, 10, 12, 14, 15, 18, 20, 21, 22, 24, \dots \} . \end{equation}
   </div>
   <span class="equation_label">23</span>
 </p>
@@ -735,7 +735,7 @@
       </span>
       <span class="definition_thmlabel">0.3.8</span><span class="definition_thmtitle">Euler’s Totient Function</span></div>
     <div class="thm_thmcontent"><p>  For \(n \in \mathbb {N}\), Euler’s totient function \(\phi (n)\) counts the number of positive integers up to \(n\) that are coprime to \(n\): </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC71FA70>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C7E889B0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:totient_def} \phi (n) \equiv \sum _{\substack {1 \le k \le n \\ \gcd (k, n) = 1}} 1 = n \prod _{p \mid n} \left(1 - \frac{1}{p}\right). \end{equation}
@@ -881,7 +881,7 @@
       </span>
       <span class="lemma_thmlabel">0.7.2</span><span class="lemma_thmtitle">Logarithmic Derivative of the Riemann Zeta Function</span></div>
     <div class="thm_thmcontent"><p>   For every \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the logarithmic derivative of \(\zeta (s)\) is given by the Dirichlet series: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DCAE7410>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C8239430>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:zeta_log_derivative} -\frac{\zeta '(s)}{\zeta (s)} = \sum _{n=1}^\infty \frac{\Lambda (n)}{n^s}. \end{equation}
@@ -919,7 +919,7 @@
       </span>
       <span class="lemma_thmlabel">0.5.5</span><span class="lemma_thmtitle">Mellin Transform Representation of \(1/\zeta (s)\)</span></div>
     <div class="thm_thmcontent"><p>   For every \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the reciprocal Riemann zeta function can be expressed as the Laplace–Mellin integral of the Mertens function: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC98C230>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C805DB50>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:reciprocal_mellin} \frac{1}{\zeta (s)} = s \int _1^\infty \frac{M(x)}{x^{s+1}} \,  \mathrm{d}x. \end{equation}
@@ -960,14 +960,14 @@
 <div class="equation" id="a0000000068">
 <p>
   <div class="equation_content">
-    \begin{equation}  \mathbb {N}= \{ 1\}  \; \dot{\cup }\;  \mathbb {P}\; \dot{\cup }\;  \mathbb {C}, \end{equation}
+    \begin{equation}  \mathbb {N}= \{ 1\}  \; \dot{\cup }\;  \mathbb {P}\; \dot{\cup }\;  \mathbb {C}_{\mathrm{comp}}, \end{equation}
   </div>
   <span class="equation_label">17</span>
 </p>
 </div>
 <p> characterized completely by the value of \(\Omega (n)\): </p>
 <div class="displaymath" id="a0000000069">
-  \begin{align}  \text{Unit:} \quad & \{ 1\}  = \{ n \in \mathbb {N}\mid \Omega (n) = 0\} , \\ \text{Primes:} \quad & \mathbb {P}= \{ n \in \mathbb {N}\mid \Omega (n) = 1\} , \\ \text{Composites:} \quad & \mathbb {C}= \{ n \in \mathbb {N}\mid \Omega (n) \ge 2\} . \end{align}
+  \begin{align}  \text{Unit:} \quad & \{ 1\}  = \{ n \in \mathbb {N}\mid \Omega (n) = 0\} , \\ \text{Primes:} \quad & \mathbb {P}= \{ n \in \mathbb {N}\mid \Omega (n) = 1\} , \\ \text{Composites:} \quad & \mathbb {C}_{\mathrm{comp}}= \{ n \in \mathbb {N}\mid \Omega (n) \ge 2\} . \end{align}
 </div>
 </div>
 
@@ -998,8 +998,8 @@
       Proposition
       </span>
       <span class="proposition_thmlabel">0.3.11</span><span class="proposition_thmtitle">The \((6a \pm 1)(6b \pm 1)\) Coprime Composite Lattice</span></div>
-    <div class="thm_thmcontent"><p>   Let \(c \in \mathbb {C}\) such that \(\gcd (c, 6) = 1\). Then \(c\) is generated by the two-parameter modular lattice: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC7778F0>">
+    <div class="thm_thmcontent"><p>   Let \(c \in \mathbb {C}_{\mathrm{comp}}\) such that \(\gcd (c, 6) = 1\). Then \(c\) is generated by the two-parameter modular lattice: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C7EE1010>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:lattice_eq} c = (6a + \epsilon _1)(6b + \epsilon _2) = 36 a b + 6(a \epsilon _2 + b \epsilon _1) + \epsilon _1 \epsilon _2, \end{equation}
@@ -1055,7 +1055,7 @@
       </span>
       <span class="proposition_thmlabel">0.5.2</span><span class="proposition_thmtitle">Additive-Multiplicative Reciprocal Decomposition</span></div>
     <div class="thm_thmcontent"><p>    For \(\operatorname {Re}(s) {\gt} 1\), the reciprocal zeta function decomposes into the exact tripartite identity: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC93D2B0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C8032E10>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:reciprocal_partition} \frac{1}{\zeta (s)} = 1 - P(s) + \zeta _{\mu , C}(s), \end{equation}
@@ -1064,7 +1064,7 @@
 </p>
 </div>
 <p> where \(P(s) = \sum _{p \in \mathbb {P}} p^{-s}\) is the Prime Zeta function, and \(\zeta _{\mu , C}(s)\) is the Möbius-signed Composite Dirichlet Series: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC93D730>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C8033290>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:mobius_composite_series} \zeta _{\mu , C}(s) \coloneqq \sum _{c \in \mathbb {C}_{\mathrm{comp}}} \frac{\mu (c)}{c^s} = \sum _{\substack {c \in \mathbb {C}_{\mathrm{comp}}\\ \mu (c) \neq 0}} \frac{(-1)^{\omega (c)}}{c^s}. \end{equation}
@@ -1114,7 +1114,7 @@
 <div class="equation" id="a0000000081">
 <p>
   <div class="equation_content">
-    \begin{equation}  \phi (n) \le n - 1 - \frac{n}{p_{\min }} {\lt} n - 1 \quad \text{for all } n \in \mathbb {C}, \end{equation}
+    \begin{equation}  \phi (n) \le n - 1 - \frac{n}{p_{\min }} {\lt} n - 1 \quad \text{for all } n \in \mathbb {C}_{\mathrm{comp}}, \end{equation}
   </div>
   <span class="equation_label">37</span>
 </p>
@@ -1150,7 +1150,7 @@
       </span>
       <span class="proposition_thmlabel">0.3.4</span><span class="proposition_thmtitle">Isolation via the von Mangoldt Function</span></div>
     <div class="thm_thmcontent"><p>    The von Mangoldt function \(\Lambda : \mathbb {N}\to \mathbb {R}\) is defined by: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC6B6450>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C7DCF050>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:von_mangoldt_def} \Lambda (n) \equiv \begin{cases}  \ln p &  \text{if } n = p^k \text{ for some } p \in \mathbb {P}\text{ and integer } k \ge 1, \\ 0 &  \text{otherwise.} \end{cases} \end{equation}
@@ -1198,7 +1198,7 @@
       </span>
       <span class="proposition_thmlabel">0.4.2</span><span class="proposition_thmtitle">Elementary Additive Partition Bookkeeping Identity</span></div>
     <div class="thm_thmcontent"><p>    For all \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), absolute convergence and the partition&#160;?? yield the foundational bookkeeping identity: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC7D1190>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C7EE1A30>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:zeta_additive_identity} \zeta (s) = 1 + P(s) + \zeta _C(s), \qquad \text{equivalently} \qquad \zeta _C(s) = \zeta (s) - 1 - P(s). \end{equation}
@@ -1236,7 +1236,7 @@
       </span>
       <span class="theorem_thmlabel">0.6.5</span><span class="theorem_thmtitle">Hardy–Littlewood Approximate Functional Equation</span></div>
     <div class="thm_thmcontent"><p>   Let \(s = \sigma + i t\) with \(0 {\lt} \sigma {\lt} 1\). For any \(x, y \ge 1\) satisfying \(2\pi x y = |t|\): </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DCA96F90>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C81F89B0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:approx_functional_equation} \zeta (s) = \sum _{n \le x} \frac{1}{n^s} + \chi (s) \sum _{n \le y} \frac{1}{n^{1-s}} + \mathcal{O}\left(x^{-\sigma } + |t|^{\frac{1}{2}-\sigma } y^{\sigma -1}\right), \end{equation}
@@ -1282,8 +1282,8 @@
       Theorem
       </span>
       <span class="theorem_thmlabel">0.3.10</span><span class="theorem_thmtitle">Composite Base-10 Decomposition Theorem</span></div>
-    <div class="thm_thmcontent"><p>   Let \(n \in \mathbb {C}\) be a composite integer. Factor \(n\) into its decimal base components and coprime core: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC71F950>">
+    <div class="thm_thmcontent"><p>   Let \(n \in \mathbb {C}_{\mathrm{comp}}\) be a composite integer. Factor \(n\) into its decimal base components and coprime core: </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C7E89C70>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:n_base_factorization} n = 2^a \cdot 5^b \cdot m, \qquad \gcd (m, 10) = 1, \quad (a, b \ge 0, \;  m \ge 1). \end{equation}
@@ -1294,7 +1294,7 @@
 <p> Then the decimal expansion of \(1/n\) consists of: </p>
 <ol class="enumerate">
   <li><p>A <b class="bfseries">transient non-repeating pre-period</b> of exact length: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC774E90>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C7E89F70>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:preperiod_length} K = \max (a, b). \end{equation}
@@ -1304,7 +1304,7 @@
 </div>
 </li>
   <li><p>Followed by a <b class="bfseries">purely repeating periodic cycle</b> of minimal period length: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC774650>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C7E8A390>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:composite_period_length} L = \operatorname {ord}_m(10), \end{equation}
@@ -1355,7 +1355,7 @@
       </span>
       <span class="theorem_thmlabel">0.3.6</span><span class="theorem_thmtitle">Multiplicative Factorization of Divisor Functions</span></div>
     <div class="thm_thmcontent"><p>   Let \(n = \prod _{i=1}^k p_i^{a_i}\) be the canonical prime factorization of \(n \ge 2\). Then: </p>
-<div class="displaymath" id="<plasTeX.TeXFragment object at 0x00000268DC6B7FB0>">
+<div class="displaymath" id="<plasTeX.TeXFragment object at 0x00000202C7E35610>">
   \begin{align}  \label{eq:d_n_formula} d(n) & = \prod _{i=1}^k (a_i + 1), \\ \label{eq:sigma_1_formula} \sigma _1(n) & = \prod _{i=1}^k \left( \frac{p_i^{a_i+1} - 1}{p_i - 1} \right). \end{align}
 </div>
 </div>
@@ -1387,11 +1387,11 @@
       Proposition
       </span>
       <span class="proposition_thmlabel">0.4.7</span><span class="proposition_thmtitle">Elementary Divisor-Weighted Composite Identity</span></div>
-    <div class="thm_thmcontent"><p>    For all \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the shifted square \((\zeta (s) - 1)^2\) annihilates the unit \(1\) and every prime \(p \in \mathbb {P}\), generating a pure Dirichlet series supported strictly on the composite numbers \(\mathbb {C}\): </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC82EDB0>">
+    <div class="thm_thmcontent"><p>    For all \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the shifted square \((\zeta (s) - 1)^2\) annihilates the unit \(1\) and every prime \(p \in \mathbb {P}\), generating a pure Dirichlet series supported strictly on the composite numbers \(\mathbb {C}_{\mathrm{comp}}\): </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C7F436B0>">
 <p>
   <div class="equation_content">
-    \begin{equation}  \label{eq:weighted_composite_series} Z_{\mathrm{weighted}}(s) \equiv (\zeta (s) - 1)^2 = \sum _{c \in \mathbb {C}} \frac{d(c) - 2}{c^s}, \end{equation}
+    \begin{equation}  \label{eq:weighted_composite_series} Z_{\mathrm{weighted}}(s) \equiv (\zeta (s) - 1)^2 = \sum _{c \in \mathbb {C}_{\mathrm{comp}}} \frac{d(c) - 2}{c^s}, \end{equation}
   </div>
   <span class="equation_label">51</span>
 </p>
@@ -1427,7 +1427,7 @@
       </span>
       <span class="theorem_thmlabel">0.6.4</span><span class="theorem_thmtitle">Analytic Continuation to \(\operatorname {Re}(s) {\gt} 0\)</span></div>
     <div class="thm_thmcontent"><p>    The series&#160;?? converges conditionally for all \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 0\) and defines a holomorphic function. Furthermore, for all \(s\) in this half-plane: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DCA4BB90>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C819CE30>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:eta_zeta_identity} \eta (s) = \left(1 - 2^{1-s}\right) \zeta (s). \end{equation}
@@ -1436,7 +1436,7 @@
 </p>
 </div>
 <p> Consequently, \(\zeta (s)\) extends meromorphically to \(\operatorname {Re}(s) {\gt} 0\) via: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DCA4B4D0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C819D430>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:zeta_via_eta} \zeta (s) = \frac{\eta (s)}{1 - 2^{1-s}}, \end{equation}
@@ -1514,7 +1514,7 @@
       </span>
       <span class="theorem_thmlabel">0.2.4</span><span class="theorem_thmtitle">Fundamental Theorem of Arithmetic</span></div>
     <div class="thm_thmcontent"><p>    Every integer \(n \ge 2\) admits a factorization into primes: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DADDF8F0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C650F890>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:fta_factorization} n = \prod _{i=1}^k p_i^{a_i} = p_1^{a_1} p_2^{a_2} \cdots p_k^{a_k}, \end{equation}
@@ -1553,7 +1553,7 @@
       </span>
       <span class="theorem_thmlabel">0.5.6</span><span class="theorem_thmtitle">Mertens–Riemann Equivalence</span></div>
     <div class="thm_thmcontent"><p>    The Riemann Hypothesis is equivalent to the statement that for every \(\epsilon {\gt} 0\): </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC98F2F0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C80E1790>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:mertens_bound} M(x) = \mathcal{O}\left(x^{\frac{1}{2} + \epsilon }\right) \quad \text{as } x \to \infty . \end{equation}
@@ -1592,7 +1592,7 @@
       </span>
       <span class="theorem_thmlabel">0.4.6</span><span class="theorem_thmtitle">Möbius-Logarithmic Bridge for \(\zeta _C(s)\)</span></div>
     <div class="thm_thmcontent"><p>   For all \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the Composite Zeta Function satisfies the closed-form Möbius series representation: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC82CB90>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C7F42C90>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:zeta_C_mobius} \zeta _C(s) = \zeta (s) - 1 - \sum _{k=1}^\infty \frac{\mu (k)}{k} \ln \zeta (k s), \end{equation}
@@ -1738,7 +1738,7 @@
 </div>
 </li>
   <li><p><b class="bfseries">Purely Periodic Decimals:</b> For all primes \(p \in \mathbb {P}\setminus \{ 2, 5\} \) (so \(\gcd (p, 10) = 1\)), the decimal expansion of \(1/p\) is <b class="bfseries">purely periodic</b> (with zero pre-period) of the form: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC661190>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C7D71730>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:reptend_form} \frac{1}{p} = 0.\overline{d_1 d_2 \dots d_L} = \sum _{j=1}^\infty \frac{M}{(10^L)^j} = \frac{M}{10^L - 1}, \end{equation}
@@ -1856,7 +1856,7 @@
       </span>
       <span class="theorem_thmlabel">0.5.1</span><span class="theorem_thmtitle">Reciprocal Euler Product &amp; Möbius Dirichlet Series</span></div>
     <div class="thm_thmcontent"><p>   For every complex number \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the reciprocal of the Riemann zeta function admits the absolutely convergent Euler product expansion: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC8D14F0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C7FDEFF0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:reciprocal_euler_product} \frac{1}{\zeta (s)} = \prod _{p \in \mathbb {P}} \left(1 - \frac{1}{p^s}\right). \end{equation}
@@ -1865,7 +1865,7 @@
 </p>
 </div>
 <p> Furthermore, the term-by-term expansion of this product across the Fundamental Theorem of Arithmetic yields the Dirichlet series: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC8D1A30>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C7FDF530>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:mobius_dirichlet_series} \frac{1}{\zeta (s)} = \sum _{n=1}^\infty \frac{\mu (n)}{n^s}, \end{equation}
@@ -1913,7 +1913,7 @@
       </span>
       <span class="theorem_thmlabel">0.7.4</span><span class="theorem_thmtitle">Riemann’s Explicit Formula</span></div>
     <div class="thm_thmcontent"><p>   For every \(x {\gt} 1\): </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DCB2A6F0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C8284170>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:riemann_explicit_formula} \psi _0(x) = x - \sum _{\rho } \frac{x^\rho }{\rho } - \ln (2\pi ) - \frac{1}{2}\ln \left(1 - x^{-2}\right), \end{equation}
@@ -1921,7 +1921,7 @@
   <span class="equation_label">79</span>
 </p>
 </div>
-<p> where the sum over \(\rho \) runs over all non-trivial zeros of \(\zeta (s)\) in the critical strip \(0 {\lt} \operatorname {Re}(\rho ) {\lt} 1\), paired symmetrically as: </p>
+<p> where \(\rho \) runs over all non-trivial zeros of \(\zeta (s)\) in the critical strip \(0 {\lt} \operatorname {Re}(\rho ) {\lt} 1\) counted with multiplicity \(m_\rho \ge 1\) (so each distinct zero contributes \(m_\rho x^\rho /\rho \)), paired symmetrically as: </p>
 <div class="equation" id="a0000000187">
 <p>
   <div class="equation_content">
@@ -1959,7 +1959,7 @@
       Theorem
       </span>
       <span class="theorem_thmlabel">0.4.3</span><span class="theorem_thmtitle">Smooth-Cofactor Factorization and Uniqueness of the 50/50 Parity Exponent \(s^*\)</span></div>
-    <div class="thm_thmcontent"><p>   For each prime \(p \in \mathbb {P}\) and \(\operatorname {Re}(s) {\gt} 1\), set \(E_p(s) \coloneqq \prod _{q \le p}(1 - q^{-s})^{-1}\). Factoring every composite \(c \in \mathbb {C}\) by its largest prime factor \(p = P^+(c)\) yields \(\zeta _C(s) = \sum _{p \in \mathbb {P}} p^{-s}(E_p(s)-1)\) and \(f(s) \coloneqq P(s) - \zeta _C(s) = \sum _{p \in \mathbb {P}} p^{-s}(2 - E_p(s))\). On \((1, \infty )\), \(P(s) = \zeta _C(s)\) has a unique root \(s^* \in (1, 1.50]\) (\(s^* \approx 1.446537622476006\), \(P(s^*) = \zeta _C(s^*) \approx 0.924095391941443\)), established by termwise positivity of \(f'(s) = \sum _p p^{-s} B_p(s) {\gt} 0\) on \((1, 1.50]\), monotone bracketing (\(P(1.55) {\gt} \zeta _C(1.50)\), \(P(1.65) {\gt} \zeta _C(1.55)\), \(P(1.73) {\gt} \zeta _C(1.65)\)) on \([1.50, 1.73]\), and \(E_p(s) {\lt} \zeta (s) \le \zeta (1.73) {\lt} 2\) on \([1.73, \infty )\). </p>
+    <div class="thm_thmcontent"><p>   For each prime \(p \in \mathbb {P}\) and \(\operatorname {Re}(s) {\gt} 1\), set \(E_p(s) \coloneqq \prod _{q \le p}(1 - q^{-s})^{-1}\). Factoring every composite \(c \in \mathbb {C}_{\mathrm{comp}}\) by its largest prime factor \(p = P^+(c)\) yields \(\zeta _C(s) = \sum _{p \in \mathbb {P}} p^{-s}(E_p(s)-1)\) and \(f(s) \coloneqq P(s) - \zeta _C(s) = \sum _{p \in \mathbb {P}} p^{-s}(2 - E_p(s))\). On \((1, \infty )\), \(P(s) = \zeta _C(s)\) has a unique root \(s^* \in (1, 1.50]\) (\(s^* \approx 1.446537622476006\), \(P(s^*) = \zeta _C(s^*) \approx 0.924095391941443\)), established by termwise positivity of \(f'(s) = \sum _p p^{-s} B_p(s) {\gt} 0\) on \((1, 1.50]\), monotone bracketing (\(P(1.55) {\gt} \zeta _C(1.50)\), \(P(1.65) {\gt} \zeta _C(1.55)\), \(P(1.73) {\gt} \zeta _C(1.65)\)) on \([1.50, 1.73]\), and \(E_p(s) {\lt} \zeta (s) \le \zeta (1.73) {\lt} 2\) on \([1.73, \infty )\). </p>
 </div>
 
     <a class="latex_link" href="sec-construction_composite_zeta.html#thm:smooth_cofactor_parity_uniqueness">LaTeX</a>
@@ -1990,7 +1990,7 @@
       </span>
       <span class="theorem_thmlabel">0.7.5</span><span class="theorem_thmtitle">Spectral Stability Theorem</span></div>
     <div class="thm_thmcontent"><p>    Let \(\Theta \coloneqq \sup \{  \operatorname {Re}(\rho ) : \zeta (\rho ) = 0, \;  0 {\lt} \operatorname {Re}(\rho ) {\lt} 1 \} \). Then: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DCB6F7D0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C82D58B0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:psi_error_bound} \psi (x) - x = \mathcal{O}\left( x^\Theta \ln ^2 x \right) \quad \text{as } x \to \infty . \end{equation}
@@ -1999,7 +1999,7 @@
 </p>
 </div>
 <p> In particular, the Riemann Hypothesis (\(\Theta = \frac{1}{2}\)) holds if and only if: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DCBCC350>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C82D5B50>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:psi_rh_bound} \psi (x) = x + \mathcal{O}\left( x^{1/2} \ln ^2 x \right). \end{equation}
@@ -2008,7 +2008,7 @@
 </p>
 </div>
 <p> Furthermore, this is equivalent to Helge von Koch’s theorem (1901) for the prime counting function: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DCBCC710>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C82D5E50>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:pi_von_koch} \pi (x) = \operatorname {Li}(x) + \mathcal{O}\left( x^{1/2} \ln x \right). \end{equation}
@@ -2171,7 +2171,7 @@ graphContainer.graphviz({useWorker: true})
     .width(width)
     .height(height)
     .fit(true)
-    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"def:pure_mixed_composites"	[color=green,		fillcolor="#B0ECA3",		label=pure_mixed_composites,		shape=box,		style=filled];	"prop:von_mangoldt"	[color=green,		fillcolor="#1CAC78",		label=von_mangoldt,		shape=ellipse,		style=filled];	"def:pure_mixed_composites" -> "prop:von_mangoldt"	[style=dashed];	"thm:divisor_weighted"	[color=green,		fillcolor="#1CAC78",		label=divisor_weighted,		shape=ellipse,		style=filled];	"thm:natural_boundary"	[color=green,		fillcolor="#1CAC78",		label=natural_boundary,		shape=ellipse,		style=filled];	"thm:divisor_weighted" -> "thm:natural_boundary"	[style=dashed];	"thm:three_obstructions"	[color=green,		fillcolor="#1CAC78",		label=three_obstructions,		shape=ellipse,		style=filled];	"cor:divisor_bounds"	[color=green,		fillcolor="#1CAC78",		label=divisor_bounds,		shape=ellipse,		style=filled];	"cor:divisor_bounds" -> "thm:divisor_weighted"	[style=dashed];	"prop:totient_gap"	[color=green,		fillcolor="#1CAC78",		label=totient_gap,		shape=ellipse,		style=filled];	"cor:divisor_bounds" -> "prop:totient_gap"	[style=dashed];	"thm:composite_radix"	[color=green,		fillcolor="#1CAC78",		label=composite_radix,		shape=ellipse,		style=filled];	"prop:totient_gap" -> "thm:composite_radix"	[style=dashed];	"cor:constrained_bdr_collapse"	[color=green,		label=constrained_bdr_collapse,		shape=ellipse];	"def:totient_function"	[color=green,		fillcolor="#B0ECA3",		label=totient_function,		shape=box,		style=filled];	"prop:arithmetic_classification"	[color=green,		label=arithmetic_classification,		shape=ellipse];	"thm:fta"	[color=green,		fillcolor="#1CAC78",		label=fta,		shape=ellipse,		style=filled];	"thm:mod6_confinement"	[color=green,		fillcolor="#1CAC78",		label=mod6_confinement,		shape=ellipse,		style=filled];	"thm:fta" -> "thm:mod6_confinement"	[style=dashed];	"thm:divisor_multiplicative"	[color=green,		fillcolor="#1CAC78",		label=divisor_multiplicative,		shape=ellipse,		style=filled];	"thm:fta" -> "thm:divisor_multiplicative"	[style=dashed];	"thm:zero_free_re_gt_1"	[color=green,		fillcolor="#1CAC78",		label=zero_free_re_gt_1,		shape=ellipse,		style=filled];	"thm:riemann_explicit_formula"	[color=green,		fillcolor="#1CAC78",		label=riemann_explicit_formula,		shape=ellipse,		style=filled];	"thm:spectral_stability"	[color=green,		fillcolor="#1CAC78",		label=spectral_stability,		shape=ellipse,		style=filled];	"thm:riemann_explicit_formula" -> "thm:spectral_stability"	[style=dashed];	"cor:phasor_symmetry"	[color=green,		fillcolor="#1CAC78",		label=phasor_symmetry,		shape=ellipse,		style=filled];	"def:P_and_zetaC"	[color=green,		fillcolor="#B0ECA3",		label=P_and_zetaC,		shape=box,		style=filled];	"thm:additive_identity"	[color=green,		fillcolor="#1CAC78",		label=additive_identity,		shape=ellipse,		style=filled];	"def:P_and_zetaC" -> "thm:additive_identity"	[style=dashed];	"thm:smooth_cofactor_parity_uniqueness"	[color=blue,		label=smooth_cofactor_parity_uniqueness,		shape=ellipse];	"thm:additive_identity" -> "thm:smooth_cofactor_parity_uniqueness"	[style=dashed];	"thm:mobius_bridge"	[color=green,		fillcolor="#1CAC78",		label=mobius_bridge,		shape=ellipse,		style=filled];	"thm:additive_identity" -> "thm:mobius_bridge"	[style=dashed];	"thm:wilson"	[color=green,		fillcolor="#1CAC78",		label=wilson,		shape=ellipse,		style=filled];	"def:composite_set"	[color=blue,		fillcolor="#A3D6FF",		label=composite_set,		shape=box,		style=filled];	"def:primes_units"	[color=green,		fillcolor="#B0ECA3",		label=primes_units,		shape=box,		style=filled];	"lem:euclid"	[color=green,		fillcolor="#1CAC78",		label=euclid,		shape=ellipse,		style=filled];	"lem:euclid" -> "thm:fta"	[style=dashed];	"lem:log_derivative_zeta"	[color=green,		fillcolor="#1CAC78",		label=log_derivative_zeta,		shape=ellipse,		style=filled];	"lem:log_derivative_zeta" -> "thm:riemann_explicit_formula"	[style=dashed];	"lem:gsmooth_rank4"	[color=green,		label=gsmooth_rank4,		shape=ellipse];	"thm:rank4_boundary_reduction"	[color=green,		label=rank4_boundary_reduction,		shape=ellipse];	"lem:gsmooth_rank4" -> "thm:rank4_boundary_reduction"	[style=dashed];	"thm:rank4_boundary_reduction" -> "cor:constrained_bdr_collapse"	[style=dashed];	"prop:composite_lattice"	[color=green,		label=composite_lattice,		shape=ellipse];	"prop:reciprocal_partition"	[color=green,		fillcolor="#1CAC78",		label=reciprocal_partition,		shape=ellipse,		style=filled];	"thm:radix_periodicity"	[color=green,		fillcolor="#1CAC78",		label=radix_periodicity,		shape=ellipse,		style=filled];	"def:ord10"	[color=green,		fillcolor="#B0ECA3",		label=ord10,		shape=box,		style=filled];	"def:ord10" -> "thm:radix_periodicity"	[style=dashed];	"def:divisor_functions"	[color=green,		fillcolor="#B0ECA3",		label=divisor_functions,		shape=box,		style=filled];	"def:local_euler"	[color=green,		fillcolor="#B0ECA3",		label=local_euler,		shape=box,		style=filled];	"def:normalized_chebyshev"	[color=green,		fillcolor="#B0ECA3",		label=normalized_chebyshev,		shape=box,		style=filled];	"lem:mellin_reciprocal_zeta"	[color=green,		fillcolor="#1CAC78",		label=mellin_reciprocal_zeta,		shape=ellipse,		style=filled];	"thm:mertens_riemann_equiv"	[color=green,		fillcolor="#1CAC78",		label=mertens_riemann_equiv,		shape=ellipse,		style=filled];	"lem:mellin_reciprocal_zeta" -> "thm:mertens_riemann_equiv"	[style=dashed];	"thm:flt"	[color=green,		fillcolor="#1CAC78",		label=flt,		shape=ellipse,		style=filled];	"thm:flt" -> "thm:radix_periodicity"	[style=dashed];	"def:dirichlet_eta"	[color=green,		fillcolor="#B0ECA3",		label=dirichlet_eta,		shape=box,		style=filled];	"thm:eta_continuation"	[color=green,		fillcolor="#1CAC78",		label=eta_continuation,		shape=ellipse,		style=filled];	"def:dirichlet_eta" -> "thm:eta_continuation"	[style=dashed];	"thm:approx_functional_equation"	[color=green,		fillcolor="#1CAC78",		label=approx_functional_equation,		shape=ellipse,		style=filled];	"thm:eta_continuation" -> "thm:approx_functional_equation"	[style=dashed];	"thm:approx_functional_equation" -> "cor:phasor_symmetry"	[style=dashed];	"def:bdr_functionals"	[color=green,		fillcolor="#B0ECA3",		label=bdr_functionals,		shape=box,		style=filled];	"def:bdr_functionals" -> "lem:gsmooth_rank4"	[style=dashed];	"lem:bezout"	[color=green,		fillcolor="#1CAC78",		label=bezout,		shape=ellipse,		style=filled];	"lem:bezout" -> "lem:euclid"	[style=dashed];	"def:omega_Omega"	[color=green,		fillcolor="#B0ECA3",		label=omega_Omega,		shape=box,		style=filled];	"def:omega_Omega" -> "def:pure_mixed_composites"	[style=dashed];	"def:mertens_function"	[color=green,		fillcolor="#B0ECA3",		label=mertens_function,		shape=box,		style=filled];	"def:mertens_function" -> "lem:mellin_reciprocal_zeta"	[style=dashed];	"def:chebyshev_functions"	[color=green,		fillcolor="#B0ECA3",		label=chebyshev_functions,		shape=box,		style=filled];	"def:chebyshev_functions" -> "lem:log_derivative_zeta"	[style=dashed];	"thm:reciprocal_euler_product"	[color=green,		fillcolor="#1CAC78",		label=reciprocal_euler_product,		shape=ellipse,		style=filled];	"thm:reciprocal_euler_product" -> "prop:reciprocal_partition"	[style=dashed];}`)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"def:P_and_zetaC"	[color=green,		fillcolor="#B0ECA3",		label=P_and_zetaC,		shape=box,		style=filled];	"thm:additive_identity"	[color=green,		fillcolor="#1CAC78",		label=additive_identity,		shape=ellipse,		style=filled];	"def:P_and_zetaC" -> "thm:additive_identity"	[style=dashed];	"thm:mobius_bridge"	[color=green,		fillcolor="#1CAC78",		label=mobius_bridge,		shape=ellipse,		style=filled];	"thm:additive_identity" -> "thm:mobius_bridge"	[style=dashed];	"thm:smooth_cofactor_parity_uniqueness"	[color=blue,		label=smooth_cofactor_parity_uniqueness,		shape=ellipse];	"thm:additive_identity" -> "thm:smooth_cofactor_parity_uniqueness"	[style=dashed];	"lem:euclid"	[color=green,		fillcolor="#1CAC78",		label=euclid,		shape=ellipse,		style=filled];	"thm:fta"	[color=green,		fillcolor="#1CAC78",		label=fta,		shape=ellipse,		style=filled];	"lem:euclid" -> "thm:fta"	[style=dashed];	"thm:mod6_confinement"	[color=green,		fillcolor="#1CAC78",		label=mod6_confinement,		shape=ellipse,		style=filled];	"thm:fta" -> "thm:mod6_confinement"	[style=dashed];	"thm:divisor_multiplicative"	[color=green,		fillcolor="#1CAC78",		label=divisor_multiplicative,		shape=ellipse,		style=filled];	"thm:fta" -> "thm:divisor_multiplicative"	[style=dashed];	"thm:natural_boundary"	[color=green,		fillcolor="#1CAC78",		label=natural_boundary,		shape=ellipse,		style=filled];	"def:normalized_chebyshev"	[color=green,		fillcolor="#B0ECA3",		label=normalized_chebyshev,		shape=box,		style=filled];	"thm:wilson"	[color=green,		fillcolor="#1CAC78",		label=wilson,		shape=ellipse,		style=filled];	"def:dirichlet_eta"	[color=green,		fillcolor="#B0ECA3",		label=dirichlet_eta,		shape=box,		style=filled];	"thm:eta_continuation"	[color=green,		fillcolor="#1CAC78",		label=eta_continuation,		shape=ellipse,		style=filled];	"def:dirichlet_eta" -> "thm:eta_continuation"	[style=dashed];	"thm:approx_functional_equation"	[color=green,		fillcolor="#1CAC78",		label=approx_functional_equation,		shape=ellipse,		style=filled];	"thm:eta_continuation" -> "thm:approx_functional_equation"	[style=dashed];	"cor:phasor_symmetry"	[color=green,		fillcolor="#1CAC78",		label=phasor_symmetry,		shape=ellipse,		style=filled];	"thm:approx_functional_equation" -> "cor:phasor_symmetry"	[style=dashed];	"prop:composite_lattice"	[color=green,		label=composite_lattice,		shape=ellipse];	"cor:divisor_bounds"	[color=green,		fillcolor="#1CAC78",		label=divisor_bounds,		shape=ellipse,		style=filled];	"prop:totient_gap"	[color=green,		fillcolor="#1CAC78",		label=totient_gap,		shape=ellipse,		style=filled];	"cor:divisor_bounds" -> "prop:totient_gap"	[style=dashed];	"thm:divisor_weighted"	[color=green,		fillcolor="#1CAC78",		label=divisor_weighted,		shape=ellipse,		style=filled];	"cor:divisor_bounds" -> "thm:divisor_weighted"	[style=dashed];	"thm:composite_radix"	[color=green,		fillcolor="#1CAC78",		label=composite_radix,		shape=ellipse,		style=filled];	"prop:totient_gap" -> "thm:composite_radix"	[style=dashed];	"thm:divisor_weighted" -> "thm:natural_boundary"	[style=dashed];	"def:local_euler"	[color=green,		fillcolor="#B0ECA3",		label=local_euler,		shape=box,		style=filled];	"def:bdr_functionals"	[color=green,		fillcolor="#B0ECA3",		label=bdr_functionals,		shape=box,		style=filled];	"lem:gsmooth_rank4"	[color=green,		label=gsmooth_rank4,		shape=ellipse];	"def:bdr_functionals" -> "lem:gsmooth_rank4"	[style=dashed];	"thm:rank4_boundary_reduction"	[color=green,		label=rank4_boundary_reduction,		shape=ellipse];	"lem:gsmooth_rank4" -> "thm:rank4_boundary_reduction"	[style=dashed];	"cor:constrained_bdr_collapse"	[color=green,		label=constrained_bdr_collapse,		shape=ellipse];	"thm:rank4_boundary_reduction" -> "cor:constrained_bdr_collapse"	[style=dashed];	"lem:log_derivative_zeta"	[color=green,		fillcolor="#1CAC78",		label=log_derivative_zeta,		shape=ellipse,		style=filled];	"thm:riemann_explicit_formula"	[color=green,		fillcolor="#1CAC78",		label=riemann_explicit_formula,		shape=ellipse,		style=filled];	"lem:log_derivative_zeta" -> "thm:riemann_explicit_formula"	[style=dashed];	"thm:spectral_stability"	[color=green,		fillcolor="#1CAC78",		label=spectral_stability,		shape=ellipse,		style=filled];	"thm:riemann_explicit_formula" -> "thm:spectral_stability"	[style=dashed];	"def:omega_Omega"	[color=green,		fillcolor="#B0ECA3",		label=omega_Omega,		shape=box,		style=filled];	"def:pure_mixed_composites"	[color=green,		fillcolor="#B0ECA3",		label=pure_mixed_composites,		shape=box,		style=filled];	"def:omega_Omega" -> "def:pure_mixed_composites"	[style=dashed];	"prop:von_mangoldt"	[color=green,		fillcolor="#1CAC78",		label=von_mangoldt,		shape=ellipse,		style=filled];	"def:pure_mixed_composites" -> "prop:von_mangoldt"	[style=dashed];	"def:divisor_functions"	[color=green,		fillcolor="#B0ECA3",		label=divisor_functions,		shape=box,		style=filled];	"thm:mertens_riemann_equiv"	[color=green,		fillcolor="#1CAC78",		label=mertens_riemann_equiv,		shape=ellipse,		style=filled];	"def:composite_set"	[color=blue,		fillcolor="#A3D6FF",		label=composite_set,		shape=box,		style=filled];	"def:primes_units"	[color=green,		fillcolor="#B0ECA3",		label=primes_units,		shape=box,		style=filled];	"def:totient_function"	[color=green,		fillcolor="#B0ECA3",		label=totient_function,		shape=box,		style=filled];	"def:chebyshev_functions"	[color=green,		fillcolor="#B0ECA3",		label=chebyshev_functions,		shape=box,		style=filled];	"def:chebyshev_functions" -> "lem:log_derivative_zeta"	[style=dashed];	"thm:flt"	[color=green,		fillcolor="#1CAC78",		label=flt,		shape=ellipse,		style=filled];	"thm:radix_periodicity"	[color=green,		fillcolor="#1CAC78",		label=radix_periodicity,		shape=ellipse,		style=filled];	"thm:flt" -> "thm:radix_periodicity"	[style=dashed];	"def:ord10"	[color=green,		fillcolor="#B0ECA3",		label=ord10,		shape=box,		style=filled];	"def:ord10" -> "thm:radix_periodicity"	[style=dashed];	"prop:reciprocal_partition"	[color=green,		fillcolor="#1CAC78",		label=reciprocal_partition,		shape=ellipse,		style=filled];	"lem:mellin_reciprocal_zeta"	[color=green,		fillcolor="#1CAC78",		label=mellin_reciprocal_zeta,		shape=ellipse,		style=filled];	"lem:mellin_reciprocal_zeta" -> "thm:mertens_riemann_equiv"	[style=dashed];	"def:mertens_function"	[color=green,		fillcolor="#B0ECA3",		label=mertens_function,		shape=box,		style=filled];	"def:mertens_function" -> "lem:mellin_reciprocal_zeta"	[style=dashed];	"lem:bezout"	[color=green,		fillcolor="#1CAC78",		label=bezout,		shape=ellipse,		style=filled];	"lem:bezout" -> "lem:euclid"	[style=dashed];	"prop:arithmetic_classification"	[color=green,		label=arithmetic_classification,		shape=ellipse];	"thm:reciprocal_euler_product"	[color=green,		fillcolor="#1CAC78",		label=reciprocal_euler_product,		shape=ellipse,		style=filled];	"thm:reciprocal_euler_product" -> "prop:reciprocal_partition"	[style=dashed];	"thm:zero_free_re_gt_1"	[color=green,		fillcolor="#1CAC78",		label=zero_free_re_gt_1,		shape=ellipse,		style=filled];	"thm:three_obstructions"	[color=green,		fillcolor="#1CAC78",		label=three_obstructions,		shape=ellipse,		style=filled];}`)
     .on("end", interactive);
 
 latexLabelEscaper = function(label) {

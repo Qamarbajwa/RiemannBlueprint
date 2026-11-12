@@ -62,14 +62,14 @@
   </ul>
  </li>
 <li class="">
-  <a href="sect0003.html"><span class="toc_ref">0.3</span> <span class="toc_entry">Algebraic and Modular Taxonomy of the Composite System \(\mathbb {C}\)</span></a>
+  <a href="sect0003.html"><span class="toc_ref">0.3</span> <span class="toc_entry">Algebraic and Modular Taxonomy of the Composite System \(\mathbb {C}_{\mathrm{comp}}\)</span></a>
   <span class="expand-toc">▶</span>
   <ul class="sub-toc-1">
      <li class="">
   <a href="sect0003.html#a0000000011"><span class="toc_ref">0.3.1</span> <span class="toc_entry">Partition of Composites: Pure Prime Powers vs. Mixed Composites</span></a>
  </li>
 <li class="">
-  <a href="sect0003.html#a0000000012"><span class="toc_ref">0.3.2</span> <span class="toc_entry">Divisor Function and Totient Algebra on \(\mathbb {C}\)</span></a>
+  <a href="sect0003.html#a0000000012"><span class="toc_ref">0.3.2</span> <span class="toc_entry">Divisor Function and Totient Algebra on \(\mathbb {C}_{\mathrm{comp}}\)</span></a>
  </li>
 <li class="">
   <a href="sect0003.html#a0000000013"><span class="toc_ref">0.3.3</span> <span class="toc_entry">Composite Base-10 Decomposition Theorem</span></a>
@@ -223,7 +223,7 @@
   </div>
   <div class="definition_thmcontent">
   <p>   For \(x \ge 1\), Chebyshev’s theta and psi functions are defined by: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DCAE7110>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C8239250>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:chebyshev_defs} \theta (x) \coloneqq \sum _{p \le x} \ln p, \qquad \psi (x) \coloneqq \sum _{n \le x} \Lambda (n) = \sum _{p^k \le x} \ln p. \end{equation}
@@ -289,7 +289,7 @@
   </div>
   <div class="lemma_thmcontent">
   <p>   For every \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the logarithmic derivative of \(\zeta (s)\) is given by the Dirichlet series: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DCAE7410>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C8239430>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:zeta_log_derivative} -\frac{\zeta '(s)}{\zeta (s)} = \sum _{n=1}^\infty \frac{\Lambda (n)}{n^s}. \end{equation}
@@ -412,7 +412,7 @@
   </div>
   <div class="theorem_thmcontent">
   <p>   For every \(x {\gt} 1\): </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DCB2A6F0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C8284170>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:riemann_explicit_formula} \psi _0(x) = x - \sum _{\rho } \frac{x^\rho }{\rho } - \ln (2\pi ) - \frac{1}{2}\ln \left(1 - x^{-2}\right), \end{equation}
@@ -420,7 +420,7 @@
   <span class="equation_label">79</span>
 </p>
 </div>
-<p> where the sum over \(\rho \) runs over all non-trivial zeros of \(\zeta (s)\) in the critical strip \(0 {\lt} \operatorname {Re}(\rho ) {\lt} 1\), paired symmetrically as: </p>
+<p> where \(\rho \) runs over all non-trivial zeros of \(\zeta (s)\) in the critical strip \(0 {\lt} \operatorname {Re}(\rho ) {\lt} 1\) counted with multiplicity \(m_\rho \ge 1\) (so each distinct zero contributes \(m_\rho x^\rho /\rho \)), paired symmetrically as: </p>
 <div class="equation" id="a0000000187">
 <p>
   <div class="equation_content">
@@ -441,7 +441,7 @@
   </div>
   <div class="proof_content">
   <p>Let \(c = 1 + \epsilon {\gt} 1\). By Perron’s formula: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DCB2ADB0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C823BE30>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:perron_psi} \psi _0(x) = \frac{1}{2\pi i} \lim _{T \to \infty } \int _{c - i T}^{c + i T} \left( -\frac{\zeta '(s)}{\zeta (s)} \right) \frac{x^s}{s} \,  \mathrm{d}s. \end{equation}
@@ -455,7 +455,7 @@
 </div>
 <p> where \(U = 2K + 1\) (\(K \in \mathbb {N}\)) is an odd integer chosen to pass midway between the trivial zeros at \(s = -2m\), and \(T\) is chosen in the range \([T_0, T_0 + 1]\) such that \(|T - \gamma _n| \gg \frac{1}{\ln T}\) for all ordinates \(\gamma _n\) of non-trivial zeros (avoiding singularities). </p>
 <p>By Cauchy’s Residue Theorem: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DCB2B770>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C82855B0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:cauchy_psi_integral} \frac{1}{2\pi i} \oint _{\mathcal{C}_{T, U}} \left( -\frac{\zeta '(s)}{\zeta (s)} \right) \frac{x^s}{s} \,  \mathrm{d}s = \sum _{s_0 \in \operatorname {Int}(\mathcal{C}_{T, U})} \operatorname {Res}_{s = s_0} \left[ \left(-\frac{\zeta '(s)}{\zeta (s)}\right) \frac{x^s}{s} \right]. \end{equation}
@@ -482,10 +482,11 @@
 <div class="displaymath" id="a0000000192">
   \[ \frac{\zeta '(s)}{\zeta (s)} = \frac{m_\rho }{s - \rho } + \frac{g'(s)}{g(s)} \implies -\frac{\zeta '(s)}{\zeta (s)} = -\frac{m_\rho }{s - \rho } + \mathcal{O}(1). \]
 </div>
-<p> Therefore, the residue of \(-\zeta '/\zeta \) at \(s = \rho \) is \(-m_\rho \). Assuming simplicity of zeros (\(m_\rho = 1\)): </p>
+<p> Therefore, the residue of \(-\zeta '/\zeta \) at a zero \(\rho \) of multiplicity \(m_\rho \ge 1\) is \(-m_\rho \), yielding </p>
 <div class="displaymath" id="a0000000193">
-  \[ \operatorname {Res}_{s=\rho } F(s) = - \frac{x^\rho }{\rho }. \]
+  \[ \operatorname {Res}_{s=\rho } F(s) = -m_\rho \frac{x^\rho }{\rho }, \]
 </div>
+<p> so counting zeros with multiplicity makes the explicit formula unconditional without assuming simplicity. </p>
 </li>
   <li><p><b class="bfseries">The Pole at \(s = 0\):</b> At \(s = 0\), \(x^s / s\) has a simple pole with residue \(x^0 = 1\). The factor \(-\zeta '(s)/\zeta (s)\) is analytic at \(s = 0\). From the functional equation \(\zeta (s) = 2^s \pi ^{s-1} \sin (\pi s / 2) \Gamma (1-s) \zeta (1-s)\), Taylor expanding about \(s = 0\) yields: </p>
 <div class="displaymath" id="a0000000194">
@@ -595,7 +596,7 @@
   </div>
   <div class="theorem_thmcontent">
   <p>    Let \(\Theta \coloneqq \sup \{  \operatorname {Re}(\rho ) : \zeta (\rho ) = 0, \;  0 {\lt} \operatorname {Re}(\rho ) {\lt} 1 \} \). Then: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DCB6F7D0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C82D58B0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:psi_error_bound} \psi (x) - x = \mathcal{O}\left( x^\Theta \ln ^2 x \right) \quad \text{as } x \to \infty . \end{equation}
@@ -604,7 +605,7 @@
 </p>
 </div>
 <p> In particular, the Riemann Hypothesis (\(\Theta = \frac{1}{2}\)) holds if and only if: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DCBCC350>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C82D5B50>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:psi_rh_bound} \psi (x) = x + \mathcal{O}\left( x^{1/2} \ln ^2 x \right). \end{equation}
@@ -613,7 +614,7 @@
 </p>
 </div>
 <p> Furthermore, this is equivalent to Helge von Koch’s theorem (1901) for the prime counting function: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DCBCC710>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C82D5E50>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:pi_von_koch} \pi (x) = \operatorname {Li}(x) + \mathcal{O}\left( x^{1/2} \ln x \right). \end{equation}

@@ -62,14 +62,14 @@
   </ul>
  </li>
 <li class="">
-  <a href="sect0003.html"><span class="toc_ref">0.3</span> <span class="toc_entry">Algebraic and Modular Taxonomy of the Composite System \(\mathbb {C}\)</span></a>
+  <a href="sect0003.html"><span class="toc_ref">0.3</span> <span class="toc_entry">Algebraic and Modular Taxonomy of the Composite System \(\mathbb {C}_{\mathrm{comp}}\)</span></a>
   <span class="expand-toc">▶</span>
   <ul class="sub-toc-1">
      <li class="">
   <a href="sect0003.html#a0000000011"><span class="toc_ref">0.3.1</span> <span class="toc_entry">Partition of Composites: Pure Prime Powers vs. Mixed Composites</span></a>
  </li>
 <li class="">
-  <a href="sect0003.html#a0000000012"><span class="toc_ref">0.3.2</span> <span class="toc_entry">Divisor Function and Totient Algebra on \(\mathbb {C}\)</span></a>
+  <a href="sect0003.html#a0000000012"><span class="toc_ref">0.3.2</span> <span class="toc_entry">Divisor Function and Totient Algebra on \(\mathbb {C}_{\mathrm{comp}}\)</span></a>
  </li>
 <li class="">
   <a href="sect0003.html#a0000000013"><span class="toc_ref">0.3.3</span> <span class="toc_entry">Composite Base-10 Decomposition Theorem</span></a>
@@ -180,7 +180,7 @@
 <div class="main-text">
 <h1 id="sec:construction_composite_zeta">0.4 Construction of the Composite Zeta Functions (\(\operatorname {Re}(s) {\gt} 1\))</h1>
 
-<p>We now construct the Dirichlet generating functions for the composite system \(\mathbb {C}\) for \(\operatorname {Re}(s) {\gt} 1\) using three distinct mathematical formulations. </p>
+<p>We now construct the Dirichlet generating functions for the composite system \(\mathbb {C}_{\mathrm{comp}}\) for \(\operatorname {Re}(s) {\gt} 1\) using three distinct mathematical formulations. </p>
 <h2 id="a0000000015">0.4.1 Method 1: Additive Partition and the 50/50 Equilibrium</h2>
 <div class="definition_thmwrapper theorem-style-definition" id="def:P_and_zetaC">
   <div class="definition_thmheading">
@@ -223,10 +223,10 @@
   </div>
   <div class="definition_thmcontent">
   <p>   For \(s = \sigma + i t\) with \(\sigma {\gt} 1\), the <em>Prime Zeta Function</em> \(P(s)\) and the <em>Composite Zeta Function</em> \(\zeta _C(s)\) are defined by: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC7D1250>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C7EE1C70>">
 <p>
   <div class="equation_content">
-    \begin{equation}  \label{eq:P_and_zetaC} P(s) \equiv \sum _{p \in \mathbb {P}} \frac{1}{p^s}, \qquad \zeta _C(s) \equiv \sum _{c \in \mathbb {C}} \frac{1}{c^s}. \end{equation}
+    \begin{equation}  \label{eq:P_and_zetaC} P(s) \equiv \sum _{p \in \mathbb {P}} \frac{1}{p^s}, \qquad \zeta _C(s) \equiv \sum _{c \in \mathbb {C}_{\mathrm{comp}}} \frac{1}{c^s}. \end{equation}
   </div>
   <span class="equation_label">45</span>
 </p>
@@ -298,7 +298,7 @@
   </div>
   <div class="proposition_thmcontent">
   <p>    For all \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), absolute convergence and the partition&#160;?? yield the foundational bookkeeping identity: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC7D1190>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C7EE1A30>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:zeta_additive_identity} \zeta (s) = 1 + P(s) + \zeta _C(s), \qquad \text{equivalently} \qquad \zeta _C(s) = \zeta (s) - 1 - P(s). \end{equation}
@@ -317,9 +317,9 @@
     <span class="expand-proof">▶</span>
   </div>
   <div class="proof_content">
-  <p>By Definition&#160;<a href="sect0001.html#def:composite_set">0.1.1</a> (\(\mathbb {N}= \{ 1\}  \; \dot{\cup }\;  \mathbb {P}\; \dot{\cup }\;  \mathbb {C}\)): </p>
+  <p>By Definition&#160;<a href="sect0001.html#def:composite_set">0.1.1</a> (\(\mathbb {N}= \{ 1\}  \; \dot{\cup }\;  \mathbb {P}\; \dot{\cup }\;  \mathbb {C}_{\mathrm{comp}}\)): </p>
 <div class="displaymath" id="a0000000095">
-  \[ \sum _{n=1}^\infty \frac{1}{n^s} = \frac{1}{1^s} + \sum _{p \in \mathbb {P}} \frac{1}{p^s} + \sum _{c \in \mathbb {C}} \frac{1}{c^s}. \]
+  \[ \sum _{n=1}^\infty \frac{1}{n^s} = \frac{1}{1^s} + \sum _{p \in \mathbb {P}} \frac{1}{p^s} + \sum _{c \in \mathbb {C}_{\mathrm{comp}}} \frac{1}{c^s}. \]
 </div>
 <p> For \(\sigma {\gt} 1\), the Dirichlet series \(\sum _{n=1}^\infty n^{-\sigma }\) converges absolutely, so its disjoint subseries sum to&#160;??. </p>
 
@@ -364,7 +364,7 @@
         </div>
   </div>
   <div class="theorem_thmcontent">
-  <p>   For each prime \(p \in \mathbb {P}\) and \(\operatorname {Re}(s) {\gt} 1\), set \(E_p(s) \coloneqq \prod _{q \le p}(1 - q^{-s})^{-1}\). Factoring every composite \(c \in \mathbb {C}\) by its largest prime factor \(p = P^+(c)\) yields \(\zeta _C(s) = \sum _{p \in \mathbb {P}} p^{-s}(E_p(s)-1)\) and \(f(s) \coloneqq P(s) - \zeta _C(s) = \sum _{p \in \mathbb {P}} p^{-s}(2 - E_p(s))\). On \((1, \infty )\), \(P(s) = \zeta _C(s)\) has a unique root \(s^* \in (1, 1.50]\) (\(s^* \approx 1.446537622476006\), \(P(s^*) = \zeta _C(s^*) \approx 0.924095391941443\)), established by termwise positivity of \(f'(s) = \sum _p p^{-s} B_p(s) {\gt} 0\) on \((1, 1.50]\), monotone bracketing (\(P(1.55) {\gt} \zeta _C(1.50)\), \(P(1.65) {\gt} \zeta _C(1.55)\), \(P(1.73) {\gt} \zeta _C(1.65)\)) on \([1.50, 1.73]\), and \(E_p(s) {\lt} \zeta (s) \le \zeta (1.73) {\lt} 2\) on \([1.73, \infty )\). </p>
+  <p>   For each prime \(p \in \mathbb {P}\) and \(\operatorname {Re}(s) {\gt} 1\), set \(E_p(s) \coloneqq \prod _{q \le p}(1 - q^{-s})^{-1}\). Factoring every composite \(c \in \mathbb {C}_{\mathrm{comp}}\) by its largest prime factor \(p = P^+(c)\) yields \(\zeta _C(s) = \sum _{p \in \mathbb {P}} p^{-s}(E_p(s)-1)\) and \(f(s) \coloneqq P(s) - \zeta _C(s) = \sum _{p \in \mathbb {P}} p^{-s}(2 - E_p(s))\). On \((1, \infty )\), \(P(s) = \zeta _C(s)\) has a unique root \(s^* \in (1, 1.50]\) (\(s^* \approx 1.446537622476006\), \(P(s^*) = \zeta _C(s^*) \approx 0.924095391941443\)), established by termwise positivity of \(f'(s) = \sum _p p^{-s} B_p(s) {\gt} 0\) on \((1, 1.50]\), monotone bracketing (\(P(1.55) {\gt} \zeta _C(1.50)\), \(P(1.65) {\gt} \zeta _C(1.55)\), \(P(1.73) {\gt} \zeta _C(1.65)\)) on \([1.50, 1.73]\), and \(E_p(s) {\lt} \zeta (s) \le \zeta (1.73) {\lt} 2\) on \([1.73, \infty )\). </p>
 
   </div>
 </div>
@@ -430,7 +430,7 @@
   </div>
   <div class="definition_thmcontent">
   <p>  For each prime \(p \in \mathbb {P}\) and \(\operatorname {Re}(s) {\gt} 1\), the local Euler factor decomposes additively into: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC7D3770>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C7F40EF0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:local_factor} \left(1 - \frac{1}{p^s}\right)^{-1} = \sum _{k=0}^\infty \frac{1}{p^{k s}} = 1 + \frac{1}{p^s} + \sum _{k=2}^\infty \frac{1}{p^{k s}} = 1 + \frac{1}{p^s} + \zeta _{\mathrm{pure}, p}(s), \end{equation}
@@ -439,7 +439,7 @@
 </p>
 </div>
 <p> where: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC82C650>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C7F41430>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:pure_prime_factor} \zeta _{\mathrm{pure}, p}(s) \equiv \sum _{k=2}^\infty \frac{1}{p^{k s}} = \frac{p^{-2s}}{1 - p^{-s}} = \frac{1}{p^s(p^s - 1)} \end{equation}
@@ -496,7 +496,7 @@
   </div>
   <div class="theorem_thmcontent">
   <p>   For all \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the Composite Zeta Function satisfies the closed-form Möbius series representation: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC82CB90>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C7F42C90>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:zeta_C_mobius} \zeta _C(s) = \zeta (s) - 1 - \sum _{k=1}^\infty \frac{\mu (k)}{k} \ln \zeta (k s), \end{equation}
@@ -533,7 +533,7 @@
   </div>
 </div>
 <h2 id="a0000000017">0.4.3 Method 3: Elementary Divisor-Weighted Bookkeeping Series</h2>
-<p>Complementing the unweighted additive split, squaring \(\zeta (s) - 1\) yields a foundational multiplicative bookkeeping series supported strictly on \(\mathbb {C}\). </p>
+<p>Complementing the unweighted additive split, squaring \(\zeta (s) - 1\) yields a foundational multiplicative bookkeeping series supported strictly on \(\mathbb {C}_{\mathrm{comp}}\). </p>
 <div class="proposition_thmwrapper theorem-style-plain" id="thm:divisor_weighted">
   <div class="proposition_thmheading">
     <span class="proposition_thmcaption">
@@ -597,11 +597,11 @@
         </div>
   </div>
   <div class="proposition_thmcontent">
-  <p>    For all \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the shifted square \((\zeta (s) - 1)^2\) annihilates the unit \(1\) and every prime \(p \in \mathbb {P}\), generating a pure Dirichlet series supported strictly on the composite numbers \(\mathbb {C}\): </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x00000268DC82EDB0>">
+  <p>    For all \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the shifted square \((\zeta (s) - 1)^2\) annihilates the unit \(1\) and every prime \(p \in \mathbb {P}\), generating a pure Dirichlet series supported strictly on the composite numbers \(\mathbb {C}_{\mathrm{comp}}\): </p>
+<div class="equation" id="<plasTeX.TeXFragment object at 0x00000202C7F436B0>">
 <p>
   <div class="equation_content">
-    \begin{equation}  \label{eq:weighted_composite_series} Z_{\mathrm{weighted}}(s) \equiv (\zeta (s) - 1)^2 = \sum _{c \in \mathbb {C}} \frac{d(c) - 2}{c^s}, \end{equation}
+    \begin{equation}  \label{eq:weighted_composite_series} Z_{\mathrm{weighted}}(s) \equiv (\zeta (s) - 1)^2 = \sum _{c \in \mathbb {C}_{\mathrm{comp}}} \frac{d(c) - 2}{c^s}, \end{equation}
   </div>
   <span class="equation_label">51</span>
 </p>
@@ -642,7 +642,7 @@
 <div class="displaymath" id="a0000000110">
   \[ (\zeta (s) - 1)^2 = \sum _{n=2}^\infty \frac{d(n) - 2}{n^s}. \]
 </div>
-<p> Now evaluate the numerator coefficient \(d(n) - 2\) across the arithmetic partition \(\mathbb {N}\setminus \{ 1\}  = \mathbb {P}\; \dot{\cup }\;  \mathbb {C}\): </p>
+<p> Now evaluate the numerator coefficient \(d(n) - 2\) across the arithmetic partition \(\mathbb {N}\setminus \{ 1\}  = \mathbb {P}\; \dot{\cup }\;  \mathbb {C}_{\mathrm{comp}}\): </p>
 <ol class="enumerate">
   <li><p><b class="bfseries">Primes (\(n = p \in \mathbb {P}\)):</b> By Corollary&#160;<a href="sect0003.html#cor:divisor_bounds">0.3.7</a>(b), every prime has exactly two divisors (\(1\) and \(p\)), so \(d(p) = 2\). Therefore: </p>
 <div class="displaymath" id="a0000000111">
@@ -650,15 +650,15 @@
 </div>
 <p> Every prime term in the series vanishes identically! </p>
 </li>
-  <li><p><b class="bfseries">Composites (\(n = c \in \mathbb {C}\)):</b> By Corollary&#160;<a href="sect0003.html#cor:divisor_bounds">0.3.7</a>(c), every composite number has \(d(c) \ge 3\). Therefore: </p>
+  <li><p><b class="bfseries">Composites (\(n = c \in \mathbb {C}_{\mathrm{comp}}\)):</b> By Corollary&#160;<a href="sect0003.html#cor:divisor_bounds">0.3.7</a>(c), every composite number has \(d(c) \ge 3\). Therefore: </p>
 <div class="displaymath" id="a0000000112">
-  \[ d(c) - 2 \ge 3 - 2 = 1 {\gt} 0 \quad (\forall c \in \mathbb {C}). \]
+  \[ d(c) - 2 \ge 3 - 2 = 1 {\gt} 0 \quad (\forall c \in \mathbb {C}_{\mathrm{comp}}). \]
 </div>
 </li>
 </ol>
-<p> Since the coefficients vanish for \(n = 1\) and for all \(n \in \mathbb {P}\), the non-zero terms are supported strictly on \(n \in \mathbb {C}\): </p>
+<p> Since the coefficients vanish for \(n = 1\) and for all \(n \in \mathbb {P}\), the non-zero terms are supported strictly on \(n \in \mathbb {C}_{\mathrm{comp}}\): </p>
 <div class="displaymath" id="a0000000113">
-  \[ (\zeta (s) - 1)^2 = \sum _{c \in \mathbb {C}} \frac{d(c) - 2}{c^s}. \]
+  \[ (\zeta (s) - 1)^2 = \sum _{c \in \mathbb {C}_{\mathrm{comp}}} \frac{d(c) - 2}{c^s}. \]
 </div>
 <p> This completes the proof. </p>
 
@@ -830,7 +830,7 @@
 
   <svg  id="showmore-plus" class="icon icon-eye-plus showmore"><use xlink:href="symbol-defs.svg#icon-eye-plus"></use></svg>
 
-  <a href="sect0003.html" title="Algebraic and Modular Taxonomy of the Composite System \(\mathbb {C}\)"><svg  class="icon icon-arrow-left "><use xlink:href="symbol-defs.svg#icon-arrow-left"></use></svg>
+  <a href="sect0003.html" title="Algebraic and Modular Taxonomy of the Composite System \(\mathbb {C}_{\mathrm{comp}}\)"><svg  class="icon icon-arrow-left "><use xlink:href="symbol-defs.svg#icon-arrow-left"></use></svg>
 </a>
   <a href="index.html" title="Additive-Multiplicative Completeness of Prime and Composite Dirichlet Systems: Structural Partitions, Natural Boundaries, and Spectral Equivalences of the Riemann Hypothesis"><svg  class="icon icon-arrow-up "><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg>
 </a>

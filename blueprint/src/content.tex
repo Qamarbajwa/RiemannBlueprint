@@ -1,7 +1,7 @@
 \begin{abstract}
-We formulate an exact arithmetic and analytic framework for the Riemann zeta function $\zeta(s)$ based on the fundamental partition of the positive integers into three mutually exclusive structural classes: the multiplicative unit $\{1\}$, the prime atoms $\Pset$, and the composite lattice $\Cset$. We investigate how additive decompositions and multiplicative convolutions over these sets behave across the critical abscissa of convergence $\operatorname{Re}(s) = 1$. 
+We formulate an exact arithmetic and analytic framework for the Riemann zeta function $\zeta(s)$ based on the fundamental partition of the positive integers into three mutually exclusive structural classes: the multiplicative unit $\{1\}$, the prime atoms $\Pset$, and the composite lattice $\Ccomp$. We investigate how additive decompositions and multiplicative convolutions over these sets behave across the critical abscissa of convergence $\operatorname{Re}(s) = 1$. 
 
-In the half-plane $\operatorname{Re}(s) > 1$, we establish the exact additive split $\zeta(s) = 1 + P(s) + \zeta_C(s)$, where $P(s)$ is the Prime Zeta Function and $\zeta_C(s)$ is the unweighted Composite Zeta Function, and evaluate the certified 50/50 critical parity exponent $s^* \approx 1.446537622...$ where prime and composite Dirichlet energies balance. We construct the divisor-weighted composite series $Z_{\mathrm{weighted}}(s) = (\zeta(s)-1)^2 = \sum_{c \in \Cset} \frac{d(c)-2}{c^s}$, which isolates composites by algebraically annihilating all prime and unit terms. We prove that while $Z_{\mathrm{weighted}}(s)$ extends meromorphically to all of $\Cfield$ with a single double pole at $s=1$, the unweighted additive function $\zeta_C(s)$ inherits a dense natural boundary along the imaginary axis $\operatorname{Re}(s) = 0$ formed by logarithmic branch-point accumulations.
+In the half-plane $\operatorname{Re}(s) > 1$, we establish the exact additive split $\zeta(s) = 1 + P(s) + \zeta_C(s)$, where $P(s)$ is the Prime Zeta Function and $\zeta_C(s)$ is the unweighted Composite Zeta Function, and evaluate the certified 50/50 critical parity exponent $s^* \approx 1.446537622...$ where prime and composite Dirichlet energies balance. We construct the divisor-weighted composite series $Z_{\mathrm{weighted}}(s) = (\zeta(s)-1)^2 = \sum_{c \in \Ccomp} \frac{d(c)-2}{c^s}$, which isolates composites by algebraically annihilating all prime and unit terms. We prove that while $Z_{\mathrm{weighted}}(s)$ extends meromorphically to all of $\Cfield$ with a single double pole at $s=1$, the unweighted additive function $\zeta_C(s)$ inherits a dense natural boundary along the imaginary axis $\operatorname{Re}(s) = 0$ formed by logarithmic branch-point accumulations.
 
 We conduct a rigorous functional-analytic audit of the $\operatorname{Re}(s) = 1$ boundary, demonstrating why additive and multiplicative completeness arguments cannot be extended into the critical strip $0 < \operatorname{Re}(s) < 1$ without confronting the divergence of coordinate series, the failure of point-wise Euler product convergence, and the Riemann Series Rearrangement Theorem. Finally, we establish the bridge connecting the prime-composite arithmetic system to the non-trivial zeros $\rho = \beta + i\gamma$ through the reciprocal Euler product via the Mertens equivalence, and through Chebyshev's $\psi(x)$ via Perron's formula and Riemann's Explicit Formula, proving that the horizontal spectral stability of the explicit oscillatory modes is strictly equivalent to the Riemann Hypothesis.
 \end{abstract}
@@ -26,30 +26,30 @@ By Euler's product formula, the multiplicative independence of the primes transl
 The set of positive integers admits a canonical, mutually disjoint set-theoretic partition:
 \begin{equation}
 \label{eq:fundamental_partition}
-\Nset = \{1\} \;\dot{\cup}\; \Pset \;\dot{\cup}\; \Cset,
+\Nset = \{1\} \;\dot{\cup}\; \Pset \;\dot{\cup}\; \Ccomp,
 \end{equation}
 where:
 \begin{equation}
 \label{eq:composite_set_def}
-\Cset \equiv \{n \in \Nset \mid n = a \cdot b \text{ for integers } a \ge 2, \; b \ge 2\} = \{4, 6, 8, 9, 10, 12, 14, 15, \dots\}
+\Ccomp \equiv \{n \in \Nset \mid n = a \cdot b \text{ for integers } a \ge 2, \; b \ge 2\} = \{4, 6, 8, 9, 10, 12, 14, 15, \dots\}
 \end{equation}
 denotes the set of non-prime composite numbers.
 \end{definition}
 
-While classical analytic number theory primarily utilizes primes to study the zeros and distribution of $\zeta(s)$, the structural properties of the complementary set $\Cset$ contain deep, dual analytic information. Every composite number is an element of the infinite union of multiplication tables:
+While classical analytic number theory primarily utilizes primes to study the zeros and distribution of $\zeta(s)$, the structural properties of the complementary set $\Ccomp$ contain deep, dual analytic information. Every composite number is an element of the infinite union of multiplication tables:
 \begin{equation}
-\Cset = \bigcup_{k=2}^\infty \{k \cdot m \mid m \ge 2\}.
+\Ccomp = \bigcup_{k=2}^\infty \{k \cdot m \mid m \ge 2\}.
 \end{equation}
 From this geometric perspective, the composite numbers form a dense, overlapping lattice of arithmetic progressions, while the prime numbers $\Pset$ appear as the topological vacancies or sieve holes left behind by the composite grid.
 
 \subsection{Central Thesis and Outline of the Monograph}
 
-The purpose of this monograph is to develop a complete structural theory of the additive and multiplicative Dirichlet systems generated by $\Pset$ and $\Cset$, and to map their analytic transitions across the complex plane. 
+The purpose of this monograph is to develop a complete structural theory of the additive and multiplicative Dirichlet systems generated by $\Pset$ and $\Ccomp$, and to map their analytic transitions across the complex plane. 
 
 The investigation is structured as follows:
 \begin{itemize}
   \item In \textbf{Section 2}, we formalize the algebraic atoms $\Pset$, establishing the Fundamental Theorem of Arithmetic, modular sieve constraints ($6k \pm 1$), Fermat's and Wilson's theorems, and prove the Base-10 Radix Periodicity Theorem governing the cyclic decimal periods of $1/p$.
-  \item In \textbf{Section 3}, we construct the algebraic taxonomy of the composite set $\Cset$, partitioning it into pure prime powers and mixed composites via the von Mangoldt function $\Lambda(n)$. We derive multiplicative identities for the divisor function $d(n)$, the totient function $\phi(n)$, and establish the Composite Base-10 Decomposition Theorem.
+  \item In \textbf{Section 3}, we construct the algebraic taxonomy of the composite set $\Ccomp$, partitioning it into pure prime powers and mixed composites via the von Mangoldt function $\Lambda(n)$. We derive multiplicative identities for the divisor function $d(n)$, the totient function $\phi(n)$, and establish the Composite Base-10 Decomposition Theorem.
   \item In \textbf{Section 4}, we construct three distinct Dirichlet generating functions for composites for $\operatorname{Re}(s) > 1$: the unweighted additive split $\zeta_C(s) = \zeta(s) - 1 - P(s)$, the local prime-power M\"obius bridge, and the divisor-weighted series $Z_{\mathrm{weighted}}(s) = (\zeta(s)-1)^2$. We prove the Natural Boundary Theorem, contrasting the meromorphic continuation of $Z_{\mathrm{weighted}}(s)$ with the $\operatorname{Re}(s) = 0$ natural boundary of $\zeta_C(s)$.
   \item In \textbf{Section 5}, we analyze the reciprocal Euler product $1/\zeta(s) = \sum_{n=1}^\infty \mu(n) n^{-s}$, proving how square-free composites and primes establish exact parity cancellation, and prove the Mertens-Riemann equivalence connecting the growth bound $M(x) = \mathcal{O}(x^{1/2+\epsilon})$ to the critical strip.
   \item In \textbf{Section 6}, we execute a rigorous functional-analytic audit of the $\operatorname{Re}(s) = 1$ convergence boundary. We prove the three analytic obstructions preventing naive continuation of the additive completeness into the critical strip, derive the Dirichlet eta continuation, and analyze the phasor symmetry of the Approximate Functional Equation on the critical line $\sigma = 1/2$.
@@ -327,9 +327,9 @@ $$M = \frac{10^6 - 1}{7} = \frac{999999}{7} = 142857 \implies \frac{1}{7} = 0.\o
 % ===========================================================================
 % SECTION 3: TAXONOMY OF THE COMPOSITE SYSTEM C
 % ===========================================================================
-\section{Algebraic and Modular Taxonomy of the Composite System \texorpdfstring{$\Cset$}{C}}
+\section{Algebraic and Modular Taxonomy of the Composite System \texorpdfstring{$\Ccomp$}{C_comp}}
 
-Having formalized the prime atoms $\Pset$, we now develop the algebraic and arithmetic theory of the composite set $\Cset$.
+Having formalized the prime atoms $\Pset$, we now develop the algebraic and arithmetic theory of the composite set $\Ccomp$.
 
 \begin{definition}[Arithmetic Factor Counting Functions]
 \label{def:omega_Omega}
@@ -349,13 +349,13 @@ For $n = 1$, we set $\omega(1) = \Omega(1) = 0$.
 \leanok
 The natural numbers admit the exact disjoint partition:
 \begin{equation}
-\Nset = \{1\} \;\dot{\cup}\; \Pset \;\dot{\cup}\; \Cset,
+\Nset = \{1\} \;\dot{\cup}\; \Pset \;\dot{\cup}\; \Ccomp,
 \end{equation}
 characterized completely by the value of $\Omega(n)$:
 \begin{align}
 \text{Unit:} \quad &\{1\} = \{n \in \Nset \mid \Omega(n) = 0\}, \\
 \text{Primes:} \quad &\Pset = \{n \in \Nset \mid \Omega(n) = 1\}, \\
-\text{Composites:} \quad &\Cset = \{n \in \Nset \mid \Omega(n) \ge 2\}.
+\text{Composites:} \quad &\Ccomp = \{n \in \Nset \mid \Omega(n) \ge 2\}.
 \end{align}
 \end{proposition}
 
@@ -366,20 +366,20 @@ characterized completely by the value of $\Omega(n)$:
 \lean{RiemannBlueprint.Section3_CompositeTaxonomy.PureComposites}
 \uses{def:omega_Omega}
 \leanok
-The composite set $\Cset$ decomposes disjointly into two structurally distinct arithmetic families:
+The composite set $\Ccomp$ decomposes disjointly into two structurally distinct arithmetic families:
 \begin{equation}
 \label{eq:composite_subpartition}
-\Cset = \Cpure \;\dot{\cup}\; \Cmixed,
+\Ccomp = \Cpure \;\dot{\cup}\; \Cmixed,
 \end{equation}
 where:
 \begin{enumerate}
   \item \textbf{Pure Prime Powers ($\Cpure$):} Composites supported on a single prime:
   \begin{equation}
-  \Cpure \equiv \{n \in \Cset \mid \omega(n) = 1, \; \Omega(n) \ge 2\} = \{p^a \mid p \in \Pset, \; a \ge 2\} = \{4, 8, 9, 16, 25, 27, 32, \dots\}.
+  \Cpure \equiv \{n \in \Ccomp \mid \omega(n) = 1, \; \Omega(n) \ge 2\} = \{p^a \mid p \in \Pset, \; a \ge 2\} = \{4, 8, 9, 16, 25, 27, 32, \dots\}.
   \end{equation}
   \item \textbf{Mixed Composites ($\Cmixed$):} Composites supported on two or more distinct primes:
   \begin{equation}
-  \Cmixed \equiv \{n \in \Cset \mid \omega(n) \ge 2\} = \{6, 10, 12, 14, 15, 18, 20, 21, 22, 24, \dots\}.
+  \Cmixed \equiv \{n \in \Ccomp \mid \omega(n) \ge 2\} = \{6, 10, 12, 14, 15, 18, 20, 21, 22, 24, \dots\}.
   \end{equation}
 \end{enumerate}
 \end{definition}
@@ -414,7 +414,7 @@ In particular, $\Lambda(n)$ isolates primes and pure prime powers while complete
 If $n = 1$, $n$ is not a prime power, so $\Lambda(1) = 0$. If $n = p \in \Pset$, then $k = 1$, so $\Lambda(p) = \ln p$. If $n \in \Cpure$, then $n = p^a$ with $a \ge 2$, so $\Lambda(n) = \ln p$. If $n \in \Cmixed$, then $\omega(n) \ge 2$, so $n$ has at least two distinct prime factors $p_1 \neq p_2$; hence $n$ cannot be written in the form $p^k$, yielding $\Lambda(n) = 0$.
 \end{proof}
 
-\subsection{Divisor Function and Totient Algebra on \texorpdfstring{$\Cset$}{C}}
+\subsection{Divisor Function and Totient Algebra on \texorpdfstring{$\Ccomp$}{C_comp}}
 
 \begin{definition}[Divisor Function and Sum-of-Divisors Function]
 \label{def:divisor_functions}
@@ -457,7 +457,7 @@ For all $n \in \Nset$:
 \begin{enumerate}[label=(\alph*)]
   \item $d(n) = 1$ if and only if $n = 1$.
   \item $d(n) = 2$ if and only if $n \in \Pset$.
-  \item $d(n) \ge 3$ for all composite numbers $n \in \Cset$.
+  \item $d(n) \ge 3$ for all composite numbers $n \in \Ccomp$.
   \item $d(n)$ is an \textbf{odd integer} if and only if $n$ is a \textbf{perfect square} ($n = m^2$ for some $m \in \Nset$).
 \end{enumerate}
 \end{corollary}
@@ -465,7 +465,7 @@ For all $n \in \Nset$:
 \begin{proof}
 \leanok
 Parts (a) and (b) follow immediately from Definition~\ref{def:composite_set}.
-For part (c), if $n \in \Cset$, then $\Omega(n) = \sum a_i \ge 2$. If $k = 1$, then $a_1 \ge 2$, so $d(n) = a_1 + 1 \ge 3$. If $k \ge 2$, then $a_1 \ge 1$ and $a_2 \ge 1$, so $d(n) \ge (1+1)(1+1) \ge 4 > 3$. Thus $d(c) \ge 3$ for all $c \in \Cset$.
+For part (c), if $n \in \Ccomp$, then $\Omega(n) = \sum a_i \ge 2$. If $k = 1$, then $a_1 \ge 2$, so $d(n) = a_1 + 1 \ge 3$. If $k \ge 2$, then $a_1 \ge 1$ and $a_2 \ge 1$, so $d(n) \ge (1+1)(1+1) \ge 4 > 3$. Thus $d(c) \ge 3$ for all $c \in \Ccomp$.
 
 For part (d), by~\eqref{eq:d_n_formula}, $d(n) = \prod_{i=1}^k (a_i + 1)$ is odd if and only if every factor $a_i + 1$ is odd. An integer $a_i + 1$ is odd if and only if $a_i$ is even: $a_i = 2 m_i$ for some integer $m_i \ge 1$.
 This holds if and only if:
@@ -494,7 +494,7 @@ Let $n \ge 2$. Then:
 \end{equation}
 and:
 \begin{equation}
-\phi(n) \le n - 1 - \frac{n}{p_{\min}} < n - 1 \quad \text{for all } n \in \Cset,
+\phi(n) \le n - 1 - \frac{n}{p_{\min}} < n - 1 \quad \text{for all } n \in \Ccomp,
 \end{equation}
 where $p_{\min}$ is the smallest prime factor of $n$.
 \end{proposition}
@@ -502,7 +502,7 @@ where $p_{\min}$ is the smallest prime factor of $n$.
 \begin{proof}
 \leanok
 If $n \in \Pset$, then every integer $k \in \{1, 2, \dots, n-1\}$ satisfies $\gcd(k, n) = 1$, so $\phi(n) = n - 1$.
-If $n \in \Cset$, let $p_{\min}$ be the smallest prime factor of $n$. The proper multiples of $p_{\min}$ given by $\{p_{\min}, 2 p_{\min}, \dots, (n/p_{\min}) p_{\min}\}$ all share a common factor $p_{\min} > 1$ with $n$. None of these $n/p_{\min}$ integers can be coprime to $n$. Since $n \in \Cset$, $n/p_{\min} \ge p_{\min} \ge 2$. Thus at least $n/p_{\min} \ge 2$ elements are excluded from $\{1, 2, \dots, n\}$, yielding $\phi(n) \le n - (n/p_{\min}) < n - 1$.
+If $n \in \Ccomp$, let $p_{\min}$ be the smallest prime factor of $n$. The proper multiples of $p_{\min}$ given by $\{p_{\min}, 2 p_{\min}, \dots, (n/p_{\min}) p_{\min}\}$ all share a common factor $p_{\min} > 1$ with $n$. None of these $n/p_{\min}$ integers can be coprime to $n$. Since $n \in \Ccomp$, $n/p_{\min} \ge p_{\min} \ge 2$. Thus at least $n/p_{\min} \ge 2$ elements are excluded from $\{1, 2, \dots, n\}$, yielding $\phi(n) \le n - (n/p_{\min}) < n - 1$.
 \end{proof}
 
 \subsection{Composite Base-10 Decomposition Theorem}
@@ -513,7 +513,7 @@ We now extend the radix periodicity theorem from primes to composite denominator
 \label{thm:composite_radix}
 \uses{prop:totient_gap}
 \leanok
-Let $n \in \Cset$ be a composite integer. Factor $n$ into its decimal base components and coprime core:
+Let $n \in \Ccomp$ be a composite integer. Factor $n$ into its decimal base components and coprime core:
 \begin{equation}
 \label{eq:n_base_factorization}
 n = 2^a \cdot 5^b \cdot m, \qquad \gcd(m, 10) = 1, \quad (a, b \ge 0, \; m \ge 1).
@@ -578,7 +578,7 @@ Since all primes $p > 3$ are confined to $6k \pm 1$ (Theorem~\ref{thm:mod6_confi
 \label{prop:composite_lattice}
 \lean{RiemannBlueprint.Section3_CompositeTaxonomy.coprime_composite_lattice}
 \leanok
-Let $c \in \Cset$ such that $\gcd(c, 6) = 1$. Then $c$ is generated by the two-parameter modular lattice:
+Let $c \in \Ccomp$ such that $\gcd(c, 6) = 1$. Then $c$ is generated by the two-parameter modular lattice:
 \begin{equation}
 \label{eq:lattice_eq}
 c = (6a + \epsilon_1)(6b + \epsilon_2) = 36 a b + 6(a \epsilon_2 + b \epsilon_1) + \epsilon_1 \epsilon_2,
@@ -600,7 +600,7 @@ k \neq 6 a b + a \epsilon_2 + b \epsilon_1 + \frac{\epsilon_1 \epsilon_2 \mp 1}{
 \section{Construction of the Composite Zeta Functions (\texorpdfstring{$\operatorname{Re}(s) > 1$}{Re(s) > 1})}
 \label{sec:construction_composite_zeta}
 
-We now construct the Dirichlet generating functions for the composite system $\Cset$ for $\operatorname{Re}(s) > 1$ using three distinct mathematical formulations.
+We now construct the Dirichlet generating functions for the composite system $\Ccomp$ for $\operatorname{Re}(s) > 1$ using three distinct mathematical formulations.
 
 \subsection{Method 1: Additive Partition and the 50/50 Equilibrium}
 
@@ -611,7 +611,7 @@ We now construct the Dirichlet generating functions for the composite system $\C
 For $s = \sigma + i t$ with $\sigma > 1$, the \emph{Prime Zeta Function} $P(s)$ and the \emph{Composite Zeta Function} $\zeta_C(s)$ are defined by:
 \begin{equation}
 \label{eq:P_and_zetaC}
-P(s) \equiv \sum_{p \in \Pset} \frac{1}{p^s}, \qquad \zeta_C(s) \equiv \sum_{c \in \Cset} \frac{1}{c^s}.
+P(s) \equiv \sum_{p \in \Pset} \frac{1}{p^s}, \qquad \zeta_C(s) \equiv \sum_{c \in \Ccomp} \frac{1}{c^s}.
 \end{equation}
 \end{definition}
 
@@ -629,15 +629,15 @@ For all $s \in \Cfield$ with $\operatorname{Re}(s) > 1$, absolute convergence an
 
 \begin{proof}
 \leanok
-By Definition~\ref{def:composite_set} ($\Nset = \{1\} \;\dot{\cup}\; \Pset \;\dot{\cup}\; \Cset$):
-$$\sum_{n=1}^\infty \frac{1}{n^s} = \frac{1}{1^s} + \sum_{p \in \Pset} \frac{1}{p^s} + \sum_{c \in \Cset} \frac{1}{c^s}.$$
+By Definition~\ref{def:composite_set} ($\Nset = \{1\} \;\dot{\cup}\; \Pset \;\dot{\cup}\; \Ccomp$):
+$$\sum_{n=1}^\infty \frac{1}{n^s} = \frac{1}{1^s} + \sum_{p \in \Pset} \frac{1}{p^s} + \sum_{c \in \Ccomp} \frac{1}{c^s}.$$
 For $\sigma > 1$, the Dirichlet series $\sum_{n=1}^\infty n^{-\sigma}$ converges absolutely, so its disjoint subseries sum to~\eqref{eq:zeta_additive_identity}.
 \end{proof}
 
 \begin{theorem}[Smooth-Cofactor Factorization and Uniqueness of the 50/50 Parity Exponent $s^*$]
 \label{thm:smooth_cofactor_parity_uniqueness}
 \uses{thm:additive_identity}
-For each prime $p \in \Pset$ and $\operatorname{Re}(s) > 1$, set $E_p(s) \coloneqq \prod_{q \le p}(1 - q^{-s})^{-1}$. Factoring every composite $c \in \Cset$ by its largest prime factor $p = P^+(c)$ yields $\zeta_C(s) = \sum_{p \in \Pset} p^{-s}(E_p(s)-1)$ and $f(s) \coloneqq P(s) - \zeta_C(s) = \sum_{p \in \Pset} p^{-s}(2 - E_p(s))$. On $(1, \infty)$, $P(s) = \zeta_C(s)$ has a unique root $s^* \in (1, 1.50]$ ($s^* \approx 1.446537622476006$, $P(s^*) = \zeta_C(s^*) \approx 0.924095391941443$), established by termwise positivity of $f'(s) = \sum_p p^{-s} B_p(s) > 0$ on $(1, 1.50]$, monotone bracketing ($P(1.55) > \zeta_C(1.50)$, $P(1.65) > \zeta_C(1.55)$, $P(1.73) > \zeta_C(1.65)$) on $[1.50, 1.73]$, and $E_p(s) < \zeta(s) \le \zeta(1.73) < 2$ on $[1.73, \infty)$.
+For each prime $p \in \Pset$ and $\operatorname{Re}(s) > 1$, set $E_p(s) \coloneqq \prod_{q \le p}(1 - q^{-s})^{-1}$. Factoring every composite $c \in \Ccomp$ by its largest prime factor $p = P^+(c)$ yields $\zeta_C(s) = \sum_{p \in \Pset} p^{-s}(E_p(s)-1)$ and $f(s) \coloneqq P(s) - \zeta_C(s) = \sum_{p \in \Pset} p^{-s}(2 - E_p(s))$. On $(1, \infty)$, $P(s) = \zeta_C(s)$ has a unique root $s^* \in (1, 1.50]$ ($s^* \approx 1.446537622476006$, $P(s^*) = \zeta_C(s^*) \approx 0.924095391941443$), established by termwise positivity of $f'(s) = \sum_p p^{-s} B_p(s) > 0$ on $(1, 1.50]$, monotone bracketing ($P(1.55) > \zeta_C(1.50)$, $P(1.65) > \zeta_C(1.55)$, $P(1.73) > \zeta_C(1.65)$) on $[1.50, 1.73]$, and $E_p(s) < \zeta(s) \le \zeta(1.73) < 2$ on $[1.73, \infty)$.
 \end{theorem}
 
 \begin{example}[Evaluation at the Basel Value $s = 2$]
@@ -696,17 +696,17 @@ Substituting this expression into Proposition~\ref{thm:additive_identity} establ
 
 \subsection{Method 3: Elementary Divisor-Weighted Bookkeeping Series}
 
-Complementing the unweighted additive split, squaring $\zeta(s) - 1$ yields a foundational multiplicative bookkeeping series supported strictly on $\Cset$.
+Complementing the unweighted additive split, squaring $\zeta(s) - 1$ yields a foundational multiplicative bookkeeping series supported strictly on $\Ccomp$.
 
 \begin{proposition}[Elementary Divisor-Weighted Composite Identity]
 \label{thm:divisor_weighted}
 \lean{RiemannBlueprint.Section4_CompositeZeta.divisor_weight_primes_and_composites}
 \uses{cor:divisor_bounds}
 \leanok
-For all $s \in \Cfield$ with $\operatorname{Re}(s) > 1$, the shifted square $(\zeta(s) - 1)^2$ annihilates the unit $1$ and every prime $p \in \Pset$, generating a pure Dirichlet series supported strictly on the composite numbers $\Cset$:
+For all $s \in \Cfield$ with $\operatorname{Re}(s) > 1$, the shifted square $(\zeta(s) - 1)^2$ annihilates the unit $1$ and every prime $p \in \Pset$, generating a pure Dirichlet series supported strictly on the composite numbers $\Ccomp$:
 \begin{equation}
 \label{eq:weighted_composite_series}
-Z_{\mathrm{weighted}}(s) \equiv (\zeta(s) - 1)^2 = \sum_{c \in \Cset} \frac{d(c) - 2}{c^s},
+Z_{\mathrm{weighted}}(s) \equiv (\zeta(s) - 1)^2 = \sum_{c \in \Ccomp} \frac{d(c) - 2}{c^s},
 \end{equation}
 where $d(c) = \sum_{d \mid c} 1$ is the divisor function.
 \end{proposition}
@@ -725,16 +725,16 @@ Adding $1$ exactly cancels the $n = 1$ term:
 $$1 + \frac{d(1) - 2}{1^s} = 1 - 1 = 0.$$
 Therefore, the summation begins at $n = 2$:
 $$(\zeta(s) - 1)^2 = \sum_{n=2}^\infty \frac{d(n) - 2}{n^s}.$$
-Now evaluate the numerator coefficient $d(n) - 2$ across the arithmetic partition $\Nset \setminus \{1\} = \Pset \;\dot{\cup}\; \Cset$:
+Now evaluate the numerator coefficient $d(n) - 2$ across the arithmetic partition $\Nset \setminus \{1\} = \Pset \;\dot{\cup}\; \Ccomp$:
 \begin{enumerate}
   \item \textbf{Primes ($n = p \in \Pset$):} By Corollary~\ref{cor:divisor_bounds}(b), every prime has exactly two divisors ($1$ and $p$), so $d(p) = 2$. Therefore:
   $$d(p) - 2 = 2 - 2 = 0 \quad (\forall p \in \Pset).$$
   Every prime term in the series vanishes identically!
-  \item \textbf{Composites ($n = c \in \Cset$):} By Corollary~\ref{cor:divisor_bounds}(c), every composite number has $d(c) \ge 3$. Therefore:
-  $$d(c) - 2 \ge 3 - 2 = 1 > 0 \quad (\forall c \in \Cset).$$
+  \item \textbf{Composites ($n = c \in \Ccomp$):} By Corollary~\ref{cor:divisor_bounds}(c), every composite number has $d(c) \ge 3$. Therefore:
+  $$d(c) - 2 \ge 3 - 2 = 1 > 0 \quad (\forall c \in \Ccomp).$$
 \end{enumerate}
-Since the coefficients vanish for $n = 1$ and for all $n \in \Pset$, the non-zero terms are supported strictly on $n \in \Cset$:
-$$(\zeta(s) - 1)^2 = \sum_{c \in \Cset} \frac{d(c) - 2}{c^s}.$$
+Since the coefficients vanish for $n = 1$ and for all $n \in \Pset$, the non-zero terms are supported strictly on $n \in \Ccomp$:
+$$(\zeta(s) - 1)^2 = \sum_{c \in \Ccomp} \frac{d(c) - 2}{c^s}.$$
 This completes the proof.
 \end{proof}
 
@@ -1268,7 +1268,7 @@ For every $x > 1$:
 \label{eq:riemann_explicit_formula}
 \psi_0(x) = x - \sum_{\rho} \frac{x^\rho}{\rho} - \ln(2\pi) - \frac{1}{2}\ln\left(1 - x^{-2}\right),
 \end{equation}
-where the sum over $\rho$ runs over all non-trivial zeros of $\zeta(s)$ in the critical strip $0 < \operatorname{Re}(\rho) < 1$, paired symmetrically as:
+where $\rho$ runs over all non-trivial zeros of $\zeta(s)$ in the critical strip $0 < \operatorname{Re}(\rho) < 1$ counted with multiplicity $m_\rho \ge 1$ (so each distinct zero contributes $m_\rho x^\rho/\rho$), paired symmetrically as:
 \begin{equation}
 \sum_{\rho} \frac{x^\rho}{\rho} \coloneqq \lim_{T \to \infty} \sum_{|\operatorname{Im}(\rho)| \le T} \frac{x^\rho}{\rho}.
 \end{equation}
@@ -1304,8 +1304,9 @@ We evaluate the residues of the integrand $F(s) \coloneqq \left(-\frac{\zeta'(s)
   $$\zeta(s) = (s - \rho)^{m_\rho} g(s) \quad \text{with } g(\rho) \neq 0.$$
   Differentiating:
   $$\frac{\zeta'(s)}{\zeta(s)} = \frac{m_\rho}{s - \rho} + \frac{g'(s)}{g(s)} \implies -\frac{\zeta'(s)}{\zeta(s)} = -\frac{m_\rho}{s - \rho} + \mathcal{O}(1).$$
-  Therefore, the residue of $-\zeta'/\zeta$ at $s = \rho$ is $-m_\rho$. Assuming simplicity of zeros ($m_\rho = 1$):
-  $$\operatorname{Res}_{s=\rho} F(s) = - \frac{x^\rho}{\rho}.$$
+  Therefore, the residue of $-\zeta'/\zeta$ at a zero $\rho$ of multiplicity $m_\rho \ge 1$ is $-m_\rho$, yielding
+  $$\operatorname{Res}_{s=\rho} F(s) = -m_\rho \frac{x^\rho}{\rho},$$
+  so counting zeros with multiplicity makes the explicit formula unconditional without assuming simplicity.
 
   \item \textbf{The Pole at $s = 0$:}  
   At $s = 0$, $x^s / s$ has a simple pole with residue $x^0 = 1$. The factor $-\zeta'(s)/\zeta(s)$ is analytic at $s = 0$.
