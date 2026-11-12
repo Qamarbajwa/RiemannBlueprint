@@ -223,7 +223,7 @@
   </div>
   <div class="definition_thmcontent">
   <p>   For \(s = \sigma + i t\) with \(\sigma {\gt} 1\), the <em>Prime Zeta Function</em> \(P(s)\) and the <em>Composite Zeta Function</em> \(\zeta _C(s)\) are defined by: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x000001B3F1DF1C70>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x0000023AB3021C70>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:P_and_zetaC} P(s) \equiv \sum _{p \in \mathbb {P}} \frac{1}{p^s}, \qquad \zeta _C(s) \equiv \sum _{c \in \mathbb {C}_{\mathrm{comp}}} \frac{1}{c^s}. \end{equation}
@@ -298,7 +298,7 @@
   </div>
   <div class="proposition_thmcontent">
   <p>    For all \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), absolute convergence and the partition&#160;?? yield the foundational bookkeeping identity: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x000001B3F1DF1A30>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x0000023AB3021A30>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:zeta_additive_identity} \zeta (s) = 1 + P(s) + \zeta _C(s), \qquad \text{equivalently} \qquad \zeta _C(s) = \zeta (s) - 1 - P(s). \end{equation}
@@ -430,7 +430,7 @@
   </div>
   <div class="definition_thmcontent">
   <p>  For each prime \(p \in \mathbb {P}\) and \(\operatorname {Re}(s) {\gt} 1\), the local Euler factor decomposes additively into: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x000001B3F1E50EF0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x0000023AB3080EF0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:local_factor} \left(1 - \frac{1}{p^s}\right)^{-1} = \sum _{k=0}^\infty \frac{1}{p^{k s}} = 1 + \frac{1}{p^s} + \sum _{k=2}^\infty \frac{1}{p^{k s}} = 1 + \frac{1}{p^s} + \zeta _{\mathrm{pure}, p}(s), \end{equation}
@@ -439,7 +439,7 @@
 </p>
 </div>
 <p> where: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x000001B3F1E51430>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x0000023AB3081430>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:pure_prime_factor} \zeta _{\mathrm{pure}, p}(s) \equiv \sum _{k=2}^\infty \frac{1}{p^{k s}} = \frac{p^{-2s}}{1 - p^{-s}} = \frac{1}{p^s(p^s - 1)} \end{equation}
@@ -496,7 +496,7 @@
   </div>
   <div class="theorem_thmcontent">
   <p>   For all \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the Composite Zeta Function satisfies the closed-form Möbius series representation: </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x000001B3F1E52C90>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x0000023AB3082C90>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:zeta_C_mobius} \zeta _C(s) = \zeta (s) - 1 - \sum _{k=1}^\infty \frac{\mu (k)}{k} \ln \zeta (k s), \end{equation}
@@ -598,7 +598,7 @@
   </div>
   <div class="proposition_thmcontent">
   <p>    For all \(s \in \mathbb {C}\) with \(\operatorname {Re}(s) {\gt} 1\), the shifted square \((\zeta (s) - 1)^2\) annihilates the unit \(1\) and every prime \(p \in \mathbb {P}\), generating a pure Dirichlet series supported strictly on the composite numbers \(\mathbb {C}_{\mathrm{comp}}\): </p>
-<div class="equation" id="<plasTeX.TeXFragment object at 0x000001B3F1E536B0>">
+<div class="equation" id="<plasTeX.TeXFragment object at 0x0000023AB30836B0>">
 <p>
   <div class="equation_content">
     \begin{equation}  \label{eq:weighted_composite_series} Z_{\mathrm{weighted}}(s) \equiv (\zeta (s) - 1)^2 = \sum _{c \in \mathbb {C}_{\mathrm{comp}}} \frac{d(c) - 2}{c^s}, \end{equation}
@@ -780,7 +780,7 @@
 </li>
 </ul>
 </li>
-  <li><p><b class="bfseries">Natural Boundary of \(\zeta _C(s)\) and \(P(s)\) at \(\operatorname {Re}(s) = 0\):</b> The unweighted Composite Zeta Function \(\zeta _C(s) = \zeta (s) - 1 - P(s)\) cannot be analytically continued past the imaginary axis \(\operatorname {Re}(s) = 0\). The line \(\operatorname {Re}(s) = 0\) is a <b class="bfseries">dense natural boundary</b> formed by the accumulation of logarithmic branch-point singularities. </p>
+  <li><p><b class="bfseries">Natural Boundary of \(\zeta _C(s)\) and \(P(s)\) at \(\operatorname {Re}(s) = 0\):</b> The unweighted Composite Zeta Function \(\zeta _C(s) = \zeta (s) - 1 - P(s)\) cannot be analytically continued past the imaginary axis \(\operatorname {Re}(s) = 0\). The line \(\operatorname {Re}(s) = 0\) is a <b class="bfseries">dense natural boundary</b> formed by the accumulation of logarithmic branch-point singularities (encoded in Lean&#160;4 as non-continuation on the upper half-plane \(\{ s \in \mathbb {C}\mid -1 {\lt} \operatorname {Re}(s),\;  0 {\lt} \operatorname {Im}(s)\} \) agreeing on \(\{ \operatorname {Re}(s) {\gt} 1,\;  \operatorname {Im}(s) {\gt} 0\} \), excluding the real pole \(s = 1\) and real points \(1/k\)). </p>
 </li>
 </ol>
 

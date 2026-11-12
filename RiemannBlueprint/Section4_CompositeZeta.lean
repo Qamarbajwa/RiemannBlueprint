@@ -288,11 +288,12 @@ theorem differentiableAt_compositeZetaSquared (s : ℂ) (hs : s ≠ 1) :
 
 /-- Theorem 4.20: Analytic Discrepancy between Additive and Multiplicative Partitions.
 While CompositeZetaSquared continues meromorphically to ℂ \ {1}, under the classical
-natural boundary interface CompositeZeta cannot be analytically continued past Re(s) = 0. -/
+natural boundary interface CompositeZeta cannot be analytically continued past Re(s) = 0
+in the upper half-plane Im(s) > 0 (avoiding the real pole s = 1 and real singularities 1/k). -/
 theorem analytic_discrepancy_theorem (H : ClassicalAnalyticInterface) :
     (∀ s : ℂ, s ≠ 1 → DifferentiableAt ℂ (fun z => (riemannZeta z - 1) ^ 2) s) ∧
-    (¬ ∃ (f : ℂ → ℂ), AnalyticOn ℂ f {s : ℂ | s.re > -1} ∧
-      ∀ s : ℂ, s.re > 1 → f s = CompositeZeta s) := by
+    (¬ ∃ (f : ℂ → ℂ), AnalyticOn ℂ f {s : ℂ | -1 < s.re ∧ 0 < s.im} ∧
+      ∀ s : ℂ, 1 < s.re → 0 < s.im → f s = CompositeZeta s) := by
   exact ⟨fun s hs => differentiableAt_compositeZetaSquared s hs, H.natural_boundary_obstruction_at_zero⟩
 
 end RiemannBlueprint.Section4_CompositeZeta

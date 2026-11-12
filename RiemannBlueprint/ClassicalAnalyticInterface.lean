@@ -55,9 +55,13 @@ unconditionally in `LittlewoodForward.lean` without any field in this interface.
 No global `axiom` declarations are used anywhere.
 -/
 structure ClassicalAnalyticInterface : Prop where
+  /-- Landau–Walfisz (1920) Natural Boundary of ζ_C(s) along the positive imaginary axis:
+  On the upper half-plane Im(s) > 0 (which excludes the pole s = 1 and real points 1/k),
+  no function analytic on {s : ℂ | -1 < s.re ∧ 0 < s.im} agrees with CompositeZeta s
+  on {s : ℂ | 1 < s.re ∧ 0 < s.im}. -/
   natural_boundary_obstruction_at_zero :
-    ¬ ∃ (f : ℂ → ℂ), AnalyticOn ℂ f {s : ℂ | s.re > -1} ∧
-      ∀ s : ℂ, s.re > 1 → f s = CompositeZeta s
+    ¬ ∃ (f : ℂ → ℂ), AnalyticOn ℂ f {s : ℂ | -1 < s.re ∧ 0 < s.im} ∧
+      ∀ s : ℂ, 1 < s.re → 0 < s.im → f s = CompositeZeta s
   rh_implies_mertens_bound :
     _root_.RiemannHypothesis → MertensBound
   explicit_formula_spectral_equivalence :
