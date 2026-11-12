@@ -8,6 +8,9 @@ module
 public import Mathlib.Analysis.Analytic.Uniqueness
 public import Mathlib.Analysis.Complex.CauchyIntegral
 public import Mathlib.Analysis.MellinTransform
+public import Mathlib.Analysis.SpecialFunctions.Gamma.Basic
+public import Mathlib.Analysis.SpecialFunctions.Gamma.Beta
+public import Mathlib.Analysis.SpecialFunctions.Trigonometric.Complex
 public import Mathlib.NumberTheory.ArithmeticFunction.Moebius
 public import Mathlib.NumberTheory.LSeries.Dirichlet
 public import Mathlib.NumberTheory.LSeries.Nonvanishing
@@ -26,6 +29,8 @@ if the Mertens summatory function `M(x) = ∑ n ≤ ⌊x⌋₊, μ(n)` satisfies
 
 * `mertens` : the Mertens summatory function `∑ n ∈ Finset.Iic ⌊x⌋₊, ArithmeticFunction.moebius n`.
 * `riemannZeta_zero_reflection` : non-trivial zeros of `riemannZeta` reflect across `s.re = 1 / 2`.
+* `chiFactor` and `chi_critical_line_modulus` : unitary modulus `‖χ(1 / 2 + I * t)‖ = 1` on the
+  critical line.
 * `mertens_inversion_of_bound` : existence of an explicit right inverse of `riemannZeta` on
   `{s : ℂ | 1 / 2 < s.re}` assuming `M(x) = O(x ^ (1 / 2 + ε))` for all `ε > 0`.
 * `RiemannHypothesis.of_mertens_isBigO` : Littlewood's (1912) forward theorem.
@@ -395,6 +400,112 @@ theorem riemannZeta_zero_reflection {s : ℂ} (hz : riemannZeta s = 0)
     rw [riemannZeta_one_sub h_not_neg_nat h_not_one, hz, mul_zero]
   · rw [Complex.sub_re, Complex.one_re]
     linarith
+
+/-- Explicit functional equation reflection factor
+`χ(s) = 2 ^ s * π ^ (s - 1) * sin (π * s / 2) * Γ (1 - s)`. -/
+noncomputable def chiFactor (s : ℂ) : ℂ :=
+  (2 : ℂ) ^ s * (Real.pi : ℂ) ^ (s - 1) * Complex.sin ((Real.pi : ℂ) * s / 2) *
+    Complex.Gamma (1 - s)
+
+private lemma conj_ofReal_cpow {r : ℝ} (hr : 0 < r) (z : ℂ) :
+    starRingEnd ℂ ((r : ℂ) ^ z) = (r : ℂ) ^ (starRingEnd ℂ z) := by
+  have harg : (r : ℂ).arg ≠ Real.pi := by
+    rw [Complex.arg_ofReal_of_nonneg hr.le]
+    exact Real.pi_ne_zero.symm
+  have hc := Complex.cpow_conj (r : ℂ) z harg
+  rw [Complex.conj_ofReal] at hc
+  exact hc.symm
+
+/-- On the critical line `Re(s) = 1 / 2`, the reflection factor `χ(1 / 2 + i * t)` has
+unitary modulus `‖χ(1 / 2 + i * t)‖ = 1`. -/
+theorem chi_critical_line_modulus (t : ℝ) :
+    ‖chiFactor (1 / 2 + Complex.I * t)‖ = 1 := by
+  let s : ℂ := 1 / 2 + Complex.I * t
+  have hs_re : s.re = 1 / 2 := by simp [s]
+  have hs_conj : starRingEnd ℂ s = 1 - s := by
+    apply Complex.ext
+    · simp [s]; norm_num
+    · simp [s]
+  have h_conj_chi : starRingEnd ℂ (chiFactor s) = chiFactor (1 - s) := by
+    dsimp [chiFactor]
+    simp only [map_mul]
+    have h2 : starRingEnd ℂ ((2 : ℂ) ^ s) = (2 : ℂ) ^ (1 - s) := by
+      have h := conj_ofReal_cpow (by norm_num : (0 : ℝ) < 2) s
+      norm_cast at h
+      rw [h, hs_conj]
+    have hpi : starRingEnd ℂ ((Real.pi : ℂ) ^ (s - 1)) = (Real.pi : ℂ) ^ (1 - s - 1) := by
+      have h := conj_ofReal_cpow Real.pi_pos (s - 1)
+      rw [h, map_sub, map_one, hs_conj]
+    have hsin : starRingEnd ℂ (Complex.sin ((Real.pi : ℂ) * s / 2)) =
+        Complex.sin ((Real.pi : ℂ) * (1 - s) / 2) := by
+      rw [← Complex.sin_conj, map_div₀, map_mul, Complex.conj_ofReal, map_ofNat, hs_conj]
+    have hgam : starRingEnd ℂ (Complex.Gamma (1 - s)) = Complex.Gamma (1 - (1 - s)) := by
+      rw [← Complex.Gamma_conj, map_sub, map_one, hs_conj]
+    rw [h2, hpi, hsin, hgam]
+  have h_prod : chiFactor s * chiFactor (1 - s) = 1 := by
+    dsimp [chiFactor]
+    have h2_prod : (2 : ℂ) ^ s * (2 : ℂ) ^ (1 - s) = 2 := by
+      rw [← Complex.cpow_add s (1 - s) (by norm_num)]
+      simp
+    have hpi_prod :
+        (Real.pi : ℂ) ^ (s - 1) * (Real.pi : ℂ) ^ (1 - s - 1) = (Real.pi : ℂ)⁻¹ := by
+      rw [← Complex.cpow_add (s - 1) (1 - s - 1)
+          (Complex.ofReal_ne_zero.mpr Real.pi_ne_zero)]
+      have hexp : (s - 1) + (1 - s - 1) = -1 := by ring
+      rw [hexp, Complex.cpow_neg_one]
+    have h_sin_cos :
+        Complex.sin ((Real.pi : ℂ) * (1 - s) / 2) = Complex.cos ((Real.pi : ℂ) * s / 2) := by
+      have heq : (Real.pi : ℂ) * (1 - s) / 2 = (Real.pi : ℂ) / 2 - (Real.pi : ℂ) * s / 2 := by
+        ring
+      rw [heq, Complex.sin_pi_div_two_sub]
+    have h_double :
+        Complex.sin ((Real.pi : ℂ) * s / 2) * Complex.cos ((Real.pi : ℂ) * s / 2) =
+          Complex.sin ((Real.pi : ℂ) * s) / 2 := by
+      have h2m := Complex.sin_two_mul ((Real.pi : ℂ) * s / 2)
+      have heq : 2 * ((Real.pi : ℂ) * s / 2) = (Real.pi : ℂ) * s := by ring
+      rw [heq] at h2m
+      linear_combination (1 / 2 : ℂ) * h2m.symm
+    have h_gam : Complex.Gamma (1 - s) * Complex.Gamma (1 - (1 - s)) =
+        (Real.pi : ℂ) / Complex.sin ((Real.pi : ℂ) * s) := by
+      have hsub : 1 - (1 - s) = s := by ring
+      rw [hsub, mul_comm, Complex.Gamma_mul_Gamma_one_sub s]
+    have h_sin_ne : Complex.sin ((Real.pi : ℂ) * s) ≠ 0 := by
+      intro hzero
+      rw [Complex.sin_eq_zero_iff] at hzero
+      rcases hzero with ⟨k, hk⟩
+      have h_re := congr_arg Complex.re hk
+      have hpi_ne : Real.pi ≠ 0 := Real.pi_ne_zero
+      have hre1 : ((Real.pi : ℂ) * s).re = Real.pi * (1 / 2 : ℝ) := by simp [hs_re]
+      have hre2 : ((k : ℂ) * (Real.pi : ℂ)).re = (k : ℝ) * Real.pi := by simp
+      rw [hre1, hre2] at h_re
+      have hhalf : (1 / 2 : ℝ) = (k : ℝ) := mul_right_cancel₀ hpi_ne (by linarith)
+      have hk_int : (1 : ℝ) = 2 * (k : ℝ) := by linarith
+      have hk2 : (1 : ℤ) = 2 * k := by exact_mod_cast hk_int
+      omega
+    have hpi_ne_c : (Real.pi : ℂ) ≠ 0 := Complex.ofReal_ne_zero.mpr Real.pi_ne_zero
+    calc
+      (2 : ℂ) ^ s * (Real.pi : ℂ) ^ (s - 1) * Complex.sin ((Real.pi : ℂ) * s / 2) *
+          Complex.Gamma (1 - s) *
+          ((2 : ℂ) ^ (1 - s) * (Real.pi : ℂ) ^ (1 - s - 1) *
+            Complex.sin ((Real.pi : ℂ) * (1 - s) / 2) * Complex.Gamma (1 - (1 - s)))
+        = ((2 : ℂ) ^ s * (2 : ℂ) ^ (1 - s)) *
+            ((Real.pi : ℂ) ^ (s - 1) * (Real.pi : ℂ) ^ (1 - s - 1)) *
+            (Complex.sin ((Real.pi : ℂ) * s / 2) * Complex.sin ((Real.pi : ℂ) * (1 - s) / 2)) *
+            (Complex.Gamma (1 - s) * Complex.Gamma (1 - (1 - s))) := by ring
+      _ = 2 * (Real.pi : ℂ)⁻¹ * (Complex.sin ((Real.pi : ℂ) * s) / 2) *
+            ((Real.pi : ℂ) / Complex.sin ((Real.pi : ℂ) * s)) := by
+          rw [h2_prod, hpi_prod, h_sin_cos, h_double, h_gam]
+      _ = 1 := by field_simp [hpi_ne_c, h_sin_ne]
+  have h_normSq : Complex.normSq (chiFactor s) = 1 := by
+    have hm := Complex.mul_conj (chiFactor s)
+    rw [h_conj_chi, h_prod] at hm
+    have hre := congr_arg Complex.re hm.symm
+    simpa using hre
+  have h_norm_sq : ‖chiFactor s‖ ^ 2 = 1 := by
+    rw [← Complex.normSq_eq_norm_sq]
+    exact h_normSq
+  have h_nonneg : 0 ≤ ‖chiFactor s‖ := norm_nonneg _
+  nlinarith [sq_nonneg ‖chiFactor s‖]
 
 /-- **Littlewood's (1912) Forward Theorem:** If `M(x) = O(x ^ (1 / 2 + ε))` as `x → ∞` for every
 `ε > 0`, then `RiemannHypothesis` holds. -/
