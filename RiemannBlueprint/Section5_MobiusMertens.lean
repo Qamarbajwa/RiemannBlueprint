@@ -7,6 +7,7 @@ import RiemannBlueprint.Section2_PrimeAtoms
 import RiemannBlueprint.Section3_CompositeTaxonomy
 import RiemannBlueprint.Section4_CompositeZeta
 import RiemannBlueprint.ClassicalAnalyticInterface
+import RiemannBlueprint.LittlewoodForward
 
 /-!
 # Section 5: The Multiplicative Inversion Sieve & Mertens Dual Systems
@@ -246,18 +247,18 @@ theorem zeta_zero_reflection {s : ℂ} (hz : riemannZeta s = 0)
   · rw [Complex.sub_re, Complex.one_re]
     linarith
 
-/-- Theorem 5.18 (Zero-Free Half Plane from Mertens Bound): -/
-theorem zero_free_re_gt_half_of_mertens (H : ClassicalAnalyticInterface) (h_mertens : MertensBound) :
+/-- Theorem 5.18 (Zero-Free Half Plane from Mertens Bound — UNCONDITIONAL): -/
+theorem zero_free_re_gt_half_of_mertens (h_mertens : MertensBound) :
     ∀ s : ℂ, s.re > 1/2 → riemannZeta s ≠ 0 := by
-  rcases H.mellin_mertens_inversion h_mertens with ⟨I_M, h_inv⟩
+  rcases RiemannBlueprint.LittlewoodForward.mertens_inversion_of_bound h_mertens with ⟨I_M, h_inv⟩
   intro s hs
   exact ne_zero_of_reciprocal_product (h_inv s hs)
 
-/-- Theorem 5.19 (Mertens Bound Implies Riemann Hypothesis): -/
-theorem mertens_implies_rh (H : ClassicalAnalyticInterface) (h_mertens : MertensBound) :
+/-- Theorem 5.19 (Littlewood's Forward Theorem: Mertens Bound Implies Riemann Hypothesis — UNCONDITIONAL): -/
+theorem mertens_implies_rh (h_mertens : MertensBound) :
     RiemannHypothesis := by
   have h_nofail : ∀ s : ℂ, s.re > 1/2 → riemannZeta s ≠ 0 :=
-    zero_free_re_gt_half_of_mertens H h_mertens
+    zero_free_re_gt_half_of_mertens h_mertens
   intro s hs_zero hs_not_triv hs_not_one
   by_contra h_ne
   rcases lt_or_gt_of_ne h_ne with hs_lt | hs_gt
@@ -266,9 +267,9 @@ theorem mertens_implies_rh (H : ClassicalAnalyticInterface) (h_mertens : Mertens
   · exact h_nofail s hs_gt hs_zero
 
 /-- Theorem 5.20 (Mertens-Riemann Spectral Equivalence):
-Proved unconditionally from the explicit `ClassicalAnalyticInterface` (zero global axioms). -/
+Forward direction (`MertensBound → RH`) is unconditional; converse assumes `H.rh_implies_mertens_bound`. -/
 theorem mertens_riemann_equivalence (H : ClassicalAnalyticInterface) :
     RiemannHypothesis ↔ MertensBound :=
-  ⟨H.rh_implies_mertens_bound, mertens_implies_rh H⟩
+  ⟨H.rh_implies_mertens_bound, mertens_implies_rh⟩
 
 end RiemannBlueprint.Section5_MobiusMertens

@@ -48,6 +48,9 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check RiemannBlueprint.Section5_MobiusMertens.ne_zero_of_reciprocal_product
 #check RiemannBlueprint.Section5_MobiusMertens.zero_free_of_reciprocal_invertible
 #check RiemannBlueprint.Section5_MobiusMertens.zeta_zero_reflection
+#check RiemannBlueprint.LittlewoodForward.mellinMertens
+#check RiemannBlueprint.LittlewoodForward.riemannZeta_mul_mellinMertens_eq_one
+#check RiemannBlueprint.LittlewoodForward.mertens_inversion_of_bound
 #check RiemannBlueprint.Section5_MobiusMertens.zero_free_re_gt_half_of_mertens
 #check RiemannBlueprint.Section5_MobiusMertens.mertens_implies_rh
 #check RiemannBlueprint.Section5_MobiusMertens.mertens_riemann_equivalence
@@ -87,6 +90,9 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms RiemannBlueprint.Section5_MobiusMertens.moebius_mul_zetaZ_eq_one
 #print axioms RiemannBlueprint.Section5_MobiusMertens.reciprocal_partition_identity
 #print axioms RiemannBlueprint.Section5_MobiusMertens.zeta_zero_reflection
+#print axioms RiemannBlueprint.LittlewoodForward.mertens_inversion_of_bound
+#print axioms RiemannBlueprint.Section5_MobiusMertens.zero_free_re_gt_half_of_mertens
+#print axioms RiemannBlueprint.Section5_MobiusMertens.mertens_implies_rh
 #print axioms RiemannBlueprint.Section5_MobiusMertens.mertens_riemann_equivalence
 #print axioms RiemannBlueprint.Section6_CriticalStripAudit.zero_free_half_plane
 #print axioms RiemannBlueprint.Section6_CriticalStripAudit.critical_strip_divergence_obstruction

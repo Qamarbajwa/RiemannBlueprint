@@ -47,17 +47,17 @@ def VonKochRemainderBound : Prop :=
   ∀ ε > 0, ∃ C > 0, ∀ x ≥ 2, |chebyshevPsi x - x| ≤ C * x ^ ((1/2 : ℝ) + ε)
 
 /--
-Transparent interface bundling external classical complex-analytic results
-not yet formalized in Mathlib4 (natural boundary of P(s)/ζ_C(s), Mellin-Mertens
-analytic inversion, Perron contour shift for RH → Mertens, and Riemann's Explicit
-Formula spectral equivalence). No global `axiom` declarations are used anywhere.
+Transparent interface bundling the remaining external classical complex-analytic results
+not yet formalized in Mathlib4 (natural boundary of P(s)/ζ_C(s), Perron contour shift
+for RH → Mertens, and Riemann's Explicit Formula spectral equivalence). Notice that
+Littlewood's forward theorem (`MertensBound → RiemannHypothesis`) is now proved
+unconditionally in `LittlewoodForward.lean` without any field in this interface.
+No global `axiom` declarations are used anywhere.
 -/
 structure ClassicalAnalyticInterface : Prop where
   natural_boundary_obstruction_at_zero :
     ¬ ∃ (f : ℂ → ℂ), AnalyticOn ℂ f {s : ℂ | s.re > -1} ∧
       ∀ s : ℂ, s.re > 1 → f s = CompositeZeta s
-  mellin_mertens_inversion :
-    MertensBound → ∃ (I_M : ℂ → ℂ), ∀ s : ℂ, s.re > 1/2 → riemannZeta s * I_M s = 1
   rh_implies_mertens_bound :
     _root_.RiemannHypothesis → MertensBound
   explicit_formula_spectral_equivalence :
