@@ -989,6 +989,95 @@ theorem riemannZeta_eq_of_harmonicUnitSummand (s : ℂ)
     tendsto_nhds_unique (tendsto_sum_harmonicUnitSummand_eq_unit_integral s hs_pos hs_ne_one) h_sum
   exact ⟨h_unit, mellin_frac_part_eq_neg_zeta_div s hs_pos hs_lt_one h_unit⟩
 
+/-- Unconditional absolute summability of `harmonicUnitSummand s (n + 1)` for all `0 < Re(s)`
+and `s ≠ 1`. -/
+theorem summable_harmonicUnitSummand (s : ℂ) (hs_pos : 0 < s.re) (hs_ne_one : s ≠ 1) :
+    Summable (fun n : ℕ => harmonicUnitSummand s (n + 1)) := by
+  let g : ℕ → ℝ := fun n => ((n + 1 : ℕ) : ℝ) ^ (-s.re) / s.re
+  have hg_nonneg : ∀ n : ℕ, 0 ≤ g n - g (n + 1) := by
+    intro n
+    have hle := norm_harmonicUnitSummand_le (n + 1) (by omega) s hs_pos hs_ne_one
+    have hsub : g n - g (n + 1) =
+        (((n + 1 : ℕ) : ℝ) ^ (-s.re) - ((n + 1 + 1 : ℕ) : ℝ) ^ (-s.re)) / s.re := by
+      simp [g, sub_div, Nat.cast_add, Nat.cast_one]
+    rw [hsub]
+    exact (norm_nonneg _).trans hle
+  have hg_sum_eq : ∀ M : ℕ, ∑ n ∈ Finset.range M, (g n - g (n + 1)) = g 0 - g M := fun M =>
+    Finset.sum_range_sub' g M
+  have hg_tendsto_zero : Tendsto g atTop (nhds 0) := by
+    have hm : Tendsto (fun M : ℕ => (M : ℝ) + 1) atTop atTop :=
+      tendsto_natCast_atTop_atTop.atTop_add tendsto_const_nhds
+    have hpow : Tendsto (fun M : ℕ => ((M + 1 : ℕ) : ℝ) ^ (-s.re)) atTop (nhds 0) := by
+      have h1 := (tendsto_rpow_neg_atTop hs_pos).comp hm
+      convert h1 using 1
+      ext M
+      simp [Nat.cast_add, Nat.cast_one]
+    simpa [g, zero_div] using hpow.div_const s.re
+  have hg_tendsto : Tendsto (fun M : ℕ => ∑ n ∈ Finset.range M, (g n - g (n + 1)))
+      atTop (nhds (g 0)) := by
+    simp_rw [hg_sum_eq]
+    simpa [sub_zero] using tendsto_const_nhds.sub hg_tendsto_zero
+  have hg_summable : Summable (fun n : ℕ => g n - g (n + 1)) :=
+    (hasSum_iff_tendsto_nat_of_nonneg hg_nonneg (g 0)).mpr hg_tendsto |>.summable
+  refine Summable.of_norm_bounded hg_summable (fun n => ?_)
+  simpa [g, sub_div, Nat.cast_add, Nat.cast_one] using
+    norm_harmonicUnitSummand_le (n + 1) (by omega) s hs_pos hs_ne_one
+
+/-- `tsum` identity for the unit-interval `recipFract` Mellin integral (`0 < Re(s)`, `s ≠ 1`). -/
+theorem tsum_harmonicUnitSummand_eq_unit_integral (s : ℂ)
+    (hs_pos : 0 < s.re) (hs_ne_one : s ≠ 1) :
+    (∑' n : ℕ, harmonicUnitSummand s (n + 1)) =
+      ∫ x in Ioc (0 : ℝ) 1, (recipFract x : ℂ) * (x : ℂ) ^ (s - 1) := by
+  have hsum := summable_harmonicUnitSummand s hs_pos hs_ne_one
+  have ht1 : Tendsto (fun M : ℕ => ∑ n ∈ Finset.range M, harmonicUnitSummand s (n + 1))
+      atTop (nhds (∑' n : ℕ, harmonicUnitSummand s (n + 1))) := hsum.hasSum.tendsto_sum_nat
+  have heq : (fun M : ℕ => ∑ n ∈ Finset.range M, harmonicUnitSummand s (n + 1)) =
+      fun M : ℕ => ∑ n ∈ Finset.Ico 1 (M + 1), harmonicUnitSummand s n := by
+    ext M
+    induction M with
+    | zero => simp
+    | succ M ih =>
+      rw [Finset.sum_range_succ, Finset.sum_Ico_succ_top (by omega : 1 ≤ M + 1), ih]
+  rw [heq] at ht1
+  exact tendsto_nhds_unique ht1 (tendsto_sum_harmonicUnitSummand_eq_unit_integral s hs_pos hs_ne_one)
+
+/-- Unconditional `tsum` identity for `1 < Re(s)`. -/
+theorem tsum_harmonicUnitSummand_of_one_lt_re (s : ℂ) (hs_gt_one : 1 < s.re) :
+    (∑' n : ℕ, harmonicUnitSummand s (n + 1)) = 1 / (s - 1) - riemannZeta s / s := by
+  have hs_pos : 0 < s.re := by linarith
+  have hs_ne_one : s ≠ 1 := by
+    intro h
+    rw [h] at hs_gt_one
+    simp at hs_gt_one
+  rw [tsum_harmonicUnitSummand_eq_unit_integral s hs_pos hs_ne_one]
+  exact mellin_recipFract_unit_interval_of_one_lt_re s hs_gt_one
+
+/-- Critical-strip Báez–Duarte residual identity from the Euler–Maclaurin `tsum` continuation
+of `riemannZeta s` (eliminating the `h_unit` integral parameter). -/
+theorem mellin_baezDuarte_residual_of_tsum_continuation (N : ℕ) (c : ℕ → ℂ) (s : ℂ)
+    (hs_pos : 0 < s.re) (hs_lt_one : s.re < 1)
+    (h_cont : riemannZeta s =
+      s * (1 / (s - 1) - ∑' n : ℕ, harmonicUnitSummand s (n + 1))) :
+    (∫ x in Ioc (0 : ℝ) 1, (x : ℂ) ^ (s - 1)) -
+    (∫ x in Ioi (0 : ℝ),
+      (∑ k ∈ Finset.Ico 1 (N + 1), c k * (recipFractScaled k x : ℂ)) * (x : ℂ) ^ (s - 1)) =
+      (1 + riemannZeta s * ∑ k ∈ Finset.Ico 1 (N + 1), c k * (k : ℂ) ^ (-s)) / s := by
+  have hs_ne_zero : s ≠ 0 := by
+    intro h
+    rw [h] at hs_pos
+    simp at hs_pos
+  have hs_ne_one : s ≠ 1 := by
+    intro h
+    rw [h] at hs_lt_one
+    simp at hs_lt_one
+  have h_unit :
+      ∫ x in Ioc (0 : ℝ) 1, (recipFract x : ℂ) * (x : ℂ) ^ (s - 1) =
+        1 / (s - 1) - riemannZeta s / s := by
+    rw [← tsum_harmonicUnitSummand_eq_unit_integral s hs_pos hs_ne_one, h_cont]
+    field_simp [hs_ne_zero]
+    ring
+  exact mellin_baezDuarte_residual_eq N c s hs_pos hs_lt_one h_unit
+
 #print axioms norm_recipFract_le_one
 #print axioms integrableOn_Ioc_recipFract_cpow
 #print axioms integrableOn_Ioi_recipFract_cpow
@@ -1023,5 +1112,9 @@ theorem riemannZeta_eq_of_harmonicUnitSummand (s : ℂ)
 #print axioms norm_harmonicUnitSummand_le
 #print axioms tendsto_sum_harmonicUnitSummand_eq_unit_integral
 #print axioms riemannZeta_eq_of_harmonicUnitSummand
+#print axioms summable_harmonicUnitSummand
+#print axioms tsum_harmonicUnitSummand_eq_unit_integral
+#print axioms tsum_harmonicUnitSummand_of_one_lt_re
+#print axioms mellin_baezDuarte_residual_of_tsum_continuation
 
 end NumberTheory.MellinFracPart

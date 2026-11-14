@@ -60,6 +60,68 @@ theorem collapse_zero_implies_rh_strip (D : ℕ → ℝ)
     ∀ s : ℂ, InCriticalStrip s → riemannZeta s = 0 → IsOnCriticalLine s :=
   h_bd.mpr h_lim
 
+/-- Hardy `H²(Re(s) > 1/2)` reproducing-kernel / Cauchy-Schwarz lower bound:
+any off-line zero `s₀` with `Re(s₀) > 1/2` forces a permanent positive floor
+`(2 * Re(s₀) - 1) / |s₀|² ≤ D_N²` for all `N : ℕ`. -/
+def OfflineZeroCauchyFloor (D : ℕ → ℝ) : Prop :=
+  ∀ s₀ : ℂ, InCriticalStrip s₀ → 1 / 2 < s₀.re → riemannZeta s₀ = 0 →
+    ∀ N : ℕ, (2 * s₀.re - 1) / Complex.normSq s₀ ≤ baezDuarteDistSq D N
+
+/-- Functional-equation reflection symmetry of non-trivial zeros across `Re(s) = 1/2`. -/
+def ZetaZeroReflectionSymmetry : Prop :=
+  ∀ s : ℂ, InCriticalStrip s → riemannZeta s = 0 →
+    InCriticalStrip (1 - s) ∧ riemannZeta (1 - s) = 0
+
+/-- Positivity of the Hardy `H²` Cauchy floor for any critical-strip point with `Re(s₀) > 1/2`. -/
+theorem pos_cauchy_floor_of_re_gt_half (s₀ : ℂ) (hs : InCriticalStrip s₀) (hre : 1 / 2 < s₀.re) :
+    0 < (2 * s₀.re - 1) / Complex.normSq s₀ := by
+  have hnum : 0 < 2 * s₀.re - 1 := by linarith
+  have hs_ne : s₀ ≠ 0 := by
+    intro h
+    rw [h] at hs
+    have h0 := hs.1
+    simp at h0
+  have hden : 0 < Complex.normSq s₀ := Complex.normSq_pos.mpr hs_ne
+  exact div_pos hnum hden
+
+/-- Contrapositive barrier for `Re(s₀) > 1/2`: if `D_N² → 0` and `OfflineZeroCauchyFloor D` holds,
+then `riemannZeta` has no zeros in `InCriticalStrip` with `1 / 2 < s₀.re`. -/
+theorem no_zero_re_gt_half_of_collapse_zero (D : ℕ → ℝ)
+    (h_floor : OfflineZeroCauchyFloor D)
+    (h_lim : Filter.Tendsto (baezDuarteDistSq D) Filter.atTop (nhds 0))
+    (s₀ : ℂ) (hs : InCriticalStrip s₀) (hre : 1 / 2 < s₀.re) (hz : riemannZeta s₀ = 0) :
+    False := by
+  have hle : (2 * s₀.re - 1) / Complex.normSq s₀ ≤ 0 :=
+    ge_of_tendsto h_lim (Filter.Eventually.of_forall (h_floor s₀ hs hre hz))
+  linarith [pos_cauchy_floor_of_re_gt_half s₀ hs hre]
+
+/-- Contrapositive barrier for `Re(s₀) < 1/2` via functional reflection `s₀ ↦ 1 - s₀`. -/
+theorem no_zero_re_lt_half_of_collapse_zero (D : ℕ → ℝ)
+    (h_floor : OfflineZeroCauchyFloor D)
+    (h_refl : ZetaZeroReflectionSymmetry)
+    (h_lim : Filter.Tendsto (baezDuarteDistSq D) Filter.atTop (nhds 0))
+    (s₀ : ℂ) (hs : InCriticalStrip s₀) (hre : s₀.re < 1 / 2) (hz : riemannZeta s₀ = 0) :
+    False := by
+  rcases h_refl s₀ hs hz with ⟨hs_refl, hz_refl⟩
+  have hre_refl : 1 / 2 < (1 - s₀).re := by
+    simp only [Complex.sub_re, Complex.one_re]
+    linarith
+  exact no_zero_re_gt_half_of_collapse_zero D h_floor h_lim (1 - s₀) hs_refl hre_refl hz_refl
+
+/-- Structural Hardy `H²` contrapositive theorem: `D_N² → 0` together with
+`OfflineZeroCauchyFloor D` and `ZetaZeroReflectionSymmetry` implies `RiemannHypothesisStrip`
+without any opaque `h_bd` equivalence. -/
+theorem structural_collapse_zero_implies_rh (D : ℕ → ℝ)
+    (h_floor : OfflineZeroCauchyFloor D)
+    (h_refl : ZetaZeroReflectionSymmetry)
+    (h_lim : Filter.Tendsto (baezDuarteDistSq D) Filter.atTop (nhds 0)) :
+    RiemannHypothesisStrip := by
+  intro s hs hz
+  rcases lt_trichotomy s.re (1 / 2) with hlt | heq | hgt
+  · exact False.elim (no_zero_re_lt_half_of_collapse_zero D h_floor h_refl h_lim s hs hlt hz)
+  · exact heq
+  · exact False.elim (no_zero_re_gt_half_of_collapse_zero D h_floor h_lim s hs hgt hz)
+
 /-- CMI Criterion 1 Mellin spectral residual bridge for any critical-strip coordinate
 `s : ℂ` (`InCriticalStrip s`), directly invoking `mellin_baezDuarte_residual_eq`. -/
 theorem cmi_criterion1_spectral_residual_eq (N : ℕ) (c : ℕ → ℂ) (s : ℂ)
@@ -77,5 +139,9 @@ theorem cmi_criterion1_spectral_residual_eq (N : ℕ) (c : ℕ → ℂ) (s : ℂ
 #print axioms riemannHypothesis_iff_collapse_zero
 #print axioms collapse_zero_implies_rh_strip
 #print axioms cmi_criterion1_spectral_residual_eq
+#print axioms pos_cauchy_floor_of_re_gt_half
+#print axioms no_zero_re_gt_half_of_collapse_zero
+#print axioms no_zero_re_lt_half_of_collapse_zero
+#print axioms structural_collapse_zero_implies_rh
 
 end CMIAudit
