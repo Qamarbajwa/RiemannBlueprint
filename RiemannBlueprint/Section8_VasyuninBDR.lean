@@ -3,6 +3,7 @@ import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.Data.Matrix.Basic
 import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
 import Mathlib.Analysis.Complex.CauchyIntegral
+import RiemannBlueprint.Section5_MobiusMertens
 
 /-!
 # Section 8: Rank-4 Boundary-Dirichlet Reduction (BDR) of the Smooth Vasyunin Kernel
@@ -335,6 +336,79 @@ theorem tendsto_E_BDR_affineLock_zero_iff_tendsto_Q_cot_neg_one
     (fun N => affineLock (c_seq N) N) Q_cot_seq gamma_E
     (fun N hN => D1_affineLock_eq_zero (c_seq N) N hN (hD1 N hN))
     (fun N hN => D0_affineLock_eq_two (c_seq N) N hN)
+
+/-- Orthogonality on the Nyman-Beurling subspace: for any `c` with `D_N(1) = 0` and any
+complex factor `α`, the zero-mode inner product `∑ c_k (α / k)` vanishes. -/
+theorem nb_inner_zero_mode_eq_zero (c : ℕ → ℝ) (N : ℕ) (α : ℂ) (hD1 : D1 c N = 0) :
+    ∑ k ∈ Finset.Icc 1 N, (c k : ℂ) * (α / (k : ℂ)) = 0 := by
+  have hsum : ∑ k ∈ Finset.Icc 1 N, (c k : ℂ) * (α / (k : ℂ)) = α * (D1 c N : ℂ) := by
+    unfold D1
+    push_cast
+    rw [Finset.mul_sum]
+    refine Finset.sum_congr rfl fun k _ => ?_
+    ring
+  rw [hsum, hD1, Complex.ofReal_zero, mul_zero]
+
+/-- For `N ≥ 2` and `D_N(1) = 0`, `affineLock c N` preserves zero-mode orthogonality. -/
+theorem affineLock_inner_zero_mode_eq_zero (c : ℕ → ℝ) (N : ℕ) (α : ℂ)
+    (hN : 2 ≤ N) (hD1 : D1 c N = 0) :
+    ∑ k ∈ Finset.Icc 1 N, (affineLock c N k : ℂ) * (α / (k : ℂ)) = 0 :=
+  nb_inner_zero_mode_eq_zero (affineLock c N) N α (D1_affineLock_eq_zero c N hN hD1)
+
+/-- Positive residual floor prevents `Q_cot_seq` from converging to `-1` on `A_N`. -/
+theorem pos_floor_prevents_Q_cot_tendsto_neg_one
+    (c_seq : ℕ → (ℕ → ℝ)) (Q_cot_seq : ℕ → ℝ) (gamma_E δ : ℝ)
+    (hδ : 0 < δ)
+    (hD1 : ∀ N, 2 ≤ N → D1 (c_seq N) N = 0)
+    (hD0 : ∀ N, 2 ≤ N → D0 (c_seq N) N = 2)
+    (hfloor : ∀ N, 2 ≤ N → δ ≤ E_BDR (c_seq N) N gamma_E (Q_cot_seq N)) :
+    ¬ Filter.Tendsto Q_cot_seq Filter.atTop (nhds (-1)) := by
+  intro htend
+  have hE : Filter.Tendsto (fun N => E_BDR (c_seq N) N gamma_E (Q_cot_seq N))
+      Filter.atTop (nhds 0) :=
+    (tendsto_E_BDR_zero_iff_tendsto_Q_cot_neg_one c_seq Q_cot_seq gamma_E hD1 hD0).mpr htend
+  have hev := Metric.tendsto_atTop.mp hE δ hδ
+  rcases hev with ⟨N0, hN0⟩
+  have h1 := hN0 (max N0 2) (le_max_left _ _)
+  rw [Real.dist_eq, sub_zero, abs_lt] at h1
+  have h2 := hfloor (max N0 2) (le_max_right _ _)
+  linarith
+
+/-- Conditional Cauchy-Schwarz Cotangent-to-RH Bridge: given the Mellin floor
+`∀ ρ, 1/2 < ρ.re → ζ(ρ) = 0 → (2*ρ.re - 1)/‖ρ‖² ≤ E_BDR(affineLock (c_seq N) N)`,
+convergence `Q_cot_seq → -1` implies `_root_.RiemannHypothesis`. -/
+theorem cotangent_limit_neg_one_implies_rh
+    (c_seq : ℕ → (ℕ → ℝ)) (Q_cot_seq : ℕ → ℝ) (gamma_E : ℝ)
+    (hD1 : ∀ N, 2 ≤ N → D1 (c_seq N) N = 0)
+    (hcs : ∀ ρ : ℂ, 1 / 2 < ρ.re → riemannZeta ρ = 0 →
+      ∀ N, 2 ≤ N →
+        (2 * ρ.re - 1) / Complex.normSq ρ ≤
+          E_BDR (affineLock (c_seq N) N) N gamma_E (Q_cot_seq N))
+    (htend : Filter.Tendsto Q_cot_seq Filter.atTop (nhds (-1))) :
+    _root_.RiemannHypothesis := by
+  have h_nofail : ∀ ρ : ℂ, 1 / 2 < ρ.re → riemannZeta ρ ≠ 0 := by
+    intro ρ hρ_re hρ_zero
+    have h_norm_pos : 0 < Complex.normSq ρ := by
+      rw [Complex.normSq_pos]
+      intro h0
+      rw [h0, Complex.zero_re] at hρ_re
+      linarith
+    have hδ : 0 < (2 * ρ.re - 1) / Complex.normSq ρ :=
+      div_pos (by linarith) h_norm_pos
+    exact pos_floor_prevents_Q_cot_tendsto_neg_one
+      (fun N => affineLock (c_seq N) N) Q_cot_seq gamma_E
+      ((2 * ρ.re - 1) / Complex.normSq ρ) hδ
+      (fun N hN => D1_affineLock_eq_zero (c_seq N) N hN (hD1 N hN))
+      (fun N hN => D0_affineLock_eq_two (c_seq N) N hN)
+      (hcs ρ hρ_re hρ_zero) htend
+  intro s hs_zero hs_not_triv hs_not_one
+  by_contra h_ne
+  rcases lt_or_gt_of_ne h_ne with hs_lt | hs_gt
+  · have ⟨h_refl_zero, h_refl_gt⟩ :=
+      RiemannBlueprint.Section5_MobiusMertens.zeta_zero_reflection
+        hs_zero hs_not_triv hs_not_one hs_lt
+    exact h_nofail (1 - s) h_refl_gt h_refl_zero
+  · exact h_nofail s hs_gt hs_zero
 
 end BoundaryFunctionals
 

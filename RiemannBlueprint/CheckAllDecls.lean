@@ -109,6 +109,10 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check RiemannBlueprint.Section8_VasyuninBDR.E_BDR
 #check RiemannBlueprint.Section8_VasyuninBDR.tendsto_E_BDR_zero_iff_tendsto_Q_cot_neg_one
 #check RiemannBlueprint.Section8_VasyuninBDR.tendsto_E_BDR_affineLock_zero_iff_tendsto_Q_cot_neg_one
+#check RiemannBlueprint.Section8_VasyuninBDR.nb_inner_zero_mode_eq_zero
+#check RiemannBlueprint.Section8_VasyuninBDR.affineLock_inner_zero_mode_eq_zero
+#check RiemannBlueprint.Section8_VasyuninBDR.pos_floor_prevents_Q_cot_tendsto_neg_one
+#check RiemannBlueprint.Section8_VasyuninBDR.cotangent_limit_neg_one_implies_rh
 #check RiemannBlueprint.Section8_VasyuninBDR.U4
 #check RiemannBlueprint.Section8_VasyuninBDR.det_U4_eq_log_ratio
 #check RiemannBlueprint.Section8_VasyuninBDR.det_U4_pos
@@ -166,6 +170,10 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.affineLock_pure_cotangent_identity
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.tendsto_E_BDR_zero_iff_tendsto_Q_cot_neg_one
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.tendsto_E_BDR_affineLock_zero_iff_tendsto_Q_cot_neg_one
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.nb_inner_zero_mode_eq_zero
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.affineLock_inner_zero_mode_eq_zero
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.pos_floor_prevents_Q_cot_tendsto_neg_one
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.cotangent_limit_neg_one_implies_rh
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.D0_w_corrector_eq_one
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.D1_w_corrector_eq_zero
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.D0_affineLock_eq_two
