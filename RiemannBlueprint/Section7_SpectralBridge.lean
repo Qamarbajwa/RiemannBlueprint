@@ -478,6 +478,159 @@ theorem deriv_riemannZeta_eq_zero_of_vonKoch_of_zeta_eq_zero (hvk : VonKochRemai
   rw [hζ, mul_zero, add_zero] at h
   exact h
 
+/-- `riemannZeta` is analytic on `{s | s ≠ 1}`. -/
+lemma riemannZeta_analyticOnNhd_ne_one : AnalyticOnNhd ℂ riemannZeta {z : ℂ | z ≠ 1} := by
+  refine DifferentiableOn.analyticOnNhd ?_ isOpen_ne
+  intro z hz
+  exact (differentiableAt_riemannZeta hz).differentiableWithinAt
+
+/-- Identity-theorem lemma (unconditional): `riemannZeta` does not vanish identically on any
+neighbourhood of a point `ρ` with `Re(ρ) > 1/2`. -/
+lemma riemannZeta_not_eventually_zero {ρ : ℂ} (hre : 1 / 2 < ρ.re) :
+    ¬ ∀ᶠ z in nhds ρ, riemannZeta z = 0 := by
+  intro hev
+  by_cases hge : 1 ≤ ρ.re
+  · exact riemannZeta_ne_zero_of_one_le_re hge hev.self_of_nhds
+  push Not at hge
+  let U_top : Set ℂ := {z : ℂ | 1 / 2 < z.re ∧ 0 < z.im}
+  let U_left : Set ℂ := {z : ℂ | 1 / 2 < z.re ∧ z.re < 1}
+  have hlin_gt : ∀ {a b c x y : ℝ}, 0 ≤ a → 0 ≤ b → a + b = 1 → c < x → c < y →
+      c < a * x + b * y := by
+    intro a b c x y ha hb hab hx hy
+    by_cases ha0 : a = 0
+    · have hb1 : b = 1 := by linarith
+      rw [ha0, hb1]; linarith
+    · have ha_pos : 0 < a := lt_of_le_of_ne ha (Ne.symm ha0)
+      have h1 : a * c < a * x := mul_lt_mul_of_pos_left hx ha_pos
+      have h2 : b * c ≤ b * y := mul_le_mul_of_nonneg_left hy.le hb
+      have h3 : a * c + b * c = c := by rw [← add_mul, hab, one_mul]
+      linarith
+  have hlin_lt : ∀ {a b c x y : ℝ}, 0 ≤ a → 0 ≤ b → a + b = 1 → x < c → y < c →
+      a * x + b * y < c := by
+    intro a b c x y ha hb hab hx hy
+    have h := hlin_gt ha hb hab (neg_lt_neg hx) (neg_lt_neg hy)
+    linarith
+  have hU_top_pre : IsPreconnected U_top := by
+    have hconv : Convex ℝ U_top := by
+      intro x hx y hy a b ha hb hab
+      change 1 / 2 < (a • x + b • y).re ∧ 0 < (a • x + b • y).im
+      simp only [Complex.add_re, Complex.add_im, Complex.real_smul, Complex.mul_re,
+        Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im, zero_mul, sub_zero, add_zero]
+      exact ⟨hlin_gt ha hb hab hx.1 hy.1, hlin_gt ha hb hab hx.2 hy.2⟩
+    exact hconv.isPreconnected
+  have hU_left_pre : IsPreconnected U_left := by
+    have hconv : Convex ℝ U_left := by
+      intro x hx y hy a b ha hb hab
+      change 1 / 2 < (a • x + b • y).re ∧ (a • x + b • y).re < 1
+      simp only [Complex.add_re, Complex.real_smul, Complex.mul_re, Complex.ofReal_re,
+        Complex.ofReal_im, zero_mul, sub_zero]
+      exact ⟨hlin_gt ha hb hab hx.1 hy.1, hlin_lt ha hb hab hx.2 hy.2⟩
+    exact hconv.isPreconnected
+  have hU_top_sub : U_top ⊆ {z : ℂ | z ≠ 1} := fun z hz h1 => by
+    subst h1; simp [U_top] at hz
+  have hU_left_sub : U_left ⊆ {z : ℂ | z ≠ 1} := fun z hz h1 => by
+    subst h1; simp [U_left] at hz
+  have hleft_open : IsOpen U_left :=
+    (isOpen_lt continuous_const Complex.continuous_re).inter
+      (isOpen_lt Complex.continuous_re continuous_const)
+  have hzero_left : Set.EqOn riemannZeta 0 U_left :=
+    (riemannZeta_analyticOnNhd_ne_one.mono hU_left_sub).eqOn_zero_of_preconnected_of_eventuallyEq_zero
+      hU_left_pre ⟨hre, hge⟩ hev
+  have hp : (3 / 4 : ℂ) + I ∈ U_left := by simp [U_left]; norm_num
+  have hev2 : riemannZeta =ᶠ[nhds ((3 / 4 : ℂ) + I)] 0 :=
+    Filter.eventually_of_mem (hleft_open.mem_nhds hp) fun z hz => hzero_left hz
+  have hzero_top : Set.EqOn riemannZeta 0 U_top :=
+    (riemannZeta_analyticOnNhd_ne_one.mono hU_top_sub).eqOn_zero_of_preconnected_of_eventuallyEq_zero
+      hU_top_pre (by simp [U_top]; norm_num) hev2
+  have h2I : riemannZeta ((2 : ℂ) + I) = 0 := hzero_top (by simp [U_top]; norm_num)
+  exact riemannZeta_ne_zero_of_one_le_re (by simp) h2I
+
+/-- Stage D (Order-of-zero obstruction, Method A): under `VonKochRemainderBound`, `riemannZeta`
+has no zero `ρ` with `Re(ρ) > 1/2`. If `ζ(z) = (z - ρ)^(m+1) h(z)` locally with `h(ρ) ≠ 0`, then
+the cleared logarithmic-derivative identity `ζ' + Pζ = 0` forces `(m+1) h(ρ) = 0`. -/
+theorem zero_free_re_gt_half_of_vonKoch (hVK : VonKochRemainderBound) :
+    ∀ s : ℂ, 1 / 2 < s.re → riemannZeta s ≠ 0 := by
+  intro ρ hre hζ
+  have hne : ρ ≠ 1 := by
+    intro h1
+    subst h1
+    exact riemannZeta_ne_zero_of_one_le_re (by simp : (1 : ℝ) ≤ (1 : ℂ).re) hζ
+  let P : ℂ → ℂ := fun z => z / (z - 1) + mellinVonKochRemainder z
+  have hP : AnalyticAt ℂ P ρ := by
+    have h1 : AnalyticAt ℂ (fun z : ℂ => z / (z - 1)) ρ :=
+      analyticAt_id.div (analyticAt_id.sub analyticAt_const) (sub_ne_zero.mpr hne)
+    exact h1.add (mellinVonKochRemainder_analyticOnNhd hVK ρ hre)
+  have hζ_an : AnalyticAt ℂ riemannZeta ρ := riemannZeta_analyticOnNhd_ne_one ρ hne
+  obtain ⟨n, h, hh_an, hh_ne, hfac⟩ :=
+    hζ_an.exists_eventuallyEq_pow_smul_nonzero_iff.mpr (riemannZeta_not_eventually_zero hre)
+  simp only [smul_eq_mul] at hfac
+  cases n with
+  | zero =>
+    have := hfac.self_of_nhds
+    rw [hζ, pow_zero, one_mul] at this
+    exact hh_ne this.symm
+  | succ m =>
+    -- eventual cleared identity near `ρ`
+    have hdom : ∀ᶠ z in nhds ρ, 1 / 2 < z.re ∧ z ≠ 1 :=
+      ((isOpen_lt continuous_const Complex.continuous_re).inter isOpen_ne).mem_nhds ⟨hre, hne⟩
+    have hcl : ∀ᶠ z in nhds ρ, deriv riemannZeta z + P z * riemannZeta z = 0 :=
+      hdom.mono fun z hz => zeta_deriv_cleared_eq_zero_of_half_lt_re_ne_one hVK hz.1 hz.2
+    -- eventual derivative formula
+    have hd : ∀ᶠ z in nhds ρ, deriv riemannZeta z =
+        ((m : ℂ) + 1) * (z - ρ) ^ m * h z + (z - ρ) ^ (m + 1) * deriv h z := by
+      filter_upwards [hfac.eventually_nhds, hh_an.eventually_analyticAt] with y hy hhy
+      rw [Filter.EventuallyEq.deriv_eq (f := fun z => (z - ρ) ^ (m + 1) * h z) hy]
+      have hA : HasDerivAt (fun z : ℂ => (z - ρ) ^ (m + 1))
+          (((m + 1 : ℕ) : ℂ) * (y - ρ) ^ (m + 1 - 1) * 1) y :=
+        ((hasDerivAt_id y).sub_const ρ).pow (m + 1)
+      have hB : HasDerivAt (fun z : ℂ => (z - ρ) ^ (m + 1) * h z)
+          (((m + 1 : ℕ) : ℂ) * (y - ρ) ^ (m + 1 - 1) * 1 * h y + (y - ρ) ^ (m + 1) * deriv h y) y :=
+        hA.mul hhy.differentiableAt.hasDerivAt
+      rw [hB.deriv]
+      simp only [Nat.add_sub_cancel, mul_one]
+      push_cast
+      ring
+    -- combined identity `(z - ρ)^m * K z = 0`
+    let K : ℂ → ℂ := fun z => ((m : ℂ) + 1) * h z + (z - ρ) * (deriv h z + P z * h z)
+    have hmain : ∀ᶠ z in nhds ρ, (z - ρ) ^ m * K z = 0 := by
+      filter_upwards [hcl, hd, hfac] with z hcz hdz hfz
+      have : (z - ρ) ^ m * K z =
+          deriv riemannZeta z + P z * riemannZeta z := by
+        rw [hdz, hfz]; simp only [K]; ring
+      rw [this, hcz]
+    have hK_ev : ∀ᶠ z in nhdsWithin ρ {ρ}ᶜ, K z = 0 := by
+      filter_upwards [nhdsWithin_le_nhds hmain, self_mem_nhdsWithin] with z hz hzne
+      have hpow : (z - ρ) ^ m ≠ 0 := pow_ne_zero m (sub_ne_zero.mpr hzne)
+      exact (mul_eq_zero.mp hz).resolve_left hpow
+    have hKc : ContinuousAt K ρ := by
+      have h1 : ContinuousAt h ρ := hh_an.continuousAt
+      have h2 : ContinuousAt (deriv h) ρ := hh_an.deriv.continuousAt
+      have h3 : ContinuousAt P ρ := hP.continuousAt
+      exact (continuousAt_const.mul h1).add
+        ((continuousAt_id.sub continuousAt_const).mul (h2.add (h3.mul h1)))
+    have hlim1 : Filter.Tendsto K (nhdsWithin ρ {ρ}ᶜ) (nhds (K ρ)) :=
+      hKc.tendsto.mono_left nhdsWithin_le_nhds
+    have hlim2 : Filter.Tendsto K (nhdsWithin ρ {ρ}ᶜ) (nhds 0) :=
+      tendsto_const_nhds.congr' (hK_ev.mono fun z hz => hz.symm)
+    have hK0 : K ρ = 0 := tendsto_nhds_unique hlim1 hlim2
+    simp only [K, sub_self, zero_mul, add_zero] at hK0
+    have hm : ((m : ℂ) + 1) ≠ 0 := by exact_mod_cast Nat.succ_ne_zero m
+    exact hh_ne ((mul_eq_zero.mp hK0).resolve_left hm)
+
+/-- Von Koch's forward theorem (UNCONDITIONAL in Lean, assuming only the hypothesis
+`VonKochRemainderBound`): `ψ(x) = x + O(x^{1/2+ε})` for all `ε > 0` implies RH. -/
+theorem vonKoch_implies_rh (hVK : VonKochRemainderBound) :
+    _root_.RiemannHypothesis := by
+  have h_nofail := zero_free_re_gt_half_of_vonKoch hVK
+  intro s hs_zero hs_not_triv hs_not_one
+  by_contra h_ne
+  rcases lt_or_gt_of_ne h_ne with hs_lt | hs_gt
+  · have ⟨h_refl_zero, h_refl_gt⟩ :=
+      RiemannBlueprint.Section5_MobiusMertens.zeta_zero_reflection hs_zero hs_not_triv
+        hs_not_one hs_lt
+    exact h_nofail (1 - s) h_refl_gt h_refl_zero
+  · exact h_nofail s hs_gt hs_zero
+
 end VonKochMellinForward
 
 end RiemannBlueprint.Section7_SpectralBridge

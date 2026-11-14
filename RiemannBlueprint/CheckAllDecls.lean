@@ -80,6 +80,10 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check RiemannBlueprint.Section7_SpectralBridge.zeta_deriv_cleared_eq_zero_of_one_lt_re
 #check RiemannBlueprint.Section7_SpectralBridge.zeta_deriv_cleared_eq_zero_of_half_lt_re_ne_one
 #check RiemannBlueprint.Section7_SpectralBridge.deriv_riemannZeta_eq_zero_of_vonKoch_of_zeta_eq_zero
+#check RiemannBlueprint.Section7_SpectralBridge.riemannZeta_analyticOnNhd_ne_one
+#check RiemannBlueprint.Section7_SpectralBridge.riemannZeta_not_eventually_zero
+#check RiemannBlueprint.Section7_SpectralBridge.zero_free_re_gt_half_of_vonKoch
+#check RiemannBlueprint.Section7_SpectralBridge.vonKoch_implies_rh
 
 #check RiemannBlueprint.Section8_VasyuninBDR.D0
 #check RiemannBlueprint.Section8_VasyuninBDR.D0_deriv
@@ -143,6 +147,10 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms RiemannBlueprint.Section7_SpectralBridge.zeta_deriv_cleared_eq_zero_of_one_lt_re
 #print axioms RiemannBlueprint.Section7_SpectralBridge.zeta_deriv_cleared_eq_zero_of_half_lt_re_ne_one
 #print axioms RiemannBlueprint.Section7_SpectralBridge.deriv_riemannZeta_eq_zero_of_vonKoch_of_zeta_eq_zero
+#print axioms RiemannBlueprint.Section7_SpectralBridge.riemannZeta_analyticOnNhd_ne_one
+#print axioms RiemannBlueprint.Section7_SpectralBridge.riemannZeta_not_eventually_zero
+#print axioms RiemannBlueprint.Section7_SpectralBridge.zero_free_re_gt_half_of_vonKoch
+#print axioms RiemannBlueprint.Section7_SpectralBridge.vonKoch_implies_rh
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.GSmooth_eq_rank4
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.b_dot_c_eq_boundary
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.smooth_vasyunin_double_sum_eq_boundary
