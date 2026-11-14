@@ -1220,6 +1220,80 @@ theorem baezDuarte_implies_rh
     rcases h_bd δ hδ with ⟨N, c, hlt_eps⟩
     linarith [hfloor N c]
 
+/-- Bridge Theorem 3 — Unconstrained Four-Boundary Asymptotic Cotangent Forward Theorem:
+for ANY unconstrained real sequence `c_seq` (without requiring `D_N(1) = 0` at finite `N`)
+converging to all four Clay/BDR boundary values `(2, -2 ln(2π), 0, -1)` at `s ∈ {0, 1}`,
+if the `L²(0, 1)` residual is bounded by `E_BDR` and `Q_cot_seq → -1`, then
+`_root_.RiemannHypothesis` holds. -/
+theorem clay_four_boundary_limits_implies_rh
+    (c_seq : ℕ → (ℕ → ℝ)) (Q_cot_seq : ℕ → ℝ) (gamma_E : ℝ)
+    (hD0 : Filter.Tendsto (fun N => RiemannBlueprint.Section8_VasyuninBDR.D0 (c_seq N) N)
+      Filter.atTop (nhds 2))
+    (hD0' : Filter.Tendsto (fun N => RiemannBlueprint.Section8_VasyuninBDR.D0_deriv (c_seq N) N)
+      Filter.atTop (nhds (-2 * Real.log (2 * Real.pi))))
+    (hD1 : Filter.Tendsto (fun N => RiemannBlueprint.Section8_VasyuninBDR.D1 (c_seq N) N)
+      Filter.atTop (nhds 0))
+    (hD1' : Filter.Tendsto (fun N => RiemannBlueprint.Section8_VasyuninBDR.D1_deriv (c_seq N) N)
+      Filter.atTop (nhds (-1)))
+    (h_bdr_le : ∀ N, 1 ≤ N →
+      (∫ x in Set.Ioo (0 : ℝ) 1,
+        ‖1 - ∑ k ∈ Finset.Icc 1 N,
+          (c_seq N k : ℂ) * (NumberTheory.MellinFracPart.recipFractScaled k x : ℂ)‖ ^ 2) ≤
+        RiemannBlueprint.Section8_VasyuninBDR.E_BDR (c_seq N) N gamma_E (Q_cot_seq N))
+    (h_cot_lim : Filter.Tendsto Q_cot_seq Filter.atTop (nhds (-1))) :
+    _root_.RiemannHypothesis := by
+  have hE_lim : Filter.Tendsto
+      (fun N => RiemannBlueprint.Section8_VasyuninBDR.E_BDR (c_seq N) N gamma_E (Q_cot_seq N))
+      Filter.atTop (nhds 0) :=
+    (RiemannBlueprint.Section8_VasyuninBDR.tendsto_E_BDR_zero_iff_tendsto_Q_cot_neg_one_of_clay_boundary_limits
+      c_seq Q_cot_seq gamma_E hD0 hD0' hD1 hD1').mpr h_cot_lim
+  refine baezDuarte_implies_rh fun ε hε => ?_
+  have h_met := Metric.tendsto_atTop.mp hE_lim ε hε
+  rcases h_met with ⟨N0, hN0⟩
+  let N := max N0 1
+  have hN1 : 1 ≤ N := le_max_right _ _
+  have hE_lt : RiemannBlueprint.Section8_VasyuninBDR.E_BDR (c_seq N) N gamma_E (Q_cot_seq N) < ε := by
+    have h1 := hN0 N (le_max_left _ _)
+    rw [Real.dist_eq, sub_zero, abs_lt] at h1
+    exact h1.2
+  exact ⟨N, fun k => (c_seq N k : ℂ), (h_bdr_le N hN1).trans_lt hE_lt⟩
+
+/-- Bridge Theorem 4 — Explicit Rank-4 `clayRank4Lock` Cotangent-to-RH Bridge:
+starting from ANY unconstrained sequence `c_seq`, projecting via the exact 4-sparse corrector
+`clayRank4Lock` enforces all four Clay boundary conditions `(2, -2 ln(2π), 0, -1)` identically for
+`N ≥ 4`; if its `L²(0, 1)` residual is bounded by `E_BDR` and `Q_cot_seq → -1`, then
+`_root_.RiemannHypothesis` holds. -/
+theorem clayRank4Lock_cotangent_implies_rh
+    (c_seq : ℕ → (ℕ → ℝ)) (Q_cot_seq : ℕ → ℝ) (gamma_E : ℝ)
+    (h_bdr_le : ∀ N, 4 ≤ N →
+      (∫ x in Set.Ioo (0 : ℝ) 1,
+        ‖1 - ∑ k ∈ Finset.Icc 1 N,
+          (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Lock (c_seq N) N k : ℂ) *
+            (NumberTheory.MellinFracPart.recipFractScaled k x : ℂ)‖ ^ 2) ≤
+        RiemannBlueprint.Section8_VasyuninBDR.E_BDR
+          (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Lock (c_seq N) N)
+          N gamma_E (Q_cot_seq N))
+    (h_cot_lim : Filter.Tendsto Q_cot_seq Filter.atTop (nhds (-1))) :
+    _root_.RiemannHypothesis := by
+  refine baezDuarte_implies_rh fun ε hε => ?_
+  have h_met := Metric.tendsto_atTop.mp h_cot_lim ε hε
+  rcases h_met with ⟨N0, hN0⟩
+  let N := max N0 4
+  have hN4 : 4 ≤ N := le_max_right _ _
+  have hE_eq : RiemannBlueprint.Section8_VasyuninBDR.E_BDR
+      (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Lock (c_seq N) N)
+      N gamma_E (Q_cot_seq N) = 1 + Q_cot_seq N :=
+    (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Lock_four_part_equilibrium
+      (c_seq N) N hN4 gamma_E (Q_cot_seq N)).2.2.2
+  have hQ_lt : 1 + Q_cot_seq N < ε := by
+    have h1 := hN0 N (le_max_left _ _)
+    rw [Real.dist_eq, sub_neg_eq_add, abs_lt, add_comm] at h1
+    exact h1.2
+  refine ⟨N, fun k => (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Lock (c_seq N) N k : ℂ), ?_⟩
+  have h_le := h_bdr_le N hN4
+  rw [hE_eq] at h_le
+  exact h_le.trans_lt hQ_lt
+
 #print axioms riemannHypothesis_iff_collapse_zero
 #print axioms collapse_zero_implies_rh_strip
 #print axioms cmi_criterion1_spectral_residual_eq
@@ -1248,5 +1322,7 @@ theorem baezDuarte_implies_rh
 #print axioms im_ne_zero_of_inCriticalStrip_zeta_zero
 #print axioms baezDuarte_unconstrained_spatial_floor
 #print axioms baezDuarte_implies_rh
+#print axioms clay_four_boundary_limits_implies_rh
+#print axioms clayRank4Lock_cotangent_implies_rh
 
 end CMIAudit

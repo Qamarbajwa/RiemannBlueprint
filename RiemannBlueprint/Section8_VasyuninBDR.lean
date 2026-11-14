@@ -410,6 +410,324 @@ theorem cotangent_limit_neg_one_implies_rh
     exact h_nofail (1 - s) h_refl_gt h_refl_zero
   · exact h_nofail s hs_gt hs_zero
 
+/-- The four exact Clay/BDR boundary conditions at `s ∈ {0, 1}` corresponding to `-1 / ζ(s)`:
+`D_N(0) = 2`, `D_N'(0) = -2 ln(2π)`, `D_N(1) = 0`, and `D_N'(1) = -1`. -/
+def SatisfiesClayBoundaryConditions (c : ℕ → ℝ) (N : ℕ) : Prop :=
+  D0 c N = 2 ∧
+  D0_deriv c N = -2 * Real.log (2 * Real.pi) ∧
+  D1 c N = 0 ∧
+  D1_deriv c N = -1
+
+/-- Under `D_N(1) = 0` and `D_N'(1) = -1`, the linear Vasyunin term `-2 b_N^T c` equals `-2`. -/
+theorem linear_term_eq_neg_two_of_clay_boundary (c : ℕ → ℝ) (N : ℕ) (gamma_E : ℝ)
+    (hD1 : D1 c N = 0) (hD1' : D1_deriv c N = -1) :
+    -2 * ∑ k ∈ Finset.Icc 1 N, c k * bVasyunin k gamma_E = -2 := by
+  dsimp [bVasyunin]
+  rw [b_dot_c_eq_boundary, hD1, hD1']
+  ring
+
+/-- Under `D_N(0) = 2`, `D_N(1) = 0`, and `D_N'(1) = -1`, the smooth Vasyunin double sum
+equals `+2`. -/
+theorem smooth_double_sum_eq_two_of_clay_boundary (c : ℕ → ℝ) (N : ℕ) (gamma_E : ℝ)
+    (hD0 : D0 c N = 2) (hD1 : D1 c N = 0) (hD1' : D1_deriv c N = -1) :
+    ∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N, c j * c k * GSmooth gamma_E j k = 2 := by
+  rw [smooth_vasyunin_double_sum_eq_boundary, hD0, hD1, hD1']
+  ring
+
+/-- Complete `(1, -2, +2, -1)` Equilibrium Identity (Monograph Corollary 8.4):
+whenever `c` satisfies all four Clay/BDR boundary conditions at `N`, each part of
+`‖1‖² - 2 b_N^T c + S_N^(smooth)(c) = 1 - 2 + 2 = 1` and `E_BDR = 1 + Q_cot` holds identically. -/
+theorem clay_four_part_equilibrium_identity (c : ℕ → ℝ) (N : ℕ) (gamma_E Q_cot : ℝ)
+    (hc : SatisfiesClayBoundaryConditions c N) :
+    (-2 * ∑ k ∈ Finset.Icc 1 N, c k * bVasyunin k gamma_E = -2) ∧
+    (∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N, c j * c k * GSmooth gamma_E j k = 2) ∧
+    (1 - 2 * (∑ k ∈ Finset.Icc 1 N, c k * bVasyunin k gamma_E) +
+      (∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N, c j * c k * GSmooth gamma_E j k) = 1) ∧
+    (E_BDR c N gamma_E Q_cot = 1 + Q_cot) := by
+  rcases hc with ⟨hD0, _, hD1, hD1'⟩
+  have hlin := linear_term_eq_neg_two_of_clay_boundary c N gamma_E hD1 hD1'
+  have hsm := smooth_double_sum_eq_two_of_clay_boundary c N gamma_E hD0 hD1 hD1'
+  refine ⟨hlin, hsm, ?_, ?_⟩
+  · linear_combination hlin + hsm
+  · unfold E_BDR
+    linear_combination hlin + hsm
+
+private theorem sum_four_support_Icc (f : ℕ → ℝ) (N : ℕ) (hN : 4 ≤ N)
+    (hzero : ∀ k ∈ Finset.Icc 1 N, k ≠ 1 → k ≠ 2 → k ≠ 3 → k ≠ 4 → f k = 0) :
+    ∑ k ∈ Finset.Icc 1 N, f k = f 1 + f 2 + f 3 + f 4 := by
+  have hsub : ({1, 2, 3, 4} : Finset ℕ) ⊆ Finset.Icc 1 N := by
+    intro k hk
+    simp only [Finset.mem_insert, Finset.mem_singleton] at hk
+    rcases hk with rfl | rfl | rfl | rfl <;> exact Finset.mem_Icc.mpr ⟨by omega, by omega⟩
+  rw [← Finset.sum_subset hsub]
+  · simp [Finset.sum_insert, add_assoc]
+  · intro k hk hnotin
+    apply hzero k hk
+    · intro hk1; exact hnotin (by simp [hk1])
+    · intro hk2; exact hnotin (by simp [hk2])
+    · intro hk3; exact hnotin (by simp [hk3])
+    · intro hk4; exact hnotin (by simp [hk4])
+
+/-- Non-vanishing of the reduced `4 × 4` boundary determinant numerator `8 ln 2 - 5 ln 3 = ln(256/243)`. -/
+theorem delta_log256_243_ne_zero : 8 * Real.log 2 - 5 * Real.log 3 ≠ 0 := by
+  have h256 : Real.log (256 : ℝ) = 8 * Real.log 2 := by
+    rw [show (256 : ℝ) = (2 : ℝ) ^ (8 : ℕ) by norm_num, Real.log_pow]; norm_num
+  have h243 : Real.log (243 : ℝ) = 5 * Real.log 3 := by
+    rw [show (243 : ℝ) = (3 : ℝ) ^ (5 : ℕ) by norm_num, Real.log_pow]; norm_num
+  have hdiv : Real.log (256 / 243 : ℝ) = Real.log 256 - Real.log 243 :=
+    Real.log_div (by norm_num) (by norm_num)
+  have hpos : 0 < Real.log (256 / 243 : ℝ) := Real.log_pos (by norm_num)
+  linarith
+
+/-- Closed-form 4-sparse Rank-4 boundary corrector supported on `{1, 2, 3, 4}`, inverting `U₄ᵀ`
+to realize any prescribed boundary tuple `(t0, t0', t1, t1')` at `s ∈ {0, 1}`. -/
+noncomputable def w_rank4_corrector (t0 t0' t1 t1' : ℝ) (k : ℕ) : ℝ :=
+  let L2 := Real.log 2
+  let L3 := Real.log 3
+  let Delta := 8 * L2 - 5 * L3
+  let w3 := (12 * L2 * (t0 - t1) + 3 * (t0' + 2 * t1')) / Delta
+  let w2 := (t0' - 4 * t1' - (L3 / 3) * w3) / L2
+  let w4 := (2 * t1' - t0' - (L3 / 3) * w3) / L2
+  let w1 := t0 - (w2 + w3 + w4)
+  if k = 1 then w1
+  else if k = 2 then w2
+  else if k = 3 then w3
+  else if k = 4 then w4
+  else 0
+
+private lemma w_rank4_eval (t0 t0' t1 t1' : ℝ) :
+    let L2 := Real.log 2
+    let L3 := Real.log 3
+    let Delta := 8 * L2 - 5 * L3
+    let w3 := (12 * L2 * (t0 - t1) + 3 * (t0' + 2 * t1')) / Delta
+    let w2 := (t0' - 4 * t1' - (L3 / 3) * w3) / L2
+    let w4 := (2 * t1' - t0' - (L3 / 3) * w3) / L2
+    let w1 := t0 - (w2 + w3 + w4)
+    w_rank4_corrector t0 t0' t1 t1' 1 = w1 ∧
+    w_rank4_corrector t0 t0' t1 t1' 2 = w2 ∧
+    w_rank4_corrector t0 t0' t1 t1' 3 = w3 ∧
+    w_rank4_corrector t0 t0' t1 t1' 4 = w4 := by
+  simp [w_rank4_corrector]
+
+private lemma w_rank4_zero_outside (t0 t0' t1 t1' : ℝ) {k : ℕ}
+    (hk1 : k ≠ 1) (hk2 : k ≠ 2) (hk3 : k ≠ 3) (hk4 : k ≠ 4) :
+    w_rank4_corrector t0 t0' t1 t1' k = 0 := by
+  simp [w_rank4_corrector, hk1, hk2, hk3, hk4]
+
+/-- Exact `D_N(0)` value of `w_rank4_corrector t0 t0' t1 t1'` for all `N ≥ 4`. -/
+theorem D0_w_rank4_corrector (t0 t0' t1 t1' : ℝ) (N : ℕ) (hN : 4 ≤ N) :
+    D0 (w_rank4_corrector t0 t0' t1 t1') N = t0 := by
+  unfold D0
+  rw [sum_four_support_Icc _ N hN (fun k _ hk1 hk2 hk3 hk4 =>
+    w_rank4_zero_outside t0 t0' t1 t1' hk1 hk2 hk3 hk4)]
+  rcases w_rank4_eval t0 t0' t1 t1' with ⟨h1, h2, h3, h4⟩
+  rw [h1, h2, h3, h4]
+  ring
+
+/-- Exact `D_N'(0)` value of `w_rank4_corrector t0 t0' t1 t1'` for all `N ≥ 4`. -/
+theorem D0_deriv_w_rank4_corrector (t0 t0' t1 t1' : ℝ) (N : ℕ) (hN : 4 ≤ N) :
+    D0_deriv (w_rank4_corrector t0 t0' t1 t1') N = t0' := by
+  unfold D0_deriv
+  rw [sum_four_support_Icc _ N hN (fun k _ hk1 hk2 hk3 hk4 => by
+    simp [w_rank4_zero_outside t0 t0' t1 t1' hk1 hk2 hk3 hk4])]
+  rcases w_rank4_eval t0 t0' t1 t1' with ⟨_, h2, h3, h4⟩
+  have hL2_ne : Real.log 2 ≠ 0 := (Real.log_pos (by norm_num)).ne'
+  have h1 : Real.log ((1 : ℕ) : ℝ) = 0 := by norm_num
+  have h4log : Real.log ((4 : ℕ) : ℝ) = 2 * Real.log 2 := by
+    rw [show ((4 : ℕ) : ℝ) = (2 : ℝ) ^ (2 : ℕ) by norm_num, Real.log_pow]; norm_num
+  have h2log : Real.log ((2 : ℕ) : ℝ) = Real.log 2 := by norm_num
+  have h3log : Real.log ((3 : ℕ) : ℝ) = Real.log 3 := by norm_num
+  rw [h1, h2log, h3log, h4log, mul_zero, zero_add, h2, h3, h4]
+  field_simp [hL2_ne]
+  ring
+
+/-- Exact `D_N(1)` value of `w_rank4_corrector t0 t0' t1 t1'` for all `N ≥ 4`. -/
+theorem D1_w_rank4_corrector (t0 t0' t1 t1' : ℝ) (N : ℕ) (hN : 4 ≤ N) :
+    D1 (w_rank4_corrector t0 t0' t1 t1') N = t1 := by
+  unfold D1
+  rw [sum_four_support_Icc _ N hN (fun k _ hk1 hk2 hk3 hk4 => by
+    simp [w_rank4_zero_outside t0 t0' t1 t1' hk1 hk2 hk3 hk4])]
+  rcases w_rank4_eval t0 t0' t1 t1' with ⟨h1, h2, h3, h4⟩
+  have hL2_ne : Real.log 2 ≠ 0 := (Real.log_pos (by norm_num)).ne'
+  have hDelta_ne : 8 * Real.log 2 - 5 * Real.log 3 ≠ 0 := delta_log256_243_ne_zero
+  set L2 := Real.log 2
+  set L3 := Real.log 3
+  set w3 := (12 * L2 * (t0 - t1) + 3 * (t0' + 2 * t1')) / (8 * L2 - 5 * L3)
+  set w2 := (t0' - 4 * t1' - (L3 / 3) * w3) / L2
+  set w4 := (2 * t1' - t0' - (L3 / 3) * w3) / L2
+  set w1 := t0 - (w2 + w3 + w4)
+  have hw3_mul : w3 * (8 * L2 - 5 * L3) = 12 * L2 * (t0 - t1) + 3 * (t0' + 2 * t1') :=
+    div_mul_cancel₀ _ hDelta_ne
+  have hw2_mul : w2 * L2 = t0' - 4 * t1' - (L3 / 3) * w3 := div_mul_cancel₀ _ hL2_ne
+  have hw4_mul : w4 * L2 = 2 * t1' - t0' - (L3 / 3) * w3 := div_mul_cancel₀ _ hL2_ne
+  have h1' : w_rank4_corrector t0 t0' t1 t1' 1 = w1 := h1
+  have h2' : w_rank4_corrector t0 t0' t1 t1' 2 = w2 := h2
+  have h3' : w_rank4_corrector t0 t0' t1 t1' 3 = w3 := h3
+  have h4' : w_rank4_corrector t0 t0' t1 t1' 4 = w4 := h4
+  norm_num only
+  rw [h1', h2', h3', h4']
+  have h12 : 12 * L2 * (w1 + w2 / 2 + w3 / 3 + w4 / 4 - t1) = 0 := by
+    have hw1_def : w1 = t0 - (w2 + w3 + w4) := rfl
+    rw [hw1_def]
+    linear_combination 6 * (-hw2_mul) + 9 * (-hw4_mul) + (-hw3_mul)
+  have h12_ne : 12 * L2 ≠ 0 := mul_ne_zero (by norm_num) hL2_ne
+  have hsub := (mul_eq_zero.mp h12).resolve_left h12_ne
+  linarith
+
+/-- Exact `D_N'(1)` value of `w_rank4_corrector t0 t0' t1 t1'` for all `N ≥ 4`. -/
+theorem D1_deriv_w_rank4_corrector (t0 t0' t1 t1' : ℝ) (N : ℕ) (hN : 4 ≤ N) :
+    D1_deriv (w_rank4_corrector t0 t0' t1 t1') N = t1' := by
+  unfold D1_deriv
+  rw [sum_four_support_Icc _ N hN (fun k _ hk1 hk2 hk3 hk4 => by
+    simp [w_rank4_zero_outside t0 t0' t1 t1' hk1 hk2 hk3 hk4])]
+  rcases w_rank4_eval t0 t0' t1 t1' with ⟨_, h2, h3, h4⟩
+  have hL2_ne : Real.log 2 ≠ 0 := (Real.log_pos (by norm_num)).ne'
+  have h4log : Real.log (4 : ℝ) = 2 * Real.log 2 := by
+    rw [show (4 : ℝ) = (2 : ℝ) ^ (2 : ℕ) by norm_num, Real.log_pow]; norm_num
+  norm_num only [Real.log_one]
+  rw [h4log, h2, h3, h4]
+  field_simp [hL2_ne]
+  ring
+
+/-- Explicit Rank-4 boundary-lock projection sending any vector `c` onto the affine Clay/BDR
+subspace `SatisfiesClayBoundaryConditions · N` for all `N ≥ 4`. -/
+noncomputable def clayRank4Lock (c : ℕ → ℝ) (N : ℕ) (k : ℕ) : ℝ :=
+  c k + w_rank4_corrector
+    (2 - D0 c N)
+    (-2 * Real.log (2 * Real.pi) - D0_deriv c N)
+    (-D1 c N)
+    (-1 - D1_deriv c N) k
+
+/-- For any vector `c` and `N ≥ 4`, `clayRank4Lock c N` satisfies all four Clay/BDR boundary
+conditions `(2, -2 ln(2π), 0, -1)` unconditionally. -/
+theorem satisfiesClayBoundaryConditions_clayRank4Lock (c : ℕ → ℝ) (N : ℕ) (hN : 4 ≤ N) :
+    SatisfiesClayBoundaryConditions (clayRank4Lock c N) N := by
+  let corr := w_rank4_corrector
+    (2 - D0 c N) (-2 * Real.log (2 * Real.pi) - D0_deriv c N) (-D1 c N) (-1 - D1_deriv c N)
+  have hD0_add : D0 (clayRank4Lock c N) N = D0 c N + D0 corr N := by
+    unfold D0 clayRank4Lock
+    exact Finset.sum_add_distrib
+  have hD0'_add : D0_deriv (clayRank4Lock c N) N = D0_deriv c N + D0_deriv corr N := by
+    unfold D0_deriv clayRank4Lock
+    have hpt : ∀ k ∈ Finset.Icc 1 N, (c k + corr k) * Real.log (k : ℝ) =
+        c k * Real.log (k : ℝ) + corr k * Real.log (k : ℝ) := fun k _ => by ring
+    rw [Finset.sum_congr rfl hpt, Finset.sum_add_distrib]
+    ring
+  have hD1_add : D1 (clayRank4Lock c N) N = D1 c N + D1 corr N := by
+    unfold D1 clayRank4Lock
+    have hpt : ∀ k ∈ Finset.Icc 1 N, (c k + corr k) / (k : ℝ) =
+        c k / (k : ℝ) + corr k / (k : ℝ) := fun k _ => by ring
+    rw [Finset.sum_congr rfl hpt, Finset.sum_add_distrib]
+  have hD1'_add : D1_deriv (clayRank4Lock c N) N = D1_deriv c N + D1_deriv corr N := by
+    unfold D1_deriv clayRank4Lock
+    have hpt : ∀ k ∈ Finset.Icc 1 N, (c k + corr k) * Real.log (k : ℝ) / (k : ℝ) =
+        c k * Real.log (k : ℝ) / (k : ℝ) + corr k * Real.log (k : ℝ) / (k : ℝ) := fun k _ => by ring
+    rw [Finset.sum_congr rfl hpt, Finset.sum_add_distrib]
+    ring
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · rw [hD0_add, D0_w_rank4_corrector _ _ _ _ N hN]; ring
+  · rw [hD0'_add, D0_deriv_w_rank4_corrector _ _ _ _ N hN]; ring
+  · rw [hD1_add, D1_w_rank4_corrector _ _ _ _ N hN]; ring
+  · rw [hD1'_add, D1_deriv_w_rank4_corrector _ _ _ _ N hN]; ring
+
+/-- For any vector `c` and `N ≥ 4`, `clayRank4Lock c N` satisfies the exact `(1, -2, +2, -1)`
+equilibrium and pure cotangent identity `E_BDR (clayRank4Lock c N) N = 1 + Q_cot`. -/
+theorem clayRank4Lock_four_part_equilibrium (c : ℕ → ℝ) (N : ℕ) (hN : 4 ≤ N) (gamma_E Q_cot : ℝ) :
+    (-2 * ∑ k ∈ Finset.Icc 1 N, clayRank4Lock c N k * bVasyunin k gamma_E = -2) ∧
+    (∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N,
+      clayRank4Lock c N j * clayRank4Lock c N k * GSmooth gamma_E j k = 2) ∧
+    (1 - 2 * (∑ k ∈ Finset.Icc 1 N, clayRank4Lock c N k * bVasyunin k gamma_E) +
+      (∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N,
+        clayRank4Lock c N j * clayRank4Lock c N k * GSmooth gamma_E j k) = 1) ∧
+    (E_BDR (clayRank4Lock c N) N gamma_E Q_cot = 1 + Q_cot) :=
+  clay_four_part_equilibrium_identity (clayRank4Lock c N) N gamma_E Q_cot
+    (satisfiesClayBoundaryConditions_clayRank4Lock c N hN)
+
+/-- Asymptotic `(1, -2, +2, -1)` Equilibrium (Monograph Corollary 8.4):
+if any unconstrained sequence `c_seq` converges to the four Clay/BDR boundary limits
+`(2, -2 ln(2π), 0, -1)` at `s ∈ {0, 1}`, then the linear term tends to `-2`, the smooth Vasyunin
+double sum tends to `+2`, and their sum with `‖1‖² = 1` tends to `+1`. -/
+theorem tendsto_four_part_equilibrium_of_clay_boundary_limits
+    (c_seq : ℕ → (ℕ → ℝ)) (gamma_E : ℝ)
+    (hD0 : Filter.Tendsto (fun N => D0 (c_seq N) N) Filter.atTop (nhds 2))
+    (hD0' : Filter.Tendsto (fun N => D0_deriv (c_seq N) N) Filter.atTop
+      (nhds (-2 * Real.log (2 * Real.pi))))
+    (hD1 : Filter.Tendsto (fun N => D1 (c_seq N) N) Filter.atTop (nhds 0))
+    (hD1' : Filter.Tendsto (fun N => D1_deriv (c_seq N) N) Filter.atTop (nhds (-1))) :
+    Filter.Tendsto (fun N => -2 * ∑ k ∈ Finset.Icc 1 N, c_seq N k * bVasyunin k gamma_E)
+        Filter.atTop (nhds (-2)) ∧
+    Filter.Tendsto (fun N => ∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N,
+        c_seq N j * c_seq N k * GSmooth gamma_E j k) Filter.atTop (nhds 2) ∧
+    Filter.Tendsto (fun N => 1 - 2 * (∑ k ∈ Finset.Icc 1 N, c_seq N k * bVasyunin k gamma_E) +
+        ∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N,
+          c_seq N j * c_seq N k * GSmooth gamma_E j k) Filter.atTop (nhds 1) := by
+  have hlin_eq : (fun N => -2 * ∑ k ∈ Finset.Icc 1 N, c_seq N k * bVasyunin k gamma_E) =
+      fun N => -2 * ((1 - gamma_E) * D1 (c_seq N) N - D1_deriv (c_seq N) N) := by
+    ext N; dsimp [bVasyunin]; rw [b_dot_c_eq_boundary]
+  have hlin_tend : Filter.Tendsto
+      (fun N => -2 * ∑ k ∈ Finset.Icc 1 N, c_seq N k * bVasyunin k gamma_E)
+      Filter.atTop (nhds (-2)) := by
+    rw [hlin_eq]
+    have h := (hD1.const_mul (1 - gamma_E)).sub hD1' |>.const_mul (-2)
+    simpa using h
+  have hsm_eq : (fun N => ∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N,
+        c_seq N j * c_seq N k * GSmooth gamma_E j k) =
+      fun N => (Real.log (2 * Real.pi) - gamma_E) * D0 (c_seq N) N * D1 (c_seq N) N -
+        D0 (c_seq N) N * D1_deriv (c_seq N) N + D0_deriv (c_seq N) N * D1 (c_seq N) N -
+        (D1 (c_seq N) N) ^ 2 := by
+    ext N; exact smooth_vasyunin_double_sum_eq_boundary gamma_E (c_seq N) N
+  have hsm_tend : Filter.Tendsto
+      (fun N => ∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N,
+        c_seq N j * c_seq N k * GSmooth gamma_E j k)
+      Filter.atTop (nhds 2) := by
+    rw [hsm_eq]
+    have h1 := ((hD0.const_mul (Real.log (2 * Real.pi) - gamma_E)).mul hD1)
+    have h2 := hD0.mul hD1'
+    have h3 := hD0'.mul hD1
+    have h4 := hD1.pow 2
+    have h := ((h1.sub h2).add h3).sub h4
+    simpa using h
+  have hcomb_eq : (fun N => 1 - 2 * (∑ k ∈ Finset.Icc 1 N, c_seq N k * bVasyunin k gamma_E) +
+        ∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N,
+          c_seq N j * c_seq N k * GSmooth gamma_E j k) =
+      fun N => 1 + (-2 * ∑ k ∈ Finset.Icc 1 N, c_seq N k * bVasyunin k gamma_E) +
+        (∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N,
+          c_seq N j * c_seq N k * GSmooth gamma_E j k) := by
+    ext N; ring
+  refine ⟨hlin_tend, hsm_tend, ?_⟩
+  rw [hcomb_eq]
+  have h := ((tendsto_const_nhds (x := (1 : ℝ))).add hlin_tend).add hsm_tend
+  simpa using h
+
+/-- Asymptotic BDR-to-Cotangent Equivalence under the four Clay boundary limits (without
+assuming `D1 = 0` or `D0 = 2` at finite `N`): `E_BDR → 0` iff `Q_cot_seq → -1`. -/
+theorem tendsto_E_BDR_zero_iff_tendsto_Q_cot_neg_one_of_clay_boundary_limits
+    (c_seq : ℕ → (ℕ → ℝ)) (Q_cot_seq : ℕ → ℝ) (gamma_E : ℝ)
+    (hD0 : Filter.Tendsto (fun N => D0 (c_seq N) N) Filter.atTop (nhds 2))
+    (hD0' : Filter.Tendsto (fun N => D0_deriv (c_seq N) N) Filter.atTop
+      (nhds (-2 * Real.log (2 * Real.pi))))
+    (hD1 : Filter.Tendsto (fun N => D1 (c_seq N) N) Filter.atTop (nhds 0))
+    (hD1' : Filter.Tendsto (fun N => D1_deriv (c_seq N) N) Filter.atTop (nhds (-1))) :
+    Filter.Tendsto (fun N => E_BDR (c_seq N) N gamma_E (Q_cot_seq N)) Filter.atTop (nhds 0) ↔
+      Filter.Tendsto Q_cot_seq Filter.atTop (nhds (-1)) := by
+  have h_smooth := (tendsto_four_part_equilibrium_of_clay_boundary_limits
+    c_seq gamma_E hD0 hD0' hD1 hD1').2.2
+  let S := fun N => 1 - 2 * (∑ k ∈ Finset.Icc 1 N, c_seq N k * bVasyunin k gamma_E) +
+    ∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N, c_seq N j * c_seq N k * GSmooth gamma_E j k
+  have hE_eq : (fun N => E_BDR (c_seq N) N gamma_E (Q_cot_seq N)) = fun N => S N + Q_cot_seq N := by
+    ext N; rfl
+  constructor
+  · intro hE
+    rw [hE_eq] at hE
+    have hQ : (fun N => (S N + Q_cot_seq N) - S N) = Q_cot_seq := by ext N; ring
+    have ht := hE.sub h_smooth
+    rw [hQ] at ht
+    simpa using ht
+  · intro hQ
+    rw [hE_eq]
+    have ht := h_smooth.add hQ
+    simpa using ht
+
 end BoundaryFunctionals
 
 section Rank4AndL2Calculus

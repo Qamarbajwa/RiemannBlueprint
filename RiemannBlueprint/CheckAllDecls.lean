@@ -134,6 +134,21 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check CMIAudit.bnbd_implies_rh
 #check CMIAudit.bdr_cotangent_implies_rh
 #check CMIAudit.baezDuarte_implies_rh
+#check RiemannBlueprint.Section8_VasyuninBDR.SatisfiesClayBoundaryConditions
+#check RiemannBlueprint.Section8_VasyuninBDR.linear_term_eq_neg_two_of_clay_boundary
+#check RiemannBlueprint.Section8_VasyuninBDR.smooth_double_sum_eq_two_of_clay_boundary
+#check RiemannBlueprint.Section8_VasyuninBDR.clay_four_part_equilibrium_identity
+#check RiemannBlueprint.Section8_VasyuninBDR.delta_log256_243_ne_zero
+#check RiemannBlueprint.Section8_VasyuninBDR.D0_w_rank4_corrector
+#check RiemannBlueprint.Section8_VasyuninBDR.D0_deriv_w_rank4_corrector
+#check RiemannBlueprint.Section8_VasyuninBDR.D1_w_rank4_corrector
+#check RiemannBlueprint.Section8_VasyuninBDR.D1_deriv_w_rank4_corrector
+#check RiemannBlueprint.Section8_VasyuninBDR.satisfiesClayBoundaryConditions_clayRank4Lock
+#check RiemannBlueprint.Section8_VasyuninBDR.clayRank4Lock_four_part_equilibrium
+#check RiemannBlueprint.Section8_VasyuninBDR.tendsto_four_part_equilibrium_of_clay_boundary_limits
+#check RiemannBlueprint.Section8_VasyuninBDR.tendsto_E_BDR_zero_iff_tendsto_Q_cot_neg_one_of_clay_boundary_limits
+#check CMIAudit.clay_four_boundary_limits_implies_rh
+#check CMIAudit.clayRank4Lock_cotangent_implies_rh
 
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
 #print axioms RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic
@@ -208,3 +223,17 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms CMIAudit.bnbd_implies_rh
 #print axioms CMIAudit.bdr_cotangent_implies_rh
 #print axioms CMIAudit.baezDuarte_implies_rh
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.linear_term_eq_neg_two_of_clay_boundary
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.smooth_double_sum_eq_two_of_clay_boundary
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.clay_four_part_equilibrium_identity
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.delta_log256_243_ne_zero
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.D0_w_rank4_corrector
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.D0_deriv_w_rank4_corrector
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.D1_w_rank4_corrector
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.D1_deriv_w_rank4_corrector
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.satisfiesClayBoundaryConditions_clayRank4Lock
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.clayRank4Lock_four_part_equilibrium
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.tendsto_four_part_equilibrium_of_clay_boundary_limits
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.tendsto_E_BDR_zero_iff_tendsto_Q_cot_neg_one_of_clay_boundary_limits
+#print axioms CMIAudit.clay_four_boundary_limits_implies_rh
+#print axioms CMIAudit.clayRank4Lock_cotangent_implies_rh

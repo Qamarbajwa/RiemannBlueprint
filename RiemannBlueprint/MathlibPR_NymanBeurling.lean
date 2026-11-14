@@ -135,6 +135,47 @@ theorem RiemannHypothesis.of_vasyunin_bdr_cotangent_limit
     _root_.RiemannHypothesis :=
   CMIAudit.bdr_cotangent_implies_rh c_seq Q_cot_seq gamma_E hD1 h_bdr_le h_smooth_lim h_cot_lim
 
+/-- **9. Unconstrained Four-Boundary Clay Cotangent Forward Theorem (`(2, -2 ln 2π, 0, -1)` & `Q_cot → -1 ⇒ RH`):**
+For any unconstrained real sequence `c_seq` converging to all four Clay/BDR boundary limits at
+`s ∈ {0, 1}`, `L² ≤ E_BDR` and `Q_cot_seq → -1` imply `_root_.RiemannHypothesis`. -/
+theorem RiemannHypothesis.of_clay_four_boundary_cotangent_limit
+    (c_seq : ℕ → (ℕ → ℝ)) (Q_cot_seq : ℕ → ℝ) (gamma_E : ℝ)
+    (hD0 : Filter.Tendsto (fun N => RiemannBlueprint.Section8_VasyuninBDR.D0 (c_seq N) N)
+      Filter.atTop (nhds 2))
+    (hD0' : Filter.Tendsto (fun N => RiemannBlueprint.Section8_VasyuninBDR.D0_deriv (c_seq N) N)
+      Filter.atTop (nhds (-2 * Real.log (2 * Real.pi))))
+    (hD1 : Filter.Tendsto (fun N => RiemannBlueprint.Section8_VasyuninBDR.D1 (c_seq N) N)
+      Filter.atTop (nhds 0))
+    (hD1' : Filter.Tendsto (fun N => RiemannBlueprint.Section8_VasyuninBDR.D1_deriv (c_seq N) N)
+      Filter.atTop (nhds (-1)))
+    (h_bdr_le : ∀ N, 1 ≤ N →
+      (∫ x in Set.Ioo (0 : ℝ) 1,
+        ‖1 - ∑ k ∈ Finset.Icc 1 N,
+          (c_seq N k : ℂ) * (NumberTheory.MellinFracPart.recipFractScaled k x : ℂ)‖ ^ 2) ≤
+        RiemannBlueprint.Section8_VasyuninBDR.E_BDR (c_seq N) N gamma_E (Q_cot_seq N))
+    (h_cot_lim : Filter.Tendsto Q_cot_seq Filter.atTop (nhds (-1))) :
+    _root_.RiemannHypothesis :=
+  CMIAudit.clay_four_boundary_limits_implies_rh
+    c_seq Q_cot_seq gamma_E hD0 hD0' hD1 hD1' h_bdr_le h_cot_lim
+
+/-- **10. Explicit Rank-4 Boundary-Lock (`clayRank4Lock`) Cotangent Forward Theorem:**
+Projecting any unconstrained sequence `c_seq` onto `SatisfiesClayBoundaryConditions · N` via
+`clayRank4Lock`, if `L²(clayRank4Lock (c_seq N) N) ≤ E_BDR` for `N ≥ 4` and `Q_cot_seq → -1`,
+then `_root_.RiemannHypothesis` holds. -/
+theorem RiemannHypothesis.of_clayRank4Lock_cotangent_limit
+    (c_seq : ℕ → (ℕ → ℝ)) (Q_cot_seq : ℕ → ℝ) (gamma_E : ℝ)
+    (h_bdr_le : ∀ N, 4 ≤ N →
+      (∫ x in Set.Ioo (0 : ℝ) 1,
+        ‖1 - ∑ k ∈ Finset.Icc 1 N,
+          (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Lock (c_seq N) N k : ℂ) *
+            (NumberTheory.MellinFracPart.recipFractScaled k x : ℂ)‖ ^ 2) ≤
+        RiemannBlueprint.Section8_VasyuninBDR.E_BDR
+          (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Lock (c_seq N) N)
+          N gamma_E (Q_cot_seq N))
+    (h_cot_lim : Filter.Tendsto Q_cot_seq Filter.atTop (nhds (-1))) :
+    _root_.RiemannHypothesis :=
+  CMIAudit.clayRank4Lock_cotangent_implies_rh c_seq Q_cot_seq gamma_E h_bdr_le h_cot_lim
+
 #print axioms riemannZeta_eq_tsum_harmonicUnitSummand
 #print axioms mellin_recipFract_unit_interval
 #print axioms riemannZeta_conj_of_pos_re
@@ -144,5 +185,7 @@ theorem RiemannHypothesis.of_vasyunin_bdr_cotangent_limit
 #print axioms RiemannHypothesis.of_nymanBeurling_approx
 #print axioms RiemannHypothesis.of_baezDuarte_approx
 #print axioms RiemannHypothesis.of_vasyunin_bdr_cotangent_limit
+#print axioms RiemannHypothesis.of_clay_four_boundary_cotangent_limit
+#print axioms RiemannHypothesis.of_clayRank4Lock_cotangent_limit
 
 end MathlibPR.NymanBeurling
