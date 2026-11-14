@@ -223,6 +223,69 @@ theorem baezDuarteDistSq_le_one_sub_rayleigh_ritz (D : ℕ → ℝ)
   rw [← vasyuninQuadraticEnergy_rayleigh_ritz G b N v hA]
   exact h_ub (fun k => (B / A) * v k)
 
+/-- 2D bilinear expansion of `vasyuninQuadraticEnergy` for `c_k = α * u_k + β * w_k`
+under a symmetric Gram matrix `G`. -/
+theorem vasyuninQuadraticEnergy_add_smul (G : ℕ → ℕ → ℝ) (b : ℕ → ℝ) (N : ℕ)
+    (hG_symm : ∀ j k, G j k = G k j) (u w : ℕ → ℝ) (α β : ℝ) :
+    vasyuninQuadraticEnergy G b N (fun k => α * u k + β * w k) =
+      1 - 2 * α * (∑ k ∈ Finset.Ico 1 (N + 1), u k * b k)
+        - 2 * β * (∑ k ∈ Finset.Ico 1 (N + 1), w k * b k)
+        + α ^ 2 * (∑ j ∈ Finset.Ico 1 (N + 1), ∑ k ∈ Finset.Ico 1 (N + 1), u j * u k * G j k)
+        + 2 * α * β * (∑ j ∈ Finset.Ico 1 (N + 1), ∑ k ∈ Finset.Ico 1 (N + 1), u j * w k * G j k)
+        + β ^ 2 * (∑ j ∈ Finset.Ico 1 (N + 1), ∑ k ∈ Finset.Ico 1 (N + 1), w j * w k * G j k) := by
+  unfold vasyuninQuadraticEnergy
+  have h1 :
+      ∑ k ∈ Finset.Ico 1 (N + 1), (α * u k + β * w k) * b k =
+        α * (∑ k ∈ Finset.Ico 1 (N + 1), u k * b k) +
+        β * (∑ k ∈ Finset.Ico 1 (N + 1), w k * b k) := by
+    have hcongr :
+        ∑ k ∈ Finset.Ico 1 (N + 1), (α * u k + β * w k) * b k =
+          ∑ k ∈ Finset.Ico 1 (N + 1), (α * (u k * b k) + β * (w k * b k)) :=
+      Finset.sum_congr rfl (fun k _ => by ring)
+    rw [hcongr, Finset.sum_add_distrib, ← Finset.mul_sum, ← Finset.mul_sum]
+  have hcross :
+      (∑ j ∈ Finset.Ico 1 (N + 1), ∑ k ∈ Finset.Ico 1 (N + 1), w j * u k * G j k) =
+        ∑ j ∈ Finset.Ico 1 (N + 1), ∑ k ∈ Finset.Ico 1 (N + 1), u j * w k * G j k := by
+    rw [Finset.sum_comm]
+    refine Finset.sum_congr rfl (fun j _ => Finset.sum_congr rfl (fun k _ => ?_))
+    rw [hG_symm k j]
+    ring
+  have h2 :
+      (∑ j ∈ Finset.Ico 1 (N + 1), ∑ k ∈ Finset.Ico 1 (N + 1),
+        (α * u j + β * w j) * (α * u k + β * w k) * G j k) =
+        α ^ 2 * (∑ j ∈ Finset.Ico 1 (N + 1), ∑ k ∈ Finset.Ico 1 (N + 1), u j * u k * G j k) +
+        2 * α * β * (∑ j ∈ Finset.Ico 1 (N + 1), ∑ k ∈ Finset.Ico 1 (N + 1), u j * w k * G j k) +
+        β ^ 2 * (∑ j ∈ Finset.Ico 1 (N + 1), ∑ k ∈ Finset.Ico 1 (N + 1), w j * w k * G j k) := by
+    have hcongr :
+        (∑ j ∈ Finset.Ico 1 (N + 1), ∑ k ∈ Finset.Ico 1 (N + 1),
+          (α * u j + β * w j) * (α * u k + β * w k) * G j k) =
+          ∑ j ∈ Finset.Ico 1 (N + 1), ∑ k ∈ Finset.Ico 1 (N + 1),
+            (α ^ 2 * (u j * u k * G j k) +
+              (α * β * (u j * w k * G j k) + α * β * (w j * u k * G j k)) +
+              β ^ 2 * (w j * w k * G j k)) :=
+      Finset.sum_congr rfl (fun j _ => Finset.sum_congr rfl (fun k _ => by ring))
+    rw [hcongr]
+    simp only [Finset.sum_add_distrib, ← Finset.mul_sum]
+    rw [hcross]
+    ring
+  rw [h1, h2]
+  ring
+
+/-- 2D subspace upper bound and asymptotic squeeze theorem:
+if `vasyuninQuadraticEnergy G b N (α_N u_N + β_N w_N) → 0`, then `baezDuarteDistSq D → 0`. -/
+theorem tendsto_baezDuarteDistSq_zero_of_two_dim_subspace (D : ℕ → ℝ)
+    (G : ℕ → ℕ → ℝ) (b : ℕ → ℝ)
+    (u_seq w_seq : ℕ → ℕ → ℝ) (α_seq β_seq : ℕ → ℝ)
+    (h_nonneg : ∀ N : ℕ, 0 ≤ baezDuarteDistSq D N)
+    (h_ub : ∀ N : ℕ, ∀ c : ℕ → ℝ, baezDuarteDistSq D N ≤ vasyuninQuadraticEnergy G b N c)
+    (h_lim : Filter.Tendsto
+      (fun N : ℕ => vasyuninQuadraticEnergy G b N (fun k => α_seq N * u_seq N k + β_seq N * w_seq N k))
+      Filter.atTop (nhds 0)) :
+    Filter.Tendsto (baezDuarteDistSq D) Filter.atTop (nhds 0) :=
+  tendsto_baezDuarteDistSq_zero_of_test_vector D G b
+    (fun N k => α_seq N * u_seq N k + β_seq N * w_seq N k)
+    h_nonneg (fun N => h_ub N _) h_lim
+
 /-- CMI Criterion 1 Mellin spectral residual bridge for any critical-strip coordinate
 `s : ℂ` (`InCriticalStrip s`), directly invoking `mellin_baezDuarte_residual_eq`. -/
 theorem cmi_criterion1_spectral_residual_eq (N : ℕ) (c : ℕ → ℂ) (s : ℂ)
@@ -251,5 +314,7 @@ theorem cmi_criterion1_spectral_residual_eq (N : ℕ) (c : ℕ → ℂ) (s : ℂ
 #print axioms vasyuninQuadraticEnergy_smul
 #print axioms vasyuninQuadraticEnergy_rayleigh_ritz
 #print axioms baezDuarteDistSq_le_one_sub_rayleigh_ritz
+#print axioms vasyuninQuadraticEnergy_add_smul
+#print axioms tendsto_baezDuarteDistSq_zero_of_two_dim_subspace
 
 end CMIAudit
