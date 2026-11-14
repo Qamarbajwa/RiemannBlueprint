@@ -1331,6 +1331,43 @@ theorem clayRank4Lock_Q_cot_quad_implies_rh
   rw [hE_eq]
   exact h_bd_le N hN
 
+/-- Bridge Theorem 6 — Affine Base-Plus-Nullspace (`clayRank4Base + α • clayRank4Hom`) Forward Theorem:
+for any `G_cot : ℕ → ℕ → ℝ`, unconstrained directions `u_seq : ℕ → (ℕ → ℝ)`, and scalars
+`α_seq : ℕ → ℝ`, if the `L²(0, 1)` residual of `clayRank4Base + α_seq N • clayRank4Hom (u_seq N) N`
+is bounded by `1 + Q_cot_quad G_cot (fun k => clayRank4Base k + α_seq N * clayRank4Hom (u_seq N) N k) N`
+for all `N ≥ 4` and the bilinear cotangent form tends to `-1`, then `_root_.RiemannHypothesis` holds. -/
+theorem clayRank4Base_add_hom_Q_cot_quad_implies_rh
+    (G_cot : ℕ → ℕ → ℝ) (u_seq : ℕ → (ℕ → ℝ)) (α_seq : ℕ → ℝ)
+    (h_bd_le : ∀ N, 4 ≤ N →
+      (∫ x in Set.Ioo (0 : ℝ) 1,
+        ‖1 - ∑ k ∈ Finset.Icc 1 N,
+          ((RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k +
+            α_seq N * RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N k : ℝ) : ℂ) *
+            (NumberTheory.MellinFracPart.recipFractScaled k x : ℂ)‖ ^ 2) ≤
+        1 + RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k +
+            α_seq N * RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N k) N)
+    (h_cot_lim : Filter.Tendsto
+      (fun N => RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        (fun k => RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k +
+          α_seq N * RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N k) N)
+      Filter.atTop (nhds (-1))) :
+    _root_.RiemannHypothesis := by
+  refine baezDuarte_implies_rh fun ε hε => ?_
+  have h_met := Metric.tendsto_atTop.mp h_cot_lim ε hε
+  rcases h_met with ⟨N0, hN0⟩
+  let N := max N0 4
+  have hN4 : 4 ≤ N := le_max_right _ _
+  have hQ_lt : 1 + RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+      (fun k => RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k +
+        α_seq N * RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N k) N < ε := by
+    have h1 := hN0 N (le_max_left _ _)
+    rw [Real.dist_eq, sub_neg_eq_add, abs_lt, add_comm] at h1
+    exact h1.2
+  exact ⟨N, fun k => ((RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k +
+    α_seq N * RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N k : ℝ) : ℂ),
+    (h_bd_le N hN4).trans_lt hQ_lt⟩
+
 #print axioms riemannHypothesis_iff_collapse_zero
 #print axioms collapse_zero_implies_rh_strip
 #print axioms cmi_criterion1_spectral_residual_eq
@@ -1362,5 +1399,6 @@ theorem clayRank4Lock_Q_cot_quad_implies_rh
 #print axioms clay_four_boundary_limits_implies_rh
 #print axioms clayRank4Lock_cotangent_implies_rh
 #print axioms clayRank4Lock_Q_cot_quad_implies_rh
+#print axioms clayRank4Base_add_hom_Q_cot_quad_implies_rh
 
 end CMIAudit

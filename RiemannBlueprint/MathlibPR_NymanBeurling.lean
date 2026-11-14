@@ -196,6 +196,29 @@ theorem RiemannHypothesis.of_clayRank4Lock_Q_cot_quad_limit
     _root_.RiemannHypothesis :=
   CMIAudit.clayRank4Lock_Q_cot_quad_implies_rh G_cot c_seq h_bd_le h_cot_lim
 
+/-- **12. Affine Base-Plus-Nullspace (`clayRank4Base + α • clayRank4Hom`) Forward Theorem:**
+For any `G_cot : ℕ → ℕ → ℝ`, directions `u_seq`, and scalars `α_seq`, if
+`L²(clayRank4Base + α_seq N • clayRank4Hom (u_seq N) N) ≤ 1 + Q_cot_quad` for `N ≥ 4` and
+`Q_cot_quad → -1`, then `_root_.RiemannHypothesis` holds. -/
+theorem RiemannHypothesis.of_clayRank4Base_add_hom_Q_cot_quad_limit
+    (G_cot : ℕ → ℕ → ℝ) (u_seq : ℕ → (ℕ → ℝ)) (α_seq : ℕ → ℝ)
+    (h_bd_le : ∀ N, 4 ≤ N →
+      (∫ x in Set.Ioo (0 : ℝ) 1,
+        ‖1 - ∑ k ∈ Finset.Icc 1 N,
+          ((RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k +
+            α_seq N * RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N k : ℝ) : ℂ) *
+            (NumberTheory.MellinFracPart.recipFractScaled k x : ℂ)‖ ^ 2) ≤
+        1 + RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k +
+            α_seq N * RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N k) N)
+    (h_cot_lim : Filter.Tendsto
+      (fun N => RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        (fun k => RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k +
+          α_seq N * RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N k) N)
+      Filter.atTop (nhds (-1))) :
+    _root_.RiemannHypothesis :=
+  CMIAudit.clayRank4Base_add_hom_Q_cot_quad_implies_rh G_cot u_seq α_seq h_bd_le h_cot_lim
+
 #print axioms riemannZeta_eq_tsum_harmonicUnitSummand
 #print axioms mellin_recipFract_unit_interval
 #print axioms riemannZeta_conj_of_pos_re
@@ -208,5 +231,6 @@ theorem RiemannHypothesis.of_clayRank4Lock_Q_cot_quad_limit
 #print axioms RiemannHypothesis.of_clay_four_boundary_cotangent_limit
 #print axioms RiemannHypothesis.of_clayRank4Lock_cotangent_limit
 #print axioms RiemannHypothesis.of_clayRank4Lock_Q_cot_quad_limit
+#print axioms RiemannHypothesis.of_clayRank4Base_add_hom_Q_cot_quad_limit
 
 end MathlibPR.NymanBeurling

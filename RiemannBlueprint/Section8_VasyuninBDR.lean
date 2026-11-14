@@ -837,6 +837,119 @@ theorem tendsto_clayRank4Lock_sub_self_zero
   · simpa using hD1.neg
   · simpa using (tendsto_const_nhds (x := (-1 : ℝ))).sub hD1'
 
+/-- Homogeneous four-boundary nullspace condition at `s ∈ {0, 1}`:
+`D_N(0) = 0`, `D_N'(0) = 0`, `D_N(1) = 0`, and `D_N'(1) = 0`. -/
+def SatisfiesHomogeneousClayConditions (v : ℕ → ℝ) (N : ℕ) : Prop :=
+  D0 v N = 0 ∧ D0_deriv v N = 0 ∧ D1 v N = 0 ∧ D1_deriv v N = 0
+
+/-- Fixed Rank-4 Clay base vector supported on `{1, 2, 3, 4}` realizing `(2, -2 ln(2π), 0, -1)`. -/
+noncomputable def clayRank4Base (k : ℕ) : ℝ :=
+  w_rank4_corrector 2 (-2 * Real.log (2 * Real.pi)) 0 (-1) k
+
+/-- Homogeneous Rank-4 nullspace projection sending any vector `c` into the homogeneous
+boundary nullspace for `N ≥ 4`. -/
+noncomputable def clayRank4Hom (c : ℕ → ℝ) (N : ℕ) (k : ℕ) : ℝ :=
+  c k + w_rank4_corrector (-D0 c N) (-D0_deriv c N) (-D1 c N) (-D1_deriv c N) k
+
+/-- For all `N ≥ 4`, the fixed base vector `clayRank4Base` satisfies all four Clay/BDR
+boundary conditions `(2, -2 ln(2π), 0, -1)`. -/
+theorem clayRank4Base_satisfies_clay (N : ℕ) (hN : 4 ≤ N) :
+    SatisfiesClayBoundaryConditions clayRank4Base N :=
+  ⟨D0_w_rank4_corrector _ _ _ _ N hN,
+   D0_deriv_w_rank4_corrector _ _ _ _ N hN,
+   D1_w_rank4_corrector _ _ _ _ N hN,
+   D1_deriv_w_rank4_corrector _ _ _ _ N hN⟩
+
+/-- For any vector `c` and `N ≥ 4`, `clayRank4Hom c N` satisfies all four homogeneous
+boundary conditions `(0, 0, 0, 0)`. -/
+theorem clayRank4Hom_satisfies_homogeneous (c : ℕ → ℝ) (N : ℕ) (hN : 4 ≤ N) :
+    SatisfiesHomogeneousClayConditions (clayRank4Hom c N) N := by
+  let corr := w_rank4_corrector (-D0 c N) (-D0_deriv c N) (-D1 c N) (-D1_deriv c N)
+  have hD0_add : D0 (clayRank4Hom c N) N = D0 c N + D0 corr N := by
+    unfold D0 clayRank4Hom
+    exact Finset.sum_add_distrib
+  have hD0'_add : D0_deriv (clayRank4Hom c N) N = D0_deriv c N + D0_deriv corr N := by
+    unfold D0_deriv clayRank4Hom
+    have hpt : ∀ k ∈ Finset.Icc 1 N, (c k + corr k) * Real.log (k : ℝ) =
+        c k * Real.log (k : ℝ) + corr k * Real.log (k : ℝ) := fun k _ => by ring
+    rw [Finset.sum_congr rfl hpt, Finset.sum_add_distrib]
+    ring
+  have hD1_add : D1 (clayRank4Hom c N) N = D1 c N + D1 corr N := by
+    unfold D1 clayRank4Hom
+    have hpt : ∀ k ∈ Finset.Icc 1 N, (c k + corr k) / (k : ℝ) =
+        c k / (k : ℝ) + corr k / (k : ℝ) := fun k _ => by ring
+    rw [Finset.sum_congr rfl hpt, Finset.sum_add_distrib]
+  have hD1'_add : D1_deriv (clayRank4Hom c N) N = D1_deriv c N + D1_deriv corr N := by
+    unfold D1_deriv clayRank4Hom
+    have hpt : ∀ k ∈ Finset.Icc 1 N, (c k + corr k) * Real.log (k : ℝ) / (k : ℝ) =
+        c k * Real.log (k : ℝ) / (k : ℝ) + corr k * Real.log (k : ℝ) / (k : ℝ) := fun k _ => by ring
+    rw [Finset.sum_congr rfl hpt, Finset.sum_add_distrib]
+    ring
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · rw [hD0_add, D0_w_rank4_corrector _ _ _ _ N hN]; ring
+  · rw [hD0'_add, D0_deriv_w_rank4_corrector _ _ _ _ N hN]; ring
+  · rw [hD1_add, D1_w_rank4_corrector _ _ _ _ N hN]; ring
+  · rw [hD1'_add, D1_deriv_w_rank4_corrector _ _ _ _ N hN]; ring
+
+/-- Pointwise affine decomposition `clayRank4Lock c N k = clayRank4Base k + clayRank4Hom c N k`. -/
+theorem clayRank4Lock_eq_base_add_hom (c : ℕ → ℝ) (N : ℕ) (k : ℕ) :
+    clayRank4Lock c N k = clayRank4Base k + clayRank4Hom c N k := by
+  unfold clayRank4Lock clayRank4Base clayRank4Hom w_rank4_corrector
+  dsimp only
+  split_ifs <;> ring
+
+/-- Stability of the Clay boundary manifold under addition of any scaled homogeneous nullspace
+vector `α • v`. -/
+theorem satisfiesClayBoundaryConditions_add_of_homogeneous
+    (c v : ℕ → ℝ) (N : ℕ) (α : ℝ)
+    (hc : SatisfiesClayBoundaryConditions c N)
+    (hv : SatisfiesHomogeneousClayConditions v N) :
+    SatisfiesClayBoundaryConditions (fun k => c k + α * v k) N := by
+  rcases hc with ⟨hc0, hc0', hc1, hc1'⟩
+  rcases hv with ⟨hv0, hv0', hv1, hv1'⟩
+  have hD0 : D0 (fun k => c k + α * v k) N = D0 c N + α * D0 v N := by
+    unfold D0
+    rw [Finset.sum_add_distrib, ← Finset.mul_sum]
+  have hD0' : D0_deriv (fun k => c k + α * v k) N = D0_deriv c N + α * D0_deriv v N := by
+    unfold D0_deriv
+    have hpt : ∀ k ∈ Finset.Icc 1 N, (c k + α * v k) * Real.log (k : ℝ) =
+        c k * Real.log (k : ℝ) + α * (v k * Real.log (k : ℝ)) := fun k _ => by ring
+    rw [Finset.sum_congr rfl hpt, Finset.sum_add_distrib, ← Finset.mul_sum]
+    ring
+  have hD1 : D1 (fun k => c k + α * v k) N = D1 c N + α * D1 v N := by
+    unfold D1
+    have hpt : ∀ k ∈ Finset.Icc 1 N, (c k + α * v k) / (k : ℝ) =
+        c k / (k : ℝ) + α * (v k / (k : ℝ)) := fun k _ => by ring
+    rw [Finset.sum_congr rfl hpt, Finset.sum_add_distrib, ← Finset.mul_sum]
+  have hD1' : D1_deriv (fun k => c k + α * v k) N = D1_deriv c N + α * D1_deriv v N := by
+    unfold D1_deriv
+    have hpt : ∀ k ∈ Finset.Icc 1 N, (c k + α * v k) * Real.log (k : ℝ) / (k : ℝ) =
+        c k * Real.log (k : ℝ) / (k : ℝ) + α * (v k * Real.log (k : ℝ) / (k : ℝ)) := fun k _ => by ring
+    rw [Finset.sum_congr rfl hpt, Finset.sum_add_distrib, ← Finset.mul_sum]
+    ring
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · rw [hD0, hc0, hv0]; ring
+  · rw [hD0', hc0', hv0']; ring
+  · rw [hD1, hc1, hv1]; ring
+  · rw [hD1', hc1', hv1']; ring
+
+/-- Along any ray `c + α • v` where `c` satisfies the Clay boundary conditions and `v` lies in the
+homogeneous boundary nullspace, the full decomposed Vasyunin energy reduces identically to
+`1 + Q_cot_quad G_cot (fun k => c k + α * v k) N`. -/
+theorem vasyunin_energy_add_hom_eq_one_add_Q_cot_quad (gamma_E : ℝ) (G_cot : ℕ → ℕ → ℝ)
+    (c v : ℕ → ℝ) (N : ℕ) (α : ℝ)
+    (hc : SatisfiesClayBoundaryConditions c N)
+    (hv : SatisfiesHomogeneousClayConditions v N) :
+    1 - 2 * (∑ k ∈ Finset.Icc 1 N, (c k + α * v k) * bVasyunin k gamma_E) +
+      (∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N,
+        (c j + α * v j) * (c k + α * v k) * GVasyuninDecomp gamma_E G_cot j k) =
+      1 + Q_cot_quad G_cot (fun k => c k + α * v k) N := by
+  have h_add := satisfiesClayBoundaryConditions_add_of_homogeneous c v N α hc hv
+  have h_decomp := vasyunin_energy_eq_E_BDR_of_decomp gamma_E G_cot (fun k => c k + α * v k) N
+  rw [h_decomp]
+  exact (clay_four_part_equilibrium_identity (fun k => c k + α * v k) N gamma_E
+    (Q_cot_quad G_cot (fun k => c k + α * v k) N) h_add).2.2.2
+
 end BoundaryFunctionals
 
 section Rank4AndL2Calculus
