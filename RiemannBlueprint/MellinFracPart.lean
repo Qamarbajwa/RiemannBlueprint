@@ -830,6 +830,165 @@ theorem mellin_recipFract_unit_interval_of_one_lt_re (s : ℂ) (hs_gt_one : 1 < 
     simpa [sub_zero, one_mul, div_eq_mul_inv, mul_comm] using h12
   exact mellin_recipFract_unit_interval_of_tendsto_rhs s hs_pos hs_ne_one h_rhs
 
+/-- Single harmonic sub-interval `recipFract` integral identity (`n ≥ 1`, `0 < Re(s)`, `s ≠ 1`). -/
+theorem integral_Ioc_harmonic_recipFract_cpow (n : ℕ) (hn : 1 ≤ n) (s : ℂ)
+    (hs_pos : 0 < s.re) (hs_ne_one : s ≠ 1) :
+    ∫ x in Ioc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ)), (recipFract x : ℂ) * (x : ℂ) ^ (s - 1) =
+      harmonicUnitSummand s n := by
+  have hn_pos : (0 : ℝ) < n := Nat.cast_pos.mpr hn
+  have hn1_pos : (0 : ℝ) < (n : ℝ) + 1 := by linarith
+  have hle : 1 / ((n : ℝ) + 1) ≤ 1 / (n : ℝ) :=
+    one_div_le_one_div_of_le hn_pos (by linarith)
+  have hdecomp :
+      (fun x : ℝ => (recipFract x : ℂ) * (x : ℂ) ^ (s - 1)) =
+        (fun x : ℝ => ((1 / x : ℝ) : ℂ) * (x : ℂ) ^ (s - 1) -
+          ((⌊1 / x⌋ : ℤ) : ℂ) * (x : ℂ) ^ (s - 1)) := by
+    ext x
+    unfold recipFract Int.fract
+    push_cast
+    ring
+  have hint1 : IntegrableOn (fun x : ℝ => ((1 / x : ℝ) : ℂ) * (x : ℂ) ^ (s - 1))
+      (Ioc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ))) := by
+    have hcont : ContinuousOn (fun x : ℝ => ((1 / x : ℝ) : ℂ) * (x : ℂ) ^ (s - 1))
+        (Icc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ))) := by
+      refine ContinuousOn.mul ?_ (fun x hx => ?_)
+      · refine Complex.continuous_ofReal.comp_continuousOn ?_
+        exact continuousOn_const.div continuousOn_id (fun x hx => by
+          have hx_pos : 0 < x := lt_of_lt_of_le (one_div_pos.mpr hn1_pos) hx.1
+          exact hx_pos.ne')
+      · have hx_pos : 0 < x := lt_of_lt_of_le (one_div_pos.mpr hn1_pos) hx.1
+        exact (Complex.continuousAt_ofReal_cpow_const _ _ (Or.inr hx_pos.ne')).continuousWithinAt
+    exact hcont.integrableOn_Icc.mono_set Ioc_subset_Icc_self
+  have hint2 := integrableOn_Ioc_harmonic_floor_cpow n hn s
+  have hinv :
+      ∫ x in Ioc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ)), ((1 / x : ℝ) : ℂ) * (x : ℂ) ^ (s - 1) =
+        ((n : ℂ) ^ (1 - s) - ((n + 1 : ℕ) : ℂ) ^ (1 - s)) / (s - 1) := by
+    have hcongr :
+        ∫ x in Ioc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ)), ((1 / x : ℝ) : ℂ) * (x : ℂ) ^ (s - 1) =
+          ∫ x in Ioc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ)), (x : ℂ) ^ (s - 2) := by
+      refine setIntegral_congr_fun measurableSet_Ioc (fun x hx => ?_)
+      have hx_pos : 0 < x := lt_of_lt_of_le (one_div_pos.mpr hn1_pos) hx.1.le
+      push_cast
+      rw [one_div, ← Complex.cpow_neg_one]
+      have hx_ne : (x : ℂ) ≠ 0 := Complex.ofReal_ne_zero.mpr hx_pos.ne'
+      rw [← Complex.cpow_add _ _ hx_ne]
+      congr 1
+      ring
+    rw [hcongr, ← intervalIntegral.integral_of_le hle]
+    have hs2_ne : s - 2 ≠ -1 := by
+      intro h
+      apply hs_ne_one
+      linear_combination h
+    have h0_not_mem : (0 : ℝ) ∉ uIcc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ)) := by
+      rw [uIcc_of_le hle, mem_Icc]
+      intro h0
+      linarith [one_div_pos.mpr hn1_pos, h0.1]
+    rw [integral_cpow (Or.inr ⟨hs2_ne, h0_not_mem⟩)]
+    have hs21 : s - 2 + 1 = s - 1 := by ring
+    rw [hs21]
+    have inv_cpow_nat : ∀ m : ℕ, ((1 / (m : ℝ) : ℝ) : ℂ) ^ (s - 1) = (m : ℂ) ^ (1 - s) := by
+      intro m
+      push_cast
+      have harg : (m : ℂ).arg ≠ Real.pi := by
+        rw [← Complex.ofReal_natCast, Complex.arg_ofReal_of_nonneg (Nat.cast_nonneg m)]
+        exact Real.pi_ne_zero.symm
+      rw [one_div, Complex.inv_cpow_eq_ite, ite_eq_right_iff.mpr (fun h => absurd h harg),
+        ← Complex.cpow_neg]
+      congr 1
+      ring
+    have h1 : ((1 / (n : ℝ) : ℝ) : ℂ) ^ (s - 1) = (n : ℂ) ^ (1 - s) := inv_cpow_nat n
+    have h2 : ((1 / ((n : ℝ) + 1) : ℝ) : ℂ) ^ (s - 1) = ((n + 1 : ℕ) : ℂ) ^ (1 - s) := by
+      simpa [Nat.cast_add, Nat.cast_one] using inv_cpow_nat (n + 1)
+    rw [h1, h2]
+  rw [hdecomp, integral_sub hint1 hint2, hinv, integral_Ioc_harmonic_floor_cpow n hn s hs_pos]
+  rfl
+
+/-- Telescoping `L¹` norm bound on `harmonicUnitSummand s n` (`n ≥ 1`, `0 < Re(s)`, `s ≠ 1`). -/
+theorem norm_harmonicUnitSummand_le (n : ℕ) (hn : 1 ≤ n) (s : ℂ)
+    (hs_pos : 0 < s.re) (hs_ne_one : s ≠ 1) :
+    ‖harmonicUnitSummand s n‖ ≤
+      ((n : ℝ) ^ (-s.re) - ((n + 1 : ℕ) : ℝ) ^ (-s.re)) / s.re := by
+  rw [← integral_Ioc_harmonic_recipFract_cpow n hn s hs_pos hs_ne_one]
+  have hn_pos : (0 : ℝ) < n := Nat.cast_pos.mpr hn
+  have hn1_pos : (0 : ℝ) < (n : ℝ) + 1 := by linarith
+  have hle : 1 / ((n : ℝ) + 1) ≤ 1 / (n : ℝ) :=
+    one_div_le_one_div_of_le hn_pos (by linarith)
+  have hsub : Ioc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ)) ⊆ Ioc (0 : ℝ) 1 :=
+    Ioc_subset_Ioc (by positivity) (div_le_one_of_le₀ (by exact_mod_cast hn) (by positivity))
+  have hint_fn : IntegrableOn (fun x : ℝ => (recipFract x : ℂ) * (x : ℂ) ^ (s - 1))
+      (Ioc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ))) :=
+    (integrableOn_Ioc_recipFract_cpow s hs_pos).mono_set hsub
+  have hint_rpow : IntegrableOn (fun x : ℝ => x ^ (s.re - 1))
+      (Ioc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ))) := by
+    have hcont : ContinuousOn (fun x : ℝ => x ^ (s.re - 1))
+        (Icc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ))) := fun x hx =>
+      (Real.continuousAt_rpow_const _ _
+        (Or.inl (lt_of_lt_of_le (one_div_pos.mpr hn1_pos) hx.1).ne')).continuousWithinAt
+    exact hcont.integrableOn_Icc.mono_set Ioc_subset_Icc_self
+  have hle_int :
+      ∫ x in Ioc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ)), ‖(recipFract x : ℂ) * (x : ℂ) ^ (s - 1)‖ ≤
+        ∫ x in Ioc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ)), x ^ (s.re - 1) := by
+    refine setIntegral_mono_on hint_fn.norm hint_rpow measurableSet_Ioc (fun x hx => ?_)
+    have hx_pos : 0 < x := lt_of_lt_of_le (one_div_pos.mpr hn1_pos) hx.1.le
+    rw [norm_mul, Complex.norm_cpow_eq_rpow_re_of_pos hx_pos]
+    have hre : (s - 1).re = s.re - 1 := by simp [Complex.sub_re]
+    rw [hre]
+    calc
+      ‖(recipFract x : ℂ)‖ * x ^ (s.re - 1) ≤ 1 * x ^ (s.re - 1) :=
+        mul_le_mul_of_nonneg_right (norm_recipFract_le_one x) (Real.rpow_nonneg hx_pos.le _)
+      _ = x ^ (s.re - 1) := one_mul _
+  have hval :
+      ∫ x in Ioc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ)), x ^ (s.re - 1) =
+        ((n : ℝ) ^ (-s.re) - ((n + 1 : ℕ) : ℝ) ^ (-s.re)) / s.re := by
+    rw [← intervalIntegral.integral_of_le hle,
+      integral_rpow (Or.inl (by linarith : (-1 : ℝ) < s.re - 1))]
+    have hs1 : s.re - 1 + 1 = s.re := by ring
+    rw [hs1]
+    have inv_rpow_nat : ∀ m : ℕ, (1 / (m : ℝ)) ^ s.re = (m : ℝ) ^ (-s.re) := fun m => by
+      rw [one_div, Real.inv_rpow (Nat.cast_nonneg m), Real.rpow_neg (Nat.cast_nonneg m)]
+    have h1 := inv_rpow_nat n
+    have h2 : (1 / ((n : ℝ) + 1)) ^ s.re = ((n + 1 : ℕ) : ℝ) ^ (-s.re) := by
+      simpa [Nat.cast_add, Nat.cast_one] using inv_rpow_nat (n + 1)
+    rw [h1, h2]
+  exact (norm_integral_le_integral_norm _).trans (hle_int.trans hval.le)
+
+/-- Partial sums of `harmonicUnitSummand s` converge to the unit-interval `recipFract`
+Mellin integral across all `0 < Re(s)` (`s ≠ 1`). -/
+theorem tendsto_sum_harmonicUnitSummand_eq_unit_integral (s : ℂ)
+    (hs_pos : 0 < s.re) (hs_ne_one : s ≠ 1) :
+    Tendsto (fun M : ℕ => ∑ n ∈ Finset.Ico 1 (M + 1), harmonicUnitSummand s n)
+      atTop (nhds (∫ x in Ioc (0 : ℝ) 1, (recipFract x : ℂ) * (x : ℂ) ^ (s - 1))) := by
+  have hs_ne_zero : s ≠ 0 := by
+    intro h
+    rw [h] at hs_pos
+    simp at hs_pos
+  have heq : (fun M : ℕ => ∑ n ∈ Finset.Ico 1 (M + 1), harmonicUnitSummand s n) =
+      truncatedTitchmarshRHS s := by
+    ext M
+    exact sum_harmonicUnitSummand_eq_truncatedTitchmarshRHS s hs_ne_zero hs_ne_one M
+  rw [heq]
+  exact tendsto_truncatedTitchmarshRHS_eq_unit s hs_pos hs_ne_one
+
+/-- Critical-strip analytic continuation bridge: if the harmonic series `harmonicUnitSummand s`
+converges to `1 / (s - 1) - riemannZeta s / s`, then both `h_unit` and `mellin_frac_part_eq_neg_zeta_div`
+hold on `0 < Re(s) < 1`. -/
+theorem riemannZeta_eq_of_harmonicUnitSummand (s : ℂ)
+    (hs_pos : 0 < s.re) (hs_lt_one : s.re < 1)
+    (h_sum : Tendsto (fun M : ℕ => ∑ n ∈ Finset.Ico 1 (M + 1), harmonicUnitSummand s n)
+      atTop (nhds (1 / (s - 1) - riemannZeta s / s))) :
+    (∫ x in Ioc (0 : ℝ) 1, (recipFract x : ℂ) * (x : ℂ) ^ (s - 1) =
+      1 / (s - 1) - riemannZeta s / s) ∧
+    (∫ x in Ioi (0 : ℝ), (recipFract x : ℂ) * (x : ℂ) ^ (s - 1) = -(riemannZeta s / s)) := by
+  have hs_ne_one : s ≠ 1 := by
+    intro h
+    rw [h] at hs_lt_one
+    simp at hs_lt_one
+  have h_unit :
+      ∫ x in Ioc (0 : ℝ) 1, (recipFract x : ℂ) * (x : ℂ) ^ (s - 1) =
+        1 / (s - 1) - riemannZeta s / s :=
+    tendsto_nhds_unique (tendsto_sum_harmonicUnitSummand_eq_unit_integral s hs_pos hs_ne_one) h_sum
+  exact ⟨h_unit, mellin_frac_part_eq_neg_zeta_div s hs_pos hs_lt_one h_unit⟩
+
 #print axioms norm_recipFract_le_one
 #print axioms integrableOn_Ioc_recipFract_cpow
 #print axioms integrableOn_Ioi_recipFract_cpow
@@ -860,5 +1019,9 @@ theorem mellin_recipFract_unit_interval_of_one_lt_re (s : ℂ) (hs_gt_one : 1 < 
 #print axioms sum_harmonicUnitSummand_eq_truncatedTitchmarshRHS
 #print axioms tendsto_sum_Ico_cpow_neg_eq_riemannZeta
 #print axioms mellin_recipFract_unit_interval_of_one_lt_re
+#print axioms integral_Ioc_harmonic_recipFract_cpow
+#print axioms norm_harmonicUnitSummand_le
+#print axioms tendsto_sum_harmonicUnitSummand_eq_unit_integral
+#print axioms riemannZeta_eq_of_harmonicUnitSummand
 
 end NumberTheory.MellinFracPart
