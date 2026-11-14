@@ -219,6 +219,39 @@ theorem RiemannHypothesis.of_clayRank4Base_add_hom_Q_cot_quad_limit
     _root_.RiemannHypothesis :=
   CMIAudit.clayRank4Base_add_hom_Q_cot_quad_implies_rh G_cot u_seq α_seq h_bd_le h_cot_lim
 
+/-- **13. Optimal 1D Homogeneous Nullspace Step Forward Theorem:**
+For symmetric `G_cot` and directions `u_seq`, if `v_N = clayRank4Hom (u_seq N) N` has
+`A_N = Q_cot_quad G_cot v_N N ≠ 0`, `L²(clayRank4Base + (-B_N / A_N) • v_N) ≤ 1 + Q_cot_quad`
+for `N ≥ 4`, and `Q_cot_quad clayRank4Base - B_N^2 / A_N → -1`, then `_root_.RiemannHypothesis` holds. -/
+theorem RiemannHypothesis.of_clayRank4Base_opt_step_limit
+    (G_cot : ℕ → ℕ → ℝ) (hG_symm : ∀ j k, G_cot j k = G_cot k j)
+    (u_seq : ℕ → (ℕ → ℝ))
+    (hA : ∀ N, 4 ≤ N →
+      RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N) N ≠ 0)
+    (h_bd_le : ∀ N, 4 ≤ N →
+      let v := RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N
+      let B := RiemannBlueprint.Section8_VasyuninBDR.B_cot_bilinear G_cot
+        RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base v N
+      let A := RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot v N
+      (∫ x in Set.Ioo (0 : ℝ) 1,
+        ‖1 - ∑ k ∈ Finset.Icc 1 N,
+          ((RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k + (-B / A) * v k : ℝ) : ℂ) *
+            (NumberTheory.MellinFracPart.recipFractScaled k x : ℂ)‖ ^ 2) ≤
+        1 + RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k + (-B / A) * v k) N)
+    (h_opt_lim : Filter.Tendsto
+      (fun N =>
+        let v := RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N
+        let B := RiemannBlueprint.Section8_VasyuninBDR.B_cot_bilinear G_cot
+          RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base v N
+        let A := RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot v N
+        RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+          RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base N - B ^ 2 / A)
+      Filter.atTop (nhds (-1))) :
+    _root_.RiemannHypothesis :=
+  CMIAudit.clayRank4Base_opt_step_implies_rh G_cot hG_symm u_seq hA h_bd_le h_opt_lim
+
 #print axioms riemannZeta_eq_tsum_harmonicUnitSummand
 #print axioms mellin_recipFract_unit_interval
 #print axioms riemannZeta_conj_of_pos_re
@@ -232,5 +265,6 @@ theorem RiemannHypothesis.of_clayRank4Base_add_hom_Q_cot_quad_limit
 #print axioms RiemannHypothesis.of_clayRank4Lock_cotangent_limit
 #print axioms RiemannHypothesis.of_clayRank4Lock_Q_cot_quad_limit
 #print axioms RiemannHypothesis.of_clayRank4Base_add_hom_Q_cot_quad_limit
+#print axioms RiemannHypothesis.of_clayRank4Base_opt_step_limit
 
 end MathlibPR.NymanBeurling

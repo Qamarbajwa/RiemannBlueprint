@@ -1368,6 +1368,64 @@ theorem clayRank4Base_add_hom_Q_cot_quad_implies_rh
     α_seq N * RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N k : ℝ) : ℂ),
     (h_bd_le N hN4).trans_lt hQ_lt⟩
 
+/-- Bridge Theorem 7 — Optimal 1D Homogeneous Nullspace Step Forward Theorem:
+for symmetric `G_cot` and unconstrained directions `u_seq`, let
+`v_N = clayRank4Hom (u_seq N) N`, `B_N = B_cot_bilinear G_cot clayRank4Base v_N N`, and
+`A_N = Q_cot_quad G_cot v_N N`. If `A_N ≠ 0` and the `L²(0, 1)` residual at
+`clayRank4Base + (-B_N / A_N) • v_N` is bounded by its decomposed cotangent energy for all `N ≥ 4`,
+and `Q_cot_quad G_cot clayRank4Base N - B_N ^ 2 / A_N → -1`, then `_root_.RiemannHypothesis` holds. -/
+theorem clayRank4Base_opt_step_implies_rh
+    (G_cot : ℕ → ℕ → ℝ) (hG_symm : ∀ j k, G_cot j k = G_cot k j)
+    (u_seq : ℕ → (ℕ → ℝ))
+    (hA : ∀ N, 4 ≤ N →
+      RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N) N ≠ 0)
+    (h_bd_le : ∀ N, 4 ≤ N →
+      let v := RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N
+      let B := RiemannBlueprint.Section8_VasyuninBDR.B_cot_bilinear G_cot
+        RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base v N
+      let A := RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot v N
+      (∫ x in Set.Ioo (0 : ℝ) 1,
+        ‖1 - ∑ k ∈ Finset.Icc 1 N,
+          ((RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k + (-B / A) * v k : ℝ) : ℂ) *
+            (NumberTheory.MellinFracPart.recipFractScaled k x : ℂ)‖ ^ 2) ≤
+        1 + RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k + (-B / A) * v k) N)
+    (h_opt_lim : Filter.Tendsto
+      (fun N =>
+        let v := RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N
+        let B := RiemannBlueprint.Section8_VasyuninBDR.B_cot_bilinear G_cot
+          RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base v N
+        let A := RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot v N
+        RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+          RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base N - B ^ 2 / A)
+      Filter.atTop (nhds (-1))) :
+    _root_.RiemannHypothesis := by
+  refine baezDuarte_implies_rh fun ε hε => ?_
+  have h_met := Metric.tendsto_atTop.mp h_opt_lim ε hε
+  rcases h_met with ⟨N0, hN0⟩
+  let N := max N0 4
+  have hN4 : 4 ≤ N := le_max_right _ _
+  let v := RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N
+  let B := RiemannBlueprint.Section8_VasyuninBDR.B_cot_bilinear G_cot
+    RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base v N
+  let A := RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot v N
+  have h_opt : RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+      (fun k => RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k + (-B / A) * v k) N =
+      RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base N - B ^ 2 / A :=
+    RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad_opt_step G_cot hG_symm
+      RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base v N (hA N hN4)
+  have hQ_lt : 1 + RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+      (fun k => RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k + (-B / A) * v k) N < ε := by
+    rw [h_opt]
+    have h1 := hN0 N (le_max_left _ _)
+    rw [Real.dist_eq, sub_neg_eq_add, abs_lt, add_comm] at h1
+    exact h1.2
+  exact ⟨N, fun k =>
+    ((RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k + (-B / A) * v k : ℝ) : ℂ),
+    (h_bd_le N hN4).trans_lt hQ_lt⟩
+
 #print axioms riemannHypothesis_iff_collapse_zero
 #print axioms collapse_zero_implies_rh_strip
 #print axioms cmi_criterion1_spectral_residual_eq
@@ -1400,5 +1458,6 @@ theorem clayRank4Base_add_hom_Q_cot_quad_implies_rh
 #print axioms clayRank4Lock_cotangent_implies_rh
 #print axioms clayRank4Lock_Q_cot_quad_implies_rh
 #print axioms clayRank4Base_add_hom_Q_cot_quad_implies_rh
+#print axioms clayRank4Base_opt_step_implies_rh
 
 end CMIAudit

@@ -950,6 +950,81 @@ theorem vasyunin_energy_add_hom_eq_one_add_Q_cot_quad (gamma_E : ℝ) (G_cot : �
   exact (clay_four_part_equilibrium_identity (fun k => c k + α * v k) N gamma_E
     (Q_cot_quad G_cot (fun k => c k + α * v k) N) h_add).2.2.2
 
+/-- Bilinear cotangent pairing `u^T G_cot v` on `Finset.Icc 1 N`. -/
+def B_cot_bilinear (G_cot : ℕ → ℕ → ℝ) (u v : ℕ → ℝ) (N : ℕ) : ℝ :=
+  ∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N, u j * v k * G_cot j k
+
+/-- Symmetric bilinear expansion of `Q_cot_quad` along `u + α • v`. -/
+theorem Q_cot_quad_add_smul (G_cot : ℕ → ℕ → ℝ)
+    (hG_symm : ∀ j k, G_cot j k = G_cot k j) (u v : ℕ → ℝ) (N : ℕ) (α : ℝ) :
+    Q_cot_quad G_cot (fun k => u k + α * v k) N =
+      Q_cot_quad G_cot u N + 2 * α * B_cot_bilinear G_cot u v N +
+        α ^ 2 * Q_cot_quad G_cot v N := by
+  unfold Q_cot_quad B_cot_bilinear
+  have h_symm_sum :
+      (∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N, v j * u k * G_cot j k) =
+        ∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N, u j * v k * G_cot j k := by
+    rw [Finset.sum_comm]
+    refine Finset.sum_congr rfl fun j _ => Finset.sum_congr rfl fun k _ => ?_
+    rw [hG_symm k j]
+    ring
+  have h_inner : ∀ j ∈ Finset.Icc 1 N,
+      (∑ k ∈ Finset.Icc 1 N, (u j + α * v j) * (u k + α * v k) * G_cot j k) =
+        (∑ k ∈ Finset.Icc 1 N, u j * u k * G_cot j k) +
+          α * (∑ k ∈ Finset.Icc 1 N, u j * v k * G_cot j k) +
+          α * (∑ k ∈ Finset.Icc 1 N, v j * u k * G_cot j k) +
+          α ^ 2 * (∑ k ∈ Finset.Icc 1 N, v j * v k * G_cot j k) := by
+    intro j _
+    have hpt : ∀ k ∈ Finset.Icc 1 N,
+        (u j + α * v j) * (u k + α * v k) * G_cot j k =
+          (u j * u k * G_cot j k + α * (u j * v k * G_cot j k)) +
+            (α * (v j * u k * G_cot j k) + α ^ 2 * (v j * v k * G_cot j k)) := fun k _ => by ring
+    rw [Finset.sum_congr rfl hpt, Finset.sum_add_distrib, Finset.sum_add_distrib,
+      Finset.sum_add_distrib, ← Finset.mul_sum, ← Finset.mul_sum, ← Finset.mul_sum]
+    ring
+  rw [Finset.sum_congr rfl h_inner, Finset.sum_add_distrib, Finset.sum_add_distrib,
+    Finset.sum_add_distrib, ← Finset.mul_sum, ← Finset.mul_sum, ← Finset.mul_sum, h_symm_sum]
+  ring
+
+/-- Optimal 1D step `α* = -B / A` along direction `v` minimizes `Q_cot_quad` to `Q_cot_quad u - B^2 / A`. -/
+theorem Q_cot_quad_opt_step (G_cot : ℕ → ℕ → ℝ)
+    (hG_symm : ∀ j k, G_cot j k = G_cot k j) (u v : ℕ → ℝ) (N : ℕ)
+    (hA : Q_cot_quad G_cot v N ≠ 0) :
+    let B := B_cot_bilinear G_cot u v N
+    let A := Q_cot_quad G_cot v N
+    Q_cot_quad G_cot (fun k => u k + (-B / A) * v k) N =
+      Q_cot_quad G_cot u N - B ^ 2 / A := by
+  intro B A
+  rw [Q_cot_quad_add_smul G_cot hG_symm u v N (-B / A)]
+  change Q_cot_quad G_cot u N + 2 * (-B / A) * B + (-B / A) ^ 2 * A =
+    Q_cot_quad G_cot u N - B ^ 2 / A
+  rw [div_pow, div_mul_eq_mul_div, neg_sq, sq A, mul_div_mul_right (B ^ 2) A hA]
+  simp only [div_eq_mul_inv]
+  ring
+
+/-- Along `clayRank4Base + (-B / A) • v` for any homogeneous vector `v`, the full decomposed Vasyunin
+energy equals `1 + Q_cot_quad G_cot clayRank4Base N - B^2 / A`. -/
+theorem vasyunin_energy_clayRank4Base_opt_step (gamma_E : ℝ) (G_cot : ℕ → ℕ → ℝ)
+    (hG_symm : ∀ j k, G_cot j k = G_cot k j) (v : ℕ → ℝ) (N : ℕ)
+    (hN : 4 ≤ N) (hv : SatisfiesHomogeneousClayConditions v N)
+    (hA : Q_cot_quad G_cot v N ≠ 0) :
+    let B := B_cot_bilinear G_cot clayRank4Base v N
+    let A := Q_cot_quad G_cot v N
+    1 - 2 * (∑ k ∈ Finset.Icc 1 N, (clayRank4Base k + (-B / A) * v k) * bVasyunin k gamma_E) +
+      (∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N,
+        (clayRank4Base j + (-B / A) * v j) * (clayRank4Base k + (-B / A) * v k) *
+          GVasyuninDecomp gamma_E G_cot j k) =
+      1 + Q_cot_quad G_cot clayRank4Base N - B ^ 2 / A := by
+  intro B A
+  have h_base := clayRank4Base_satisfies_clay N hN
+  have h_en := vasyunin_energy_add_hom_eq_one_add_Q_cot_quad gamma_E G_cot
+    clayRank4Base v N (-B / A) h_base hv
+  have h_opt : Q_cot_quad G_cot (fun k => clayRank4Base k + (-B / A) * v k) N =
+      Q_cot_quad G_cot clayRank4Base N - B ^ 2 / A :=
+    Q_cot_quad_opt_step G_cot hG_symm clayRank4Base v N hA
+  rw [h_en, h_opt]
+  ring
+
 end BoundaryFunctionals
 
 section Rank4AndL2Calculus

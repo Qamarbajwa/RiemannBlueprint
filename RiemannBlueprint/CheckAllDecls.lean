@@ -166,6 +166,11 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check RiemannBlueprint.Section8_VasyuninBDR.satisfiesClayBoundaryConditions_add_of_homogeneous
 #check RiemannBlueprint.Section8_VasyuninBDR.vasyunin_energy_add_hom_eq_one_add_Q_cot_quad
 #check CMIAudit.clayRank4Base_add_hom_Q_cot_quad_implies_rh
+#check RiemannBlueprint.Section8_VasyuninBDR.B_cot_bilinear
+#check RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad_add_smul
+#check RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad_opt_step
+#check RiemannBlueprint.Section8_VasyuninBDR.vasyunin_energy_clayRank4Base_opt_step
+#check CMIAudit.clayRank4Base_opt_step_implies_rh
 
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
 #print axioms RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic
@@ -266,3 +271,7 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.satisfiesClayBoundaryConditions_add_of_homogeneous
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.vasyunin_energy_add_hom_eq_one_add_Q_cot_quad
 #print axioms CMIAudit.clayRank4Base_add_hom_Q_cot_quad_implies_rh
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad_add_smul
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad_opt_step
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.vasyunin_energy_clayRank4Base_opt_step
+#print axioms CMIAudit.clayRank4Base_opt_step_implies_rh
