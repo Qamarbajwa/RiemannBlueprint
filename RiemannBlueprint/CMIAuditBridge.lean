@@ -175,6 +175,54 @@ theorem tendsto_baezDuarteDistSq_zero_of_test_vector (D : ℕ → ℝ)
     Filter.Tendsto (baezDuarteDistSq D) Filter.atTop (nhds 0) :=
   squeeze_zero h_nonneg h_ub h_lim
 
+/-- Scaling `c_k = α * v_k` in `vasyuninQuadraticEnergy` yields a 1D quadratic in `α`. -/
+theorem vasyuninQuadraticEnergy_smul (G : ℕ → ℕ → ℝ) (b : ℕ → ℝ) (N : ℕ)
+    (v : ℕ → ℝ) (α : ℝ) :
+    vasyuninQuadraticEnergy G b N (fun k => α * v k) =
+      1 - 2 * α * (∑ k ∈ Finset.Ico 1 (N + 1), v k * b k) +
+      α ^ 2 * (∑ j ∈ Finset.Ico 1 (N + 1), ∑ k ∈ Finset.Ico 1 (N + 1), v j * v k * G j k) := by
+  unfold vasyuninQuadraticEnergy
+  have h1 : ∑ k ∈ Finset.Ico 1 (N + 1), α * v k * b k =
+      α * ∑ k ∈ Finset.Ico 1 (N + 1), v k * b k := by
+    rw [Finset.mul_sum]
+    refine Finset.sum_congr rfl (fun k _ => ?_)
+    ring
+  have h2 : ∑ j ∈ Finset.Ico 1 (N + 1), ∑ k ∈ Finset.Ico 1 (N + 1), (α * v j) * (α * v k) * G j k =
+      α ^ 2 * ∑ j ∈ Finset.Ico 1 (N + 1), ∑ k ∈ Finset.Ico 1 (N + 1), v j * v k * G j k := by
+    rw [Finset.mul_sum]
+    refine Finset.sum_congr rfl (fun j _ => ?_)
+    rw [Finset.mul_sum]
+    refine Finset.sum_congr rfl (fun k _ => ?_)
+    ring
+  rw [h1, h2]
+  ring
+
+/-- Optimal 1D Rayleigh–Ritz scalar step `α* = B / A` reduces `vasyuninQuadraticEnergy`
+to `1 - B ^ 2 / A` without inverting `G_N`. -/
+theorem vasyuninQuadraticEnergy_rayleigh_ritz (G : ℕ → ℕ → ℝ) (b : ℕ → ℝ) (N : ℕ)
+    (v : ℕ → ℝ)
+    (hA : (∑ j ∈ Finset.Ico 1 (N + 1), ∑ k ∈ Finset.Ico 1 (N + 1), v j * v k * G j k) ≠ 0) :
+    let B := ∑ k ∈ Finset.Ico 1 (N + 1), v k * b k
+    let A := ∑ j ∈ Finset.Ico 1 (N + 1), ∑ k ∈ Finset.Ico 1 (N + 1), v j * v k * G j k
+    vasyuninQuadraticEnergy G b N (fun k => (B / A) * v k) = 1 - B ^ 2 / A := by
+  intro B A
+  rw [vasyuninQuadraticEnergy_smul]
+  change 1 - 2 * (B / A) * B + (B / A) ^ 2 * A = 1 - B ^ 2 / A
+  field_simp [hA]
+  ring
+
+/-- Rayleigh–Ritz upper bound corollary for `baezDuarteDistSq D N`. -/
+theorem baezDuarteDistSq_le_one_sub_rayleigh_ritz (D : ℕ → ℝ)
+    (G : ℕ → ℕ → ℝ) (b : ℕ → ℝ) (N : ℕ) (v : ℕ → ℝ)
+    (h_ub : ∀ c : ℕ → ℝ, baezDuarteDistSq D N ≤ vasyuninQuadraticEnergy G b N c)
+    (hA : (∑ j ∈ Finset.Ico 1 (N + 1), ∑ k ∈ Finset.Ico 1 (N + 1), v j * v k * G j k) ≠ 0) :
+    let B := ∑ k ∈ Finset.Ico 1 (N + 1), v k * b k
+    let A := ∑ j ∈ Finset.Ico 1 (N + 1), ∑ k ∈ Finset.Ico 1 (N + 1), v j * v k * G j k
+    baezDuarteDistSq D N ≤ 1 - B ^ 2 / A := by
+  intro B A
+  rw [← vasyuninQuadraticEnergy_rayleigh_ritz G b N v hA]
+  exact h_ub (fun k => (B / A) * v k)
+
 /-- CMI Criterion 1 Mellin spectral residual bridge for any critical-strip coordinate
 `s : ℂ` (`InCriticalStrip s`), directly invoking `mellin_baezDuarte_residual_eq`. -/
 theorem cmi_criterion1_spectral_residual_eq (N : ℕ) (c : ℕ → ℂ) (s : ℂ)
@@ -200,5 +248,8 @@ theorem cmi_criterion1_spectral_residual_eq (N : ℕ) (c : ℕ → ℂ) (s : ℂ
 #print axioms offlineZeroCauchyFloor_of_szego
 #print axioms rh_of_szego_and_collapse_zero
 #print axioms tendsto_baezDuarteDistSq_zero_of_test_vector
+#print axioms vasyuninQuadraticEnergy_smul
+#print axioms vasyuninQuadraticEnergy_rayleigh_ritz
+#print axioms baezDuarteDistSq_le_one_sub_rayleigh_ritz
 
 end CMIAudit
