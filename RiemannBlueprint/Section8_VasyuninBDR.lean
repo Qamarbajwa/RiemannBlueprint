@@ -292,6 +292,50 @@ theorem affineLock_pure_cotangent_identity (c : ℕ → ℝ) (N : ℕ) (gamma_E 
   affine_bdr_pure_cotangent_identity (affineLock c N) N gamma_E Q_cot
     (D1_affineLock_eq_zero c N hN hD1) (D0_affineLock_eq_two c N hN)
 
+/-- Total BDR squared residual functional `E_N(c)` with smooth Gram + cotangent term `Q_cot`. -/
+noncomputable def E_BDR (c : ℕ → ℝ) (N : ℕ) (gamma_E Q_cot : ℝ) : ℝ :=
+  1 - 2 * (∑ k ∈ Finset.Icc 1 N, c k * bVasyunin k gamma_E) +
+    (∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N, c j * c k * GSmooth gamma_E j k) + Q_cot
+
+/-- Asymptotic cotangent-limit bridge on `A_N`: for any sequence `c_seq N ∈ A_N` (`N ≥ 2`),
+`E_BDR (c_seq N) N gamma_E (Q_cot_seq N) → 0` if and only if `Q_cot_seq N → -1`. -/
+theorem tendsto_E_BDR_zero_iff_tendsto_Q_cot_neg_one
+    (c_seq : ℕ → (ℕ → ℝ)) (Q_cot_seq : ℕ → ℝ) (gamma_E : ℝ)
+    (hD1 : ∀ N, 2 ≤ N → D1 (c_seq N) N = 0)
+    (hD0 : ∀ N, 2 ≤ N → D0 (c_seq N) N = 2) :
+    Filter.Tendsto (fun N => E_BDR (c_seq N) N gamma_E (Q_cot_seq N)) Filter.atTop (nhds 0) ↔
+      Filter.Tendsto Q_cot_seq Filter.atTop (nhds (-1)) := by
+  have hev : ∀ᶠ N in Filter.atTop,
+      E_BDR (c_seq N) N gamma_E (Q_cot_seq N) = 1 + Q_cot_seq N := by
+    rw [Filter.eventually_atTop]
+    refine ⟨2, fun N hN => ?_⟩
+    exact affine_bdr_pure_cotangent_identity (c_seq N) N gamma_E (Q_cot_seq N)
+      (hD1 N hN) (hD0 N hN)
+  rw [Filter.tendsto_congr' hev]
+  constructor
+  · intro h
+    have hsub := h.sub_const (1 : ℝ)
+    have heq : (fun N => (1 + Q_cot_seq N) - 1) = Q_cot_seq := by
+      ext N; ring
+    rw [heq] at hsub
+    simpa using hsub
+  · intro h
+    have hadd := h.const_add (1 : ℝ)
+    simpa using hadd
+
+/-- Asymptotic cotangent-limit bridge for `affineLock`: given only `D1 (c_seq N) N = 0` for
+`N ≥ 2`, `E_BDR (affineLock (c_seq N) N) N gamma_E (Q_cot_seq N) → 0` iff `Q_cot_seq N → -1`. -/
+theorem tendsto_E_BDR_affineLock_zero_iff_tendsto_Q_cot_neg_one
+    (c_seq : ℕ → (ℕ → ℝ)) (Q_cot_seq : ℕ → ℝ) (gamma_E : ℝ)
+    (hD1 : ∀ N, 2 ≤ N → D1 (c_seq N) N = 0) :
+    Filter.Tendsto (fun N => E_BDR (affineLock (c_seq N) N) N gamma_E (Q_cot_seq N))
+        Filter.atTop (nhds 0) ↔
+      Filter.Tendsto Q_cot_seq Filter.atTop (nhds (-1)) :=
+  tendsto_E_BDR_zero_iff_tendsto_Q_cot_neg_one
+    (fun N => affineLock (c_seq N) N) Q_cot_seq gamma_E
+    (fun N hN => D1_affineLock_eq_zero (c_seq N) N hN (hD1 N hN))
+    (fun N hN => D0_affineLock_eq_two (c_seq N) N hN)
+
 end BoundaryFunctionals
 
 section Rank4AndL2Calculus
