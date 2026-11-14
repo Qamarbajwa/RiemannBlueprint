@@ -377,6 +377,65 @@ theorem mellin_baezDuarte_residual_eq (N : ℕ) (c : ℕ → ℂ) (s : ℂ)
   rw [mellin_indicator_Ioc_one s hs_pos, mellin_vasyunin_sum_eq N c s hs_pos hs_lt_one h_unit]
   ring
 
+/-- Power integral on a single harmonic sub-interval `Ioc (1 / (n + 1)) (1 / n)`
+for `n ≥ 1` and `0 < Re(s)`. -/
+lemma integral_Ioc_harmonic_cpow (n : ℕ) (hn : 1 ≤ n) (s : ℂ) (hs_pos : 0 < s.re) :
+    ∫ x in Ioc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ)), (x : ℂ) ^ (s - 1) =
+      ((n : ℂ) ^ (-s) - ((n + 1 : ℕ) : ℂ) ^ (-s)) / s := by
+  have hn_pos : (0 : ℝ) < n := Nat.cast_pos.mpr hn
+  have hle : 1 / ((n : ℝ) + 1) ≤ 1 / (n : ℝ) :=
+    one_div_le_one_div_of_le hn_pos (by linarith)
+  rw [← intervalIntegral.integral_of_le hle]
+  have hs_sub : (-1 : ℝ) < (s - 1).re := by
+    simp [Complex.sub_re]
+    linarith
+  rw [integral_cpow (Or.inl hs_sub)]
+  have hs1 : s - 1 + 1 = s := by ring
+  rw [hs1]
+  have inv_cpow_nat : ∀ m : ℕ, ((1 / (m : ℝ) : ℝ) : ℂ) ^ s = (m : ℂ) ^ (-s) := by
+    intro m
+    push_cast
+    have harg : (m : ℂ).arg ≠ Real.pi := by
+      rw [← Complex.ofReal_natCast, Complex.arg_ofReal_of_nonneg (Nat.cast_nonneg m)]
+      exact Real.pi_ne_zero.symm
+    rw [one_div, Complex.inv_cpow_eq_ite, if_neg harg, Complex.cpow_neg]
+  have h1 : ((1 / (n : ℝ) : ℝ) : ℂ) ^ s = (n : ℂ) ^ (-s) := inv_cpow_nat n
+  have h2 : ((1 / ((n : ℝ) + 1) : ℝ) : ℂ) ^ s = ((n + 1 : ℕ) : ℂ) ^ (-s) := by
+    simpa [Nat.cast_add, Nat.cast_one] using inv_cpow_nat (n + 1)
+  rw [h1, h2]
+
+/-- Floor integral on a single harmonic sub-interval `Ioc (1 / (n + 1)) (1 / n)`
+for `n ≥ 1` and `0 < Re(s)`. -/
+theorem integral_Ioc_harmonic_floor_cpow (n : ℕ) (hn : 1 ≤ n) (s : ℂ) (hs_pos : 0 < s.re) :
+    ∫ x in Ioc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ)), ((⌊1 / x⌋ : ℤ) : ℂ) * (x : ℂ) ^ (s - 1) =
+      (n : ℂ) / s * ((n : ℂ) ^ (-s) - ((n + 1 : ℕ) : ℂ) ^ (-s)) := by
+  have hae : ∀ᵐ (x : ℝ) ∂(volume.restrict (Ioc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ)))),
+      ((⌊1 / x⌋ : ℤ) : ℂ) * (x : ℂ) ^ (s - 1) = (n : ℂ) * (x : ℂ) ^ (s - 1) := by
+    have hdiff : ∀ᵐ x ∂volume, x ∈ Ioc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ)) →
+        x ∈ Ioo (1 / ((n : ℝ) + 1)) (1 / (n : ℝ)) := by
+      have hne : ∀ᵐ x ∂volume, x ≠ (1 / (n : ℝ)) := ae_iff.mpr (by simp [measure_singleton])
+      filter_upwards [hne] with x hne hx
+      exact ⟨hx.1, lt_of_le_of_ne hx.2 hne⟩
+    rw [ae_restrict_iff' measurableSet_Ioc]
+    filter_upwards [hdiff] with x hx_imp hx_ioc
+    rw [floor_one_div_eq_of_mem_Ioo hn (hx_imp hx_ioc)]
+    simp
+  rw [integral_congr_ae hae, integral_const_mul, integral_Ioc_harmonic_cpow n hn s hs_pos]
+  ring
+
+/-- Finite harmonic sum of floor integrals over `n ∈ [1, M]` (`0 < Re(s)`). -/
+theorem sum_integral_Ioc_harmonic_floor_eq (M : ℕ) (s : ℂ) (hs_pos : 0 < s.re) :
+    ∑ n ∈ Finset.Ico 1 (M + 1),
+      (∫ x in Ioc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ)), ((⌊1 / x⌋ : ℤ) : ℂ) * (x : ℂ) ^ (s - 1)) =
+      (1 / s) * ((∑ n ∈ Finset.Ico 1 (M + 1), (n : ℂ) ^ (-s)) - (M : ℂ) * ((M + 1 : ℕ) : ℂ) ^ (-s)) := by
+  have hs_ne : s ≠ 0 := by
+    intro h
+    rw [h] at hs_pos
+    simp at hs_pos
+  rw [Finset.sum_congr rfl (fun n hn =>
+    integral_Ioc_harmonic_floor_cpow n (Finset.mem_Ico.mp hn).1 s hs_pos)]
+  exact sum_harmonic_floor_integral_eq s hs_ne M
+
 #print axioms norm_recipFract_le_one
 #print axioms integrableOn_Ioc_recipFract_cpow
 #print axioms integrableOn_Ioi_recipFract_cpow
@@ -391,5 +450,8 @@ theorem mellin_baezDuarte_residual_eq (N : ℕ) (c : ℕ → ℂ) (s : ℂ)
 #print axioms integrableOn_Ioi_recipFractScaled_cpow
 #print axioms mellin_vasyunin_sum_eq
 #print axioms mellin_baezDuarte_residual_eq
+#print axioms integral_Ioc_harmonic_cpow
+#print axioms integral_Ioc_harmonic_floor_cpow
+#print axioms sum_integral_Ioc_harmonic_floor_eq
 
 end NumberTheory.MellinFracPart
