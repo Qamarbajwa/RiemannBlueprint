@@ -1182,6 +1182,145 @@ theorem vasyunin_energy_clayRank4Base_eq_add_sum_phiCotBase_of_galerkin
     Q_cot_quad_eq_neg_sum_phiCotBase_of_galerkin G_cot v N hN hv_gal]
   ring
 
+/-- Scalar multiples of a homogeneous nullspace vector remain in the homogeneous nullspace. -/
+theorem satisfiesHomogeneousClayConditions_smul (v : ℕ → ℝ) (N : ℕ) (α : ℝ)
+    (hv : SatisfiesHomogeneousClayConditions v N) :
+    SatisfiesHomogeneousClayConditions (fun k => α * v k) N := by
+  rcases hv with ⟨hv0, hv0', hv1, hv1'⟩
+  have hD0 : D0 (fun k => α * v k) N = α * D0 v N := by
+    unfold D0
+    rw [← Finset.mul_sum]
+  have hD0' : D0_deriv (fun k => α * v k) N = α * D0_deriv v N := by
+    unfold D0_deriv
+    have hpt : ∀ k ∈ Finset.Icc 1 N, α * v k * Real.log (k : ℝ) =
+        α * (v k * Real.log (k : ℝ)) := fun k _ => by ring
+    rw [Finset.sum_congr rfl hpt, ← Finset.mul_sum]
+    ring
+  have hD1 : D1 (fun k => α * v k) N = α * D1 v N := by
+    unfold D1
+    have hpt : ∀ k ∈ Finset.Icc 1 N, α * v k / (k : ℝ) =
+        α * (v k / (k : ℝ)) := fun k _ => by ring
+    rw [Finset.sum_congr rfl hpt, ← Finset.mul_sum]
+  have hD1' : D1_deriv (fun k => α * v k) N = α * D1_deriv v N := by
+    unfold D1_deriv
+    have hpt : ∀ k ∈ Finset.Icc 1 N, α * v k * Real.log (k : ℝ) / (k : ℝ) =
+        α * (v k * Real.log (k : ℝ) / (k : ℝ)) := fun k _ => by ring
+    rw [Finset.sum_congr rfl hpt, ← Finset.mul_sum]
+    ring
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · rw [hD0, hv0, mul_zero]
+  · rw [hD0', hv0', mul_zero]
+  · rw [hD1, hv1, mul_zero]
+  · rw [hD1', hv1', mul_zero]
+
+/-- Right linearity of `B_cot_bilinear` under scalar multiplication `α • v`. -/
+theorem B_cot_bilinear_smul_right (G_cot : ℕ → ℕ → ℝ) (u v : ℕ → ℝ) (N : ℕ) (α : ℝ) :
+    B_cot_bilinear G_cot u (fun k => α * v k) N = α * B_cot_bilinear G_cot u v N := by
+  unfold B_cot_bilinear
+  rw [Finset.mul_sum]
+  refine Finset.sum_congr rfl fun j _ => ?_
+  rw [Finset.mul_sum]
+  refine Finset.sum_congr rfl fun k _ => ?_
+  ring
+
+/-- Quadratic scaling `Q_cot_quad G_cot (α • v) N = α ^ 2 * Q_cot_quad G_cot v N`. -/
+theorem Q_cot_quad_smul (G_cot : ℕ → ℕ → ℝ) (v : ℕ → ℝ) (N : ℕ) (α : ℝ) :
+    Q_cot_quad G_cot (fun k => α * v k) N = α ^ 2 * Q_cot_quad G_cot v N := by
+  unfold Q_cot_quad
+  rw [Finset.mul_sum]
+  refine Finset.sum_congr rfl fun j _ => ?_
+  rw [Finset.mul_sum]
+  refine Finset.sum_congr rfl fun k _ => ?_
+  ring
+
+/-- Automatic Galerkin stationarity along any ray `v` with `Q_cot_quad G_cot v N ≠ 0`:
+scaling `v` by `α* = -B / A` satisfies `SatisfiesCotGalerkin` identically. -/
+theorem satisfiesCotGalerkin_opt_smul (G_cot : ℕ → ℕ → ℝ) (u v : ℕ → ℝ) (N : ℕ)
+    (hA : Q_cot_quad G_cot v N ≠ 0) :
+    let B := B_cot_bilinear G_cot u v N
+    let A := Q_cot_quad G_cot v N
+    SatisfiesCotGalerkin G_cot u (fun k => (-B / A) * v k) N := by
+  intro B A
+  unfold SatisfiesCotGalerkin
+  rw [B_cot_bilinear_smul_right G_cot u v N (-B / A),
+    Q_cot_quad_smul G_cot v N (-B / A)]
+  change (-B / A) * B + (-B / A) ^ 2 * A = 0
+  have hA' : A ≠ 0 := hA
+  field_simp [hA']
+  ring
+
+/-- The 1D base-potential Rayleigh quotient `(∑_{k=1}^N v(k) Φ_base(k))^2 / Q_cot_quad(v, N)`. -/
+noncomputable def phiCotRayQuotient (G_cot : ℕ → ℕ → ℝ) (v : ℕ → ℝ) (N : ℕ) : ℝ :=
+  (∑ k ∈ Finset.Icc 1 N, v k * phiCotBase G_cot k) ^ 2 / Q_cot_quad G_cot v N
+
+/-- Canonical Galerkin-scaled homogeneous projection of an arbitrary vector `u`:
+projects `u` onto `h = clayRank4Hom u N` and scales by
+`α* = -(∑_{m=1}^N h(m) Φ_base(m)) / Q_cot_quad(h, N)`. -/
+noncomputable def clayRank4GalerkinRay (G_cot : ℕ → ℕ → ℝ) (u : ℕ → ℝ) (N : ℕ) (k : ℕ) : ℝ :=
+  let h := clayRank4Hom u N
+  let S := ∑ m ∈ Finset.Icc 1 N, h m * phiCotBase G_cot m
+  let A := Q_cot_quad G_cot h N
+  (-S / A) * h k
+
+/-- For any raw vector `u` and `N ≥ 4`, `clayRank4GalerkinRay G_cot u N` automatically
+satisfies all four homogeneous Clay boundary conditions `(0, 0, 0, 0)`. -/
+theorem clayRank4GalerkinRay_satisfies_homogeneous
+    (G_cot : ℕ → ℕ → ℝ) (u : ℕ → ℝ) (N : ℕ) (hN : 4 ≤ N) :
+    SatisfiesHomogeneousClayConditions (clayRank4GalerkinRay G_cot u N) N := by
+  unfold clayRank4GalerkinRay
+  exact satisfiesHomogeneousClayConditions_smul (clayRank4Hom u N) N _
+    (clayRank4Hom_satisfies_homogeneous u N hN)
+
+/-- For any raw vector `u` and `N ≥ 4` with `Q_cot_quad G_cot (clayRank4Hom u N) N ≠ 0`,
+`clayRank4GalerkinRay G_cot u N` automatically satisfies `SatisfiesCotGalerkin` against
+`clayRank4Base`. -/
+theorem clayRank4GalerkinRay_satisfies_galerkin
+    (G_cot : ℕ → ℕ → ℝ) (u : ℕ → ℝ) (N : ℕ) (hN : 4 ≤ N)
+    (hA : Q_cot_quad G_cot (clayRank4Hom u N) N ≠ 0) :
+    SatisfiesCotGalerkin G_cot clayRank4Base (clayRank4GalerkinRay G_cot u N) N := by
+  have h_step := satisfiesCotGalerkin_opt_smul G_cot clayRank4Base (clayRank4Hom u N) N hA
+  dsimp only at h_step
+  rw [B_cot_bilinear_clayRank4Base_eq_sum_phiCotBase G_cot (clayRank4Hom u N) N hN] at h_step
+  exact h_step
+
+/-- Along `clayRank4Base + clayRank4GalerkinRay G_cot u N` (`N ≥ 4`), `Q_cot_quad` equals
+`Q_cot_quad G_cot clayRank4Base 4 - phiCotRayQuotient G_cot (clayRank4Hom u N) N`. -/
+theorem Q_cot_quad_add_clayRank4GalerkinRay_eq_sub_rayQuotient
+    (G_cot : ℕ → ℕ → ℝ) (hG_symm : ∀ j k, G_cot j k = G_cot k j)
+    (u : ℕ → ℝ) (N : ℕ) (hN : 4 ≤ N)
+    (hA : Q_cot_quad G_cot (clayRank4Hom u N) N ≠ 0) :
+    Q_cot_quad G_cot (fun k => clayRank4Base k + clayRank4GalerkinRay G_cot u N k) N =
+      Q_cot_quad G_cot clayRank4Base 4 -
+        phiCotRayQuotient G_cot (clayRank4Hom u N) N := by
+  have h_opt := Q_cot_quad_opt_step G_cot hG_symm clayRank4Base (clayRank4Hom u N) N hA
+  dsimp only at h_opt
+  rw [B_cot_bilinear_clayRank4Base_eq_sum_phiCotBase G_cot (clayRank4Hom u N) N hN,
+    Q_cot_quad_clayRank4Base_eq_four G_cot N hN] at h_opt
+  exact h_opt
+
+/-- Unconstrained 1D Rayleigh–Potential Energy Reduction:
+for any raw vector `u` and `N ≥ 4` with `Q_cot_quad G_cot (clayRank4Hom u N) N ≠ 0`,
+the full `N × N` decomposed Vasyunin energy at `clayRank4Base + clayRank4GalerkinRay G_cot u N`
+equals `(1 + Q_cot_quad G_cot clayRank4Base 4) - phiCotRayQuotient G_cot (clayRank4Hom u N) N`. -/
+theorem vasyunin_energy_clayRank4GalerkinRay_eq_sub_rayQuotient
+    (gamma_E : ℝ) (G_cot : ℕ → ℕ → ℝ)
+    (hG_symm : ∀ j k, G_cot j k = G_cot k j) (u : ℕ → ℝ) (N : ℕ) (hN : 4 ≤ N)
+    (hA : Q_cot_quad G_cot (clayRank4Hom u N) N ≠ 0) :
+    1 - 2 * (∑ k ∈ Finset.Icc 1 N,
+        (clayRank4Base k + clayRank4GalerkinRay G_cot u N k) * bVasyunin k gamma_E) +
+      (∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N,
+        (clayRank4Base j + clayRank4GalerkinRay G_cot u N j) *
+          (clayRank4Base k + clayRank4GalerkinRay G_cot u N k) *
+          GVasyuninDecomp gamma_E G_cot j k) =
+      (1 + Q_cot_quad G_cot clayRank4Base 4) -
+        phiCotRayQuotient G_cot (clayRank4Hom u N) N := by
+  have h_opt := vasyunin_energy_clayRank4Base_opt_step gamma_E G_cot hG_symm
+    (clayRank4Hom u N) N hN (clayRank4Hom_satisfies_homogeneous u N hN) hA
+  dsimp only at h_opt
+  rw [B_cot_bilinear_clayRank4Base_eq_sum_phiCotBase G_cot (clayRank4Hom u N) N hN,
+    Q_cot_quad_clayRank4Base_eq_four G_cot N hN] at h_opt
+  exact h_opt
+
 end BoundaryFunctionals
 
 section Rank4AndL2Calculus

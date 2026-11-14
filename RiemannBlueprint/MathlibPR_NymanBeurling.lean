@@ -311,6 +311,37 @@ theorem RiemannHypothesis.of_clayRank4Base_phiCotBase_pairing_limit
   CMIAudit.clayRank4Base_phiCotBase_pairing_limit_implies_rh
     G_cot hG_symm v_seq h_hom h_gal h_bd_le h_phi_lim
 
+/-- **16. Unconstrained 1D Rayleigh–Potential Saturation Forward Theorem:**
+For symmetric `G_cot` and any unconstrained sequence `u_seq` with nonzero cotangent norm on
+`h_N = clayRank4Hom (u_seq N) N`, `clayRank4GalerkinRay` automatically satisfies all four
+homogeneous boundary conditions and cotangent Galerkin orthogonality. If
+`L²(clayRank4Base + clayRank4GalerkinRay G_cot (u_seq N) N) ≤ 1 + Q_cot_quad` for `N ≥ 4` and
+`phiCotRayQuotient G_cot h_N N → 1 + Q_cot_quad G_cot clayRank4Base 4`, then
+`_root_.RiemannHypothesis` holds. -/
+theorem RiemannHypothesis.of_clayRank4GalerkinRay_rayQuotient_limit
+    (G_cot : ℕ → ℕ → ℝ) (hG_symm : ∀ j k, G_cot j k = G_cot k j)
+    (u_seq : ℕ → (ℕ → ℝ))
+    (hA : ∀ N, 4 ≤ N →
+      RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N) N ≠ 0)
+    (h_bd_le : ∀ N, 4 ≤ N →
+      let v := RiemannBlueprint.Section8_VasyuninBDR.clayRank4GalerkinRay G_cot (u_seq N) N
+      (∫ x in Set.Ioo (0 : ℝ) 1,
+        ‖1 - ∑ k ∈ Finset.Icc 1 N,
+          ((RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k + v k : ℝ) : ℂ) *
+            (NumberTheory.MellinFracPart.recipFractScaled k x : ℂ)‖ ^ 2) ≤
+        1 + RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k + v k) N)
+    (h_ray_lim : Filter.Tendsto
+      (fun N => RiemannBlueprint.Section8_VasyuninBDR.phiCotRayQuotient G_cot
+        (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N) N)
+      Filter.atTop
+      (nhds (1 + RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base 4))) :
+    _root_.RiemannHypothesis :=
+  CMIAudit.clayRank4GalerkinRay_rayQuotient_limit_implies_rh
+    G_cot hG_symm u_seq hA h_bd_le h_ray_lim
+
 #print axioms riemannZeta_eq_tsum_harmonicUnitSummand
 #print axioms mellin_recipFract_unit_interval
 #print axioms riemannZeta_conj_of_pos_re
@@ -327,5 +358,6 @@ theorem RiemannHypothesis.of_clayRank4Base_phiCotBase_pairing_limit
 #print axioms RiemannHypothesis.of_clayRank4Base_opt_step_limit
 #print axioms RiemannHypothesis.of_clayRank4Base_galerkin_hom_limit
 #print axioms RiemannHypothesis.of_clayRank4Base_phiCotBase_pairing_limit
+#print axioms RiemannHypothesis.of_clayRank4GalerkinRay_rayQuotient_limit
 
 end MathlibPR.NymanBeurling

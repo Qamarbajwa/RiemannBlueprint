@@ -1535,6 +1535,61 @@ theorem clayRank4Base_phiCotBase_pairing_limit_implies_rh
     ((RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k + v_seq N k : ℝ) : ℂ),
     (h_bd_le N hN4).trans_lt hQ_lt⟩
 
+/-- Bridge Theorem 10 — Unconstrained 1D Rayleigh–Potential Saturation Forward Theorem:
+for symmetric `G_cot` and any unconstrained sequence `u_seq : ℕ → ℕ → ℝ` with
+`Q_cot_quad G_cot (clayRank4Hom (u_seq N) N) N ≠ 0` for `N ≥ 4`, `clayRank4GalerkinRay`
+automatically discharges both `SatisfiesHomogeneousClayConditions` and `SatisfiesCotGalerkin`.
+If the `L²(0, 1)` residual at `clayRank4Base + clayRank4GalerkinRay G_cot (u_seq N) N` is
+bounded by `1 + Q_cot_quad` and the 1D Rayleigh quotient
+`phiCotRayQuotient G_cot (clayRank4Hom (u_seq N) N) N` tends to
+`1 + Q_cot_quad G_cot clayRank4Base 4`, then `_root_.RiemannHypothesis` holds. -/
+theorem clayRank4GalerkinRay_rayQuotient_limit_implies_rh
+    (G_cot : ℕ → ℕ → ℝ) (hG_symm : ∀ j k, G_cot j k = G_cot k j)
+    (u_seq : ℕ → (ℕ → ℝ))
+    (hA : ∀ N, 4 ≤ N →
+      RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N) N ≠ 0)
+    (h_bd_le : ∀ N, 4 ≤ N →
+      let v := RiemannBlueprint.Section8_VasyuninBDR.clayRank4GalerkinRay G_cot (u_seq N) N
+      (∫ x in Set.Ioo (0 : ℝ) 1,
+        ‖1 - ∑ k ∈ Finset.Icc 1 N,
+          ((RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k + v k : ℝ) : ℂ) *
+            (NumberTheory.MellinFracPart.recipFractScaled k x : ℂ)‖ ^ 2) ≤
+        1 + RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k + v k) N)
+    (h_ray_lim : Filter.Tendsto
+      (fun N => RiemannBlueprint.Section8_VasyuninBDR.phiCotRayQuotient G_cot
+        (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N) N)
+      Filter.atTop
+      (nhds (1 + RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base 4))) :
+    _root_.RiemannHypothesis := by
+  refine baezDuarte_implies_rh fun ε hε => ?_
+  have h_met := Metric.tendsto_atTop.mp h_ray_lim ε hε
+  rcases h_met with ⟨N0, hN0⟩
+  let N := max N0 4
+  have hN4 : 4 ≤ N := le_max_right _ _
+  have _ := RiemannBlueprint.Section8_VasyuninBDR.clayRank4GalerkinRay_satisfies_homogeneous
+    G_cot (u_seq N) N hN4
+  have _ := RiemannBlueprint.Section8_VasyuninBDR.clayRank4GalerkinRay_satisfies_galerkin
+    G_cot (u_seq N) N hN4 (hA N hN4)
+  have h_ray_eq :=
+    RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad_add_clayRank4GalerkinRay_eq_sub_rayQuotient
+      G_cot hG_symm (u_seq N) N hN4 (hA N hN4)
+  let v := RiemannBlueprint.Section8_VasyuninBDR.clayRank4GalerkinRay G_cot (u_seq N) N
+  have hQ_lt : 1 + RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+      (fun k => RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k + v k) N < ε := by
+    change 1 + RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+      (fun k => RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k +
+        RiemannBlueprint.Section8_VasyuninBDR.clayRank4GalerkinRay G_cot (u_seq N) N k) N < ε
+    rw [h_ray_eq]
+    have h1 := hN0 N (le_max_left _ _)
+    rw [Real.dist_eq, abs_lt] at h1
+    linarith [h1.1]
+  exact ⟨N, fun k =>
+    ((RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k + v k : ℝ) : ℂ),
+    (h_bd_le N hN4).trans_lt hQ_lt⟩
+
 #print axioms riemannHypothesis_iff_collapse_zero
 #print axioms collapse_zero_implies_rh_strip
 #print axioms cmi_criterion1_spectral_residual_eq
@@ -1570,5 +1625,6 @@ theorem clayRank4Base_phiCotBase_pairing_limit_implies_rh
 #print axioms clayRank4Base_opt_step_implies_rh
 #print axioms clayRank4Base_galerkin_hom_limit_implies_rh
 #print axioms clayRank4Base_phiCotBase_pairing_limit_implies_rh
+#print axioms clayRank4GalerkinRay_rayQuotient_limit_implies_rh
 
 end CMIAudit
