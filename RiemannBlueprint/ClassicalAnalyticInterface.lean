@@ -49,10 +49,11 @@ def VonKochRemainderBound : Prop :=
 /--
 Transparent interface bundling the remaining external classical complex-analytic results
 not yet formalized in Mathlib4 (natural boundary of P(s)/ζ_C(s), Perron contour shift
-for RH → Mertens, and Riemann's Explicit Formula spectral equivalence). Notice that
-Littlewood's forward theorem (`MertensBound → RiemannHypothesis`) is now proved
-unconditionally in `LittlewoodForward.lean` without any field in this interface.
-No global `axiom` declarations are used anywhere.
+for RH → Mertens, and the converse Perron/explicit-formula direction RH → VonKoch).
+Notice that both forward directions (`MertensBound → RiemannHypothesis` in
+`LittlewoodForward.lean` and `VonKochRemainderBound → RiemannHypothesis` in
+`Section7_SpectralBridge.lean`) are now proved unconditionally without any field
+in this interface. No global `axiom` declarations are used anywhere.
 -/
 structure ClassicalAnalyticInterface : Prop where
   /-- Landau–Walfisz (1920) Natural Boundary of ζ_C(s) along the positive imaginary axis:
@@ -65,6 +66,6 @@ structure ClassicalAnalyticInterface : Prop where
   rh_implies_mertens_bound :
     _root_.RiemannHypothesis → MertensBound
   explicit_formula_spectral_equivalence :
-    _root_.RiemannHypothesis ↔ VonKochRemainderBound
+    _root_.RiemannHypothesis → VonKochRemainderBound
 
 end RiemannBlueprint

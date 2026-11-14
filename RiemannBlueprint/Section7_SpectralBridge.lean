@@ -51,20 +51,6 @@ theorem mixed_composites_von_mangoldt_vanish (n : ℕ) (hn : n ∈ MixedComposit
 /-- Definition 7.4: The Von Koch Remainder Bound of Order 1/2 + ε. -/
 abbrev VonKochRemainderBound : Prop := RiemannBlueprint.VonKochRemainderBound
 
-/-- Theorem 7.5 (Spectral Stability Theorem):
-Under the explicit classical analytic interface, the Riemann Hypothesis is equivalent
-to the optimal square-root remainder bound for Chebyshev's prime counting function. -/
-theorem spectral_stability_theorem (H : ClassicalAnalyticInterface) :
-    _root_.RiemannHypothesis ↔ VonKochRemainderBound :=
-  H.explicit_formula_spectral_equivalence
-
-/-- Theorem 7.6 (Master Dual-System Equivalence):
-The Mertens squarefree inversion bound is equivalent to the Chebyshev prime-power
-remainder bound via the spectral zeros of the Riemann zeta function. -/
-theorem master_dual_system_equivalence (H : ClassicalAnalyticInterface) :
-    MertensBound ↔ VonKochRemainderBound :=
-  (mertens_riemann_equivalence H).symm.trans (spectral_stability_theorem H)
-
 section VonKochMellinForward
 
 open Complex MeasureTheory Filter Asymptotics
@@ -632,5 +618,19 @@ theorem vonKoch_implies_rh (hVK : VonKochRemainderBound) :
   · exact h_nofail s hs_gt hs_zero
 
 end VonKochMellinForward
+
+/-- Theorem 7.5 (Spectral Stability Theorem):
+Forward direction (`VonKochRemainderBound → _root_.RiemannHypothesis`) is unconditional
+via `vonKoch_implies_rh`; converse assumes `H.explicit_formula_spectral_equivalence`. -/
+theorem spectral_stability_theorem (H : ClassicalAnalyticInterface) :
+    _root_.RiemannHypothesis ↔ VonKochRemainderBound :=
+  ⟨H.explicit_formula_spectral_equivalence, vonKoch_implies_rh⟩
+
+/-- Theorem 7.6 (Master Dual-System Equivalence):
+The Mertens squarefree inversion bound is equivalent to the Chebyshev prime-power
+remainder bound via the spectral zeros of the Riemann zeta function. -/
+theorem master_dual_system_equivalence (H : ClassicalAnalyticInterface) :
+    MertensBound ↔ VonKochRemainderBound :=
+  (mertens_riemann_equivalence H).symm.trans (spectral_stability_theorem H)
 
 end RiemannBlueprint.Section7_SpectralBridge
