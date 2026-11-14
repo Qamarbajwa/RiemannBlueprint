@@ -170,6 +170,106 @@ theorem constrained_nb_bdr_collapse (gamma_E Q_cot : ℝ) (c : ℕ → ℝ) (N :
   rw [full_bdr_distance_identity, hD1]
   ring
 
+/-- Linear Vasyunin RHS coefficient b_k = (log k + 1 - γ) / k. -/
+noncomputable def bVasyunin (k : ℕ) (gamma_E : ℝ) : ℝ :=
+  (Real.log (k : ℝ) + 1 - gamma_E) / (k : ℝ)
+
+/-- Theorem 8.6 (Boundary-Locked Affine Pure Cotangent Equivalence on A_N):
+When both D_N(1) = ∑ c_k / k = 0 and D_N(0) = ∑ c_k = 2 hold, the exact
+squared L^2 distance reduces unconditionally to 1 + Q_cot with zero smooth
+or logarithmic boundary terms. -/
+theorem affine_bdr_pure_cotangent_identity (c : ℕ → ℝ) (N : ℕ) (gamma_E Q_cot : ℝ)
+    (hD1 : D1 c N = 0) (hD0 : D0 c N = 2) :
+    1 - 2 * (∑ k ∈ Finset.Icc 1 N, c k * bVasyunin k gamma_E) +
+      (∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N, c j * c k * GSmooth gamma_E j k) + Q_cot =
+      1 + Q_cot := by
+  dsimp [bVasyunin]
+  rw [constrained_nb_bdr_collapse gamma_E Q_cot c N hD1, hD0]
+  ring
+
+/-- 2-sparse boundary corrector w^{(N)} supported on {1, N} for N ≥ 2:
+w_1 = -1/(N - 1), w_N = N/(N - 1), and 0 otherwise. -/
+noncomputable def w_corrector (N k : ℕ) : ℝ :=
+  if k = 1 then -1 / ((N : ℝ) - 1)
+  else if k = N then (N : ℝ) / ((N : ℝ) - 1)
+  else 0
+
+private theorem sum_pair_support_Icc (f : ℕ → ℝ) (N : ℕ) (hN : 2 ≤ N)
+    (hzero : ∀ k ∈ Finset.Icc 1 N, k ≠ 1 → k ≠ N → f k = 0) :
+    ∑ k ∈ Finset.Icc 1 N, f k = f 1 + f N := by
+  have hsub : ({1, N} : Finset ℕ) ⊆ Finset.Icc 1 N := by
+    intro k hk
+    rcases Finset.mem_insert.mp hk with rfl | hk'
+    · exact Finset.mem_Icc.mpr ⟨le_rfl, by omega⟩
+    · rw [Finset.mem_singleton.mp hk']
+      exact Finset.mem_Icc.mpr ⟨by omega, le_rfl⟩
+  have h1N : (1 : ℕ) ≠ N := by omega
+  rw [← Finset.sum_subset hsub]
+  · exact Finset.sum_pair h1N
+  · intro k hk hnotin
+    apply hzero k hk
+    · intro hk1
+      exact hnotin (by simp [hk1])
+    · intro hkN
+      exact hnotin (by simp [hkN])
+
+/-- The 2-sparse corrector shifts D_N(0) by exactly 1 for all N ≥ 2. -/
+theorem D0_w_corrector_eq_one (N : ℕ) (hN : 2 ≤ N) : D0 (w_corrector N) N = 1 := by
+  unfold D0
+  rw [sum_pair_support_Icc _ N hN]
+  · have hNm1 : (N : ℝ) - 1 ≠ 0 := by
+      have : (2 : ℝ) ≤ (N : ℝ) := by exact_mod_cast hN
+      linarith
+    have h1N : (1 : ℕ) ≠ N := by omega
+    simp only [w_corrector, ↓reduceIte, h1N.symm]
+    field_simp [hNm1]
+    ring
+  · intro k _ hk1 hkN
+    simp [w_corrector, hk1, hkN]
+
+/-- The 2-sparse corrector preserves the Nyman-Beurling constraint D_N(1) = 0 for all N ≥ 2. -/
+theorem D1_w_corrector_eq_zero (N : ℕ) (hN : 2 ≤ N) : D1 (w_corrector N) N = 0 := by
+  unfold D1
+  rw [sum_pair_support_Icc _ N hN]
+  · have hN0 : (N : ℝ) ≠ 0 := by
+      have : (2 : ℝ) ≤ (N : ℝ) := by exact_mod_cast hN
+      linarith
+    have hNm1 : (N : ℝ) - 1 ≠ 0 := by
+      have : (2 : ℝ) ≤ (N : ℝ) := by exact_mod_cast hN
+      linarith
+    have h1N : (1 : ℕ) ≠ N := by omega
+    simp only [w_corrector, ↓reduceIte, h1N.symm]
+    field_simp [hN0, hNm1]
+    ring
+  · intro k _ hk1 hkN
+    simp [w_corrector, hk1, hkN]
+
+/-- Affine boundary-lock projection c ↦ c + (2 - D_N(0)) w^{(N)} onto A_N. -/
+noncomputable def affineLock (c : ℕ → ℝ) (N k : ℕ) : ℝ :=
+  c k + (2 - D0 c N) * w_corrector N k
+
+/-- For any vector c and N ≥ 2, the affineLock projection satisfies D_N(0) = 2. -/
+theorem D0_affineLock_eq_two (c : ℕ → ℝ) (N : ℕ) (hN : 2 ≤ N) :
+    D0 (affineLock c N) N = 2 := by
+  unfold D0 affineLock
+  simp_rw [Finset.sum_add_distrib, ← Finset.mul_sum]
+  change D0 c N + (2 - D0 c N) * D0 (w_corrector N) N = 2
+  rw [D0_w_corrector_eq_one N hN]
+  ring
+
+/-- For any Nyman-Beurling constrained vector c (D_N(1) = 0) and N ≥ 2,
+the affineLock projection preserves D_N(1) = 0. -/
+theorem D1_affineLock_eq_zero (c : ℕ → ℝ) (N : ℕ) (hN : 2 ≤ N) (hD1 : D1 c N = 0) :
+    D1 (affineLock c N) N = 0 := by
+  unfold D1 affineLock
+  have hadd :
+      ∑ k ∈ Finset.Icc 1 N, (c k + (2 - D0 c N) * w_corrector N k) / (k : ℝ) =
+        D1 c N + (2 - D0 c N) * D1 (w_corrector N) N := by
+    unfold D1
+    simp_rw [add_div, Finset.sum_add_distrib, mul_div_assoc, ← Finset.mul_sum]
+  rw [hadd, hD1, D1_w_corrector_eq_zero N hN]
+  ring
+
 end BoundaryFunctionals
 
 section Rank4AndL2Calculus
