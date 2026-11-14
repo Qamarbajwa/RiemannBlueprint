@@ -178,6 +178,11 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad_add_of_galerkin
 #check RiemannBlueprint.Section8_VasyuninBDR.vasyunin_energy_clayRank4Base_of_galerkin
 #check CMIAudit.clayRank4Base_galerkin_hom_limit_implies_rh
+#check RiemannBlueprint.Section8_VasyuninBDR.phiCotBase
+#check RiemannBlueprint.Section8_VasyuninBDR.B_cot_bilinear_clayRank4Base_eq_sum_phiCotBase
+#check RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad_eq_neg_sum_phiCotBase_of_galerkin
+#check RiemannBlueprint.Section8_VasyuninBDR.vasyunin_energy_clayRank4Base_eq_add_sum_phiCotBase_of_galerkin
+#check CMIAudit.clayRank4Base_phiCotBase_pairing_limit_implies_rh
 
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
 #print axioms RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic
@@ -288,3 +293,7 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad_add_of_galerkin
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.vasyunin_energy_clayRank4Base_of_galerkin
 #print axioms CMIAudit.clayRank4Base_galerkin_hom_limit_implies_rh
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.B_cot_bilinear_clayRank4Base_eq_sum_phiCotBase
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad_eq_neg_sum_phiCotBase_of_galerkin
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.vasyunin_energy_clayRank4Base_eq_add_sum_phiCotBase_of_galerkin
+#print axioms CMIAudit.clayRank4Base_phiCotBase_pairing_limit_implies_rh
