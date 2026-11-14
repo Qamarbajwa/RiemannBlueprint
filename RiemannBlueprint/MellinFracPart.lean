@@ -264,6 +264,119 @@ theorem mellin_recipFractScaled_eq (k : ℕ) (hk : 1 ≤ k) (s : ℂ)
         rw [hpow_s]
         field_simp [hk_ne, hpow_ne]
 
+/-- Unity indicator Mellin transform on `Ioc 0 1` for `0 < Re(s)`:
+`∫ x in Ioc 0 1, (x : ℂ) ^ (s - 1) = 1 / s`. -/
+theorem mellin_indicator_Ioc_one (s : ℂ) (hs_pos : 0 < s.re) :
+    ∫ x in Ioc (0 : ℝ) 1, (x : ℂ) ^ (s - 1) = 1 / s := by
+  have hs_ne : s ≠ 0 := by
+    intro h
+    rw [h] at hs_pos
+    simp at hs_pos
+  rw [← intervalIntegral.integral_of_le (by norm_num : (0 : ℝ) ≤ 1)]
+  have hs_sub : (-1 : ℝ) < (s - 1).re := by
+    simp [Complex.sub_re]
+    linarith
+  have hcp := integral_cpow (a := (0 : ℝ)) (b := (1 : ℝ)) (Or.inl hs_sub)
+  rw [hcp]
+  have hs1 : s - 1 + 1 = s := by ring
+  rw [hs1, Complex.ofReal_one, Complex.one_cpow, Complex.ofReal_zero, Complex.zero_cpow hs_ne, sub_zero]
+
+/-- Integrability of the `k`-th scaled Vasyunin kernel on `Ioi 0` for `k ≥ 1`
+and `0 < Re(s) < 1`. -/
+lemma integrableOn_Ioi_recipFractScaled_cpow (k : ℕ) (hk : 1 ≤ k) (s : ℂ)
+    (hs_pos : 0 < s.re) (hs_lt_one : s.re < 1) :
+    IntegrableOn (fun x : ℝ => (recipFractScaled k x : ℂ) * (x : ℂ) ^ (s - 1)) (Ioi (0 : ℝ)) := by
+  have hk_pos : (0 : ℝ) < k := Nat.cast_pos.mpr hk
+  have hk_ne : (k : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr (Nat.pos_iff_ne_zero.mp hk)
+  have hpow_ne : (k : ℂ) ^ (s - 1) ≠ 0 := Complex.cpow_ne_zero_iff.mpr (Or.inl hk_ne)
+  have hunion : Ioi (0 : ℝ) = Ioc (0 : ℝ) 1 ∪ Ioi 1 := by
+    ext x
+    simp only [mem_Ioi, mem_union, mem_Ioc]
+    constructor
+    · intro hx
+      rcases le_or_gt x 1 with hle | hgt
+      · exact Or.inl ⟨hx, hle⟩
+      · exact Or.inr hgt
+    · rintro (⟨hx, _⟩ | hx)
+      · exact hx
+      · linarith
+  have hint_unscaled : IntegrableOn (fun u : ℝ => (recipFract u : ℂ) * (u : ℂ) ^ (s - 1)) (Ioi (0 : ℝ)) := by
+    rw [hunion]
+    exact (integrableOn_Ioc_recipFract_cpow s hs_pos).union (integrableOn_Ioi_recipFract_cpow s hs_lt_one)
+  rw [← integrable_indicator_iff measurableSet_Ioi] at hint_unscaled ⊢
+  have hcomp := hint_unscaled.comp_mul_left' hk_pos.ne'
+  have hscale :
+      Integrable (fun x : ℝ =>
+        ((k : ℂ) ^ (s - 1))⁻¹ *
+          ((Ioi (0 : ℝ)).indicator (fun u : ℝ => (recipFract u : ℂ) * (u : ℂ) ^ (s - 1)) ((k : ℝ) * x))) :=
+    hcomp.const_mul ((k : ℂ) ^ (s - 1))⁻¹
+  refine hscale.congr (ae_of_all _ (fun x => ?_))
+  dsimp only
+  by_cases hx : x ∈ Ioi (0 : ℝ)
+  · have hkx : (k : ℝ) * x ∈ Ioi (0 : ℝ) := mul_pos hk_pos hx
+    rw [indicator_of_mem hx, indicator_of_mem hkx]
+    have hcp : (((k : ℝ) * x : ℝ) : ℂ) ^ (s - 1) = (k : ℂ) ^ (s - 1) * (x : ℂ) ^ (s - 1) := by
+      push_cast
+      exact Complex.mul_cpow_ofReal_nonneg hk_pos.le (mem_Ioi.mp hx).le (s - 1)
+    rw [hcp]
+    change ((k : ℂ) ^ (s - 1))⁻¹ * ((recipFract ((k : ℝ) * x) : ℂ) * ((k : ℂ) ^ (s - 1) * (x : ℂ) ^ (s - 1))) =
+      (recipFractScaled k x : ℂ) * (x : ℂ) ^ (s - 1)
+    unfold recipFractScaled recipFract
+    field_simp [hpow_ne]
+  · have hkx : (k : ℝ) * x ∉ Ioi (0 : ℝ) := by
+      intro hmem
+      apply hx
+      exact (mul_pos_iff_of_pos_left hk_pos).mp hmem
+    rw [indicator_of_notMem hx, indicator_of_notMem hkx, mul_zero]
+
+/-- Finite `N`-term Vasyunin subspace combination Mellin transform (`0 < Re(s) < 1`). -/
+theorem mellin_vasyunin_sum_eq (N : ℕ) (c : ℕ → ℂ) (s : ℂ)
+    (hs_pos : 0 < s.re) (hs_lt_one : s.re < 1)
+    (h_unit : ∫ x in Ioc (0 : ℝ) 1, (recipFract x : ℂ) * (x : ℂ) ^ (s - 1) =
+      1 / (s - 1) - riemannZeta s / s) :
+    ∫ x in Ioi (0 : ℝ), (∑ k ∈ Finset.Ico 1 (N + 1), c k * (recipFractScaled k x : ℂ)) * (x : ℂ) ^ (s - 1) =
+      -(riemannZeta s / s) * ∑ k ∈ Finset.Ico 1 (N + 1), c k * (k : ℂ) ^ (-s) := by
+  have hsum_eq :
+      (fun x : ℝ => (∑ k ∈ Finset.Ico 1 (N + 1), c k * (recipFractScaled k x : ℂ)) * (x : ℂ) ^ (s - 1)) =
+        fun x : ℝ => ∑ k ∈ Finset.Ico 1 (N + 1), c k * ((recipFractScaled k x : ℂ) * (x : ℂ) ^ (s - 1)) := by
+    ext x
+    rw [Finset.sum_mul]
+    refine Finset.sum_congr rfl (fun k _ => ?_)
+    ring
+  rw [hsum_eq, integral_finsetSum]
+  · calc
+      ∑ k ∈ Finset.Ico 1 (N + 1),
+          ∫ x in Ioi (0 : ℝ), c k * ((recipFractScaled k x : ℂ) * (x : ℂ) ^ (s - 1))
+        = ∑ k ∈ Finset.Ico 1 (N + 1),
+            c k * ∫ x in Ioi (0 : ℝ), (recipFractScaled k x : ℂ) * (x : ℂ) ^ (s - 1) := by
+          refine Finset.sum_congr rfl (fun k _ => integral_const_mul _ _)
+      _ = ∑ k ∈ Finset.Ico 1 (N + 1), c k * -(riemannZeta s / (s * (k : ℂ) ^ s)) := by
+          refine Finset.sum_congr rfl (fun k hk => ?_)
+          have hk1 : 1 ≤ k := (Finset.mem_Ico.mp hk).1
+          rw [mellin_recipFractScaled_eq k hk1 s hs_pos hs_lt_one h_unit]
+      _ = -(riemannZeta s / s) * ∑ k ∈ Finset.Ico 1 (N + 1), c k * (k : ℂ) ^ (-s) := by
+          rw [Finset.mul_sum]
+          refine Finset.sum_congr rfl (fun k hk => ?_)
+          have hk1 : 1 ≤ k := (Finset.mem_Ico.mp hk).1
+          have hk_ne : (k : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr (Nat.pos_iff_ne_zero.mp hk1)
+          rw [Complex.cpow_neg]
+          ring
+  · intro k hk
+    have hk1 : 1 ≤ k := (Finset.mem_Ico.mp hk).1
+    exact (integrableOn_Ioi_recipFractScaled_cpow k hk1 s hs_pos hs_lt_one).const_mul (c k)
+
+/-- Full Báez-Duarte residual Mellin identity (`g_N`), yielding the exact
+Criterion 1 Plancherel integrand numerator `(1 + ζ(s) * ∑ c_k k^{-s}) / s`. -/
+theorem mellin_baezDuarte_residual_eq (N : ℕ) (c : ℕ → ℂ) (s : ℂ)
+    (hs_pos : 0 < s.re) (hs_lt_one : s.re < 1)
+    (h_unit : ∫ x in Ioc (0 : ℝ) 1, (recipFract x : ℂ) * (x : ℂ) ^ (s - 1) =
+      1 / (s - 1) - riemannZeta s / s) :
+    (∫ x in Ioc (0 : ℝ) 1, (x : ℂ) ^ (s - 1)) -
+    (∫ x in Ioi (0 : ℝ), (∑ k ∈ Finset.Ico 1 (N + 1), c k * (recipFractScaled k x : ℂ)) * (x : ℂ) ^ (s - 1)) =
+      (1 + riemannZeta s * ∑ k ∈ Finset.Ico 1 (N + 1), c k * (k : ℂ) ^ (-s)) / s := by
+  rw [mellin_indicator_Ioc_one s hs_pos, mellin_vasyunin_sum_eq N c s hs_pos hs_lt_one h_unit]
+  ring
+
 #print axioms norm_recipFract_le_one
 #print axioms integrableOn_Ioc_recipFract_cpow
 #print axioms integrableOn_Ioi_recipFract_cpow
@@ -274,5 +387,9 @@ theorem mellin_recipFractScaled_eq (k : ℕ) (hk : 1 ≤ k) (s : ℂ)
 #print axioms floor_one_div_eq_of_mem_Ioo
 #print axioms sum_harmonic_floor_integral_eq
 #print axioms mellin_recipFractScaled_eq
+#print axioms mellin_indicator_Ioc_one
+#print axioms integrableOn_Ioi_recipFractScaled_cpow
+#print axioms mellin_vasyunin_sum_eq
+#print axioms mellin_baezDuarte_residual_eq
 
 end NumberTheory.MellinFracPart
