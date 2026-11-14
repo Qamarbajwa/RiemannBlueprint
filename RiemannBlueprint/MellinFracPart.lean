@@ -184,6 +184,86 @@ theorem abel_harmonic_telescope (s : ℂ) (M : ℕ) :
     push_cast
     ring
 
+/-- On the harmonic sub-interval `(1 / (n + 1), 1 / n)` for `n ≥ 1`, `⌊1 / x⌋ = n`. -/
+lemma floor_one_div_eq_of_mem_Ioo {n : ℕ} (hn : 1 ≤ n) {x : ℝ}
+    (hx : x ∈ Ioo (1 / ((n : ℝ) + 1)) (1 / (n : ℝ))) :
+    ⌊1 / x⌋ = (n : ℤ) := by
+  have hn_pos : (0 : ℝ) < n := Nat.cast_pos.mpr hn
+  have hn1_pos : (0 : ℝ) < (n : ℝ) + 1 := by linarith
+  have hx_pos : 0 < x := lt_trans (one_div_pos.mpr hn1_pos) hx.1
+  rw [Int.floor_eq_iff]
+  constructor
+  · have h1 : (n : ℝ) = 1 / (1 / (n : ℝ)) := by rw [one_div_one_div]
+    rw [Int.cast_natCast, h1]
+    exact one_div_le_one_div_of_le hx_pos hx.2.le
+  · have h2 : (n : ℝ) + 1 = 1 / (1 / ((n : ℝ) + 1)) := by rw [one_div_one_div]
+    rw [Int.cast_natCast, h2]
+    exact one_div_lt_one_div_of_lt (one_div_pos.mpr hn1_pos) hx.1
+
+/-- Weighted sum of harmonic floor interval contributions via `abel_harmonic_telescope`. -/
+theorem sum_harmonic_floor_integral_eq (s : ℂ) (_hs_ne_zero : s ≠ 0) (M : ℕ) :
+    ∑ n ∈ Finset.Ico 1 (M + 1), ((n : ℂ) / s * ((n : ℂ) ^ (-s) - ((n + 1 : ℕ) : ℂ) ^ (-s))) =
+      (1 / s) * ((∑ n ∈ Finset.Ico 1 (M + 1), (n : ℂ) ^ (-s)) - (M : ℂ) * ((M + 1 : ℕ) : ℂ) ^ (-s)) := by
+  have hterm :
+      (∑ n ∈ Finset.Ico 1 (M + 1), ((n : ℂ) / s * ((n : ℂ) ^ (-s) - ((n + 1 : ℕ) : ℂ) ^ (-s)))) =
+        (1 / s) * ∑ n ∈ Finset.Ico 1 (M + 1), ((n : ℂ) * ((n : ℂ) ^ (-s) - ((n + 1 : ℕ) : ℂ) ^ (-s))) := by
+    rw [Finset.mul_sum]
+    refine Finset.sum_congr rfl (fun n _ => ?_)
+    ring
+  rw [hterm, abel_harmonic_telescope]
+
+/-- The `k`-th Vasyunin reciprocal fractional-part kernel `x ↦ {1 / (k * x)}`. -/
+noncomputable def recipFractScaled (k : ℕ) (x : ℝ) : ℝ :=
+  Int.fract (1 / ((k : ℝ) * x))
+
+/-- Mellin dilation scaling law for `recipFractScaled k` (`k ≥ 1`, `0 < Re(s) < 1`). -/
+theorem mellin_recipFractScaled_eq (k : ℕ) (hk : 1 ≤ k) (s : ℂ)
+    (hs_pos : 0 < s.re) (hs_lt_one : s.re < 1)
+    (h_unit : ∫ x in Ioc (0 : ℝ) 1, (recipFract x : ℂ) * (x : ℂ) ^ (s - 1) =
+      1 / (s - 1) - riemannZeta s / s) :
+    ∫ x in Ioi (0 : ℝ), (recipFractScaled k x : ℂ) * (x : ℂ) ^ (s - 1) =
+      -(riemannZeta s / (s * (k : ℂ) ^ s)) := by
+  have hk_pos : (0 : ℝ) < k := Nat.cast_pos.mpr hk
+  have hk_ne : (k : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr (Nat.pos_iff_ne_zero.mp hk)
+  have hpow_ne : (k : ℂ) ^ (s - 1) ≠ 0 := Complex.cpow_ne_zero_iff.mpr (Or.inl hk_ne)
+  have hscale := integral_comp_mul_left_Ioi
+    (fun u : ℝ => (recipFract u : ℂ) * (u : ℂ) ^ (s - 1)) 0 hk_pos
+  have hmul0 : (k : ℝ) * 0 = 0 := mul_zero _
+  rw [hmul0] at hscale
+  have hcongr :
+      ∫ x in Ioi (0 : ℝ), (recipFract ((k : ℝ) * x) : ℂ) * (((k : ℝ) * x : ℝ) : ℂ) ^ (s - 1) =
+        (k : ℂ) ^ (s - 1) * ∫ x in Ioi (0 : ℝ), (recipFractScaled k x : ℂ) * (x : ℂ) ^ (s - 1) := by
+    rw [← integral_const_mul]
+    refine setIntegral_congr_fun measurableSet_Ioi (fun x hx => ?_)
+    have hx_pos : 0 < x := hx
+    have hcp : (((k : ℝ) * x : ℝ) : ℂ) ^ (s - 1) = (k : ℂ) ^ (s - 1) * (x : ℂ) ^ (s - 1) := by
+      push_cast
+      exact Complex.mul_cpow_ofReal_nonneg hk_pos.le hx_pos.le (s - 1)
+    rw [hcp]
+    change (recipFract ((k : ℝ) * x) : ℂ) * ((k : ℂ) ^ (s - 1) * (x : ℂ) ^ (s - 1)) =
+      (k : ℂ) ^ (s - 1) * ((recipFractScaled k x : ℂ) * (x : ℂ) ^ (s - 1))
+    unfold recipFractScaled recipFract
+    ring
+  rw [hcongr] at hscale
+  have hmellin := mellin_frac_part_eq_neg_zeta_div s hs_pos hs_lt_one h_unit
+  rw [hmellin] at hscale
+  have hsmul : ((k : ℝ)⁻¹ : ℝ) • -(riemannZeta s / s) = (k : ℂ)⁻¹ * -(riemannZeta s / s) := by
+    rw [Complex.real_smul, Complex.ofReal_inv]
+    rfl
+  rw [hsmul] at hscale
+  have hpow_s : (k : ℂ) ^ s = (k : ℂ) * (k : ℂ) ^ (s - 1) := by
+    have h1 : s = 1 + (s - 1) := by ring
+    conv_lhs => rw [h1, Complex.cpow_add _ _ hk_ne, Complex.cpow_one]
+  calc
+    ∫ x in Ioi (0 : ℝ), (recipFractScaled k x : ℂ) * (x : ℂ) ^ (s - 1)
+      = ((k : ℂ) ^ (s - 1))⁻¹ * ((k : ℂ) ^ (s - 1) *
+          ∫ x in Ioi (0 : ℝ), (recipFractScaled k x : ℂ) * (x : ℂ) ^ (s - 1)) := by
+        rw [← mul_assoc, inv_mul_cancel₀ hpow_ne, one_mul]
+    _ = ((k : ℂ) ^ (s - 1))⁻¹ * ((k : ℂ)⁻¹ * -(riemannZeta s / s)) := by rw [hscale]
+    _ = -(riemannZeta s / (s * (k : ℂ) ^ s)) := by
+        rw [hpow_s]
+        field_simp [hk_ne, hpow_ne]
+
 #print axioms norm_recipFract_le_one
 #print axioms integrableOn_Ioc_recipFract_cpow
 #print axioms integrableOn_Ioi_recipFract_cpow
@@ -191,5 +271,8 @@ theorem abel_harmonic_telescope (s : ℂ) (M : ℕ) :
 #print axioms mellin_recipFract_tail
 #print axioms mellin_frac_part_eq_neg_zeta_div
 #print axioms abel_harmonic_telescope
+#print axioms floor_one_div_eq_of_mem_Ioo
+#print axioms sum_harmonic_floor_integral_eq
+#print axioms mellin_recipFractScaled_eq
 
 end NumberTheory.MellinFracPart
