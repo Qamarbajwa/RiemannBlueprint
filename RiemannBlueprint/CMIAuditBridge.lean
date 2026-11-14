@@ -1294,6 +1294,43 @@ theorem clayRank4Lock_cotangent_implies_rh
   rw [hE_eq] at h_le
   exact h_le.trans_lt hQ_lt
 
+/-- Bridge Theorem 5 — Bilinear `Q_cot_quad` Rank-4 Cotangent-to-RH Forward Theorem:
+for any `G_cot : ℕ → ℕ → ℝ` and unconstrained sequence `c_seq : ℕ → (ℕ → ℝ)`, if the
+`L²(0, 1)` Báez–Duarte residual of `clayRank4Lock (c_seq N) N` is bounded by
+`1 + Q_cot_quad G_cot (clayRank4Lock (c_seq N) N) N` for all `N ≥ 4` and
+`Q_cot_quad G_cot (clayRank4Lock (c_seq N) N) N → -1`, then `_root_.RiemannHypothesis` holds. -/
+theorem clayRank4Lock_Q_cot_quad_implies_rh
+    (G_cot : ℕ → ℕ → ℝ) (c_seq : ℕ → (ℕ → ℝ))
+    (h_bd_le : ∀ N, 4 ≤ N →
+      (∫ x in Set.Ioo (0 : ℝ) 1,
+        ‖1 - ∑ k ∈ Finset.Icc 1 N,
+          (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Lock (c_seq N) N k : ℂ) *
+            (NumberTheory.MellinFracPart.recipFractScaled k x : ℂ)‖ ^ 2) ≤
+        1 + RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+          (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Lock (c_seq N) N) N)
+    (h_cot_lim : Filter.Tendsto
+      (fun N => RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Lock (c_seq N) N) N)
+      Filter.atTop (nhds (-1))) :
+    _root_.RiemannHypothesis := by
+  refine clayRank4Lock_cotangent_implies_rh c_seq
+    (fun N => RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+      (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Lock (c_seq N) N) N)
+    0 (fun N hN => ?_) h_cot_lim
+  have hE_eq : RiemannBlueprint.Section8_VasyuninBDR.E_BDR
+      (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Lock (c_seq N) N)
+      N 0
+      (RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Lock (c_seq N) N) N) =
+      1 + RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Lock (c_seq N) N) N :=
+    (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Lock_four_part_equilibrium
+      (c_seq N) N hN 0
+      (RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Lock (c_seq N) N) N)).2.2.2
+  rw [hE_eq]
+  exact h_bd_le N hN
+
 #print axioms riemannHypothesis_iff_collapse_zero
 #print axioms collapse_zero_implies_rh_strip
 #print axioms cmi_criterion1_spectral_residual_eq
@@ -1324,5 +1361,6 @@ theorem clayRank4Lock_cotangent_implies_rh
 #print axioms baezDuarte_implies_rh
 #print axioms clay_four_boundary_limits_implies_rh
 #print axioms clayRank4Lock_cotangent_implies_rh
+#print axioms clayRank4Lock_Q_cot_quad_implies_rh
 
 end CMIAudit

@@ -728,6 +728,115 @@ theorem tendsto_E_BDR_zero_iff_tendsto_Q_cot_neg_one_of_clay_boundary_limits
     have ht := h_smooth.add hQ
     simpa using ht
 
+/-- Explicit bilinear cotangent quadratic form `Q_cot(c) = ∑_{j,k=1}^N c_j c_k G_{j,k}^{(cot)}`. -/
+def Q_cot_quad (G_cot : ℕ → ℕ → ℝ) (c : ℕ → ℝ) (N : ℕ) : ℝ :=
+  ∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N, c j * c k * G_cot j k
+
+/-- Additive Vasyunin Gram matrix decomposition `G_{j,k} = G_{j,k}^{(smooth)} + G_{j,k}^{(cot)}`. -/
+noncomputable def GVasyuninDecomp (gamma_E : ℝ) (G_cot : ℕ → ℕ → ℝ) (j k : ℕ) : ℝ :=
+  GSmooth gamma_E j k + G_cot j k
+
+/-- Additive splitting of the full Vasyunin quadratic energy with `GVasyuninDecomp` into
+`E_BDR c N gamma_E (Q_cot_quad G_cot c N)`. -/
+theorem vasyunin_energy_eq_E_BDR_of_decomp (gamma_E : ℝ) (G_cot : ℕ → ℕ → ℝ)
+    (c : ℕ → ℝ) (N : ℕ) :
+    1 - 2 * (∑ k ∈ Finset.Icc 1 N, c k * bVasyunin k gamma_E) +
+      (∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N, c j * c k * GVasyuninDecomp gamma_E G_cot j k) =
+      E_BDR c N gamma_E (Q_cot_quad G_cot c N) := by
+  unfold E_BDR Q_cot_quad GVasyuninDecomp
+  have h_split :
+      (∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N,
+        c j * c k * (GSmooth gamma_E j k + G_cot j k)) =
+      (∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N, c j * c k * GSmooth gamma_E j k) +
+      (∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N, c j * c k * G_cot j k) := by
+    simp_rw [mul_add, Finset.sum_add_distrib]
+  rw [h_split]
+  ring
+
+/-- For any vector `c` and `N ≥ 4`, the full decomposed Vasyunin energy evaluated on
+`clayRank4Lock c N` reduces identically to `1 + Q_cot_quad G_cot (clayRank4Lock c N) N`. -/
+theorem clayRank4Lock_vasyunin_energy_eq_one_add_Q_cot_quad
+    (gamma_E : ℝ) (G_cot : ℕ → ℕ → ℝ) (c : ℕ → ℝ) (N : ℕ) (hN : 4 ≤ N) :
+    1 - 2 * (∑ k ∈ Finset.Icc 1 N, clayRank4Lock c N k * bVasyunin k gamma_E) +
+      (∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N,
+        clayRank4Lock c N j * clayRank4Lock c N k * GVasyuninDecomp gamma_E G_cot j k) =
+      1 + Q_cot_quad G_cot (clayRank4Lock c N) N := by
+  rw [vasyunin_energy_eq_E_BDR_of_decomp]
+  exact (clayRank4Lock_four_part_equilibrium c N hN gamma_E
+    (Q_cot_quad G_cot (clayRank4Lock c N) N)).2.2.2
+
+/-- At zero boundary defect `(0, 0, 0, 0)`, `w_rank4_corrector` vanishes identically. -/
+theorem w_rank4_corrector_zero (k : ℕ) : w_rank4_corrector 0 0 0 0 k = 0 := by
+  unfold w_rank4_corrector
+  dsimp only
+  split_ifs <;> ring
+
+/-- If the four boundary defect sequences `t0_seq, t0'_seq, t1_seq, t1'_seq` tend to `0`, then
+`w_rank4_corrector (t0_seq N) (t0'_seq N) (t1_seq N) (t1'_seq N) k → 0` for every `k : ℕ`. -/
+theorem tendsto_w_rank4_corrector_zero (t0_seq t0'_seq t1_seq t1'_seq : ℕ → ℝ)
+    (h0 : Filter.Tendsto t0_seq Filter.atTop (nhds 0))
+    (h0' : Filter.Tendsto t0'_seq Filter.atTop (nhds 0))
+    (h1 : Filter.Tendsto t1_seq Filter.atTop (nhds 0))
+    (h1' : Filter.Tendsto t1'_seq Filter.atTop (nhds 0)) (k : ℕ) :
+    Filter.Tendsto
+      (fun N => w_rank4_corrector (t0_seq N) (t0'_seq N) (t1_seq N) (t1'_seq N) k)
+      Filter.atTop (nhds 0) := by
+  let L2 := Real.log 2
+  let L3 := Real.log 3
+  let Delta := 8 * L2 - 5 * L3
+  let w3_seq := fun N => (12 * L2 * (t0_seq N - t1_seq N) + 3 * (t0'_seq N + 2 * t1'_seq N)) / Delta
+  let w2_seq := fun N => (t0'_seq N - 4 * t1'_seq N - (L3 / 3) * w3_seq N) / L2
+  let w4_seq := fun N => (2 * t1'_seq N - t0'_seq N - (L3 / 3) * w3_seq N) / L2
+  let w1_seq := fun N => t0_seq N - (w2_seq N + w3_seq N + w4_seq N)
+  have hw3 : Filter.Tendsto w3_seq Filter.atTop (nhds 0) := by
+    have h := (((h0.sub h1).const_mul (12 * L2)).add
+      ((h0'.add (h1'.const_mul 2)).const_mul 3)).div_const Delta
+    simpa [w3_seq] using h
+  have hw2 : Filter.Tendsto w2_seq Filter.atTop (nhds 0) := by
+    have h := ((h0'.sub (h1'.const_mul 4)).sub (hw3.const_mul (L3 / 3))).div_const L2
+    simpa [w2_seq] using h
+  have hw4 : Filter.Tendsto w4_seq Filter.atTop (nhds 0) := by
+    have h := (((h1'.const_mul 2).sub h0').sub (hw3.const_mul (L3 / 3))).div_const L2
+    simpa [w4_seq] using h
+  have hw1 : Filter.Tendsto w1_seq Filter.atTop (nhds 0) := by
+    have h := h0.sub ((hw2.add hw3).add hw4)
+    simpa [w1_seq] using h
+  unfold w_rank4_corrector
+  dsimp only
+  split_ifs
+  · exact hw1
+  · exact hw2
+  · exact hw3
+  · exact hw4
+  · exact tendsto_const_nhds
+
+/-- If `c_seq` satisfies the four asymptotic Clay boundary limits `(2, -2 ln(2π), 0, -1)`, then
+the Rank-4 projection modification `clayRank4Lock (c_seq N) N k - c_seq N k` tends to `0`
+pointwise for every `k : ℕ`. -/
+theorem tendsto_clayRank4Lock_sub_self_zero
+    (c_seq : ℕ → (ℕ → ℝ))
+    (hD0 : Filter.Tendsto (fun N => D0 (c_seq N) N) Filter.atTop (nhds 2))
+    (hD0' : Filter.Tendsto (fun N => D0_deriv (c_seq N) N) Filter.atTop
+      (nhds (-2 * Real.log (2 * Real.pi))))
+    (hD1 : Filter.Tendsto (fun N => D1 (c_seq N) N) Filter.atTop (nhds 0))
+    (hD1' : Filter.Tendsto (fun N => D1_deriv (c_seq N) N) Filter.atTop (nhds (-1)))
+    (k : ℕ) :
+    Filter.Tendsto (fun N => clayRank4Lock (c_seq N) N k - c_seq N k)
+      Filter.atTop (nhds 0) := by
+  have h_eq : (fun N => clayRank4Lock (c_seq N) N k - c_seq N k) =
+      fun N => w_rank4_corrector
+        (2 - D0 (c_seq N) N)
+        (-2 * Real.log (2 * Real.pi) - D0_deriv (c_seq N) N)
+        (-D1 (c_seq N) N)
+        (-1 - D1_deriv (c_seq N) N) k := by
+    ext N; unfold clayRank4Lock; ring
+  rw [h_eq]
+  refine tendsto_w_rank4_corrector_zero _ _ _ _ ?_ ?_ ?_ ?_ k
+  · simpa using (tendsto_const_nhds (x := (2 : ℝ))).sub hD0
+  · simpa using (tendsto_const_nhds (x := -2 * Real.log (2 * Real.pi))).sub hD0'
+  · simpa using hD1.neg
+  · simpa using (tendsto_const_nhds (x := (-1 : ℝ))).sub hD1'
+
 end BoundaryFunctionals
 
 section Rank4AndL2Calculus
