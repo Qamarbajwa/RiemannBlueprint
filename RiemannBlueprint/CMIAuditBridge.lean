@@ -122,6 +122,59 @@ theorem structural_collapse_zero_implies_rh (D : ℕ → ℝ)
   · exact heq
   · exact False.elim (no_zero_re_gt_half_of_collapse_zero D h_floor h_lim s hs hgt hz)
 
+/-- Algebraic Szegő–Cauchy–Schwarz reciprocal barrier lemma:
+`1 ≤ D_sq * (|s₀|² / (2 Re(s₀) - 1))` implies `(2 Re(s₀) - 1) / |s₀|² ≤ D_sq`. -/
+theorem cauchy_schwarz_szego_floor (s₀ : ℂ) (D_sq : ℝ)
+    (h_re : 1 / 2 < s₀.re) (h_norm : 0 < Complex.normSq s₀)
+    (h_cs : 1 ≤ D_sq * (Complex.normSq s₀ / (2 * s₀.re - 1))) :
+    (2 * s₀.re - 1) / Complex.normSq s₀ ≤ D_sq := by
+  have hnum : 0 < 2 * s₀.re - 1 := by linarith
+  have hpos : 0 < Complex.normSq s₀ / (2 * s₀.re - 1) := div_pos h_norm hnum
+  have hdiv := (div_le_iff₀ hpos).mpr h_cs
+  simpa [one_div, inv_div] using hdiv
+
+/-- Hardy `H²(Re(s) > 1/2)` reproducing-kernel / Cauchy–Schwarz inequality predicate. -/
+def SzegoReproducingInequality (D : ℕ → ℝ) : Prop :=
+  ∀ s₀ : ℂ, InCriticalStrip s₀ → 1 / 2 < s₀.re → riemannZeta s₀ = 0 →
+    ∀ N : ℕ, 1 ≤ baezDuarteDistSq D N * (Complex.normSq s₀ / (2 * s₀.re - 1))
+
+/-- Derivation of `OfflineZeroCauchyFloor` from `SzegoReproducingInequality`. -/
+theorem offlineZeroCauchyFloor_of_szego (D : ℕ → ℝ)
+    (h_szego : SzegoReproducingInequality D) : OfflineZeroCauchyFloor D := by
+  intro s₀ hs hre hz N
+  have hs_ne : s₀ ≠ 0 := by
+    intro h
+    rw [h] at hs
+    have h0 := hs.1
+    simp at h0
+  exact cauchy_schwarz_szego_floor s₀ (baezDuarteDistSq D N) hre
+    (Complex.normSq_pos.mpr hs_ne) (h_szego s₀ hs hre hz N)
+
+/-- End-to-end master theorem: `SzegoReproducingInequality`, `ZetaZeroReflectionSymmetry`,
+and `baezDuarteDistSq D → 0` imply `RiemannHypothesisStrip`. -/
+theorem rh_of_szego_and_collapse_zero (D : ℕ → ℝ)
+    (h_szego : SzegoReproducingInequality D)
+    (h_refl : ZetaZeroReflectionSymmetry)
+    (h_lim : Filter.Tendsto (baezDuarteDistSq D) Filter.atTop (nhds 0)) :
+    RiemannHypothesisStrip :=
+  structural_collapse_zero_implies_rh D (offlineZeroCauchyFloor_of_szego D h_szego) h_refl h_lim
+
+/-- Exact quadratic residual energy `1 - 2 c^T b + c^T G c` for an explicit test vector `c`. -/
+def vasyuninQuadraticEnergy (G : ℕ → ℕ → ℝ) (b : ℕ → ℝ) (N : ℕ) (c : ℕ → ℝ) : ℝ :=
+  1 - 2 * (∑ k ∈ Finset.Ico 1 (N + 1), c k * b k) +
+  ∑ j ∈ Finset.Ico 1 (N + 1), ∑ k ∈ Finset.Ico 1 (N + 1), c j * c k * G j k
+
+/-- Variational upper-bound squeeze theorem: any test-vector sequence `c_seq` whose
+quadratic energy converges to `0` forces `baezDuarteDistSq D → 0` without matrix inversion. -/
+theorem tendsto_baezDuarteDistSq_zero_of_test_vector (D : ℕ → ℝ)
+    (G : ℕ → ℕ → ℝ) (b : ℕ → ℝ) (c_seq : ℕ → ℕ → ℝ)
+    (h_nonneg : ∀ N : ℕ, 0 ≤ baezDuarteDistSq D N)
+    (h_ub : ∀ N : ℕ, baezDuarteDistSq D N ≤ vasyuninQuadraticEnergy G b N (c_seq N))
+    (h_lim : Filter.Tendsto
+      (fun N : ℕ => vasyuninQuadraticEnergy G b N (c_seq N)) Filter.atTop (nhds 0)) :
+    Filter.Tendsto (baezDuarteDistSq D) Filter.atTop (nhds 0) :=
+  squeeze_zero h_nonneg h_ub h_lim
+
 /-- CMI Criterion 1 Mellin spectral residual bridge for any critical-strip coordinate
 `s : ℂ` (`InCriticalStrip s`), directly invoking `mellin_baezDuarte_residual_eq`. -/
 theorem cmi_criterion1_spectral_residual_eq (N : ℕ) (c : ℕ → ℂ) (s : ℂ)
@@ -143,5 +196,9 @@ theorem cmi_criterion1_spectral_residual_eq (N : ℕ) (c : ℕ → ℂ) (s : ℂ
 #print axioms no_zero_re_gt_half_of_collapse_zero
 #print axioms no_zero_re_lt_half_of_collapse_zero
 #print axioms structural_collapse_zero_implies_rh
+#print axioms cauchy_schwarz_szego_floor
+#print axioms offlineZeroCauchyFloor_of_szego
+#print axioms rh_of_szego_and_collapse_zero
+#print axioms tendsto_baezDuarteDistSq_zero_of_test_vector
 
 end CMIAudit
