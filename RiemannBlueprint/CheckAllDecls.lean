@@ -171,6 +171,13 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad_opt_step
 #check RiemannBlueprint.Section8_VasyuninBDR.vasyunin_energy_clayRank4Base_opt_step
 #check CMIAudit.clayRank4Base_opt_step_implies_rh
+#check RiemannBlueprint.Section8_VasyuninBDR.w_rank4_corrector_eq_zero_of_lt_four
+#check RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base_eq_zero_of_lt_four
+#check RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad_clayRank4Base_eq_four
+#check RiemannBlueprint.Section8_VasyuninBDR.SatisfiesCotGalerkin
+#check RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad_add_of_galerkin
+#check RiemannBlueprint.Section8_VasyuninBDR.vasyunin_energy_clayRank4Base_of_galerkin
+#check CMIAudit.clayRank4Base_galerkin_hom_limit_implies_rh
 
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
 #print axioms RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic
@@ -275,3 +282,9 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad_opt_step
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.vasyunin_energy_clayRank4Base_opt_step
 #print axioms CMIAudit.clayRank4Base_opt_step_implies_rh
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.w_rank4_corrector_eq_zero_of_lt_four
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base_eq_zero_of_lt_four
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad_clayRank4Base_eq_four
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad_add_of_galerkin
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.vasyunin_energy_clayRank4Base_of_galerkin
+#print axioms CMIAudit.clayRank4Base_galerkin_hom_limit_implies_rh

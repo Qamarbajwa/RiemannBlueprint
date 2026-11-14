@@ -1025,6 +1025,99 @@ theorem vasyunin_energy_clayRank4Base_opt_step (gamma_E : ℝ) (G_cot : ℕ → 
   rw [h_en, h_opt]
   ring
 
+/-- For `4 < k`, `w_rank4_corrector` vanishes identically. -/
+theorem w_rank4_corrector_eq_zero_of_lt_four (t0 t0' t1 t1' : ℝ) (k : ℕ) (hk : 4 < k) :
+    w_rank4_corrector t0 t0' t1 t1' k = 0 :=
+  w_rank4_zero_outside t0 t0' t1 t1' (by omega) (by omega) (by omega) (by omega)
+
+/-- For `4 < k`, the fixed Rank-4 Clay base vector `clayRank4Base` vanishes identically. -/
+theorem clayRank4Base_eq_zero_of_lt_four (k : ℕ) (hk : 4 < k) :
+    clayRank4Base k = 0 :=
+  w_rank4_corrector_eq_zero_of_lt_four 2 (-2 * Real.log (2 * Real.pi)) 0 (-1) k hk
+
+/-- Because `clayRank4Base` is supported on `{1, 2, 3, 4}`, `Q_cot_quad G_cot clayRank4Base N`
+is independent of `N` for all `N ≥ 4` and equals its `N = 4` value. -/
+theorem Q_cot_quad_clayRank4Base_eq_four (G_cot : ℕ → ℕ → ℝ) (N : ℕ) (hN : 4 ≤ N) :
+    Q_cot_quad G_cot clayRank4Base N = Q_cot_quad G_cot clayRank4Base 4 := by
+  unfold Q_cot_quad
+  have hsub : Finset.Icc 1 4 ⊆ Finset.Icc 1 N := by
+    intro x hx
+    rw [Finset.mem_Icc] at hx ⊢
+    omega
+  have h_inner : ∀ j,
+      (∑ k ∈ Finset.Icc 1 N, clayRank4Base j * clayRank4Base k * G_cot j k) =
+        ∑ k ∈ Finset.Icc 1 4, clayRank4Base j * clayRank4Base k * G_cot j k := by
+    intro j
+    refine (Finset.sum_subset hsub ?_).symm
+    intro k hk hnot4
+    have hk4 : 4 < k := by
+      rw [Finset.mem_Icc] at hk hnot4
+      omega
+    rw [clayRank4Base_eq_zero_of_lt_four k hk4, mul_zero, zero_mul]
+  simp_rw [h_inner]
+  refine (Finset.sum_subset hsub ?_).symm
+  intro j hj hnot4
+  have hj4 : 4 < j := by
+    rw [Finset.mem_Icc] at hj hnot4
+    omega
+  rw [clayRank4Base_eq_zero_of_lt_four j hj4]
+  simp only [zero_mul, Finset.sum_const_zero]
+
+/-- Galerkin orthogonality condition for a homogeneous vector `v` against `u` with respect to
+`G_cot`: `B_cot_bilinear G_cot u v N + Q_cot_quad G_cot v N = 0`. -/
+def SatisfiesCotGalerkin (G_cot : ℕ → ℕ → ℝ) (u v : ℕ → ℝ) (N : ℕ) : Prop :=
+  B_cot_bilinear G_cot u v N + Q_cot_quad G_cot v N = 0
+
+/-- Under `SatisfiesCotGalerkin G_cot u v N`, the cross term `2 B_cot_bilinear G_cot u v N`
+equals `-2 Q_cot_quad G_cot v N`, collapsing `Q_cot_quad G_cot (u + v) N` to
+`Q_cot_quad G_cot u N - Q_cot_quad G_cot v N`. -/
+theorem Q_cot_quad_add_of_galerkin (G_cot : ℕ → ℕ → ℝ)
+    (hG_symm : ∀ j k, G_cot j k = G_cot k j) (u v : ℕ → ℝ) (N : ℕ)
+    (h_gal : SatisfiesCotGalerkin G_cot u v N) :
+    Q_cot_quad G_cot (fun k => u k + v k) N =
+      Q_cot_quad G_cot u N - Q_cot_quad G_cot v N := by
+  have h_smul := Q_cot_quad_add_smul G_cot hG_symm u v N 1
+  have h_fun : (fun k => u k + (1 : ℝ) * v k) = (fun k => u k + v k) := by
+    ext k; ring
+  rw [h_fun] at h_smul
+  unfold SatisfiesCotGalerkin at h_gal
+  linear_combination h_smul + 2 * h_gal
+
+/-- Universal `N = 4` Constant Minus Homogeneous Energy Identity:
+for all `N ≥ 4` and any homogeneous vector `v` satisfying `SatisfiesCotGalerkin` against
+`clayRank4Base`, the full decomposed Vasyunin energy at `clayRank4Base + v` equals
+`(1 + Q_cot_quad G_cot clayRank4Base 4) - Q_cot_quad G_cot v N`. -/
+theorem vasyunin_energy_clayRank4Base_of_galerkin (gamma_E : ℝ) (G_cot : ℕ → ℕ → ℝ)
+    (hG_symm : ∀ j k, G_cot j k = G_cot k j) (v : ℕ → ℝ) (N : ℕ) (hN : 4 ≤ N)
+    (hv_hom : SatisfiesHomogeneousClayConditions v N)
+    (hv_gal : SatisfiesCotGalerkin G_cot clayRank4Base v N) :
+    1 - 2 * (∑ k ∈ Finset.Icc 1 N, (clayRank4Base k + v k) * bVasyunin k gamma_E) +
+      (∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N,
+        (clayRank4Base j + v j) * (clayRank4Base k + v k) *
+          GVasyuninDecomp gamma_E G_cot j k) =
+      (1 + Q_cot_quad G_cot clayRank4Base 4) - Q_cot_quad G_cot v N := by
+  have h_base := clayRank4Base_satisfies_clay N hN
+  have h_en := vasyunin_energy_add_hom_eq_one_add_Q_cot_quad gamma_E G_cot
+    clayRank4Base v N 1 h_base hv_hom
+  have h_lin :
+      (∑ k ∈ Finset.Icc 1 N, (clayRank4Base k + (1 : ℝ) * v k) * bVasyunin k gamma_E) =
+        ∑ k ∈ Finset.Icc 1 N, (clayRank4Base k + v k) * bVasyunin k gamma_E := by
+    refine Finset.sum_congr rfl fun k _ => ?_; ring
+  have h_quad :
+      (∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N,
+        (clayRank4Base j + (1 : ℝ) * v j) * (clayRank4Base k + (1 : ℝ) * v k) *
+          GVasyuninDecomp gamma_E G_cot j k) =
+        ∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N,
+          (clayRank4Base j + v j) * (clayRank4Base k + v k) *
+            GVasyuninDecomp gamma_E G_cot j k := by
+    refine Finset.sum_congr rfl fun j _ => Finset.sum_congr rfl fun k _ => ?_; ring
+  have h_fun : (fun k => clayRank4Base k + (1 : ℝ) * v k) = (fun k => clayRank4Base k + v k) := by
+    ext k; ring
+  rw [h_lin, h_quad, h_fun] at h_en
+  rw [h_en, Q_cot_quad_add_of_galerkin G_cot hG_symm clayRank4Base v N hv_gal,
+    Q_cot_quad_clayRank4Base_eq_four G_cot N hN]
+  ring
+
 end BoundaryFunctionals
 
 section Rank4AndL2Calculus

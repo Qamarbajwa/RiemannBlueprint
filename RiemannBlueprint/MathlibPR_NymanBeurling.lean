@@ -252,6 +252,35 @@ theorem RiemannHypothesis.of_clayRank4Base_opt_step_limit
     _root_.RiemannHypothesis :=
   CMIAudit.clayRank4Base_opt_step_implies_rh G_cot hG_symm u_seq hA h_bd_le h_opt_lim
 
+/-- **14. Universal `N = 4` Constant Galerkin Nullspace Forward Theorem:**
+For symmetric `G_cot` and homogeneous, Galerkin-orthogonal vectors `v_seq`, if
+`L²(clayRank4Base + v_seq N) ≤ 1 + Q_cot_quad` for `N ≥ 4` and
+`Q_cot_quad G_cot (v_seq N) N → 1 + Q_cot_quad G_cot clayRank4Base 4`, then
+`_root_.RiemannHypothesis` holds. -/
+theorem RiemannHypothesis.of_clayRank4Base_galerkin_hom_limit
+    (G_cot : ℕ → ℕ → ℝ) (hG_symm : ∀ j k, G_cot j k = G_cot k j)
+    (v_seq : ℕ → (ℕ → ℝ))
+    (h_hom : ∀ N, 4 ≤ N →
+      RiemannBlueprint.Section8_VasyuninBDR.SatisfiesHomogeneousClayConditions (v_seq N) N)
+    (h_gal : ∀ N, 4 ≤ N →
+      RiemannBlueprint.Section8_VasyuninBDR.SatisfiesCotGalerkin G_cot
+        RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base (v_seq N) N)
+    (h_bd_le : ∀ N, 4 ≤ N →
+      (∫ x in Set.Ioo (0 : ℝ) 1,
+        ‖1 - ∑ k ∈ Finset.Icc 1 N,
+          ((RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k + v_seq N k : ℝ) : ℂ) *
+            (NumberTheory.MellinFracPart.recipFractScaled k x : ℂ)‖ ^ 2) ≤
+        1 + RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k + v_seq N k) N)
+    (h_hom_lim : Filter.Tendsto
+      (fun N => RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot (v_seq N) N)
+      Filter.atTop
+      (nhds (1 + RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base 4))) :
+    _root_.RiemannHypothesis :=
+  CMIAudit.clayRank4Base_galerkin_hom_limit_implies_rh
+    G_cot hG_symm v_seq h_hom h_gal h_bd_le h_hom_lim
+
 #print axioms riemannZeta_eq_tsum_harmonicUnitSummand
 #print axioms mellin_recipFract_unit_interval
 #print axioms riemannZeta_conj_of_pos_re
@@ -266,5 +295,6 @@ theorem RiemannHypothesis.of_clayRank4Base_opt_step_limit
 #print axioms RiemannHypothesis.of_clayRank4Lock_Q_cot_quad_limit
 #print axioms RiemannHypothesis.of_clayRank4Base_add_hom_Q_cot_quad_limit
 #print axioms RiemannHypothesis.of_clayRank4Base_opt_step_limit
+#print axioms RiemannHypothesis.of_clayRank4Base_galerkin_hom_limit
 
 end MathlibPR.NymanBeurling
