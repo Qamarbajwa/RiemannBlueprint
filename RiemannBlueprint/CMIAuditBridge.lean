@@ -1,6 +1,7 @@
 import Mathlib.NumberTheory.LSeries.RiemannZeta
 import Mathlib.Analysis.SpecialFunctions.Pow.Complex
 import Mathlib.Order.Filter.AtTopBot.Basic
+import RiemannBlueprint.MellinFracPart
 
 /-!
 # CMI Criterion 4 Audit: Lean 4 Type-Soundness & Zero-Sorry Forward Bridge
@@ -59,7 +60,22 @@ theorem collapse_zero_implies_rh_strip (D : ℕ → ℝ)
     ∀ s : ℂ, InCriticalStrip s → riemannZeta s = 0 → IsOnCriticalLine s :=
   h_bd.mpr h_lim
 
+/-- CMI Criterion 1 Mellin spectral residual bridge for any critical-strip coordinate
+`s : ℂ` (`InCriticalStrip s`), directly invoking `mellin_baezDuarte_residual_eq`. -/
+theorem cmi_criterion1_spectral_residual_eq (N : ℕ) (c : ℕ → ℂ) (s : ℂ)
+    (hs : InCriticalStrip s)
+    (h_unit : ∫ x in Set.Ioc (0 : ℝ) 1,
+      (NumberTheory.MellinFracPart.recipFract x : ℂ) * (x : ℂ) ^ (s - 1) =
+        1 / (s - 1) - riemannZeta s / s) :
+    (∫ x in Set.Ioc (0 : ℝ) 1, (x : ℂ) ^ (s - 1)) -
+    (∫ x in Set.Ioi (0 : ℝ),
+      (∑ k ∈ Finset.Ico 1 (N + 1), c k * (NumberTheory.MellinFracPart.recipFractScaled k x : ℂ)) *
+        (x : ℂ) ^ (s - 1)) =
+      (1 + riemannZeta s * ∑ k ∈ Finset.Ico 1 (N + 1), c k * (k : ℂ) ^ (-s)) / s :=
+  NumberTheory.MellinFracPart.mellin_baezDuarte_residual_eq N c s hs.1 hs.2 h_unit
+
 #print axioms riemannHypothesis_iff_collapse_zero
 #print axioms collapse_zero_implies_rh_strip
+#print axioms cmi_criterion1_spectral_residual_eq
 
 end CMIAudit

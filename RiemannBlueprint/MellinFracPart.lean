@@ -436,6 +436,155 @@ theorem sum_integral_Ioc_harmonic_floor_eq (M : ℕ) (s : ℂ) (hs_pos : 0 < s.r
     integral_Ioc_harmonic_floor_cpow n (Finset.mem_Ico.mp hn).1 s hs_pos)]
   exact sum_harmonic_floor_integral_eq s hs_ne M
 
+/-- Integrability of `⌊1 / x⌋ * x ^ (s - 1)` on a single harmonic sub-interval
+`Ioc (1 / (n + 1)) (1 / n)` for `n ≥ 1`. -/
+lemma integrableOn_Ioc_harmonic_floor_cpow (n : ℕ) (hn : 1 ≤ n) (s : ℂ) :
+    IntegrableOn (fun x : ℝ => ((⌊1 / x⌋ : ℤ) : ℂ) * (x : ℂ) ^ (s - 1))
+      (Ioc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ))) := by
+  have hn_pos : (0 : ℝ) < n := Nat.cast_pos.mpr hn
+  have hn1_pos : (0 : ℝ) < (n : ℝ) + 1 := by linarith
+  have hle : 1 / ((n : ℝ) + 1) ≤ 1 / (n : ℝ) :=
+    one_div_le_one_div_of_le hn_pos (by linarith)
+  have hcont : ContinuousOn (fun x : ℝ => (n : ℂ) * (x : ℂ) ^ (s - 1))
+      (Icc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ))) := by
+    refine ContinuousOn.mul continuousOn_const (fun x hx => ?_)
+    have hx_pos : 0 < x := lt_of_lt_of_le (one_div_pos.mpr hn1_pos) hx.1
+    exact (Complex.continuousAt_ofReal_cpow_const _ _ (Or.inr hx_pos.ne')).continuousWithinAt
+  have hint_const : IntegrableOn (fun x : ℝ => (n : ℂ) * (x : ℂ) ^ (s - 1))
+      (Ioc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ))) :=
+    hcont.integrableOn_Icc.mono_set Ioc_subset_Icc_self
+  have hae : ∀ᵐ (x : ℝ) ∂(volume.restrict (Ioc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ)))),
+      (n : ℂ) * (x : ℂ) ^ (s - 1) = ((⌊1 / x⌋ : ℤ) : ℂ) * (x : ℂ) ^ (s - 1) := by
+    have hdiff : ∀ᵐ x ∂volume, x ∈ Ioc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ)) →
+        x ∈ Ioo (1 / ((n : ℝ) + 1)) (1 / (n : ℝ)) := by
+      have hne : ∀ᵐ x ∂volume, x ≠ (1 / (n : ℝ)) := ae_iff.mpr (by simp [measure_singleton])
+      filter_upwards [hne] with x hne hx
+      exact ⟨hx.1, lt_of_le_of_ne hx.2 hne⟩
+    rw [ae_restrict_iff' measurableSet_Ioc]
+    filter_upwards [hdiff] with x hx_imp hx_ioc
+    rw [floor_one_div_eq_of_mem_Ioo hn (hx_imp hx_ioc)]
+    simp
+  exact hint_const.congr hae
+
+/-- Truncated harmonic partition integral and integrability on `Ioc (1 / (M + 1)) 1`. -/
+lemma truncated_floor_partition_aux (M : ℕ) (s : ℂ) :
+    IntegrableOn (fun x : ℝ => ((⌊1 / x⌋ : ℤ) : ℂ) * (x : ℂ) ^ (s - 1))
+      (Ioc (1 / ((M : ℝ) + 1)) 1) ∧
+    ∫ x in Ioc (1 / ((M : ℝ) + 1)) 1, ((⌊1 / x⌋ : ℤ) : ℂ) * (x : ℂ) ^ (s - 1) =
+      ∑ n ∈ Finset.Ico 1 (M + 1),
+        ∫ x in Ioc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ)), ((⌊1 / x⌋ : ℤ) : ℂ) * (x : ℂ) ^ (s - 1) := by
+  induction M with
+  | zero =>
+    have hIoc : Ioc (1 / ((0 : ℝ) + 1)) 1 = ∅ := by norm_num
+    simp [hIoc]
+  | succ M ih =>
+    rcases ih with ⟨ih_int, ih_eq⟩
+    have ha : 1 / (((M + 1 : ℕ) : ℝ) + 1) ≤ 1 / ((M : ℝ) + 1) :=
+      one_div_le_one_div_of_le (by positivity) (by push_cast; linarith)
+    have hb : 1 / ((M : ℝ) + 1) ≤ (1 : ℝ) :=
+      div_le_one_of_le₀ (by linarith) (by positivity)
+    have hunion : Ioc (1 / (((M + 1 : ℕ) : ℝ) + 1)) 1 =
+        Ioc (1 / (((M + 1 : ℕ) : ℝ) + 1)) (1 / ((M : ℝ) + 1)) ∪ Ioc (1 / ((M : ℝ) + 1)) 1 :=
+      (Ioc_union_Ioc_eq_Ioc ha hb).symm
+    have hdisj : Disjoint (Ioc (1 / (((M + 1 : ℕ) : ℝ) + 1)) (1 / ((M : ℝ) + 1)))
+        (Ioc (1 / ((M : ℝ) + 1)) 1) := by
+      rw [disjoint_left]
+      intro x hx1 hx2
+      linarith [hx1.2, hx2.1]
+    have hleft_int : IntegrableOn (fun x : ℝ => ((⌊1 / x⌋ : ℤ) : ℂ) * (x : ℂ) ^ (s - 1))
+        (Ioc (1 / (((M + 1 : ℕ) : ℝ) + 1)) (1 / ((M : ℝ) + 1))) := by
+      simpa [Nat.cast_add, Nat.cast_one] using
+        integrableOn_Ioc_harmonic_floor_cpow (M + 1) (by omega) s
+    refine ⟨?_, ?_⟩
+    · rw [hunion]
+      exact hleft_int.union ih_int
+    · rw [hunion, setIntegral_union hdisj measurableSet_Ioc hleft_int ih_int, ih_eq,
+        Finset.sum_Ico_succ_top (by omega : 1 ≤ M + 1), add_comm]
+      congr 1
+      simp [Nat.cast_add, Nat.cast_one]
+
+/-- Truncated unit-interval floor integral over `Ioc (1 / (M + 1)) 1` (`0 < Re(s)`). -/
+theorem integral_Ioc_truncated_floor_cpow (M : ℕ) (s : ℂ) (hs_pos : 0 < s.re) :
+    ∫ x in Ioc (1 / ((M : ℝ) + 1)) 1, ((⌊1 / x⌋ : ℤ) : ℂ) * (x : ℂ) ^ (s - 1) =
+      (1 / s) * ((∑ n ∈ Finset.Ico 1 (M + 1), (n : ℂ) ^ (-s)) - (M : ℂ) * ((M + 1 : ℕ) : ℂ) ^ (-s)) := by
+  rw [(truncated_floor_partition_aux M s).2]
+  exact sum_integral_Ioc_harmonic_floor_eq M s hs_pos
+
+/-- Integrability and value of `(1 / x) * x ^ (s - 1)` on `Ioc (1 / (M + 1)) 1` (`s ≠ 1`). -/
+lemma integrableOn_Ioc_truncated_inv_mul_cpow (M : ℕ) (s : ℂ) :
+    IntegrableOn (fun x : ℝ => ((1 / x : ℝ) : ℂ) * (x : ℂ) ^ (s - 1))
+      (Ioc (1 / ((M : ℝ) + 1)) 1) := by
+  have hcont : ContinuousOn (fun x : ℝ => ((1 / x : ℝ) : ℂ) * (x : ℂ) ^ (s - 1))
+      (Icc (1 / ((M : ℝ) + 1)) 1) := by
+    refine ContinuousOn.mul ?_ (fun x hx => ?_)
+    · refine Complex.continuous_ofReal.comp_continuousOn ?_
+      exact continuousOn_const.div continuousOn_id (fun x hx => by
+        have hx_pos : 0 < x := lt_of_lt_of_le (one_div_pos.mpr (by positivity)) hx.1
+        exact hx_pos.ne')
+    · have hx_pos : 0 < x := lt_of_lt_of_le (one_div_pos.mpr (by positivity)) hx.1
+      exact (Complex.continuousAt_ofReal_cpow_const _ _ (Or.inr hx_pos.ne')).continuousWithinAt
+  exact hcont.integrableOn_Icc.mono_set Ioc_subset_Icc_self
+
+/-- Power integral of `(1 / x) * x ^ (s - 1)` on `Ioc (1 / (M + 1)) 1` for `s ≠ 1`. -/
+lemma integral_Ioc_truncated_inv_mul_cpow (M : ℕ) (s : ℂ) (hs_ne_one : s ≠ 1) :
+    ∫ x in Ioc (1 / ((M : ℝ) + 1)) 1, ((1 / x : ℝ) : ℂ) * (x : ℂ) ^ (s - 1) =
+      (1 - ((M + 1 : ℕ) : ℂ) ^ (1 - s)) / (s - 1) := by
+  have hle : 1 / ((M : ℝ) + 1) ≤ (1 : ℝ) :=
+    div_le_one_of_le₀ (by linarith) (by positivity)
+  have hcongr :
+      ∫ x in Ioc (1 / ((M : ℝ) + 1)) 1, ((1 / x : ℝ) : ℂ) * (x : ℂ) ^ (s - 1) =
+        ∫ x in Ioc (1 / ((M : ℝ) + 1)) 1, (x : ℂ) ^ (s - 2) := by
+    refine setIntegral_congr_fun measurableSet_Ioc (fun x hx => ?_)
+    have hx_pos : 0 < x := lt_of_lt_of_le (one_div_pos.mpr (by positivity)) hx.1.le
+    push_cast
+    rw [one_div, ← Complex.cpow_neg_one]
+    have hx_ne : (x : ℂ) ≠ 0 := Complex.ofReal_ne_zero.mpr hx_pos.ne'
+    rw [← Complex.cpow_add _ _ hx_ne]
+    congr 1
+    ring
+  rw [hcongr, ← intervalIntegral.integral_of_le hle]
+  have hs2_ne : s - 2 ≠ -1 := by
+    intro h
+    apply hs_ne_one
+    linear_combination h
+  have h0_not_mem : (0 : ℝ) ∉ uIcc (1 / ((M : ℝ) + 1)) 1 := by
+    rw [uIcc_of_le hle, mem_Icc]
+    intro h0
+    linarith [one_div_pos.mpr (by positivity : (0 : ℝ) < (M : ℝ) + 1), h0.1]
+  rw [integral_cpow (Or.inr ⟨hs2_ne, h0_not_mem⟩)]
+  have hs21 : s - 2 + 1 = s - 1 := by ring
+  rw [hs21, Complex.ofReal_one, Complex.one_cpow]
+  have hinv : ((1 / ((M : ℝ) + 1) : ℝ) : ℂ) ^ (s - 1) = ((M + 1 : ℕ) : ℂ) ^ (1 - s) := by
+    push_cast
+    have harg : (((M + 1 : ℕ) : ℂ)).arg ≠ Real.pi := by
+      rw [← Complex.ofReal_natCast, Complex.arg_ofReal_of_nonneg (Nat.cast_nonneg _)]
+      exact Real.pi_ne_zero.symm
+    have hcast : ((M : ℂ) + 1) = ((M + 1 : ℕ) : ℂ) := by push_cast; ring
+    rw [hcast, one_div, Complex.inv_cpow_eq_ite, ite_eq_right_iff.mpr (fun h => absurd h harg),
+      ← Complex.cpow_neg]
+    congr 1
+    ring
+  rw [hinv]
+
+/-- Truncated unit-interval `recipFract` Mellin identity on `Ioc (1 / (M + 1)) 1`
+for `0 < Re(s)` and `s ≠ 1`. -/
+theorem integral_Ioc_truncated_recipFract_cpow (M : ℕ) (s : ℂ)
+    (hs_pos : 0 < s.re) (hs_ne_one : s ≠ 1) :
+    ∫ x in Ioc (1 / ((M : ℝ) + 1)) 1, (recipFract x : ℂ) * (x : ℂ) ^ (s - 1) =
+      (1 - ((M + 1 : ℕ) : ℂ) ^ (1 - s)) / (s - 1) -
+      (1 / s) * ((∑ n ∈ Finset.Ico 1 (M + 1), (n : ℂ) ^ (-s)) - (M : ℂ) * ((M + 1 : ℕ) : ℂ) ^ (-s)) := by
+  have hdecomp :
+      (fun x : ℝ => (recipFract x : ℂ) * (x : ℂ) ^ (s - 1)) =
+        (fun x : ℝ => ((1 / x : ℝ) : ℂ) * (x : ℂ) ^ (s - 1) - ((⌊1 / x⌋ : ℤ) : ℂ) * (x : ℂ) ^ (s - 1)) := by
+    ext x
+    unfold recipFract Int.fract
+    push_cast
+    ring
+  rw [hdecomp, integral_sub (integrableOn_Ioc_truncated_inv_mul_cpow M s)
+    (truncated_floor_partition_aux M s).1]
+  rw [integral_Ioc_truncated_inv_mul_cpow M s hs_ne_one,
+    integral_Ioc_truncated_floor_cpow M s hs_pos]
+
 #print axioms norm_recipFract_le_one
 #print axioms integrableOn_Ioc_recipFract_cpow
 #print axioms integrableOn_Ioi_recipFract_cpow
@@ -453,5 +602,8 @@ theorem sum_integral_Ioc_harmonic_floor_eq (M : ℕ) (s : ℂ) (hs_pos : 0 < s.r
 #print axioms integral_Ioc_harmonic_cpow
 #print axioms integral_Ioc_harmonic_floor_cpow
 #print axioms sum_integral_Ioc_harmonic_floor_eq
+#print axioms integral_Ioc_truncated_floor_cpow
+#print axioms integral_Ioc_truncated_inv_mul_cpow
+#print axioms integral_Ioc_truncated_recipFract_cpow
 
 end NumberTheory.MellinFracPart
