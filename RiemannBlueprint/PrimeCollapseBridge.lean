@@ -135,6 +135,66 @@ theorem prime_collapse_cotangent_bridge
     _root_.RiemannHypothesis :=
   cotangent_limit_neg_one_implies_rh c_seq Q_cot_seq gamma_E hD1 hcs htend
 
+/-- Derivative antisymmetry of the completed zeta function `Λ(s)` under the
+50/50 reflection `s ↦ 1 - s`: `Λ'(1 - s) = - Λ'(s)` for `s ≠ 0, 1`. -/
+theorem completedRiemannZeta_deriv_one_sub {s : ℂ} (hs : s ≠ 0) (hs' : s ≠ 1) :
+    deriv completedRiemannZeta (1 - s) = -deriv completedRiemannZeta s := by
+  have h1 : 1 - s ≠ 0 := sub_ne_zero.mpr hs'.symm
+  have h2 : 1 - s ≠ 1 := by
+    intro h
+    apply hs
+    linear_combination -h
+  have hdiff : DifferentiableAt ℂ completedRiemannZeta (1 - s) :=
+    differentiableAt_completedZeta h1 h2
+  have hsub : HasDerivAt (fun z : ℂ => 1 - z) (-1) s := by
+    simpa using (hasDerivAt_id s).const_sub (1 : ℂ)
+  have hcomp : HasDerivAt (fun z : ℂ => completedRiemannZeta (1 - z))
+      (deriv completedRiemannZeta (1 - s) * (-1)) s :=
+    hdiff.hasDerivAt.comp s hsub
+  have hfun : (fun z : ℂ => completedRiemannZeta (1 - z)) = completedRiemannZeta := by
+    ext z
+    exact completedRiemannZeta_one_sub z
+  rw [hfun] at hcomp
+  have hderiv : deriv completedRiemannZeta s = deriv completedRiemannZeta (1 - s) * (-1) :=
+    hcomp.deriv
+  rw [hderiv]
+  ring
+
+/-- At the 50/50 reflection center `s = 1/2`, the derivative of the completed
+zeta function vanishes identically: `Λ'(1/2) = 0`. -/
+theorem completedRiemannZeta_deriv_at_half :
+    deriv completedRiemannZeta ((1 / 2 : ℂ)) = 0 := by
+  have h0 : (1 / 2 : ℂ) ≠ 0 := by norm_num
+  have h1 : (1 / 2 : ℂ) ≠ 1 := by norm_num
+  have hsym := completedRiemannZeta_deriv_one_sub h0 h1
+  have hhalf : (1 : ℂ) - (1 / 2 : ℂ) = 1 / 2 := by norm_num
+  rw [hhalf] at hsym
+  have h2 : (2 : ℂ) * deriv completedRiemannZeta (1 / 2 : ℂ) = 0 := by
+    linear_combination hsym
+  exact (mul_eq_zero.mp h2).resolve_left (by norm_num)
+
+/-- Along the critical line `Re(s) = 1/2`, reflection across `t = 0` flips the
+sign of `Λ'`: `Λ'(1/2 - i t) = - Λ'(1/2 + i t)`. -/
+theorem completedRiemannZeta_deriv_critical_line_antisymm (t : ℝ) :
+    deriv completedRiemannZeta ((1 / 2 : ℂ) - Complex.I * t) =
+      -deriv completedRiemannZeta ((1 / 2 : ℂ) + Complex.I * t) := by
+  have hre : ((1 / 2 : ℂ) + Complex.I * t).re = 1 / 2 := by
+    simp [Complex.add_re, Complex.mul_re]
+  have h0 : (1 / 2 : ℂ) + Complex.I * t ≠ 0 := by
+    intro h
+    have : ((1 / 2 : ℂ) + Complex.I * t).re = (0 : ℂ).re := congrArg Complex.re h
+    rw [hre] at this
+    norm_num at this
+  have h1 : (1 / 2 : ℂ) + Complex.I * t ≠ 1 := by
+    intro h
+    have : ((1 / 2 : ℂ) + Complex.I * t).re = (1 : ℂ).re := congrArg Complex.re h
+    rw [hre] at this
+    norm_num at this
+  have hsym := completedRiemannZeta_deriv_one_sub h0 h1
+  have hsub : (1 : ℂ) - ((1 / 2 : ℂ) + Complex.I * t) = (1 / 2 : ℂ) - Complex.I * t := by
+    ring
+  rwa [hsub] at hsym
+
 #print axioms reflection_preserves_critical_line
 #print axioms zeta_at_equipartition_fulcrum
 #print axioms equipartition_fifty_fifty_split
@@ -142,5 +202,8 @@ theorem prime_collapse_cotangent_bridge
 #print axioms zero_reflection_dichotomy
 #print axioms prime_collapse_vonKoch_bridge
 #print axioms prime_collapse_cotangent_bridge
+#print axioms completedRiemannZeta_deriv_one_sub
+#print axioms completedRiemannZeta_deriv_at_half
+#print axioms completedRiemannZeta_deriv_critical_line_antisymm
 
 end NumberTheory.PrimeCollapse
