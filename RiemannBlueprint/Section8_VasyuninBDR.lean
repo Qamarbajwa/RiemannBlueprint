@@ -270,6 +270,28 @@ theorem D1_affineLock_eq_zero (c : ℕ → ℝ) (N : ℕ) (hN : 2 ≤ N) (hD1 : 
   rw [hadd, hD1, D1_w_corrector_eq_zero N hN]
   ring
 
+/-- Variational lower bound on the boundary-locked subspace `A_N`:
+if the full squared residual on `c ∈ A_N` is nonnegative, then `Q_cot ≥ -1`. -/
+theorem cotangent_ge_neg_one_of_nonneg_residual (c : ℕ → ℝ) (N : ℕ) (gamma_E Q_cot : ℝ)
+    (hD1 : D1 c N = 0) (hD0 : D0 c N = 2)
+    (hnonneg : 0 ≤ 1 - 2 * (∑ k ∈ Finset.Icc 1 N, c k * bVasyunin k gamma_E) +
+      (∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N, c j * c k * GSmooth gamma_E j k) + Q_cot) :
+    -1 ≤ Q_cot := by
+  have hid := affine_bdr_pure_cotangent_identity c N gamma_E Q_cot hD1 hD0
+  linarith
+
+/-- For any Nyman-Beurling constrained vector `c` (`D_N(1) = 0`) and `N ≥ 2`,
+the affine-locked projection `affineLock c N` satisfies the pure cotangent identity
+`E_N(affineLock c N) = 1 + Q_cot` unconditionally. -/
+theorem affineLock_pure_cotangent_identity (c : ℕ → ℝ) (N : ℕ) (gamma_E Q_cot : ℝ)
+    (hN : 2 ≤ N) (hD1 : D1 c N = 0) :
+    1 - 2 * (∑ k ∈ Finset.Icc 1 N, affineLock c N k * bVasyunin k gamma_E) +
+      (∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N,
+        affineLock c N j * affineLock c N k * GSmooth gamma_E j k) + Q_cot =
+      1 + Q_cot :=
+  affine_bdr_pure_cotangent_identity (affineLock c N) N gamma_E Q_cot
+    (D1_affineLock_eq_zero c N hN hD1) (D0_affineLock_eq_two c N hN)
+
 end BoundaryFunctionals
 
 section Rank4AndL2Calculus
