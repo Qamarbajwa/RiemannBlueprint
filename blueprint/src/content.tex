@@ -375,7 +375,7 @@ where:
 \begin{enumerate}
   \item \textbf{Pure Prime Powers ($\Cpure$):} Composites supported on a single prime:
   \begin{equation}
-  \Cpure \equiv \{n \in \Ccomp \mid \omega(n) = 1, \; \Omega(n) \ge 2\} = \{p^a \mid p \in \Pset, \; a \ge 2\} = \{4, 8, 9, 16, 25, 27, 32, \dots\}.
+  \Cpure \equiv \{n \in \Ccomp \mid \omega(n) = 1, \; \Omega(n) \ge 2\} = \{p^a \mid p \in \Pset, \; a \ge 2\} = \{4, 8, 9, 16, 25, 27, \dots\}.
   \end{equation}
   \item \textbf{Mixed Composites ($\Cmixed$):} Composites supported on two or more distinct primes:
   \begin{equation}
@@ -652,7 +652,7 @@ Relative to the non-unit sum $\zeta(2) - 1 \approx 0.644934$:
 $$\text{Prime Share: } \frac{P(2)}{\zeta(2) - 1} \approx 70.12\%, \qquad \text{Composite Share: } \frac{\zeta_C(2)}{\zeta(2) - 1} \approx 29.88\%.$$
 \end{example}
 
-\subsection{Method 2: Local Prime-Power Factors and the M\"obius-Logarithmic Bridge}
+\subsection{\texorpdfstring{Method 2: Local Prime-Power Factors and\\ the M\"obius--Logarithmic Bridge}{Method 2: Local Prime-Power Factors and the Mobius-Logarithmic Bridge}}
 
 \begin{definition}[Local Prime Euler Factor Decomposition]
 \label{def:local_euler}
@@ -886,8 +886,8 @@ Identity~\eqref{eq:reciprocal_partition} exposes the algebraic mechanism of the 
   \item \textbf{Square-Divisible Annihilation:} Every composite with repeated prime factors (including all pure prime powers $p^a$ with $a \ge 2$) carries weight $\mu(c) = 0$. They exert zero direct influence on $1/\zeta(s)$.
   \item \textbf{Even-Odd Parity Balancing:} Square-free composites are partitioned into two opposing camps:
   \begin{align*}
-    \Ccomp^{(+)} &= \{c \in \Ccomp : \mu^2(c) = 1, \; \omega(c) \equiv 0 \pmod 2\} = \{6, 10, 14, 15, 21, 22, 26, 33, 34, 35, \dots\}, \\
-    \Ccomp^{(-)} &= \{c \in \Ccomp : \mu^2(c) = 1, \; \omega(c) \equiv 1 \pmod 2\} = \{30, 42, 66, 70, 78, 102, 105, 110, 114, \dots\}.
+    \Ccomp^{(+)} &= \{c \in \Ccomp : \mu^2(c) = 1, \; \omega(c) \equiv 0 \pmod 2\} = \{6, 10, 14, 15, 21, 22, 26, \dots\}, \\
+    \Ccomp^{(-)} &= \{c \in \Ccomp : \mu^2(c) = 1, \; \omega(c) \equiv 1 \pmod 2\} = \{30, 42, 66, 70, 78, 102, \dots\}.
   \end{align*}
   For $c \in \Ccomp^{(+)}$, $\mu(c) = +1$, which reinforces the leading unit $+1$. For $c \in \Ccomp^{(-)}$, $\mu(c) = -1$, which reinforces the prime deflation $-P(s)$. The cancellation between $\Pset \cup \Ccomp^{(-)}$ and $\{1\} \cup \Ccomp^{(+)}$ governs the magnitude of $1/\zeta(s)$.
 \end{itemize}
@@ -962,17 +962,19 @@ The integral representation~\eqref{eq:reciprocal_mellin} forms a profound bridge
 \lean{RiemannBlueprint.Section5_MobiusMertens.mertens_implies_rh}
 \uses{lem:mellin_reciprocal_zeta}
 \leanok
-If $M(x) = \mathcal{O}(x^{\frac{1}{2}+\epsilon})$ for every $\epsilon > 0$, then $\zeta(s)$ has no zeros in $\{s \in \Cfield : \operatorname{Re}(s) > \frac{1}{2}\}$ (\texttt{zero\_free\_re\_gt\_half\_of\_mertens}) and hence the Riemann Hypothesis holds.
+If $M(x) = \mathcal{O}(x^{\frac{1}{2}+\epsilon})$ for every $\epsilon > 0$, then $\zeta(s)$ has no zeros in $\{s \in \Cfield : \operatorname{Re}(s) > \frac{1}{2}\}$ (\texttt{zero\_free\_\allowbreak re\_gt\_\allowbreak half\_of\_\allowbreak mertens}) and hence the Riemann Hypothesis holds.
 \end{theorem}
 
 \begin{proof}
 \leanok
 Formalized unconditionally across Stages~A--C in \texttt{LittlewoodForward.lean}:
+{\raggedright\emergencystretch=3em
 \begin{enumerate}
-  \item \textbf{Stage A (\texttt{riemannZeta\_mul\_mellinMertens\_of\_one\_lt\_re}):} Via Mathlib's \texttt{LSeries\_eq\_mul\_integral'} and \texttt{LSeries\_one\_mul\_Lseries\_moebius}, $\zeta(s)\, M_\zeta(s) = 1$ holds for $\operatorname{Re}(s) > 1$, where $M_\zeta(s) = s \int_1^\infty M(t) t^{-(s+1)}\,\dee t$.
-  \item \textbf{Stage B (\texttt{mellinMertens\_differentiableAt}):} Rewriting $M_\zeta(s) = s\,\mathcal{M}[\mathbf{1}_{(1,\infty)} M](-s)$ and applying \texttt{mellin\_differentiableAt\_of\_isBigO\_rpow} yields complex differentiability across $\{s \in \Cfield : \operatorname{Re}(s) > 1/2\}$.
-  \item \textbf{Stage C (\texttt{mertens\_inversion\_of\_bound}):} Applying \texttt{AnalyticOnNhd.eqOn\_of\_preconnected\_of\_eventuallyEq} across three open convex domains covering $\{s : \operatorname{Re}(s) > 1/2\} \setminus \{1\}$ (together with $\zeta(1) \neq 0$ for the dummy evaluation at $1$) shows $\zeta(s) \neq 0$ for $\operatorname{Re}(s) > 1/2$; zero reflection (\texttt{zeta\_zero\_reflection}) then implies $\operatorname{Re}(\rho) = 1/2$ for every non-trivial zero.
+  \item \textbf{Stage A} (\texttt{riemannZeta\_mul\_}\allowbreak\texttt{mellinMertens\_}\allowbreak\texttt{of\_one\_lt\_re}): Via Mathlib's \texttt{LSeries\_}\allowbreak\texttt{eq\_mul\_integral'} and \texttt{LSeries\_}\allowbreak\texttt{one\_mul\_Lseries\_moebius}, $\zeta(s)\, M_\zeta(s) = 1$ holds for $\operatorname{Re}(s) > 1$, where $M_\zeta(s) = s \int_1^\infty M(t) t^{-(s+1)}\,\dee t$.
+  \item \textbf{Stage B} (\texttt{mellinMertens\_\allowbreak differentiableAt}): Rewriting $M_\zeta(s) = s\,\mathcal{M}[\mathbf{1}_{(1,\infty)} M](-s)$ and applying \texttt{mellin\_differentiableAt\_\allowbreak of\_isBigO\_rpow} yields complex differentiability across $\{s \in \Cfield : \operatorname{Re}(s) > 1/2\}$.
+  \item \textbf{Stage C} (\texttt{mertens\_\allowbreak inversion\_\allowbreak of\_\allowbreak bound}): Applying \texttt{AnalyticOnNhd.}\allowbreak\texttt{eqOn\_of\_}\allowbreak\texttt{preconnected\_of\_}\allowbreak\texttt{eventuallyEq} across three open convex domains covering $\{s : \operatorname{Re}(s) > 1/2\} \setminus \{1\}$ (together with $\zeta(1) \neq 0$ for the dummy evaluation at $1$) shows $\zeta(s) \neq 0$ for $\operatorname{Re}(s) > 1/2$; zero reflection (\texttt{zeta\_zero\_reflection}) then implies $\operatorname{Re}(\rho) = 1/2$ for every non-trivial zero.
 \end{enumerate}
+}
 \end{proof}
 
 \begin{theorem}[Mertens--Riemann Equivalence]
@@ -1371,7 +1373,7 @@ Riemann's Explicit Formula reveals that the primes are not scattered randomly, b
 
 \begin{theorem}[Spectral Stability Theorem]
 \label{thm:spectral_stability}
-\lean{RiemannBlueprint.Section7_SpectralBridge.spectral_stability_theorem}
+\lean{RiemannBlueprint.Section7_SpectralBridge.spectral_stability_theorem, RiemannBlueprint.Section7_SpectralBridge.vonKoch_implies_rh, RiemannBlueprint.Section7_SpectralBridge.zero_free_re_gt_half_of_vonKoch}
 \uses{thm:riemann_explicit_formula}
 \leanok
 Let $\Theta \coloneqq \sup \{ \operatorname{Re}(\rho) : \zeta(\rho) = 0, \; 0 < \operatorname{Re}(\rho) < 1 \}$.
@@ -1456,9 +1458,10 @@ For every $N \ge 1$ and $c : \Nset \to \Rset$, the $\mathcal{O}(N^2)$ smooth Vas
 \sum_{j=1}^N \sum_{k=1}^N c_j c_k G_{j,k}^{(\mathrm{smooth})} = (\ln(2\pi) - \gamma) D_N(0) D_N(1) - D_N(0) D_N'(1) + D_N'(0) D_N(1) - \big(D_N(1)\big)^2,
 \end{equation}
 whence the complete squared $L^2(0,1)$ BNBD residual satisfies
-\begin{equation}
-\mathcal{E}_N(c) = 1 - 2(1 - \gamma) D_N(1) - \big(D_N(1)\big)^2 + 2 D_N'(1) + D_N(0)\Big[(\ln(2\pi) - \gamma) D_N(1) - D_N'(1)\Big] + D_N'(0) D_N(1) + Q_N^{(\mathrm{cot})}(c).
-\end{equation}
+\begin{multline}
+\mathcal{E}_N(c) = 1 - 2(1 - \gamma) D_N(1) - \big(D_N(1)\big)^2 + 2 D_N'(1) \\
++ D_N(0)\Big[(\ln(2\pi) - \gamma) D_N(1) - D_N'(1)\Big] + D_N'(0) D_N(1) + Q_N^{(\mathrm{cot})}(c).
+\end{multline}
 \end{theorem}
 
 \begin{corollary}[Constrained Nyman--Beurling Boundary Collapse]
@@ -1466,7 +1469,20 @@ whence the complete squared $L^2(0,1)$ BNBD residual satisfies
 \lean{RiemannBlueprint.Section8_VasyuninBDR.constrained_nb_bdr_collapse}
 \uses{thm:rank4_boundary_reduction}
 \leanok
-On the constrained Nyman--Beurling subspace $D_N(1) = \sum_{k=1}^N c_k/k = 0$, five smooth boundary terms vanish identically, yielding $\mathcal{E}_N(c) = 1 + (2 - D_N(0)) D_N'(1) + Q_N^{(\mathrm{cot})}(c)$.
+{\emergencystretch=3em
+On the constrained Nyman--Beurling subspace $D_N(1) = \sum_{k=1}^N c_k/k = 0$, five smooth boundary terms vanish identically, yielding
+$$\mathcal{E}_N(c) = 1 + (2 - D_N(0)) D_N'(1) + Q_N^{(\mathrm{cot})}(c).$$
+}
+\end{corollary}
+
+\begin{corollary}[Boundary-Locked Pure Cotangent Equivalence on $\mathcal{A}_N$]
+\label{cor:affine_bdr_pure_cotangent}
+\lean{RiemannBlueprint.Section8_VasyuninBDR.affine_bdr_pure_cotangent_identity, RiemannBlueprint.Section8_VasyuninBDR.D0_w_corrector_eq_one, RiemannBlueprint.Section8_VasyuninBDR.D1_w_corrector_eq_zero, RiemannBlueprint.Section8_VasyuninBDR.D0_affineLock_eq_two, RiemannBlueprint.Section8_VasyuninBDR.D1_affineLock_eq_zero}
+\uses{cor:constrained_bdr_collapse}
+\leanok
+{\emergencystretch=3em
+On the boundary-locked affine subspace $\mathcal{A}_N \coloneqq \{c \in \Rset^N \mid D_N(1) = 0 \;\text{and}\; D_N(0) = 2\}$ ($N \ge 2$), the remaining boundary cross term $(2 - D_N(0))D_N'(1)$ also vanishes identically, reducing the Vasyunin--BDR energy to the pure cotangent form $\mathcal{E}_N(c) = 1 + Q_N^{(\mathrm{cot})}(c)$. Moreover, every $c$ with $D_N(1) = 0$ is mapped into $\mathcal{A}_N$ by adding $(2 - D_N(0))w_{\mathrm{corr}}$, where $w_{\mathrm{corr}}$ is the $2$-sparse corrector $w_1 = -1/(N-1)$, $w_N = N/(N-1)$.
+}
 \end{corollary}
 
 % ===========================================================================
@@ -1484,10 +1500,10 @@ Table~\ref{tab:master_synthesis} presents a rigorous comparative synthesis mappi
 
 \begin{table}[htbp]
 \centering
-\footnotesize
-\setlength{\tabcolsep}{3.5pt}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{p{1.7cm} p{2.6cm} p{3.2cm} p{3.3cm} p{3.6cm}}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.28}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{1.6cm}>{\raggedright\arraybackslash}p{2.4cm}>{\raggedright\arraybackslash}p{2.8cm}>{\raggedright\arraybackslash}p{2.9cm}>{\raggedright\arraybackslash}p{3.2cm}@{}}
 \toprule
 \textbf{Complex Domain} & \textbf{Primes $\Pset$} & \textbf{Composites $\Ccomp$} & \textbf{Convergence Status} & \textbf{Zero / Pole Constraints} \\
 \midrule
@@ -1521,7 +1537,7 @@ Our investigation yields three fundamental conclusions for analytic number theor
 \label{rem:lean_classical_interface}
 \lean{RiemannBlueprint.ClassicalAnalyticInterface}
 \leanok
-In the formal Lean 4 companion library, all arithmetic foundations, pointwise and finite partial-sum partitions, unconditional Dirichlet series splittings for $\operatorname{Re}(s) > 1$ ($\zeta(s) = 1 + P(s) + \zeta_C(s)$ and $(\mu * \zeta_{\mathbb{Z}}) = 1$), discrete and continuous Abel summation of $M(x)$ with $M(N)N^{-s} \to 0$, zero reflection symmetry about $\operatorname{Re}(s) = 1/2$, Littlewood's forward theorem $M(x) = \mathcal{O}(x^{1/2+\epsilon}) \implies \mathrm{RH}$ (\texttt{LittlewoodForward.lean}), critical-strip divergence obstructions, unitary phasor modulus $|\chi(1/2 + i t)| = 1$, exact $4 \times 4$ determinants ($\det U_4 > 0, \det M_4 = 1/16$), dilated $L^2(0,1)$ integral evaluations, and Rank-4 BDR collapses are proved directly from Mathlib4 primitives with zero custom axioms ($82$ unconditional public declarations across the $9$ imported modules---$32$ core theorems, $19$ elementary/Mathlib wrappers, and $31$ auxiliary helpers/corollaries---plus $7$ standalone declarations in \texttt{MathlibPR\_LittlewoodMertens.lean}). Only the three remaining external complex-analytic theorems not yet internalized in Mathlib4 (upper half-plane natural boundary of $\zeta_C(s)$ along $i\mathbb{R}_{>0}$ on $\{-1 < \operatorname{Re}(s),\; 0 < \operatorname{Im}(s)\}$, Perron contour shift $\mathrm{RH} \implies M(x) = \mathcal{O}(x^{1/2+\epsilon})$, and Riemann's Explicit Formula equivalence) are bundled inside the explicit hypothesis structure \texttt{ClassicalAnalyticInterface} ($4$ conditional theorems), ensuring every theorem audits cleanly with \texttt{\#print axioms} returning strictly \texttt{[propext, Classical.choice, Quot.sound]}.
+In the formal Lean 4 companion library, all arithmetic foundations, pointwise and finite partial-sum partitions, unconditional Dirichlet series splittings for $\operatorname{Re}(s) > 1$ ($\zeta(s) = 1 + P(s) + \zeta_C(s)$ and $(\mu * \zeta_{\mathbb{Z}}) = 1$), discrete and continuous Abel summation of $M(x)$ with $M(N)N^{-s} \to 0$, zero reflection symmetry about $\operatorname{Re}(s) = 1/2$, Littlewood's forward theorem $M(x) = \mathcal{O}(x^{1/2+\epsilon}) \implies \mathrm{RH}$ (\texttt{LittlewoodForward.lean}), von Koch's forward theorem $\psi(x) - x = \mathcal{O}(x^{1/2+\epsilon}) \implies \mathrm{RH}$ (\texttt{vonKoch\_implies\_rh} in \texttt{Section7\_SpectralBridge.lean} via Mellin continuation and order-of-zero factoring), critical-strip divergence obstructions, unitary phasor modulus $|\chi(1/2 + i t)| = 1$, exact $4 \times 4$ determinants ($\det U_4 > 0, \det M_4 = 1/16$), dilated $L^2(0,1)$ integral evaluations, and Rank-4 / boundary-locked affine BDR collapses are proved directly from Mathlib4 primitives with zero custom axioms ($115$ unconditional public declarations across the $9$ imported modules---$42$ core theorems, $19$ elementary/Mathlib wrappers, and $54$ auxiliary helpers/corollaries---plus $7$ standalone declarations in \texttt{MathlibPR\_LittlewoodMertens.lean}). Only the three remaining external complex-analytic directions not yet internalized in Mathlib4 (upper half-plane natural boundary of $\zeta_C(s)$ along $i\mathbb{R}_{>0}$ on $\{-1 < \operatorname{Re}(s),\; 0 < \operatorname{Im}(s)\}$, Perron contour shift $\mathrm{RH} \implies M(x) = \mathcal{O}(x^{1/2+\epsilon})$, and the converse $\mathrm{RH} \implies \psi(x) - x = \mathcal{O}(x^{1/2+\epsilon})$) are bundled inside the explicit hypothesis structure \texttt{ClassicalAnalyticInterface} ($4$ conditional theorems), ensuring every theorem audits cleanly with \texttt{\#print axioms} returning strictly \texttt{[propext, Classical.choice, Quot.sound]}.
 \end{remark}
 
 % ===========================================================================
