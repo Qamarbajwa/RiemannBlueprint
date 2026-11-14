@@ -123,6 +123,17 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check RiemannBlueprint.Section8_VasyuninBDR.M4_top_left_isotropic
 #check RiemannBlueprint.Section8_VasyuninBDR.intervalIntegral_linear_dilation
 #check RiemannBlueprint.Section8_VasyuninBDR.intervalIntegral_sq_dilation
+#check NumberTheory.MellinFracPart.riemannZeta_eq_tsum_harmonicUnitSummand
+#check NumberTheory.MellinFracPart.mellin_recipFract_unit_interval_of_pos_re
+#check NumberTheory.MellinFracPart.mellin_baezDuarte_residual_of_tsum_continuation
+#check CMIAudit.zetaZeroReflectionSymmetry_proved
+#check CMIAudit.cmi_criterion1_spectral_residual_eq
+#check CMIAudit.nymanBeurling_spatial_cauchy_floor
+#check CMIAudit.nymanBeurling_szegoReproducingInequality
+#check CMIAudit.nymanBeurling_implies_rh
+#check CMIAudit.bnbd_implies_rh
+#check CMIAudit.bdr_cotangent_implies_rh
+#check CMIAudit.baezDuarte_implies_rh
 
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
 #print axioms RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic
@@ -186,3 +197,14 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.M4_top_left_isotropic
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.intervalIntegral_linear_dilation
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.intervalIntegral_sq_dilation
+#print axioms NumberTheory.MellinFracPart.riemannZeta_eq_tsum_harmonicUnitSummand
+#print axioms NumberTheory.MellinFracPart.mellin_recipFract_unit_interval_of_pos_re
+#print axioms NumberTheory.MellinFracPart.mellin_baezDuarte_residual_of_tsum_continuation
+#print axioms CMIAudit.zetaZeroReflectionSymmetry_proved
+#print axioms CMIAudit.cmi_criterion1_spectral_residual_eq
+#print axioms CMIAudit.nymanBeurling_spatial_cauchy_floor
+#print axioms CMIAudit.nymanBeurling_szegoReproducingInequality
+#print axioms CMIAudit.nymanBeurling_implies_rh
+#print axioms CMIAudit.bnbd_implies_rh
+#print axioms CMIAudit.bdr_cotangent_implies_rh
+#print axioms CMIAudit.baezDuarte_implies_rh

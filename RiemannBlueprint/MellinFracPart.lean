@@ -1,6 +1,7 @@
 import Mathlib.NumberTheory.LSeries.RiemannZeta
 import Mathlib.Analysis.SpecialFunctions.ImproperIntegrals
 import Mathlib.Analysis.SpecialFunctions.Integrals.Basic
+import Mathlib.Analysis.Complex.LocallyUniformLimit
 import Mathlib.MeasureTheory.Function.Floor
 import Mathlib.Algebra.Order.Floor.Defs
 
@@ -1052,31 +1053,271 @@ theorem tsum_harmonicUnitSummand_of_one_lt_re (s : ℂ) (hs_gt_one : 1 < s.re) :
   rw [tsum_harmonicUnitSummand_eq_unit_integral s hs_pos hs_ne_one]
   exact mellin_recipFract_unit_interval_of_one_lt_re s hs_gt_one
 
-/-- Critical-strip Báez–Duarte residual identity from the Euler–Maclaurin `tsum` continuation
-of `riemannZeta s` (eliminating the `h_unit` integral parameter). -/
-theorem mellin_baezDuarte_residual_of_tsum_continuation (N : ℕ) (c : ℕ → ℂ) (s : ℂ)
-    (hs_pos : 0 < s.re) (hs_lt_one : s.re < 1)
-    (h_cont : riemannZeta s =
-      s * (1 / (s - 1) - ∑' n : ℕ, harmonicUnitSummand s (n + 1))) :
-    (∫ x in Ioc (0 : ℝ) 1, (x : ℂ) ^ (s - 1)) -
-    (∫ x in Ioi (0 : ℝ),
-      (∑ k ∈ Finset.Ico 1 (N + 1), c k * (recipFractScaled k x : ℂ)) * (x : ℂ) ^ (s - 1)) =
-      (1 + riemannZeta s * ∑ k ∈ Finset.Ico 1 (N + 1), c k * (k : ℂ) ^ (-s)) / s := by
+/-- Uniform `L¹` norm bound on `harmonicUnitSummand s n` for `0 < δ ≤ Re(s)` and `s ≠ 1`. -/
+lemma norm_harmonicUnitSummand_le_of_le_re (n : ℕ) (hn : 1 ≤ n) (δ : ℝ) (hδ : 0 < δ)
+    (s : ℂ) (hs_ge : δ ≤ s.re) (hs_ne_one : s ≠ 1) :
+    ‖harmonicUnitSummand s n‖ ≤
+      ((n : ℝ) ^ (-δ) - ((n + 1 : ℕ) : ℝ) ^ (-δ)) / δ := by
+  have hs_pos : 0 < s.re := lt_of_lt_of_le hδ hs_ge
+  rw [← integral_Ioc_harmonic_recipFract_cpow n hn s hs_pos hs_ne_one]
+  have hn_pos : (0 : ℝ) < n := Nat.cast_pos.mpr hn
+  have hn1_pos : (0 : ℝ) < (n : ℝ) + 1 := by linarith
+  have hle : 1 / ((n : ℝ) + 1) ≤ 1 / (n : ℝ) :=
+    one_div_le_one_div_of_le hn_pos (by linarith)
+  have hsub : Ioc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ)) ⊆ Ioc (0 : ℝ) 1 :=
+    Ioc_subset_Ioc (by positivity) (div_le_one_of_le₀ (by exact_mod_cast hn) (by positivity))
+  have hint_fn : IntegrableOn (fun x : ℝ => (recipFract x : ℂ) * (x : ℂ) ^ (s - 1))
+      (Ioc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ))) :=
+    (integrableOn_Ioc_recipFract_cpow s hs_pos).mono_set hsub
+  have hint_rpow : IntegrableOn (fun x : ℝ => x ^ (δ - 1))
+      (Ioc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ))) := by
+    have hcont : ContinuousOn (fun x : ℝ => x ^ (δ - 1))
+        (Icc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ))) := fun x hx =>
+      (Real.continuousAt_rpow_const _ _
+        (Or.inl (lt_of_lt_of_le (one_div_pos.mpr hn1_pos) hx.1).ne')).continuousWithinAt
+    exact hcont.integrableOn_Icc.mono_set Ioc_subset_Icc_self
+  have hle_int :
+      ∫ x in Ioc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ)), ‖(recipFract x : ℂ) * (x : ℂ) ^ (s - 1)‖ ≤
+        ∫ x in Ioc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ)), x ^ (δ - 1) := by
+    refine setIntegral_mono_on hint_fn.norm hint_rpow measurableSet_Ioc (fun x hx => ?_)
+    have hx_mem : x ∈ Ioc (0 : ℝ) 1 := hsub hx
+    have hx_pos : 0 < x := hx_mem.1
+    have hx_le_one : x ≤ 1 := hx_mem.2
+    rw [norm_mul, Complex.norm_cpow_eq_rpow_re_of_pos hx_pos]
+    have hre : (s - 1).re = s.re - 1 := by simp [Complex.sub_re]
+    rw [hre]
+    calc
+      ‖(recipFract x : ℂ)‖ * x ^ (s.re - 1) ≤ 1 * x ^ (s.re - 1) :=
+        mul_le_mul_of_nonneg_right (norm_recipFract_le_one x) (Real.rpow_nonneg hx_pos.le _)
+      _ = x ^ (s.re - 1) := one_mul _
+      _ ≤ x ^ (δ - 1) := Real.rpow_le_rpow_of_exponent_ge hx_pos hx_le_one (by linarith)
+  have hval :
+      ∫ x in Ioc (1 / ((n : ℝ) + 1)) (1 / (n : ℝ)), x ^ (δ - 1) =
+        ((n : ℝ) ^ (-δ) - ((n + 1 : ℕ) : ℝ) ^ (-δ)) / δ := by
+    rw [← intervalIntegral.integral_of_le hle,
+      integral_rpow (Or.inl (by linarith : (-1 : ℝ) < δ - 1))]
+    have hδ1 : δ - 1 + 1 = δ := by ring
+    rw [hδ1]
+    have inv_rpow_nat : ∀ m : ℕ, (1 / (m : ℝ)) ^ δ = (m : ℝ) ^ (-δ) := fun m => by
+      rw [one_div, Real.inv_rpow (Nat.cast_nonneg m), Real.rpow_neg (Nat.cast_nonneg m)]
+    have h1 := inv_rpow_nat n
+    have h2 : (1 / ((n : ℝ) + 1)) ^ δ = ((n + 1 : ℕ) : ℝ) ^ (-δ) := by
+      simpa [Nat.cast_add, Nat.cast_one] using inv_rpow_nat (n + 1)
+    rw [h1, h2]
+  exact (norm_integral_le_integral_norm _).trans (hle_int.trans hval.le)
+
+/-- Telescoping summability of `(((n + 1 : ℕ) : ℝ) ^ (-δ) - ((n + 2 : ℕ) : ℝ) ^ (-δ)) / δ` for `0 < δ`. -/
+lemma summable_rpow_diff_div (δ : ℝ) (hδ : 0 < δ) :
+    Summable (fun n : ℕ => (((n + 1 : ℕ) : ℝ) ^ (-δ) - ((n + 1 + 1 : ℕ) : ℝ) ^ (-δ)) / δ) := by
+  let g : ℕ → ℝ := fun n => ((n + 1 : ℕ) : ℝ) ^ (-δ) / δ
+  have hg_nonneg : ∀ n : ℕ, 0 ≤ g n - g (n + 1) := by
+    intro n
+    have hle : ((n + 1 + 1 : ℕ) : ℝ) ^ (-δ) ≤ ((n + 1 : ℕ) : ℝ) ^ (-δ) := by
+      have h1 : (0 : ℝ) < ((n + 1 : ℕ) : ℝ) := by positivity
+      have h2 : ((n + 1 : ℕ) : ℝ) ≤ ((n + 1 + 1 : ℕ) : ℝ) := by exact_mod_cast Nat.le_succ _
+      exact Real.rpow_le_rpow_of_nonpos h1 h2 (by linarith)
+    have hsub : g n - g (n + 1) =
+        (((n + 1 : ℕ) : ℝ) ^ (-δ) - ((n + 1 + 1 : ℕ) : ℝ) ^ (-δ)) / δ := by
+      simp [g, sub_div, Nat.cast_add, Nat.cast_one]
+    rw [hsub]
+    exact div_nonneg (sub_nonneg.mpr hle) hδ.le
+  have hg_sum_eq : ∀ M : ℕ, ∑ n ∈ Finset.range M, (g n - g (n + 1)) = g 0 - g M := fun M =>
+    Finset.sum_range_sub' g M
+  have hg_tendsto_zero : Tendsto g atTop (nhds 0) := by
+    have hm : Tendsto (fun M : ℕ => (M : ℝ) + 1) atTop atTop :=
+      tendsto_natCast_atTop_atTop.atTop_add tendsto_const_nhds
+    have hpow : Tendsto (fun M : ℕ => ((M + 1 : ℕ) : ℝ) ^ (-δ)) atTop (nhds 0) := by
+      have h1 := (tendsto_rpow_neg_atTop hδ).comp hm
+      convert h1 using 1
+      ext M
+      simp [Nat.cast_add, Nat.cast_one]
+    simpa [g, zero_div] using hpow.div_const δ
+  have hg_tendsto : Tendsto (fun M : ℕ => ∑ n ∈ Finset.range M, (g n - g (n + 1)))
+      atTop (nhds (g 0)) := by
+    simp_rw [hg_sum_eq]
+    simpa [sub_zero] using tendsto_const_nhds.sub hg_tendsto_zero
+  have hret := (hasSum_iff_tendsto_nat_of_nonneg hg_nonneg (g 0)).mpr hg_tendsto |>.summable
+  simpa [g, sub_div, Nat.cast_add, Nat.cast_one] using hret
+
+/-- Analyticity of `∑' n, harmonicUnitSummand s (n + 1)` on `{s : ℂ | 0 < s.re ∧ s ≠ 1}`. -/
+lemma analyticOnNhd_tsum_harmonicUnitSummand :
+    AnalyticOnNhd ℂ (fun s : ℂ => ∑' n : ℕ, harmonicUnitSummand s (n + 1))
+      {s : ℂ | 0 < s.re ∧ s ≠ 1} := by
+  have hS_open : IsOpen {s : ℂ | 0 < s.re ∧ s ≠ 1} :=
+    (isOpen_lt continuous_const Complex.continuous_re).inter isOpen_ne
+  refine DifferentiableOn.analyticOnNhd ?_ hS_open
+  intro s hs
+  let δ : ℝ := s.re / 2
+  have hδ : 0 < δ := by dsimp [δ]; linarith [hs.1]
+  let Uδ : Set ℂ := {w : ℂ | δ < w.re ∧ w ≠ 1}
+  have hUδ_open : IsOpen Uδ :=
+    (isOpen_lt continuous_const Complex.continuous_re).inter isOpen_ne
+  have hs_mem : s ∈ Uδ := ⟨by dsimp [δ]; linarith [hs.1], hs.2⟩
+  have h_diff_term : ∀ n : ℕ, DifferentiableOn ℂ (fun w : ℂ => harmonicUnitSummand w (n + 1)) Uδ := by
+    intro n w hw
+    have hw_ne_zero : w ≠ 0 := by
+      intro h0
+      rw [h0] at hw
+      simp only [Uδ, Set.mem_setOf_eq, Complex.zero_re] at hw
+      linarith [hw.1, hδ]
+    have hw_sub_ne : w - 1 ≠ 0 := sub_ne_zero.mpr hw.2
+    have hn1_ne : ((n + 1 : ℕ) : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr (by omega)
+    have hn2_ne : ((n + 1 + 1 : ℕ) : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr (by omega)
+    have h1 : DifferentiableAt ℂ (fun z : ℂ => ((n + 1 : ℕ) : ℂ) ^ (1 - z)) w :=
+      ((differentiableAt_const (1 : ℂ)).sub differentiableAt_id).const_cpow (Or.inl hn1_ne)
+    have h2 : DifferentiableAt ℂ (fun z : ℂ => ((n + 1 + 1 : ℕ) : ℂ) ^ (1 - z)) w :=
+      ((differentiableAt_const (1 : ℂ)).sub differentiableAt_id).const_cpow (Or.inl hn2_ne)
+    have h3 : DifferentiableAt ℂ (fun z : ℂ => ((n + 1 : ℕ) : ℂ) ^ (-z)) w :=
+      differentiableAt_id.neg.const_cpow (Or.inl hn1_ne)
+    have h4 : DifferentiableAt ℂ (fun z : ℂ => ((n + 1 + 1 : ℕ) : ℂ) ^ (-z)) w :=
+      differentiableAt_id.neg.const_cpow (Or.inl hn2_ne)
+    have h_all : DifferentiableAt ℂ (fun z : ℂ => harmonicUnitSummand z (n + 1)) w := by
+      unfold harmonicUnitSummand
+      exact ((h1.sub h2).div (differentiableAt_id.sub (differentiableAt_const (1 : ℂ))) hw_sub_ne).sub
+        (((differentiableAt_const ((n + 1 : ℕ) : ℂ)).div differentiableAt_id hw_ne_zero).mul (h3.sub h4))
+    exact h_all.differentiableWithinAt
+  have h_diff_Uδ : DifferentiableOn ℂ (fun w : ℂ => ∑' n : ℕ, harmonicUnitSummand w (n + 1)) Uδ :=
+    Complex.differentiableOn_tsum_of_summable_norm (summable_rpow_diff_div δ hδ) h_diff_term hUδ_open
+      (fun n w hw => norm_harmonicUnitSummand_le_of_le_re (n + 1) (by omega) δ hδ w hw.1.le hw.2)
+  exact (h_diff_Uδ.differentiableAt (hUδ_open.mem_nhds hs_mem)).differentiableWithinAt
+
+/-- Unconditional Euler–Maclaurin `tsum` continuation of `riemannZeta s` across `0 < Re(s)`, `s ≠ 1`
+via the Identity Theorem on the convex upper, lower, and critical-strip domains. -/
+theorem riemannZeta_eq_tsum_harmonicUnitSummand (s : ℂ) (hs_pos : 0 < s.re) (hs_ne_one : s ≠ 1) :
+    riemannZeta s = s * (1 / (s - 1) - ∑' n : ℕ, harmonicUnitSummand s (n + 1)) := by
+  let S : Set ℂ := {z : ℂ | 0 < z.re ∧ z ≠ 1}
+  let F : ℂ → ℂ := fun z => riemannZeta z - z * (1 / (z - 1) - ∑' n : ℕ, harmonicUnitSummand z (n + 1))
+  have hF_ana : AnalyticOnNhd ℂ F S := by
+    have h_zeta : AnalyticOnNhd ℂ riemannZeta S := by
+      refine DifferentiableOn.analyticOnNhd (fun z hz =>
+        (differentiableAt_riemannZeta hz.2).differentiableWithinAt)
+        ((isOpen_lt continuous_const Complex.continuous_re).inter isOpen_ne)
+    have h_pole : AnalyticOnNhd ℂ (fun z : ℂ => (1 : ℂ) / (z - 1)) S := by
+      refine DifferentiableOn.analyticOnNhd (fun z hz =>
+        ((differentiableAt_const (1 : ℂ)).div
+          (differentiableAt_id.sub (differentiableAt_const (1 : ℂ)))
+          (sub_ne_zero.mpr hz.2)).differentiableWithinAt)
+        ((isOpen_lt continuous_const Complex.continuous_re).inter isOpen_ne)
+    exact h_zeta.sub (analyticOnNhd_id.mul (h_pole.sub analyticOnNhd_tsum_harmonicUnitSummand))
+  have hF_gt_one : ∀ z : ℂ, 1 < z.re → F z = 0 := by
+    intro z hz
+    have hz_ne_zero : z ≠ 0 := by
+      intro h0
+      rw [h0] at hz
+      simp at hz
+      linarith
+    have htsum := tsum_harmonicUnitSummand_of_one_lt_re z hz
+    dsimp [F]
+    rw [htsum]
+    field_simp [hz_ne_zero]
+    ring
+  let U_top : Set ℂ := {z : ℂ | 0 < z.re ∧ 0 < z.im}
+  let U_bot : Set ℂ := {z : ℂ | 0 < z.re ∧ z.im < 0}
+  let U_left : Set ℂ := {z : ℂ | 0 < z.re ∧ z.re < 1}
+  have hU_top_sub : U_top ⊆ S := fun z hz => ⟨hz.1, fun h1 => by rw [h1] at hz; norm_num [U_top] at hz⟩
+  have hU_bot_sub : U_bot ⊆ S := fun z hz => ⟨hz.1, fun h1 => by rw [h1] at hz; norm_num [U_bot] at hz⟩
+  have hU_left_sub : U_left ⊆ S := fun z hz => ⟨hz.1, fun h1 => by rw [h1] at hz; norm_num [U_left] at hz⟩
+  have hlin_gt : ∀ {a b x y : ℝ}, 0 ≤ a → 0 ≤ b → a + b = 1 → 0 < x → 0 < y → 0 < a * x + b * y := by
+    intro a b x y ha hb hab hx hy
+    rcases eq_or_lt_of_le ha with rfl | ha_pos
+    · simp only [zero_mul, zero_add] at hab ⊢
+      rw [hab, one_mul]
+      exact hy
+    · have h1 : 0 < a * x := mul_pos ha_pos hx
+      have h2 : 0 ≤ b * y := mul_nonneg hb hy.le
+      linarith
+  have hlin_lt : ∀ {a b x y : ℝ}, 0 ≤ a → 0 ≤ b → a + b = 1 → x < 1 → y < 1 → a * x + b * y < 1 := by
+    intro a b x y ha hb hab hx hy
+    rcases eq_or_lt_of_le ha with rfl | ha_pos
+    · simp only [zero_mul, zero_add] at hab ⊢
+      rw [hab, one_mul]
+      exact hy
+    · have h1 : a * x < a * 1 := mul_lt_mul_of_pos_left hx ha_pos
+      have h2 : b * y ≤ b * 1 := mul_le_mul_of_nonneg_left hy.le hb
+      linarith
+  have hU_top_pre : IsPreconnected U_top := by
+    have hconv : Convex ℝ U_top := by
+      intro x hx y hy a b ha hb hab
+      change 0 < (a • x + b • y).re ∧ 0 < (a • x + b • y).im
+      simp only [Complex.add_re, Complex.real_smul, Complex.mul_re, Complex.ofReal_re,
+        Complex.ofReal_im, zero_mul, sub_zero, Complex.add_im, Complex.mul_im, add_zero]
+      exact ⟨hlin_gt ha hb hab hx.1 hy.1, hlin_gt ha hb hab hx.2 hy.2⟩
+    exact hconv.isPreconnected
+  have hU_bot_pre : IsPreconnected U_bot := by
+    have hconv : Convex ℝ U_bot := by
+      intro x hx y hy a b ha hb hab
+      change 0 < (a • x + b • y).re ∧ (a • x + b • y).im < 0
+      simp only [Complex.add_re, Complex.real_smul, Complex.mul_re, Complex.ofReal_re,
+        Complex.ofReal_im, zero_mul, sub_zero, Complex.add_im, Complex.mul_im, add_zero]
+      refine ⟨hlin_gt ha hb hab hx.1 hy.1, ?_⟩
+      have hneg := hlin_gt ha hb hab (neg_pos.mpr hx.2) (neg_pos.mpr hy.2)
+      linarith
+    exact hconv.isPreconnected
+  have hU_left_pre : IsPreconnected U_left := by
+    have hconv : Convex ℝ U_left := by
+      intro x hx y hy a b ha hb hab
+      change 0 < (a • x + b • y).re ∧ (a • x + b • y).re < 1
+      simp only [Complex.add_re, Complex.real_smul, Complex.mul_re, Complex.ofReal_re,
+        Complex.ofReal_im, zero_mul, sub_zero]
+      exact ⟨hlin_gt ha hb hab hx.1 hy.1, hlin_lt ha hb hab hx.2 hy.2⟩
+    exact hconv.isPreconnected
+  have hright_open : IsOpen {z : ℂ | 1 < z.re} := isOpen_lt continuous_const Complex.continuous_re
+  have htop_open : IsOpen U_top :=
+    (isOpen_lt continuous_const Complex.continuous_re).inter
+      (isOpen_lt continuous_const Complex.continuous_im)
+  have hzero_top : Set.EqOn F 0 U_top := by
+    refine (hF_ana.mono hU_top_sub).eqOn_of_preconnected_of_eventuallyEq
+      analyticOnNhd_const hU_top_pre (z₀ := (2 : ℂ) + Complex.I) (by simp [U_top]) ?_
+    refine Filter.eventuallyEq_iff_exists_mem.mpr ⟨{z : ℂ | 1 < z.re},
+      hright_open.mem_nhds (by simp), fun z hz => hF_gt_one z hz⟩
+  have hzero_bot : Set.EqOn F 0 U_bot := by
+    refine (hF_ana.mono hU_bot_sub).eqOn_of_preconnected_of_eventuallyEq
+      analyticOnNhd_const hU_bot_pre (z₀ := (2 : ℂ) - Complex.I) (by simp [U_bot]) ?_
+    refine Filter.eventuallyEq_iff_exists_mem.mpr ⟨{z : ℂ | 1 < z.re},
+      hright_open.mem_nhds (by simp), fun z hz => hF_gt_one z hz⟩
+  have hzero_left : Set.EqOn F 0 U_left := by
+    refine (hF_ana.mono hU_left_sub).eqOn_of_preconnected_of_eventuallyEq
+      analyticOnNhd_const hU_left_pre (z₀ := (1 / 2 : ℂ) + Complex.I)
+      (by simp [U_left]; norm_num) ?_
+    refine Filter.eventuallyEq_iff_exists_mem.mpr ⟨U_top,
+      htop_open.mem_nhds (by simp [U_top]), fun z hz => hzero_top hz⟩
+  have hFs : F s = 0 := by
+    rcases lt_trichotomy s.re 1 with hlt | heq | hgt
+    · exact hzero_left ⟨hs_pos, hlt⟩
+    · have him : s.im ≠ 0 := fun h0 => hs_ne_one (Complex.ext heq h0)
+      rcases lt_or_gt_of_ne him with hneg | hpos
+      · exact hzero_bot ⟨hs_pos, hneg⟩
+      · exact hzero_top ⟨hs_pos, hpos⟩
+    · exact hF_gt_one s hgt
+  exact sub_eq_zero.mp hFs
+
+/-- Unconditional unit-interval Titchmarsh §2.1.5 identity across all `0 < Re(s)`, `s ≠ 1`. -/
+theorem mellin_recipFract_unit_interval_of_pos_re (s : ℂ) (hs_pos : 0 < s.re) (hs_ne_one : s ≠ 1) :
+    ∫ x in Ioc (0 : ℝ) 1, (recipFract x : ℂ) * (x : ℂ) ^ (s - 1) =
+      1 / (s - 1) - riemannZeta s / s := by
   have hs_ne_zero : s ≠ 0 := by
     intro h
     rw [h] at hs_pos
     simp at hs_pos
+  rw [← tsum_harmonicUnitSummand_eq_unit_integral s hs_pos hs_ne_one,
+    riemannZeta_eq_tsum_harmonicUnitSummand s hs_pos hs_ne_one]
+  field_simp [hs_ne_zero]
+  ring
+
+/-- Unconditional critical-strip Báez–Duarte residual identity (`h_cont` discharged via
+`riemannZeta_eq_tsum_harmonicUnitSummand`). -/
+theorem mellin_baezDuarte_residual_of_tsum_continuation (N : ℕ) (c : ℕ → ℂ) (s : ℂ)
+    (hs_pos : 0 < s.re) (hs_lt_one : s.re < 1) :
+    (∫ x in Ioc (0 : ℝ) 1, (x : ℂ) ^ (s - 1)) -
+    (∫ x in Ioi (0 : ℝ),
+      (∑ k ∈ Finset.Ico 1 (N + 1), c k * (recipFractScaled k x : ℂ)) * (x : ℂ) ^ (s - 1)) =
+      (1 + riemannZeta s * ∑ k ∈ Finset.Ico 1 (N + 1), c k * (k : ℂ) ^ (-s)) / s := by
   have hs_ne_one : s ≠ 1 := by
     intro h
     rw [h] at hs_lt_one
     simp at hs_lt_one
-  have h_unit :
-      ∫ x in Ioc (0 : ℝ) 1, (recipFract x : ℂ) * (x : ℂ) ^ (s - 1) =
-        1 / (s - 1) - riemannZeta s / s := by
-    rw [← tsum_harmonicUnitSummand_eq_unit_integral s hs_pos hs_ne_one, h_cont]
-    field_simp [hs_ne_zero]
-    ring
-  exact mellin_baezDuarte_residual_eq N c s hs_pos hs_lt_one h_unit
+  exact mellin_baezDuarte_residual_eq N c s hs_pos hs_lt_one
+    (mellin_recipFract_unit_interval_of_pos_re s hs_pos hs_ne_one)
 
 #print axioms norm_recipFract_le_one
 #print axioms integrableOn_Ioc_recipFract_cpow
@@ -1115,6 +1356,11 @@ theorem mellin_baezDuarte_residual_of_tsum_continuation (N : ℕ) (c : ℕ → �
 #print axioms summable_harmonicUnitSummand
 #print axioms tsum_harmonicUnitSummand_eq_unit_integral
 #print axioms tsum_harmonicUnitSummand_of_one_lt_re
+#print axioms norm_harmonicUnitSummand_le_of_le_re
+#print axioms summable_rpow_diff_div
+#print axioms analyticOnNhd_tsum_harmonicUnitSummand
+#print axioms riemannZeta_eq_tsum_harmonicUnitSummand
+#print axioms mellin_recipFract_unit_interval_of_pos_re
 #print axioms mellin_baezDuarte_residual_of_tsum_continuation
 
 end NumberTheory.MellinFracPart
