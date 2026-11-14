@@ -585,6 +585,120 @@ theorem integral_Ioc_truncated_recipFract_cpow (M : ℕ) (s : ℂ)
   rw [integral_Ioc_truncated_inv_mul_cpow M s hs_ne_one,
     integral_Ioc_truncated_floor_cpow M s hs_pos]
 
+/-- Partition of `Ioc 0 1` at `1 / (M + 1)` (`M : ℕ`, `0 < Re(s)`). -/
+theorem integral_Ioc_one_eq_near_zero_add_truncated (M : ℕ) (s : ℂ) (hs_pos : 0 < s.re) :
+    ∫ x in Ioc (0 : ℝ) 1, (recipFract x : ℂ) * (x : ℂ) ^ (s - 1) =
+      (∫ x in Ioc (0 : ℝ) (1 / ((M : ℝ) + 1)), (recipFract x : ℂ) * (x : ℂ) ^ (s - 1)) +
+      (∫ x in Ioc (1 / ((M : ℝ) + 1)) 1, (recipFract x : ℂ) * (x : ℂ) ^ (s - 1)) := by
+  have h0 : (0 : ℝ) ≤ 1 / ((M : ℝ) + 1) := by positivity
+  have h1 : 1 / ((M : ℝ) + 1) ≤ (1 : ℝ) := div_le_one_of_le₀ (by linarith) (by positivity)
+  have hunion : Ioc (0 : ℝ) 1 =
+      Ioc (0 : ℝ) (1 / ((M : ℝ) + 1)) ∪ Ioc (1 / ((M : ℝ) + 1)) 1 :=
+    (Ioc_union_Ioc_eq_Ioc h0 h1).symm
+  have hdisj : Disjoint (Ioc (0 : ℝ) (1 / ((M : ℝ) + 1))) (Ioc (1 / ((M : ℝ) + 1)) 1) :=
+    Ioc_disjoint_Ioc_of_le le_rfl
+  have hint := integrableOn_Ioc_recipFract_cpow s hs_pos
+  have hint1 : IntegrableOn (fun x : ℝ => (recipFract x : ℂ) * (x : ℂ) ^ (s - 1))
+      (Ioc (0 : ℝ) (1 / ((M : ℝ) + 1))) := hint.mono_set (Ioc_subset_Ioc_right h1)
+  have hint2 : IntegrableOn (fun x : ℝ => (recipFract x : ℂ) * (x : ℂ) ^ (s - 1))
+      (Ioc (1 / ((M : ℝ) + 1)) 1) := hint.mono_set (Ioc_subset_Ioc_left h0)
+  rw [hunion, setIntegral_union hdisj measurableSet_Ioc hint1 hint2]
+
+/-- Explicit `L¹` norm bound on the near-zero tail `Ioc 0 (1 / (M + 1))` for `0 < Re(s)`. -/
+theorem norm_integral_Ioc_near_zero_le (M : ℕ) (s : ℂ) (hs_pos : 0 < s.re) :
+    ‖∫ x in Ioc (0 : ℝ) (1 / ((M : ℝ) + 1)), (recipFract x : ℂ) * (x : ℂ) ^ (s - 1)‖ ≤
+      ((M : ℝ) + 1) ^ (-s.re) / s.re := by
+  have h0 : (0 : ℝ) ≤ 1 / ((M : ℝ) + 1) := by positivity
+  have h1 : 1 / ((M : ℝ) + 1) ≤ (1 : ℝ) := div_le_one_of_le₀ (by linarith) (by positivity)
+  have hint_fn : IntegrableOn (fun x : ℝ => (recipFract x : ℂ) * (x : ℂ) ^ (s - 1))
+      (Ioc (0 : ℝ) (1 / ((M : ℝ) + 1))) :=
+    (integrableOn_Ioc_recipFract_cpow s hs_pos).mono_set (Ioc_subset_Ioc_right h1)
+  have hint_rpow : IntegrableOn (fun x : ℝ => x ^ (s.re - 1))
+      (Ioc (0 : ℝ) (1 / ((M : ℝ) + 1))) := by
+    rw [← intervalIntegrable_iff_integrableOn_Ioc_of_le h0]
+    exact intervalIntegral.intervalIntegrable_rpow' (by linarith : (-1 : ℝ) < s.re - 1)
+  have hle_int :
+      ∫ x in Ioc (0 : ℝ) (1 / ((M : ℝ) + 1)), ‖(recipFract x : ℂ) * (x : ℂ) ^ (s - 1)‖ ≤
+        ∫ x in Ioc (0 : ℝ) (1 / ((M : ℝ) + 1)), x ^ (s.re - 1) := by
+    refine setIntegral_mono_on hint_fn.norm hint_rpow measurableSet_Ioc (fun x hx => ?_)
+    rw [norm_mul, Complex.norm_cpow_eq_rpow_re_of_pos hx.1]
+    have hre : (s - 1).re = s.re - 1 := by simp [Complex.sub_re]
+    rw [hre]
+    calc
+      ‖(recipFract x : ℂ)‖ * x ^ (s.re - 1) ≤ 1 * x ^ (s.re - 1) :=
+        mul_le_mul_of_nonneg_right (norm_recipFract_le_one x) (Real.rpow_nonneg hx.1.le _)
+      _ = x ^ (s.re - 1) := one_mul _
+  have hval :
+      ∫ x in Ioc (0 : ℝ) (1 / ((M : ℝ) + 1)), x ^ (s.re - 1) =
+        ((M : ℝ) + 1) ^ (-s.re) / s.re := by
+    rw [← intervalIntegral.integral_of_le h0,
+      integral_rpow (Or.inl (by linarith : (-1 : ℝ) < s.re - 1))]
+    have hs1 : s.re - 1 + 1 = s.re := by ring
+    rw [hs1, Real.zero_rpow hs_pos.ne', sub_zero, one_div,
+      Real.inv_rpow (by positivity), Real.rpow_neg (by positivity)]
+  exact (norm_integral_le_integral_norm _).trans (hle_int.trans hval.le)
+
+/-- Near-zero tail vanishing as `M → ∞` (`0 < Re(s)`). -/
+theorem tendsto_integral_Ioc_near_zero_atTop (s : ℂ) (hs_pos : 0 < s.re) :
+    Tendsto (fun M : ℕ =>
+      ∫ x in Ioc (0 : ℝ) (1 / ((M : ℝ) + 1)), (recipFract x : ℂ) * (x : ℂ) ^ (s - 1))
+      atTop (nhds 0) := by
+  have hm : Tendsto (fun M : ℕ => (M : ℝ) + 1) atTop atTop :=
+    tendsto_natCast_atTop_atTop.atTop_add tendsto_const_nhds
+  have ht : Tendsto (fun M : ℕ => ((M : ℝ) + 1) ^ (-s.re) / s.re) atTop (nhds (0 / s.re)) :=
+    ((tendsto_rpow_neg_atTop hs_pos).comp hm).div_const s.re
+  rw [zero_div] at ht
+  exact squeeze_zero_norm (fun M => norm_integral_Ioc_near_zero_le M s hs_pos) ht
+
+/-- Convergence of the truncated `recipFract` integral on `Ioc (1 / (M + 1)) 1`
+to the full unit-interval integral as `M → ∞` (`0 < Re(s)`). -/
+theorem tendsto_integral_Ioc_truncated_recipFract_atTop (s : ℂ) (hs_pos : 0 < s.re) :
+    Tendsto (fun M : ℕ =>
+      ∫ x in Ioc (1 / ((M : ℝ) + 1)) 1, (recipFract x : ℂ) * (x : ℂ) ^ (s - 1))
+      atTop (nhds (∫ x in Ioc (0 : ℝ) 1, (recipFract x : ℂ) * (x : ℂ) ^ (s - 1))) := by
+  have hsub :
+      (fun M : ℕ => ∫ x in Ioc (1 / ((M : ℝ) + 1)) 1, (recipFract x : ℂ) * (x : ℂ) ^ (s - 1)) =
+        fun M : ℕ =>
+          (∫ x in Ioc (0 : ℝ) 1, (recipFract x : ℂ) * (x : ℂ) ^ (s - 1)) -
+          (∫ x in Ioc (0 : ℝ) (1 / ((M : ℝ) + 1)), (recipFract x : ℂ) * (x : ℂ) ^ (s - 1)) := by
+    ext M
+    have hsplit := integral_Ioc_one_eq_near_zero_add_truncated M s hs_pos
+    linear_combination -hsplit
+  rw [hsub]
+  simpa using tendsto_const_nhds.sub (tendsto_integral_Ioc_near_zero_atTop s hs_pos)
+
+/-- Truncated Titchmarsh §2.1.5 right-hand side sequence. -/
+noncomputable def truncatedTitchmarshRHS (s : ℂ) (M : ℕ) : ℂ :=
+  (1 - ((M + 1 : ℕ) : ℂ) ^ (1 - s)) / (s - 1) -
+  (1 / s) * ((∑ n ∈ Finset.Ico 1 (M + 1), (n : ℂ) ^ (-s)) - (M : ℂ) * ((M + 1 : ℕ) : ℂ) ^ (-s))
+
+/-- `truncatedTitchmarshRHS s` converges to the unit-interval `recipFract` Mellin
+integral for `0 < Re(s)` and `s ≠ 1`. -/
+theorem tendsto_truncatedTitchmarshRHS_eq_unit (s : ℂ) (hs_pos : 0 < s.re) (hs_ne_one : s ≠ 1) :
+    Tendsto (truncatedTitchmarshRHS s) atTop
+      (nhds (∫ x in Ioc (0 : ℝ) 1, (recipFract x : ℂ) * (x : ℂ) ^ (s - 1))) := by
+  have heq : truncatedTitchmarshRHS s = fun M : ℕ =>
+      ∫ x in Ioc (1 / ((M : ℝ) + 1)) 1, (recipFract x : ℂ) * (x : ℂ) ^ (s - 1) := by
+    ext M
+    exact (integral_Ioc_truncated_recipFract_cpow M s hs_pos hs_ne_one).symm
+  rw [heq]
+  exact tendsto_integral_Ioc_truncated_recipFract_atTop s hs_pos
+
+/-- Discharges `h_unit` from the Euler–Maclaurin / zeta limit of `truncatedTitchmarshRHS`. -/
+theorem mellin_recipFract_unit_interval_of_tendsto_rhs (s : ℂ)
+    (hs_pos : 0 < s.re) (hs_ne_one : s ≠ 1)
+    (h_rhs : Tendsto (truncatedTitchmarshRHS s) atTop (nhds (1 / (s - 1) - riemannZeta s / s))) :
+    ∫ x in Ioc (0 : ℝ) 1, (recipFract x : ℂ) * (x : ℂ) ^ (s - 1) =
+      1 / (s - 1) - riemannZeta s / s :=
+  tendsto_nhds_unique (tendsto_truncatedTitchmarshRHS_eq_unit s hs_pos hs_ne_one) h_rhs
+
+/-- Alias for `mellin_recipFract_unit_interval_of_tendsto_rhs`. -/
+theorem h_unit_of_tendsto_truncatedTitchmarshRHS (s : ℂ) (hs_pos : 0 < s.re) (hs_ne_one : s ≠ 1)
+    (h_rhs : Tendsto (truncatedTitchmarshRHS s) atTop (nhds (1 / (s - 1) - riemannZeta s / s))) :
+    ∫ x in Ioc (0 : ℝ) 1, (recipFract x : ℂ) * (x : ℂ) ^ (s - 1) =
+      1 / (s - 1) - riemannZeta s / s :=
+  mellin_recipFract_unit_interval_of_tendsto_rhs s hs_pos hs_ne_one h_rhs
+
 #print axioms norm_recipFract_le_one
 #print axioms integrableOn_Ioc_recipFract_cpow
 #print axioms integrableOn_Ioi_recipFract_cpow
@@ -605,5 +719,12 @@ theorem integral_Ioc_truncated_recipFract_cpow (M : ℕ) (s : ℂ)
 #print axioms integral_Ioc_truncated_floor_cpow
 #print axioms integral_Ioc_truncated_inv_mul_cpow
 #print axioms integral_Ioc_truncated_recipFract_cpow
+#print axioms integral_Ioc_one_eq_near_zero_add_truncated
+#print axioms norm_integral_Ioc_near_zero_le
+#print axioms tendsto_integral_Ioc_near_zero_atTop
+#print axioms tendsto_integral_Ioc_truncated_recipFract_atTop
+#print axioms tendsto_truncatedTitchmarshRHS_eq_unit
+#print axioms mellin_recipFract_unit_interval_of_tendsto_rhs
+#print axioms h_unit_of_tendsto_truncatedTitchmarshRHS
 
 end NumberTheory.MellinFracPart
