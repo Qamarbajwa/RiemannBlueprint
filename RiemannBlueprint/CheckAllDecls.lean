@@ -194,6 +194,13 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad_add_clayRank4GalerkinRay_eq_sub_rayQuotient
 #check RiemannBlueprint.Section8_VasyuninBDR.vasyunin_energy_clayRank4GalerkinRay_eq_sub_rayQuotient
 #check CMIAudit.clayRank4GalerkinRay_rayQuotient_limit_implies_rh
+#check CMIAudit.inCriticalStrip_one_sub
+#check CMIAudit.inCriticalStrip_ne_neg_nat
+#check CMIAudit.inCriticalStrip_ne_one
+#check CMIAudit.riemannZeta_one_sub_eq_zero_of_inCriticalStrip
+#check CMIAudit.zetaZeroReflectionSymmetry_unconditional
+#check CMIAudit.rh_of_szego_and_collapse_zero_unconditional_symm
+#check CMIAudit.clayRank4GalerkinRay_rayQuotient_limit_implies_rh_of_szego
 
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
 #print axioms RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic
@@ -317,3 +324,10 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad_add_clayRank4GalerkinRay_eq_sub_rayQuotient
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.vasyunin_energy_clayRank4GalerkinRay_eq_sub_rayQuotient
 #print axioms CMIAudit.clayRank4GalerkinRay_rayQuotient_limit_implies_rh
+#print axioms CMIAudit.inCriticalStrip_one_sub
+#print axioms CMIAudit.inCriticalStrip_ne_neg_nat
+#print axioms CMIAudit.inCriticalStrip_ne_one
+#print axioms CMIAudit.riemannZeta_one_sub_eq_zero_of_inCriticalStrip
+#print axioms CMIAudit.zetaZeroReflectionSymmetry_unconditional
+#print axioms CMIAudit.rh_of_szego_and_collapse_zero_unconditional_symm
+#print axioms CMIAudit.clayRank4GalerkinRay_rayQuotient_limit_implies_rh_of_szego

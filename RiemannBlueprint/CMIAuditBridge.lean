@@ -74,6 +74,39 @@ def ZetaZeroReflectionSymmetry : Prop :=
   ∀ s : ℂ, InCriticalStrip s → riemannZeta s = 0 →
     InCriticalStrip (1 - s) ∧ riemannZeta (1 - s) = 0
 
+/-- The open critical strip `0 < Re(s) < 1` is invariant under `s ↦ 1 - s`. -/
+theorem inCriticalStrip_one_sub {s : ℂ} (hs : InCriticalStrip s) :
+    InCriticalStrip (1 - s) := by
+  refine ⟨?_, ?_⟩ <;> · rw [Complex.sub_re, Complex.one_re]; linarith [hs.1, hs.2]
+
+/-- Any `s` in `InCriticalStrip` avoids the non-positive integer poles `-(n : ℂ)` (`n : ℕ`). -/
+theorem inCriticalStrip_ne_neg_nat {s : ℂ} (hs : InCriticalStrip s) :
+    ∀ n : ℕ, s ≠ -(n : ℂ) := by
+  intro n hn
+  have hre : s.re = -(n : ℝ) := by simp [hn]
+  linarith [hs.1, Nat.cast_nonneg (α := ℝ) n]
+
+/-- Any `s` in `InCriticalStrip` satisfies `s ≠ 1`. -/
+theorem inCriticalStrip_ne_one {s : ℂ} (hs : InCriticalStrip s) :
+    s ≠ 1 := by
+  intro h1
+  have hre : s.re = 1 := by simp [h1]
+  linarith [hs.2]
+
+/-- Unconditional zero reflection across `Re(s) = 1/2` in `InCriticalStrip` via
+Mathlib's functional equation `riemannZeta_one_sub`. -/
+theorem riemannZeta_one_sub_eq_zero_of_inCriticalStrip {s : ℂ}
+    (hs : InCriticalStrip s) (h_zero : riemannZeta s = 0) :
+    riemannZeta (1 - s) = 0 := by
+  rw [riemannZeta_one_sub (inCriticalStrip_ne_neg_nat hs) (inCriticalStrip_ne_one hs),
+    h_zero, mul_zero]
+
+/-- Unconditional proof of `ZetaZeroReflectionSymmetry` directly from Mathlib's
+`riemannZeta_one_sub` across `0 < Re(s) < 1`. -/
+theorem zetaZeroReflectionSymmetry_unconditional : ZetaZeroReflectionSymmetry :=
+  fun _ hs h_zero =>
+    ⟨inCriticalStrip_one_sub hs, riemannZeta_one_sub_eq_zero_of_inCriticalStrip hs h_zero⟩
+
 /-- Concrete instantiation of `ZetaZeroReflectionSymmetry` wired from
 `RiemannBlueprint.Section5_MobiusMertens.zeta_zero_reflection` and Mathlib's `riemannZeta_one_sub`. -/
 theorem zetaZeroReflectionSymmetry_proved : ZetaZeroReflectionSymmetry := by
@@ -1590,6 +1623,80 @@ theorem clayRank4GalerkinRay_rayQuotient_limit_implies_rh
     ((RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k + v k : ℝ) : ℂ),
     (h_bd_le N hN4).trans_lt hQ_lt⟩
 
+/-- Reflection-hypothesis-free Hardy–Szegő master bridge: `SzegoReproducingInequality D`
+and `baezDuarteDistSq D → 0` imply `_root_.RiemannHypothesis` directly, supplying
+`zetaZeroReflectionSymmetry_unconditional` internally. -/
+theorem rh_of_szego_and_collapse_zero_unconditional_symm (D : ℕ → ℝ)
+    (h_szego : SzegoReproducingInequality D)
+    (h_lim : Filter.Tendsto (baezDuarteDistSq D) Filter.atTop (nhds 0)) :
+    _root_.RiemannHypothesis := by
+  refine riemannHypothesis_of_strip fun s hs hz => ?_
+  rcases lt_trichotomy s.re (1 / 2) with hlt | heq | hgt
+  · rcases zetaZeroReflectionSymmetry_unconditional s hs hz with ⟨hs_refl, hz_refl⟩
+    have hre_refl : 1 / 2 < (1 - s).re := by
+      rw [Complex.sub_re, Complex.one_re]
+      linarith
+    exact False.elim (no_zero_re_gt_half_of_collapse_zero D
+      (offlineZeroCauchyFloor_of_szego D h_szego) h_lim (1 - s) hs_refl hre_refl hz_refl)
+  · exact heq
+  · exact False.elim (no_zero_re_gt_half_of_collapse_zero D
+      (offlineZeroCauchyFloor_of_szego D h_szego) h_lim s hs hgt hz)
+
+/-- Bridge Theorem 11 — Reflection-Free Hardy–Szegő & 1D Rayleigh Quotient Forward Theorem:
+combines `SzegoReproducingInequality D`, `vasyunin_energy_clayRank4GalerkinRay_eq_sub_rayQuotient`,
+and `Tendsto (fun N => phiCotRayQuotient G_cot (clayRank4Hom (u_seq N) N) N) atTop
+(nhds (1 + Q_cot_quad G_cot clayRank4Base 4))` to deduce `_root_.RiemannHypothesis` without
+requiring `ZetaZeroReflectionSymmetry` as an external hypothesis. -/
+theorem clayRank4GalerkinRay_rayQuotient_limit_implies_rh_of_szego
+    (D : ℕ → ℝ) (gamma_E : ℝ)
+    (G_cot : ℕ → ℕ → ℝ) (hG_symm : ∀ j k, G_cot j k = G_cot k j)
+    (u_seq : ℕ → (ℕ → ℝ))
+    (h_szego : SzegoReproducingInequality D)
+    (h_nonneg : ∀ N : ℕ, 0 ≤ baezDuarteDistSq D N)
+    (hA : ∀ N, 4 ≤ N →
+      RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N) N ≠ 0)
+    (h_ub : ∀ N, 4 ≤ N →
+      let v := RiemannBlueprint.Section8_VasyuninBDR.clayRank4GalerkinRay G_cot (u_seq N) N
+      baezDuarteDistSq D N ≤
+        vasyuninQuadraticEnergy
+          (RiemannBlueprint.Section8_VasyuninBDR.GVasyuninDecomp gamma_E G_cot)
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.bVasyunin k gamma_E) N
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k + v k))
+    (h_ray_lim : Filter.Tendsto
+      (fun N => RiemannBlueprint.Section8_VasyuninBDR.phiCotRayQuotient G_cot
+        (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N) N)
+      Filter.atTop
+      (nhds (1 + RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base 4))) :
+    _root_.RiemannHypothesis := by
+  let E_seq : ℕ → ℝ := fun N =>
+    vasyuninQuadraticEnergy
+      (RiemannBlueprint.Section8_VasyuninBDR.GVasyuninDecomp gamma_E G_cot)
+      (fun k => RiemannBlueprint.Section8_VasyuninBDR.bVasyunin k gamma_E) N
+      (fun k => RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k +
+        RiemannBlueprint.Section8_VasyuninBDR.clayRank4GalerkinRay G_cot (u_seq N) N k)
+  have hE_ev : ∀ᶠ N in Filter.atTop, E_seq N =
+      (1 + RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base 4) -
+        RiemannBlueprint.Section8_VasyuninBDR.phiCotRayQuotient G_cot
+          (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N) N := by
+    rw [Filter.eventually_atTop]
+    refine ⟨4, fun N hN4 => ?_⟩
+    exact
+      RiemannBlueprint.Section8_VasyuninBDR.vasyunin_energy_clayRank4GalerkinRay_eq_sub_rayQuotient
+        gamma_E G_cot hG_symm (u_seq N) N hN4 (hA N hN4)
+  have hE_lim : Filter.Tendsto E_seq Filter.atTop (nhds 0) := by
+    rw [Filter.tendsto_congr' hE_ev]
+    let C := 1 + RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+      RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base 4
+    have hC : Filter.Tendsto (fun _ : ℕ => C) Filter.atTop (nhds C) := tendsto_const_nhds
+    simpa [C, sub_self] using hC.sub h_ray_lim
+  have hD_lim : Filter.Tendsto (baezDuarteDistSq D) Filter.atTop (nhds 0) :=
+    squeeze_zero' (Filter.Eventually.of_forall h_nonneg)
+      (Filter.eventually_atTop.mpr ⟨4, h_ub⟩) hE_lim
+  exact rh_of_szego_and_collapse_zero_unconditional_symm D h_szego hD_lim
+
 #print axioms riemannHypothesis_iff_collapse_zero
 #print axioms collapse_zero_implies_rh_strip
 #print axioms cmi_criterion1_spectral_residual_eq
@@ -1626,5 +1733,12 @@ theorem clayRank4GalerkinRay_rayQuotient_limit_implies_rh
 #print axioms clayRank4Base_galerkin_hom_limit_implies_rh
 #print axioms clayRank4Base_phiCotBase_pairing_limit_implies_rh
 #print axioms clayRank4GalerkinRay_rayQuotient_limit_implies_rh
+#print axioms inCriticalStrip_one_sub
+#print axioms inCriticalStrip_ne_neg_nat
+#print axioms inCriticalStrip_ne_one
+#print axioms riemannZeta_one_sub_eq_zero_of_inCriticalStrip
+#print axioms zetaZeroReflectionSymmetry_unconditional
+#print axioms rh_of_szego_and_collapse_zero_unconditional_symm
+#print axioms clayRank4GalerkinRay_rayQuotient_limit_implies_rh_of_szego
 
 end CMIAudit

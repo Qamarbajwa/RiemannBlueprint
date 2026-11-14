@@ -342,6 +342,44 @@ theorem RiemannHypothesis.of_clayRank4GalerkinRay_rayQuotient_limit
   CMIAudit.clayRank4GalerkinRay_rayQuotient_limit_implies_rh
     G_cot hG_symm u_seq hA h_bd_le h_ray_lim
 
+/-- **17. Unconditional Critical-Strip Zero Reflection Symmetry:**
+Directly from Mathlib's `riemannZeta_one_sub`, any critical-strip zero `0 < s.re ∧ s.re < 1`
+reflects to `0 < (1 - s).re ∧ (1 - s).re < 1` with `riemannZeta (1 - s) = 0`. -/
+theorem zetaZeroReflectionSymmetry :
+    ∀ s : ℂ, (0 < s.re ∧ s.re < 1) → riemannZeta s = 0 →
+      (0 < (1 - s).re ∧ (1 - s).re < 1) ∧ riemannZeta (1 - s) = 0 :=
+  CMIAudit.zetaZeroReflectionSymmetry_unconditional
+
+/-- **18. Reflection-Free Hardy–Szegő & 1D Rayleigh Quotient Forward Theorem:**
+Combines `SzegoReproducingInequality D`, `vasyunin_energy_clayRank4GalerkinRay_eq_sub_rayQuotient`,
+and `phiCotRayQuotient G_cot (clayRank4Hom (u_seq N) N) N → 1 + Q_cot_quad G_cot clayRank4Base 4`
+to deduce `_root_.RiemannHypothesis` without taking any reflection hypothesis. -/
+theorem RiemannHypothesis.of_szego_and_clayRank4GalerkinRay_rayQuotient_limit
+    (D : ℕ → ℝ) (gamma_E : ℝ)
+    (G_cot : ℕ → ℕ → ℝ) (hG_symm : ∀ j k, G_cot j k = G_cot k j)
+    (u_seq : ℕ → (ℕ → ℝ))
+    (h_szego : CMIAudit.SzegoReproducingInequality D)
+    (h_nonneg : ∀ N : ℕ, 0 ≤ CMIAudit.baezDuarteDistSq D N)
+    (hA : ∀ N, 4 ≤ N →
+      RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N) N ≠ 0)
+    (h_ub : ∀ N, 4 ≤ N →
+      let v := RiemannBlueprint.Section8_VasyuninBDR.clayRank4GalerkinRay G_cot (u_seq N) N
+      CMIAudit.baezDuarteDistSq D N ≤
+        CMIAudit.vasyuninQuadraticEnergy
+          (RiemannBlueprint.Section8_VasyuninBDR.GVasyuninDecomp gamma_E G_cot)
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.bVasyunin k gamma_E) N
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k + v k))
+    (h_ray_lim : Filter.Tendsto
+      (fun N => RiemannBlueprint.Section8_VasyuninBDR.phiCotRayQuotient G_cot
+        (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N) N)
+      Filter.atTop
+      (nhds (1 + RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base 4))) :
+    _root_.RiemannHypothesis :=
+  CMIAudit.clayRank4GalerkinRay_rayQuotient_limit_implies_rh_of_szego
+    D gamma_E G_cot hG_symm u_seq h_szego h_nonneg hA h_ub h_ray_lim
+
 #print axioms riemannZeta_eq_tsum_harmonicUnitSummand
 #print axioms mellin_recipFract_unit_interval
 #print axioms riemannZeta_conj_of_pos_re
@@ -359,5 +397,7 @@ theorem RiemannHypothesis.of_clayRank4GalerkinRay_rayQuotient_limit
 #print axioms RiemannHypothesis.of_clayRank4Base_galerkin_hom_limit
 #print axioms RiemannHypothesis.of_clayRank4Base_phiCotBase_pairing_limit
 #print axioms RiemannHypothesis.of_clayRank4GalerkinRay_rayQuotient_limit
+#print axioms zetaZeroReflectionSymmetry
+#print axioms RiemannHypothesis.of_szego_and_clayRank4GalerkinRay_rayQuotient_limit
 
 end MathlibPR.NymanBeurling
