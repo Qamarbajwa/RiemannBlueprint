@@ -699,6 +699,137 @@ theorem h_unit_of_tendsto_truncatedTitchmarshRHS (s : ℂ) (hs_pos : 0 < s.re) (
       1 / (s - 1) - riemannZeta s / s :=
   mellin_recipFract_unit_interval_of_tendsto_rhs s hs_pos hs_ne_one h_rhs
 
+/-- The `n`-th harmonic unit-interval summand (with denominator `s - 1` matching
+the positive orientation of `∫_{1/(n+1)}^{1/n} x^(s-2) dx`). -/
+noncomputable def harmonicUnitSummand (s : ℂ) (n : ℕ) : ℂ :=
+  ((n : ℂ) ^ (1 - s) - ((n + 1 : ℕ) : ℂ) ^ (1 - s)) / (s - 1) -
+  ((n : ℂ) / s) * ((n : ℂ) ^ (-s) - ((n + 1 : ℕ) : ℂ) ^ (-s))
+
+/-- Exact telescoping representation of `truncatedTitchmarshRHS s M` for `s ≠ 0, 1`. -/
+theorem sum_harmonicUnitSummand_eq_truncatedTitchmarshRHS (s : ℂ)
+    (hs_ne_zero : s ≠ 0) (hs_ne_one : s ≠ 1) (M : ℕ) :
+    ∑ n ∈ Finset.Ico 1 (M + 1), harmonicUnitSummand s n = truncatedTitchmarshRHS s M := by
+  have htelesc :
+      ∑ n ∈ Finset.Ico 1 (M + 1), ((n : ℂ) ^ (1 - s) - ((n + 1 : ℕ) : ℂ) ^ (1 - s)) / (s - 1) =
+        (1 - ((M + 1 : ℕ) : ℂ) ^ (1 - s)) / (s - 1) := by
+    induction M with
+    | zero =>
+      simp
+    | succ M ih =>
+      rw [Finset.sum_Ico_succ_top (by omega : 1 ≤ M + 1), ih]
+      have hcast : ((M + 1 : ℕ) : ℂ) + 1 = ((M + 1 + 1 : ℕ) : ℂ) := by push_cast; ring
+      rw [← hcast]
+      have hsub : s - 1 ≠ 0 := sub_ne_zero.mpr hs_ne_one
+      field_simp [hsub]
+      ring
+  unfold harmonicUnitSummand
+  rw [Finset.sum_sub_distrib, htelesc, sum_harmonic_floor_integral_eq s hs_ne_zero M]
+  rfl
+
+/-- Boundary vanishing `((M + 1 : ℕ) : ℂ) ^ (1 - s) → 0` for `1 < Re(s)`. -/
+lemma tendsto_succ_cpow_one_sub_atTop (s : ℂ) (hs_gt_one : 1 < s.re) :
+    Tendsto (fun M : ℕ => ((M + 1 : ℕ) : ℂ) ^ (1 - s)) atTop (nhds 0) := by
+  rw [tendsto_zero_iff_norm_tendsto_zero]
+  have hnorm : (fun M : ℕ => ‖((M + 1 : ℕ) : ℂ) ^ (1 - s)‖) =
+      fun M : ℕ => ((M : ℝ) + 1) ^ (1 - s.re) := by
+    ext M
+    have hpos : (0 : ℝ) < (M : ℝ) + 1 := by positivity
+    have hcast : (((M + 1 : ℕ) : ℂ)) = (((M : ℝ) + 1 : ℝ) : ℂ) := by push_cast; ring
+    rw [hcast, Complex.norm_cpow_eq_rpow_re_of_pos hpos]
+    simp [Complex.sub_re]
+  rw [hnorm]
+  have hm : Tendsto (fun M : ℕ => (M : ℝ) + 1) atTop atTop :=
+    tendsto_natCast_atTop_atTop.atTop_add tendsto_const_nhds
+  have hpow : Tendsto (fun x : ℝ => x ^ (-(s.re - 1))) atTop (nhds 0) :=
+    tendsto_rpow_neg_atTop (by linarith)
+  have hpow' : Tendsto (fun x : ℝ => x ^ (1 - s.re)) atTop (nhds 0) := by
+    simpa [neg_sub] using hpow
+  exact hpow'.comp hm
+
+/-- Boundary vanishing `(M : ℂ) * ((M + 1 : ℕ) : ℂ) ^ (-s) → 0` for `1 < Re(s)`. -/
+lemma tendsto_mul_succ_cpow_neg_atTop (s : ℂ) (hs_gt_one : 1 < s.re) :
+    Tendsto (fun M : ℕ => (M : ℂ) * ((M + 1 : ℕ) : ℂ) ^ (-s)) atTop (nhds 0) := by
+  have hle : ∀ M : ℕ, ‖(M : ℂ) * ((M + 1 : ℕ) : ℂ) ^ (-s)‖ ≤ ((M : ℝ) + 1) ^ (1 - s.re) := by
+    intro M
+    have hpos : (0 : ℝ) < (M : ℝ) + 1 := by positivity
+    have hcast : (((M + 1 : ℕ) : ℂ)) = (((M : ℝ) + 1 : ℝ) : ℂ) := by push_cast; ring
+    rw [norm_mul, hcast, Complex.norm_cpow_eq_rpow_re_of_pos hpos, Complex.norm_natCast]
+    have hre : (-s).re = -s.re := by simp
+    rw [hre]
+    have h1 : (M : ℝ) ≤ (M : ℝ) + 1 := by linarith
+    calc
+      (M : ℝ) * ((M : ℝ) + 1) ^ (-s.re)
+        ≤ ((M : ℝ) + 1) * ((M : ℝ) + 1) ^ (-s.re) :=
+          mul_le_mul_of_nonneg_right h1 (Real.rpow_nonneg hpos.le _)
+      _ = ((M : ℝ) + 1) ^ (1 : ℝ) * ((M : ℝ) + 1) ^ (-s.re) := by rw [Real.rpow_one]
+      _ = ((M : ℝ) + 1) ^ (1 - s.re) := by
+          rw [← Real.rpow_add hpos, sub_eq_add_neg]
+  have hm : Tendsto (fun M : ℕ => (M : ℝ) + 1) atTop atTop :=
+    tendsto_natCast_atTop_atTop.atTop_add tendsto_const_nhds
+  have hpow : Tendsto (fun x : ℝ => x ^ (-(s.re - 1))) atTop (nhds 0) :=
+    tendsto_rpow_neg_atTop (by linarith)
+  have hpow' : Tendsto (fun x : ℝ => x ^ (1 - s.re)) atTop (nhds 0) := by
+    simpa [neg_sub] using hpow
+  have ht : Tendsto (fun M : ℕ => ((M : ℝ) + 1) ^ (1 - s.re)) atTop (nhds 0) :=
+    hpow'.comp hm
+  exact squeeze_zero_norm hle ht
+
+/-- Zeta partial sum convergence for `1 < Re(s)`. -/
+theorem tendsto_sum_Ico_cpow_neg_eq_riemannZeta (s : ℂ) (hs_gt_one : 1 < s.re) :
+    Tendsto (fun M : ℕ => ∑ n ∈ Finset.Ico 1 (M + 1), (n : ℂ) ^ (-s))
+      atTop (nhds (riemannZeta s)) := by
+  have hs_ne : s ≠ 0 := by
+    intro h
+    rw [h] at hs_gt_one
+    simp at hs_gt_one
+    linarith
+  have hsum : Summable (fun n : ℕ => 1 / (n : ℂ) ^ s) :=
+    Complex.summable_one_div_nat_cpow.mpr hs_gt_one
+  have hhas : HasSum (fun n : ℕ => 1 / (n : ℂ) ^ s) (riemannZeta s) := by
+    rw [zeta_eq_tsum_one_div_nat_cpow hs_gt_one]
+    exact hsum.hasSum
+  have ht := hhas.tendsto_sum_nat.comp (tendsto_add_atTop_nat 1)
+  have heq : (fun M : ℕ => ∑ n ∈ Finset.range (M + 1), 1 / (n : ℂ) ^ s) =
+      fun M : ℕ => ∑ n ∈ Finset.Ico 1 (M + 1), (n : ℂ) ^ (-s) := by
+    ext M
+    induction M with
+    | zero =>
+      simp [Complex.zero_cpow hs_ne]
+    | succ M ih =>
+      rw [Finset.sum_range_succ, Finset.sum_Ico_succ_top (by omega : 1 ≤ M + 1), ih]
+      congr 1
+      rw [one_div, Complex.cpow_neg]
+  have ht' : Tendsto (fun M : ℕ => ∑ n ∈ Finset.range (M + 1), 1 / (n : ℂ) ^ s)
+      atTop (nhds (riemannZeta s)) := ht
+  rwa [heq] at ht'
+
+/-- Unconditional unit-interval Titchmarsh §2.1.5 theorem for `1 < Re(s)`. -/
+theorem mellin_recipFract_unit_interval_of_one_lt_re (s : ℂ) (hs_gt_one : 1 < s.re) :
+    ∫ x in Ioc (0 : ℝ) 1, (recipFract x : ℂ) * (x : ℂ) ^ (s - 1) =
+      1 / (s - 1) - riemannZeta s / s := by
+  have hs_pos : 0 < s.re := by linarith
+  have hs_ne_one : s ≠ 1 := by
+    intro h
+    rw [h] at hs_gt_one
+    simp at hs_gt_one
+  have h_rhs : Tendsto (truncatedTitchmarshRHS s) atTop
+      (nhds (1 / (s - 1) - riemannZeta s / s)) := by
+    have h1 : Tendsto (fun M : ℕ => (1 - ((M + 1 : ℕ) : ℂ) ^ (1 - s)) / (s - 1)) atTop
+        (nhds ((1 - 0) / (s - 1))) :=
+      (tendsto_const_nhds.sub (tendsto_succ_cpow_one_sub_atTop s hs_gt_one)).div_const (s - 1)
+    have h2 : Tendsto (fun M : ℕ => (1 / s) *
+        ((∑ n ∈ Finset.Ico 1 (M + 1), (n : ℂ) ^ (-s)) -
+          (M : ℂ) * ((M + 1 : ℕ) : ℂ) ^ (-s))) atTop
+        (nhds ((1 / s) * (riemannZeta s - 0))) :=
+      tendsto_const_nhds.mul
+        ((tendsto_sum_Ico_cpow_neg_eq_riemannZeta s hs_gt_one).sub
+          (tendsto_mul_succ_cpow_neg_atTop s hs_gt_one))
+    have h12 : Tendsto (fun M : ℕ => truncatedTitchmarshRHS s M) atTop
+        (nhds ((1 - 0) / (s - 1) - (1 / s) * (riemannZeta s - 0))) := by
+      simpa [truncatedTitchmarshRHS] using h1.sub h2
+    simpa [sub_zero, one_mul, div_eq_mul_inv, mul_comm] using h12
+  exact mellin_recipFract_unit_interval_of_tendsto_rhs s hs_pos hs_ne_one h_rhs
+
 #print axioms norm_recipFract_le_one
 #print axioms integrableOn_Ioc_recipFract_cpow
 #print axioms integrableOn_Ioi_recipFract_cpow
@@ -726,5 +857,8 @@ theorem h_unit_of_tendsto_truncatedTitchmarshRHS (s : ℂ) (hs_pos : 0 < s.re) (
 #print axioms tendsto_truncatedTitchmarshRHS_eq_unit
 #print axioms mellin_recipFract_unit_interval_of_tendsto_rhs
 #print axioms h_unit_of_tendsto_truncatedTitchmarshRHS
+#print axioms sum_harmonicUnitSummand_eq_truncatedTitchmarshRHS
+#print axioms tendsto_sum_Ico_cpow_neg_eq_riemannZeta
+#print axioms mellin_recipFract_unit_interval_of_one_lt_re
 
 end NumberTheory.MellinFracPart
