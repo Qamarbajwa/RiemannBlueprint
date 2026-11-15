@@ -285,6 +285,10 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check RiemannBlueprint.Section8_VasyuninBDR.affine_cotangent_virial_theorem
 #check RiemannBlueprint.Section3_CompositeTaxonomy.SatisfiesKorseltCriterion
 #check RiemannBlueprint.Section3_CompositeTaxonomy.carmichael_korselt_and_totient_unmasking
+#check RiemannBlueprint.Section8_VasyuninBDR.ramanujanC4
+#check RiemannBlueprint.Section8_VasyuninBDR.ramanujanC4_add_ramanujanC2_add_one
+#check RiemannBlueprint.Section8_VasyuninBDR.ramanujanC4_eq_neg_one_sub_ramanujanC2_of_not_four_dvd
+#check RiemannBlueprint.Section8_VasyuninBDR.ramanujanC4_eq_neg_one_sub_ramanujanC2_of_squarefree
 
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
 #print axioms RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic
@@ -478,3 +482,6 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.ramanujanOffResonance_eq_neg_one_add_extraEnergy
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.affine_cotangent_virial_theorem
 #print axioms RiemannBlueprint.Section3_CompositeTaxonomy.carmichael_korselt_and_totient_unmasking
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.ramanujanC4_add_ramanujanC2_add_one
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.ramanujanC4_eq_neg_one_sub_ramanujanC2_of_not_four_dvd
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.ramanujanC4_eq_neg_one_sub_ramanujanC2_of_squarefree

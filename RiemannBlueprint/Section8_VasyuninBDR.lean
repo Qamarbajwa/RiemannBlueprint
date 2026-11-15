@@ -2338,4 +2338,44 @@ theorem twin_impostor_seven_nine_extra_energy :
 
 end TwinPrimeCollapse
 
+section RamanujanMod2Mod4Syzygy
+
+/-- Explicit period-2 Ramanujan sum `c₂(k)`: equals `1` if `2 ∣ k` and `-1` otherwise. -/
+def ramanujanC2 (k : ℕ) : ℤ :=
+  if k % 2 = 0 then 1 else -1
+
+/-- Explicit period-4 Ramanujan sum `c₄(k)`: equals `2` if `4 ∣ k`, `-2` if `k ≡ 2 (mod 4)`,
+and `0` if `k` is odd. -/
+def ramanujanC4 (k : ℕ) : ℤ :=
+  if k % 4 = 0 then 2 else if k % 2 = 0 then -2 else 0
+
+/-- **Ramanujan Mod-2 / Mod-4 Syzygy:** `c₄(k) + c₂(k) + 1 = 4 · 1_{4 ∣ k}` for every `k : ℕ`. -/
+theorem ramanujanC4_add_ramanujanC2_add_one (k : ℕ) :
+    ramanujanC4 k + ramanujanC2 k + 1 = if k % 4 = 0 then 4 else 0 := by
+  unfold ramanujanC4 ramanujanC2
+  split_ifs <;> omega
+
+/-- **Off-4-Divisibility Linear Dependence (`¬ 4 ∣ k`):** whenever `4 ∤ k`, `c₄(k) = -1 - c₂(k)`,
+explaining why `μ(k) c₄(k) / k` is linearly redundant in the squarefree Galerkin subspace. -/
+theorem ramanujanC4_eq_neg_one_sub_ramanujanC2_of_not_four_dvd (k : ℕ) (hk : ¬ (4 ∣ k)) :
+    ramanujanC4 k = -1 - ramanujanC2 k := by
+  have hmod : k % 4 ≠ 0 := fun h => hk (Nat.dvd_of_mod_eq_zero h)
+  have hsyz := ramanujanC4_add_ramanujanC2_add_one k
+  rw [if_neg hmod] at hsyz
+  omega
+
+/-- **Squarefree Syzygy Reduction (`Squarefree k ⇒ c₄(k) = -1 - c₂(k)`):** for every squarefree `k`,
+`2 * 2 ∤ k`, so the period-4 Ramanujan weight reduces identically to `-1 - c₂(k)` on squarefree
+Báez–Duarte / Möbius templates. -/
+theorem ramanujanC4_eq_neg_one_sub_ramanujanC2_of_squarefree (k : ℕ) (hsq : Squarefree k) :
+    ramanujanC4 k = -1 - ramanujanC2 k := by
+  have hk4 : ¬ (4 ∣ k) := by
+    intro h4
+    have h22 : 2 * 2 ∣ k := by simpa using h4
+    have hunit : IsUnit (2 : ℕ) := hsq 2 h22
+    exact absurd (Nat.isUnit_iff.mp hunit) (by decide)
+  exact ramanujanC4_eq_neg_one_sub_ramanujanC2_of_not_four_dvd k hk4
+
+end RamanujanMod2Mod4Syzygy
+
 end RiemannBlueprint.Section8_VasyuninBDR
