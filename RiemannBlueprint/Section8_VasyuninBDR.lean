@@ -1321,6 +1321,86 @@ theorem vasyunin_energy_clayRank4GalerkinRay_eq_sub_rayQuotient
     Q_cot_quad_clayRank4Base_eq_four G_cot N hN] at h_opt
   exact h_opt
 
+/-- Idempotence of the rank-4 homogeneous Clay projection for `N ≥ 4`: since `clayRank4Hom u N`
+already satisfies all four homogeneous Clay boundary conditions, projecting again leaves it
+unchanged. -/
+theorem clayRank4Hom_idem (u : ℕ → ℝ) (N : ℕ) (hN : 4 ≤ N) :
+    clayRank4Hom (clayRank4Hom u N) N = clayRank4Hom u N := by
+  have ⟨hd0, hd0', hd1, hd1'⟩ := clayRank4Hom_satisfies_homogeneous u N hN
+  ext k
+  calc clayRank4Hom (clayRank4Hom u N) N k
+      = clayRank4Hom u N k +
+          w_rank4_corrector (-D0 (clayRank4Hom u N) N) (-D0_deriv (clayRank4Hom u N) N)
+            (-D1 (clayRank4Hom u N) N) (-D1_deriv (clayRank4Hom u N) N) k := rfl
+    _ = clayRank4Hom u N k + w_rank4_corrector 0 0 0 0 k := by
+          rw [hd0, hd0', hd1, hd1', neg_zero]
+    _ = clayRank4Hom u N k := by
+          rw [w_rank4_corrector_zero, add_zero]
+
+/-- Unconstrained raw-vector Clay–Galerkin 1D ray obtained by applying `clayRank4GalerkinRay`
+to the homogeneous projection `clayRank4Hom u N`. -/
+noncomputable def clayRank4UnconstrainedRay (G_cot : ℕ → ℕ → ℝ) (u : ℕ → ℝ) (N : ℕ) (k : ℕ) : ℝ :=
+  clayRank4GalerkinRay G_cot (clayRank4Hom u N) N k
+
+/-- Cotangent Rayleigh quotient along the unconstrained raw-vector Clay–Galerkin ray. -/
+noncomputable def phiCotUnconstrainedRayQuotient (G_cot : ℕ → ℕ → ℝ) (u : ℕ → ℝ) (N : ℕ) : ℝ :=
+  phiCotRayQuotient G_cot (clayRank4Hom u N) N
+
+private theorem clayRank4UnconstrainedRay_eq_galerkinRay (G_cot : ℕ → ℕ → ℝ) (u : ℕ → ℝ)
+    (N : ℕ) (hN : 4 ≤ N) :
+    clayRank4UnconstrainedRay G_cot u N = clayRank4GalerkinRay G_cot u N := by
+  ext k
+  unfold clayRank4UnconstrainedRay clayRank4GalerkinRay
+  rw [clayRank4Hom_idem u N hN]
+
+/-- Any unconstrained raw vector `u : ℕ → ℝ` produces a ray `clayRank4UnconstrainedRay G_cot u N`
+that automatically satisfies all four homogeneous Clay boundary conditions for `N ≥ 4`. -/
+theorem clayRank4UnconstrainedRay_satisfies_homogeneous (G_cot : ℕ → ℕ → ℝ) (u : ℕ → ℝ) (N : ℕ)
+    (hN : 4 ≤ N) :
+    SatisfiesHomogeneousClayConditions (clayRank4UnconstrainedRay G_cot u N) N := by
+  rw [clayRank4UnconstrainedRay_eq_galerkinRay G_cot u N hN]
+  exact clayRank4GalerkinRay_satisfies_homogeneous G_cot u N hN
+
+/-- Adding `clayRank4UnconstrainedRay G_cot u N` to `clayRank4Base` automatically satisfies all
+four Clay boundary conditions for `N ≥ 4`, with zero boundary hypotheses on `u`. -/
+theorem clayRank4Base_add_unconstrainedRay_satisfies_clay (G_cot : ℕ → ℕ → ℝ) (u : ℕ → ℝ) (N : ℕ)
+    (hN : 4 ≤ N) :
+    SatisfiesClayBoundaryConditions (fun k => clayRank4Base k + clayRank4UnconstrainedRay G_cot u N k)
+      N := by
+  have h := satisfiesClayBoundaryConditions_add_of_homogeneous clayRank4Base
+    (clayRank4UnconstrainedRay G_cot u N) N 1
+    (clayRank4Base_satisfies_clay N hN)
+    (clayRank4UnconstrainedRay_satisfies_homogeneous G_cot u N hN)
+  simpa only [one_mul] using h
+
+/-- Whenever `Q_cot_quad G_cot (clayRank4Hom u N) N ≠ 0`, `clayRank4UnconstrainedRay G_cot u N`
+satisfies the exact cotangent Galerkin orthogonality identity `SatisfiesCotGalerkin` against
+`clayRank4Base`. -/
+theorem clayRank4UnconstrainedRay_satisfies_galerkin (G_cot : ℕ → ℕ → ℝ) (u : ℕ → ℝ) (N : ℕ)
+    (hN : 4 ≤ N) (hA : Q_cot_quad G_cot (clayRank4Hom u N) N ≠ 0) :
+    SatisfiesCotGalerkin G_cot clayRank4Base (clayRank4UnconstrainedRay G_cot u N) N := by
+  rw [clayRank4UnconstrainedRay_eq_galerkinRay G_cot u N hN]
+  exact clayRank4GalerkinRay_satisfies_galerkin G_cot u N hN hA
+
+/-- Unconstrained Raw-Vector 1D Energy Reduction: for all `N ≥ 4` and any unconstrained
+`u : ℕ → ℝ` with `Q_cot_quad G_cot (clayRank4Hom u N) N ≠ 0`, the full decomposed Vasyunin
+energy of `clayRank4Base + clayRank4UnconstrainedRay G_cot u N` reduces identically to
+`(1 + Q_cot_quad G_cot clayRank4Base 4) - phiCotUnconstrainedRayQuotient G_cot u N`. -/
+theorem vasyunin_energy_clayRank4UnconstrainedRay_eq_sub_rayQuotient
+    (gamma_E : ℝ) (G_cot : ℕ → ℕ → ℝ)
+    (hG_symm : ∀ j k, G_cot j k = G_cot k j) (u : ℕ → ℝ) (N : ℕ) (hN : 4 ≤ N)
+    (hA : Q_cot_quad G_cot (clayRank4Hom u N) N ≠ 0) :
+    1 - 2 * (∑ k ∈ Finset.Icc 1 N,
+        (clayRank4Base k + clayRank4UnconstrainedRay G_cot u N k) * bVasyunin k gamma_E) +
+      (∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N,
+        (clayRank4Base j + clayRank4UnconstrainedRay G_cot u N j) *
+          (clayRank4Base k + clayRank4UnconstrainedRay G_cot u N k) *
+          GVasyuninDecomp gamma_E G_cot j k) =
+      (1 + Q_cot_quad G_cot clayRank4Base 4) - phiCotUnconstrainedRayQuotient G_cot u N := by
+  rw [clayRank4UnconstrainedRay_eq_galerkinRay G_cot u N hN]
+  exact vasyunin_energy_clayRank4GalerkinRay_eq_sub_rayQuotient
+    gamma_E G_cot hG_symm u N hN hA
+
 end BoundaryFunctionals
 
 section Rank4AndL2Calculus

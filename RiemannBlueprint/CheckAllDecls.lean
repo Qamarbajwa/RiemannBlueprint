@@ -213,6 +213,18 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check CMIAudit.SatisfiesHardyCauchySchwarz
 #check CMIAudit.szegoReproducingInequality_of_hardyCauchySchwarz
 #check CMIAudit.clayRank4GalerkinRay_rayQuotient_limit_implies_rh_of_hardyCauchySchwarz
+#check RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom_idem
+#check RiemannBlueprint.Section8_VasyuninBDR.clayRank4UnconstrainedRay
+#check RiemannBlueprint.Section8_VasyuninBDR.phiCotUnconstrainedRayQuotient
+#check RiemannBlueprint.Section8_VasyuninBDR.clayRank4UnconstrainedRay_satisfies_homogeneous
+#check RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base_add_unconstrainedRay_satisfies_clay
+#check RiemannBlueprint.Section8_VasyuninBDR.clayRank4UnconstrainedRay_satisfies_galerkin
+#check RiemannBlueprint.Section8_VasyuninBDR.vasyunin_energy_clayRank4UnconstrainedRay_eq_sub_rayQuotient
+#check CMIAudit.szegoKernelIntegrand
+#check CMIAudit.szegoKernelAntideriv
+#check CMIAudit.szegoKernelAntideriv_upper_sub_lower
+#check CMIAudit.hasDerivAt_szegoKernelAntideriv
+#check CMIAudit.clayRank4UnconstrainedRay_limit_implies_rh_of_hardyCauchySchwarz
 
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
 #print axioms RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic
@@ -351,3 +363,11 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.collapseWeightPurePower_k_eq_one
 #print axioms CMIAudit.szegoReproducingInequality_of_hardyCauchySchwarz
 #print axioms CMIAudit.clayRank4GalerkinRay_rayQuotient_limit_implies_rh_of_hardyCauchySchwarz
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom_idem
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.clayRank4UnconstrainedRay_satisfies_homogeneous
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base_add_unconstrainedRay_satisfies_clay
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.clayRank4UnconstrainedRay_satisfies_galerkin
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.vasyunin_energy_clayRank4UnconstrainedRay_eq_sub_rayQuotient
+#print axioms CMIAudit.szegoKernelAntideriv_upper_sub_lower
+#print axioms CMIAudit.hasDerivAt_szegoKernelAntideriv
+#print axioms CMIAudit.clayRank4UnconstrainedRay_limit_implies_rh_of_hardyCauchySchwarz

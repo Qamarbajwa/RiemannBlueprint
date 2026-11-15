@@ -428,6 +428,50 @@ theorem RiemannHypothesis.of_hardyCauchySchwarz_and_clayRank4GalerkinRay_rayQuot
   CMIAudit.clayRank4GalerkinRay_rayQuotient_limit_implies_rh_of_hardyCauchySchwarz
     D pairing szegoNormSq gamma_E G_cot hG_symm u_seq h_hcs h_nonneg hA h_ub h_ray_lim
 
+/-- 24. Exact antiderivative evaluation at `± π / 2` for the critical-line Szegő Poisson kernel,
+yielding the Hardy–Szegő Cauchy floor reciprocal `Complex.normSq s₀ / (2 * s₀.re - 1)`. -/
+theorem szegoKernelAntideriv_upper_sub_lower (s₀ : ℂ) (h_re : 1 / 2 < s₀.re) :
+    (Complex.normSq s₀ / (2 * Real.pi * (s₀.re - 1 / 2))) * (Real.pi / 2) -
+      (Complex.normSq s₀ / (2 * Real.pi * (s₀.re - 1 / 2))) * (-(Real.pi / 2)) =
+      Complex.normSq s₀ / (2 * s₀.re - 1) :=
+  CMIAudit.szegoKernelAntideriv_upper_sub_lower s₀ h_re
+
+/-- 25. Exact real derivative identity
+`HasDerivAt (szegoKernelAntideriv s₀) (szegoKernelIntegrand s₀ t) t` for `1 / 2 < s₀.re`. -/
+theorem hasDerivAt_szegoKernelAntideriv (s₀ : ℂ) (h_re : 1 / 2 < s₀.re) (t : ℝ) :
+    HasDerivAt (CMIAudit.szegoKernelAntideriv s₀) (CMIAudit.szegoKernelIntegrand s₀ t) t :=
+  CMIAudit.hasDerivAt_szegoKernelAntideriv s₀ h_re t
+
+/-- 26. Unconstrained Raw-Vector Clay–Galerkin 1D Limit Implies RH under Hardy Cauchy–Schwarz:
+any unconstrained raw sequence `u_seq : ℕ → ℕ → ℝ` (requiring zero boundary conditions) with
+`phiCotUnconstrainedRayQuotient G_cot (u_seq N) N → 1 + Q_cot_quad G_cot clayRank4Base 4`
+implies `_root_.RiemannHypothesis`. -/
+theorem RiemannHypothesis.of_hardyCauchySchwarz_and_unconstrainedRayQuotient_limit
+    (D : ℕ → ℝ) (pairing : ℂ → ℕ → ℝ) (szegoNormSq : ℂ → ℝ)
+    (gamma_E : ℝ) (G_cot : ℕ → ℕ → ℝ) (hG_symm : ∀ j k, G_cot j k = G_cot k j)
+    (u_seq : ℕ → (ℕ → ℝ))
+    (h_hcs : CMIAudit.SatisfiesHardyCauchySchwarz D pairing szegoNormSq)
+    (h_nonneg : ∀ N : ℕ, 0 ≤ CMIAudit.baezDuarteDistSq D N)
+    (hA : ∀ N, 4 ≤ N →
+      RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N) N ≠ 0)
+    (h_ub : ∀ N, 4 ≤ N →
+      let v := RiemannBlueprint.Section8_VasyuninBDR.clayRank4UnconstrainedRay G_cot (u_seq N) N
+      CMIAudit.baezDuarteDistSq D N ≤
+        CMIAudit.vasyuninQuadraticEnergy
+          (RiemannBlueprint.Section8_VasyuninBDR.GVasyuninDecomp gamma_E G_cot)
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.bVasyunin k gamma_E) N
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k + v k))
+    (h_ray_lim : Filter.Tendsto
+      (fun N =>
+        RiemannBlueprint.Section8_VasyuninBDR.phiCotUnconstrainedRayQuotient G_cot (u_seq N) N)
+      Filter.atTop
+      (nhds (1 + RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base 4))) :
+    _root_.RiemannHypothesis :=
+  CMIAudit.clayRank4UnconstrainedRay_limit_implies_rh_of_hardyCauchySchwarz
+    D pairing szegoNormSq gamma_E G_cot hG_symm u_seq h_hcs h_nonneg hA h_ub h_ray_lim
+
 #print axioms riemannZeta_eq_tsum_harmonicUnitSummand
 #print axioms mellin_recipFract_unit_interval
 #print axioms riemannZeta_conj_of_pos_re
@@ -451,5 +495,8 @@ theorem RiemannHypothesis.of_hardyCauchySchwarz_and_clayRank4GalerkinRay_rayQuot
 #print axioms primePowerExtraEnergy_prime_pow
 #print axioms collapseWeightPurePower_k_eq_one
 #print axioms RiemannHypothesis.of_hardyCauchySchwarz_and_clayRank4GalerkinRay_rayQuotient_limit
+#print axioms szegoKernelAntideriv_upper_sub_lower
+#print axioms hasDerivAt_szegoKernelAntideriv
+#print axioms RiemannHypothesis.of_hardyCauchySchwarz_and_unconstrainedRayQuotient_limit
 
 end MathlibPR.NymanBeurling

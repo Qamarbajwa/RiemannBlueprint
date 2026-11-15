@@ -1751,6 +1751,96 @@ theorem clayRank4GalerkinRay_rayQuotient_limit_implies_rh_of_hardyCauchySchwarz
     (szegoReproducingInequality_of_hardyCauchySchwarz D pairing szegoNormSq h_hcs)
     h_nonneg hA h_ub h_ray_lim
 
+/-- Critical-line Szegő Poisson kernel density evaluated at shifted parameter `t : ℝ`. -/
+noncomputable def szegoKernelIntegrand (s₀ : ℂ) (t : ℝ) : ℝ :=
+  (1 / (2 * Real.pi)) * (Complex.normSq s₀ / ((s₀.re - 1 / 2) ^ 2 + (t - s₀.im) ^ 2))
+
+/-- Exact arctangent antiderivative of the critical-line Szegő Poisson kernel density. -/
+noncomputable def szegoKernelAntideriv (s₀ : ℂ) (t : ℝ) : ℝ :=
+  (Complex.normSq s₀ / (2 * Real.pi * (s₀.re - 1 / 2))) *
+    Real.arctan ((t - s₀.im) / (s₀.re - 1 / 2))
+
+/-- Evaluating the formal Szegő antiderivative limits at `± π / 2` yields the exact
+Hardy–Szegő Cauchy floor reciprocal `Complex.normSq s₀ / (2 * s₀.re - 1)`. -/
+theorem szegoKernelAntideriv_upper_sub_lower (s₀ : ℂ) (h_re : 1 / 2 < s₀.re) :
+    (Complex.normSq s₀ / (2 * Real.pi * (s₀.re - 1 / 2))) * (Real.pi / 2) -
+      (Complex.normSq s₀ / (2 * Real.pi * (s₀.re - 1 / 2))) * (-(Real.pi / 2)) =
+      Complex.normSq s₀ / (2 * s₀.re - 1) := by
+  have hpi : Real.pi ≠ 0 := Real.pi_ne_zero
+  have hden : s₀.re - 1 / 2 ≠ 0 := sub_ne_zero.mpr (ne_of_gt h_re)
+  field_simp
+  ring
+
+/-- Exact real calculus derivative of `szegoKernelAntideriv s₀`: for `1 / 2 < s₀.re` and every
+`t : ℝ`, `HasDerivAt (szegoKernelAntideriv s₀) (szegoKernelIntegrand s₀ t) t`. -/
+theorem hasDerivAt_szegoKernelAntideriv (s₀ : ℂ) (h_re : 1 / 2 < s₀.re) (t : ℝ) :
+    HasDerivAt (szegoKernelAntideriv s₀) (szegoKernelIntegrand s₀ t) t := by
+  set a : ℝ := s₀.re - 1 / 2
+  set b : ℝ := t - s₀.im
+  have hpi : Real.pi ≠ 0 := Real.pi_ne_zero
+  have ha : a ≠ 0 := sub_ne_zero.mpr (ne_of_gt h_re)
+  have hpos : a ^ 2 + b ^ 2 ≠ 0 :=
+    ne_of_gt (add_pos_of_pos_of_nonneg (sq_pos_of_ne_zero ha) (sq_nonneg b))
+  have h_one : 1 + (b / a) ^ 2 ≠ 0 :=
+    ne_of_gt (add_pos_of_pos_of_nonneg zero_lt_one (sq_nonneg _))
+  have h_lin := ((hasDerivAt_id t).sub_const s₀.im).div_const a
+  have h_comp := (Real.hasDerivAt_arctan (b / a)).comp t h_lin
+  have h_mul := h_comp.const_mul (Complex.normSq s₀ / (2 * Real.pi * a))
+  change HasDerivAt (szegoKernelAntideriv s₀) _ t at h_mul
+  refine h_mul.congr_deriv ?_
+  unfold szegoKernelIntegrand
+  change Complex.normSq s₀ / (2 * Real.pi * a) * (1 / (1 + (b / a) ^ 2) * (1 / a)) =
+    (1 / (2 * Real.pi)) * (Complex.normSq s₀ / (a ^ 2 + b ^ 2))
+  field_simp
+
+/-- Unconstrained-Ray Clay–Galerkin 1D Limit Implies RH under Hardy Cauchy–Schwarz:
+any unconstrained raw sequence `u_seq : ℕ → ℕ → ℝ` (requiring zero boundary conditions) whose
+`phiCotUnconstrainedRayQuotient` converges to `1 + Q_cot_quad G_cot clayRank4Base 4` implies
+`_root_.RiemannHypothesis` whenever `SatisfiesHardyCauchySchwarz D pairing szegoNormSq` and the
+decomposed energy dominates `baezDuarteDistSq D N` for `N ≥ 4`. -/
+theorem clayRank4UnconstrainedRay_limit_implies_rh_of_hardyCauchySchwarz
+    (D : ℕ → ℝ) (pairing : ℂ → ℕ → ℝ) (szegoNormSq : ℂ → ℝ)
+    (gamma_E : ℝ) (G_cot : ℕ → ℕ → ℝ) (hG_symm : ∀ j k, G_cot j k = G_cot k j)
+    (u_seq : ℕ → (ℕ → ℝ))
+    (h_hcs : SatisfiesHardyCauchySchwarz D pairing szegoNormSq)
+    (h_nonneg : ∀ N : ℕ, 0 ≤ baezDuarteDistSq D N)
+    (hA : ∀ N, 4 ≤ N →
+      RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N) N ≠ 0)
+    (h_ub : ∀ N, 4 ≤ N →
+      let v := RiemannBlueprint.Section8_VasyuninBDR.clayRank4UnconstrainedRay G_cot (u_seq N) N
+      baezDuarteDistSq D N ≤
+        vasyuninQuadraticEnergy
+          (RiemannBlueprint.Section8_VasyuninBDR.GVasyuninDecomp gamma_E G_cot)
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.bVasyunin k gamma_E) N
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k + v k))
+    (h_ray_lim : Filter.Tendsto
+      (fun N =>
+        RiemannBlueprint.Section8_VasyuninBDR.phiCotUnconstrainedRayQuotient G_cot (u_seq N) N)
+      Filter.atTop
+      (nhds (1 + RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base 4))) :
+    _root_.RiemannHypothesis := by
+  have h_ub' : ∀ N, 4 ≤ N →
+      let v := RiemannBlueprint.Section8_VasyuninBDR.clayRank4GalerkinRay G_cot (u_seq N) N
+      baezDuarteDistSq D N ≤
+        vasyuninQuadraticEnergy
+          (RiemannBlueprint.Section8_VasyuninBDR.GVasyuninDecomp gamma_E G_cot)
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.bVasyunin k gamma_E) N
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k + v k) := by
+    intro N hN
+    have h_eq :
+        RiemannBlueprint.Section8_VasyuninBDR.clayRank4GalerkinRay G_cot (u_seq N) N =
+          RiemannBlueprint.Section8_VasyuninBDR.clayRank4UnconstrainedRay
+            G_cot (u_seq N) N := by
+      ext k
+      unfold RiemannBlueprint.Section8_VasyuninBDR.clayRank4UnconstrainedRay
+      unfold RiemannBlueprint.Section8_VasyuninBDR.clayRank4GalerkinRay
+      rw [RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom_idem (u_seq N) N hN]
+    simpa [h_eq] using h_ub N hN
+  exact clayRank4GalerkinRay_rayQuotient_limit_implies_rh_of_hardyCauchySchwarz
+    D pairing szegoNormSq gamma_E G_cot hG_symm u_seq h_hcs h_nonneg hA h_ub' h_ray_lim
+
 #print axioms riemannHypothesis_iff_collapse_zero
 #print axioms collapse_zero_implies_rh_strip
 #print axioms cmi_criterion1_spectral_residual_eq
@@ -1796,5 +1886,8 @@ theorem clayRank4GalerkinRay_rayQuotient_limit_implies_rh_of_hardyCauchySchwarz
 #print axioms clayRank4GalerkinRay_rayQuotient_limit_implies_rh_of_szego
 #print axioms szegoReproducingInequality_of_hardyCauchySchwarz
 #print axioms clayRank4GalerkinRay_rayQuotient_limit_implies_rh_of_hardyCauchySchwarz
+#print axioms szegoKernelAntideriv_upper_sub_lower
+#print axioms hasDerivAt_szegoKernelAntideriv
+#print axioms clayRank4UnconstrainedRay_limit_implies_rh_of_hardyCauchySchwarz
 
 end CMIAudit
