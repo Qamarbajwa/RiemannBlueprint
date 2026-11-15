@@ -57,6 +57,8 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check RiemannBlueprint.Section5_MobiusMertens.half_plane_zero_free_implies_rh
 #check RiemannBlueprint.Section5_MobiusMertens.mertens_riemann_equivalence
 #check RiemannBlueprint.Section5_MobiusMertens.mellin_mertens_unconditional_equivalence
+#check RiemannBlueprint.Section5_MobiusMertens.isBigO_mertens_of_rh
+#check RiemannBlueprint.Section5_MobiusMertens.riemannHypothesis_iff_mertens_isBigO
 #check RiemannBlueprint.Section5_MobiusMertens.mertensReal
 #check RiemannBlueprint.Section5_MobiusMertens.abel_summation_moebius_finset
 #check RiemannBlueprint.Section5_MobiusMertens.norm_mertensReal_le
@@ -342,6 +344,8 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms RiemannBlueprint.Section5_MobiusMertens.half_plane_zero_free_implies_rh
 #print axioms RiemannBlueprint.Section5_MobiusMertens.mertens_riemann_equivalence
 #print axioms RiemannBlueprint.Section5_MobiusMertens.mellin_mertens_unconditional_equivalence
+#print axioms RiemannBlueprint.Section5_MobiusMertens.isBigO_mertens_of_rh
+#print axioms RiemannBlueprint.Section5_MobiusMertens.riemannHypothesis_iff_mertens_isBigO
 #print axioms RiemannBlueprint.Section5_MobiusMertens.abel_summation_moebius_finset
 #print axioms RiemannBlueprint.Section5_MobiusMertens.norm_mertensReal_le
 #print axioms RiemannBlueprint.Section5_MobiusMertens.mertens_abel_integral_finset

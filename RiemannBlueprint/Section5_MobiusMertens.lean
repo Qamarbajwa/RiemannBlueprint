@@ -82,7 +82,7 @@ theorem pointwise_moebius_partition (s : ℂ) (n : ℕ) :
   · rcases n with _ | n
     · have h1 : ¬ Nat.Prime 1 := Nat.not_prime_one
       have hc1 : 1 ∉ Composites := fun h => by have := h.1; omega
-      simp [h1, hc1, ArithmeticFunction.moebius_apply_one]
+      simp [h1, hc1]
     · by_cases hp : Nat.Prime (n + 2)
       · have hc : (n + 2) ∉ Composites := fun h => h.2 hp
         simp [hp, hc, ArithmeticFunction.moebius_apply_prime hp]
@@ -515,5 +515,96 @@ theorem mellin_mertens_unconditional_equivalence :
         simp [mul_inv_cancel₀ (h_zf 1 (by norm_num))]
       · simp only [hs1, ↓reduceIte]
         exact LittlewoodForward.riemannZeta_mul_mellinMertens_eq_one hm s hs hs1
+
+open Asymptotics
+
+lemma mertens_eq_mertensReal (x : ℝ) :
+    (RiemannBlueprint.mertens x : ℂ) = mertensReal x := by
+  dsimp [RiemannBlueprint.mertens, mertensReal]
+  push_cast
+  have hIic : Finset.Iic ⌊x⌋₊ = insert 0 (Finset.Icc 1 ⌊x⌋₊) := by
+    ext k
+    simp only [Finset.mem_Iic, Finset.mem_insert, Finset.mem_Icc]
+    omega
+  rw [hIic, Finset.sum_insert (by simp)]
+  simp
+
+lemma norm_mertens_le_self (x : ℝ) (hx : 1 ≤ x) :
+    |(RiemannBlueprint.mertens x : ℝ)| ≤ x := by
+  have h_eq := mertens_eq_mertensReal x
+  have h_norm : |(RiemannBlueprint.mertens x : ℝ)| = ‖(RiemannBlueprint.mertens x : ℂ)‖ := by
+    simp [Complex.norm_intCast]
+  rw [h_norm, h_eq]
+  exact norm_mertensReal_le x hx
+
+/-- Mathlib-idiomatic `=O[atTop]` asymptotic formulation of Littlewood's (1912) converse:
+`_root_.RiemannHypothesis` implies `(fun x => (mertens x : ℝ)) =O[atTop] (fun x => x ^ (1/2 + ε))`
+for every `ε > 0`. -/
+theorem isBigO_mertens_of_rh (hRH : _root_.RiemannHypothesis) (ε : ℝ) (hε : 0 < ε) :
+    (fun x : ℝ => (RiemannBlueprint.mertens x : ℝ)) =O[Filter.atTop]
+      fun x => x ^ ((1 / 2 : ℝ) + ε) := by
+  have hM : RiemannBlueprint.MertensBound :=
+    RiemannBlueprint.LittlewoodConverse.rh_implies_mertens_bound hRH
+  obtain ⟨C, _hC_pos, hC_bd⟩ := hM ε hε
+  refine Asymptotics.IsBigO.of_bound C ?_
+  filter_upwards [Filter.eventually_ge_atTop (1 : ℝ)] with x hx
+  have hx_pos : 0 < x := zero_lt_one.trans_le hx
+  have hrpow_nn : 0 ≤ x ^ ((1 / 2 : ℝ) + ε) := Real.rpow_nonneg hx_pos.le _
+  rw [Real.norm_of_nonneg hrpow_nn, Real.norm_eq_abs]
+  exact hC_bd x hx
+
+lemma mertensBound_of_isBigO
+    (hO : ∀ ε : ℝ, 0 < ε →
+      (fun x : ℝ => (RiemannBlueprint.mertens x : ℝ)) =O[Filter.atTop]
+        fun x => x ^ ((1 / 2 : ℝ) + ε)) :
+    RiemannBlueprint.MertensBound := by
+  intro ε hε
+  have hε2 : 0 < ε / 2 := by linarith
+  obtain ⟨C0, hC0⟩ := (hO (ε / 2) hε2).bound
+  obtain ⟨x0, hx0⟩ := Filter.eventually_atTop.mp hC0
+  set M0 : ℝ := max 1 x0
+  have hM0_ge1 : 1 ≤ M0 := le_max_left 1 x0
+  have hM0_pos : 0 < M0 := zero_lt_one.trans_le hM0_ge1
+  set C_final : ℝ := |C0| + M0 + 1
+  have hC_pos : 0 < C_final := by dsimp [C_final]; positivity
+  refine ⟨C_final, hC_pos, fun x hx => ?_⟩
+  have hx_pos : 0 < x := zero_lt_one.trans_le hx
+  have h_rpow_pos : 0 < x ^ ((1 / 2 : ℝ) + ε) := Real.rpow_pos_of_pos hx_pos _
+  have h_rpow_ge1 : 1 ≤ x ^ ((1 / 2 : ℝ) + ε) := Real.one_le_rpow hx (by linarith)
+  by_cases hxM : x ≤ M0
+  · have h_lin : |(RiemannBlueprint.mertens x : ℝ)| ≤ x := norm_mertens_le_self x hx
+    have h_le_M0 : x ≤ M0 * x ^ ((1 / 2 : ℝ) + ε) := by
+      calc x ≤ M0 := hxM
+        _ = M0 * 1 := (mul_one M0).symm
+        _ ≤ M0 * x ^ ((1 / 2 : ℝ) + ε) := mul_le_mul_of_nonneg_left h_rpow_ge1 hM0_pos.le
+    calc |(RiemannBlueprint.mertens x : ℝ)| ≤ x := h_lin
+      _ ≤ M0 * x ^ ((1 / 2 : ℝ) + ε) := h_le_M0
+      _ ≤ C_final * x ^ ((1 / 2 : ℝ) + ε) := by
+          refine mul_le_mul_of_nonneg_right ?_ h_rpow_pos.le
+          dsimp [C_final]; linarith [abs_nonneg C0]
+  · have hxM' : M0 < x := lt_of_not_ge hxM
+    have hx_ge_x0 : x0 ≤ x := (le_max_right 1 x0).trans hxM'.le
+    have hbd := hx0 x hx_ge_x0
+    rw [Real.norm_eq_abs, Real.norm_of_nonneg (Real.rpow_nonneg hx_pos.le _)] at hbd
+    have hrpow_le : x ^ ((1 / 2 : ℝ) + ε / 2) ≤ x ^ ((1 / 2 : ℝ) + ε) :=
+      Real.rpow_le_rpow_of_exponent_le hx (by linarith)
+    calc |(RiemannBlueprint.mertens x : ℝ)| ≤ C0 * x ^ ((1 / 2 : ℝ) + ε / 2) := hbd
+      _ ≤ |C0| * x ^ ((1 / 2 : ℝ) + ε / 2) := by
+          refine mul_le_mul_of_nonneg_right (le_abs_self C0) (Real.rpow_nonneg hx_pos.le _)
+      _ ≤ |C0| * x ^ ((1 / 2 : ℝ) + ε) := by
+          refine mul_le_mul_of_nonneg_left hrpow_le (abs_nonneg C0)
+      _ ≤ C_final * x ^ ((1 / 2 : ℝ) + ε) := by
+          refine mul_le_mul_of_nonneg_right ?_ h_rpow_pos.le
+          dsimp [C_final]; linarith
+
+/-- Littlewood's (1912) Bidirectional Equivalence formulated via Mathlib's `=O[atTop]` filter:
+`_root_.RiemannHypothesis` holds if and only if `M(x) = O(x^(1/2 + ε))` as `x → ∞` for every `ε > 0`. -/
+theorem riemannHypothesis_iff_mertens_isBigO :
+    _root_.RiemannHypothesis ↔
+      ∀ ε : ℝ, 0 < ε →
+        (fun x : ℝ => (RiemannBlueprint.mertens x : ℝ)) =O[Filter.atTop]
+          fun x => x ^ ((1 / 2 : ℝ) + ε) :=
+  ⟨fun hRH ε hε => isBigO_mertens_of_rh hRH ε hε,
+   fun hO => mertens_implies_rh (mertensBound_of_isBigO hO)⟩
 
 end RiemannBlueprint.Section5_MobiusMertens
