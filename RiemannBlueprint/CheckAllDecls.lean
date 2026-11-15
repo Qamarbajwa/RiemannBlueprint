@@ -1,6 +1,8 @@
 import RiemannBlueprint
 import RiemannBlueprint.MathlibPR_LittlewoodMertens
 import RiemannBlueprint.MathlibPR_LittlewoodConverse
+import RiemannBlueprint.MathlibPR_NymanBeurling
+import RiemannBlueprint.VerifyNoTraps
 
 /-!
 Verification of all declarations linked in blueprint/lean_decls,
@@ -8,6 +10,18 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 -/
 
 #check RiemannBlueprint.ClassicalAnalyticInterface
+
+#check rh_eq_root_rh
+#check zeta_eq_root_zeta
+#check mertens_zero_witness
+#check mertens_one_witness
+#check mertens_two_witness
+#check mertens_three_witness
+#check mertens_six_witness
+#check recipFract_two_fifths_witness
+#check recipFract_one_third_witness
+#check RiemannHypothesis.of_nymanBeurling_approx
+#check RiemannHypothesis.of_baezDuarte_approx
 
 #check RiemannBlueprint.Section2_PrimeAtoms.Primes
 #check RiemannBlueprint.Section2_PrimeAtoms.bezout_identity
@@ -569,3 +583,15 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms riemannZeta_inv_growth_of_riemannHypothesis
 #print axioms isBigO_mertens_of_riemannHypothesis
 #print axioms riemannHypothesis_iff_mertens_isBigO
+
+#print axioms rh_eq_root_rh
+#print axioms zeta_eq_root_zeta
+#print axioms mertens_zero_witness
+#print axioms mertens_one_witness
+#print axioms mertens_two_witness
+#print axioms mertens_three_witness
+#print axioms mertens_six_witness
+#print axioms recipFract_two_fifths_witness
+#print axioms recipFract_one_third_witness
+#print axioms RiemannHypothesis.of_nymanBeurling_approx
+#print axioms RiemannHypothesis.of_baezDuarte_approx
