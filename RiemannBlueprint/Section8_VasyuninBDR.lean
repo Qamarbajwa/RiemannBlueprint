@@ -2047,4 +2047,176 @@ theorem noether_clay_charge_conservation (c v : ℕ → ℝ) (N : ℕ) (α : ℝ
 
 end NoetherChargeAndRamanujan
 
+section CarmichaelKorseltImmunity
+
+/-- **Korselt–Carmichael Criterion:** `n > 1` is non-prime, square-free, and every prime
+divisor `p ∣ n` satisfies `(p - 1) ∣ (n - 1)`. -/
+def IsKorseltCarmichael (n : ℕ) : Prop :=
+  1 < n ∧ ¬ Nat.Prime n ∧ Squarefree n ∧
+    ∀ p : ℕ, Nat.Prime p → p ∣ n → (p - 1) ∣ (n - 1)
+
+/-- Any non-prime integer `n > 1` satisfies `φ(n) ≤ n - 2`, because both `0` and its least
+prime factor `n.minFac < n` lie in `Finset.range n` and fail `Nat.Coprime n`. -/
+theorem totient_le_sub_two_of_not_prime (n : ℕ) (hn : 1 < n) (hnp : ¬ Nat.Prime n) :
+    Nat.totient n ≤ n - 2 := by
+  let p := n.minFac
+  have hp_prime : Nat.Prime p := Nat.minFac_prime (by omega : n ≠ 1)
+  have hp_dvd : p ∣ n := Nat.minFac_dvd n
+  have hp_le : p ≤ n := Nat.le_of_dvd (by omega) hp_dvd
+  have hp_ne_n : p ≠ n := by
+    intro h_eq
+    exact hnp (h_eq ▸ hp_prime)
+  have hp_lt : p < n := lt_of_le_of_ne hp_le hp_ne_n
+  have hp_ne_zero : 0 ≠ p := by
+    have h2 : 2 ≤ p := hp_prime.two_le
+    omega
+  let S := (Finset.range n).filter (Nat.Coprime n)
+  have hS_card : Nat.totient n = S.card := Nat.totient_eq_card_coprime n
+  have hS_sub : S ⊆ Finset.range n := Finset.filter_subset _ _
+  have hpair_sub : ({0, p} : Finset ℕ) ⊆ Finset.range n := by
+    intro x hx
+    simp only [Finset.mem_insert, Finset.mem_singleton] at hx
+    rcases hx with rfl | rfl
+    · exact Finset.mem_range.mpr (by omega)
+    · exact Finset.mem_range.mpr hp_lt
+  have h0_not_mem : 0 ∉ S := by
+    intro h0
+    have hc : Nat.Coprime n 0 := (Finset.mem_filter.mp h0).2
+    rw [Nat.coprime_zero_right] at hc
+    omega
+  have hp_not_mem : p ∉ S := by
+    intro hpS
+    have hc : Nat.Coprime n p := (Finset.mem_filter.mp hpS).2
+    exact (Nat.Prime.coprime_iff_not_dvd hp_prime).mp hc.symm hp_dvd
+  have hdisj : Disjoint S ({0, p} : Finset ℕ) := by
+    rw [Finset.disjoint_right]
+    intro x hx
+    simp only [Finset.mem_insert, Finset.mem_singleton] at hx
+    rcases hx with rfl | rfl
+    · exact h0_not_mem
+    · exact hp_not_mem
+  have hu_sub : S ∪ ({0, p} : Finset ℕ) ⊆ Finset.range n := Finset.union_subset hS_sub hpair_sub
+  have hcard_le := Finset.card_le_card hu_sub
+  rw [Finset.card_union_of_disjoint hdisj, Finset.card_pair hp_ne_zero, Finset.card_range] at hcard_le
+  omega
+
+/-- Every non-prime integer `n > 1` has first-stage totient defect `D₁(n) ≥ 2`. -/
+theorem two_le_totientDefect1_of_not_prime (n : ℕ) (hn : 1 < n) (hnp : ¬ Nat.Prime n) :
+    2 ≤ totientDefect1 n := by
+  unfold totientDefect1
+  have hle := totient_le_sub_two_of_not_prime n hn hnp
+  omega
+
+/-- **Carmichael Totient-Defect Immunity (`D₁(n) ≥ 2`):** Every Korselt–Carmichael number
+has `2 ≤ totientDefect1 n`, so it never collides with `D₁(p) = 1`. -/
+theorem carmichael_totientDefect1_ge_two (n : ℕ) (hc : IsKorseltCarmichael n) :
+    2 ≤ totientDefect1 n :=
+  two_le_totientDefect1_of_not_prime n hc.1 hc.2.1
+
+/-- Strict immunity corollary for Korselt–Carmichael numbers: `1 < totientDefect1 n`. -/
+theorem carmichael_totientDefect1_gt_one (n : ℕ) (hc : IsKorseltCarmichael n) :
+    1 < totientDefect1 n := by
+  have h := carmichael_totientDefect1_ge_two n hc
+  omega
+
+/-- Kernel proof that the 1st Carmichael number `561 = 3 * 11 * 17` satisfies
+`IsKorseltCarmichael 561`. -/
+theorem isKorseltCarmichael_561 : IsKorseltCarmichael 561 := by
+  have hnp : ¬ Nat.Prime 561 := by
+    intro hp
+    have hd : 3 ∣ 561 := ⟨187, by norm_num⟩
+    rcases hp.eq_one_or_self_of_dvd 3 hd with h | h <;> omega
+  have hsq : Squarefree 561 := by
+    intro x hxdvd
+    have hx_le : x ≤ 24 := by
+      have h1 : x * x ≤ 561 := Nat.le_of_dvd (by norm_num) hxdvd
+      nlinarith
+    by_contra hnu
+    have hx2 : 2 ≤ x := by
+      rcases Nat.lt_trichotomy x 1 with _ | rfl | hx1
+      · have hx0 : x = 0 := by omega
+        subst hx0
+        norm_num at hxdvd
+      · exact False.elim (hnu isUnit_one)
+      · exact hx1
+    have hfin : ∃ y ∈ Finset.Icc 2 24, 561 % (y * y) = 0 :=
+      ⟨x, Finset.mem_Icc.mpr ⟨hx2, hx_le⟩, Nat.dvd_iff_mod_eq_zero.mp hxdvd⟩
+    have hfalse : ¬ ∃ y ∈ Finset.Icc 2 24, 561 % (y * y) = 0 := by decide
+    exact hfalse hfin
+  refine ⟨by norm_num, hnp, hsq, ?_⟩
+  intro p hp hd
+  rw [show (561 : ℕ) = 3 * (11 * 17) by norm_num] at hd
+  rcases hp.dvd_mul.mp hd with h3 | h1117
+  · have hpeq : p = 3 := ((Nat.Prime.dvd_iff_eq (by decide) hp.ne_one).mp h3).symm
+    subst hpeq; norm_num
+  · rcases hp.dvd_mul.mp h1117 with h11 | h17
+    · have hpeq : p = 11 := ((Nat.Prime.dvd_iff_eq (by decide) hp.ne_one).mp h11).symm
+      subst hpeq; norm_num
+    · have hpeq : p = 17 := ((Nat.Prime.dvd_iff_eq (by decide) hp.ne_one).mp h17).symm
+      subst hpeq; norm_num
+
+/-- Kernel proof that the 3rd Carmichael / Hardy–Ramanujan number `1729 = 7 * 13 * 19`
+satisfies `IsKorseltCarmichael 1729`. -/
+theorem isKorseltCarmichael_1729 : IsKorseltCarmichael 1729 := by
+  have hnp : ¬ Nat.Prime 1729 := by
+    intro hp
+    have hd : 7 ∣ 1729 := ⟨247, by norm_num⟩
+    rcases hp.eq_one_or_self_of_dvd 7 hd with h | h <;> omega
+  have hsq : Squarefree 1729 := by
+    intro x hxdvd
+    have hx_le : x ≤ 42 := by
+      have h1 : x * x ≤ 1729 := Nat.le_of_dvd (by norm_num) hxdvd
+      nlinarith
+    by_contra hnu
+    have hx2 : 2 ≤ x := by
+      rcases Nat.lt_trichotomy x 1 with _ | rfl | hx1
+      · have hx0 : x = 0 := by omega
+        subst hx0
+        norm_num at hxdvd
+      · exact False.elim (hnu isUnit_one)
+      · exact hx1
+    have hfin : ∃ y ∈ Finset.Icc 2 42, 1729 % (y * y) = 0 :=
+      ⟨x, Finset.mem_Icc.mpr ⟨hx2, hx_le⟩, Nat.dvd_iff_mod_eq_zero.mp hxdvd⟩
+    have hfalse : ¬ ∃ y ∈ Finset.Icc 2 42, 1729 % (y * y) = 0 := by decide
+    exact hfalse hfin
+  refine ⟨by norm_num, hnp, hsq, ?_⟩
+  intro p hp hd
+  rw [show (1729 : ℕ) = 7 * (13 * 19) by norm_num] at hd
+  rcases hp.dvd_mul.mp hd with h7 | h1319
+  · have hpeq : p = 7 := ((Nat.Prime.dvd_iff_eq (by decide) hp.ne_one).mp h7).symm
+    subst hpeq; norm_num
+  · rcases hp.dvd_mul.mp h1319 with h13 | h19
+    · have hpeq : p = 13 := ((Nat.Prime.dvd_iff_eq (by decide) hp.ne_one).mp h13).symm
+      subst hpeq; norm_num
+    · have hpeq : p = 19 := ((Nat.Prime.dvd_iff_eq (by decide) hp.ne_one).mp h19).symm
+      subst hpeq; norm_num
+
+/-- Kernel certification of the 1st Carmichael number `561 = 3 × 11 × 17`:
+`totientDefect1 561 = 241` and `primePowerExtraEnergy 561 = 240`. -/
+theorem totientDefect1_carmichael_561 :
+    totientDefect1 561 = 241 ∧ primePowerExtraEnergy 561 = 240 := by
+  have hphi : Nat.totient 561 = 320 := by
+    rw [show (561 : ℕ) = 3 * (11 * 17) by norm_num]
+    rw [Nat.totient_mul (by decide), Nat.totient_mul (by decide)]
+    rw [Nat.totient_prime (by decide), Nat.totient_prime (by decide),
+      Nat.totient_prime (by decide)]
+  unfold primePowerExtraEnergy totientDefect1
+  rw [hphi]
+  decide
+
+/-- Kernel certification of the 3rd Carmichael / Hardy–Ramanujan number `1729 = 7 × 13 × 19`:
+`totientDefect1 1729 = 433` and `primePowerExtraEnergy 1729 = 432`. -/
+theorem totientDefect1_hardy_ramanujan_1729 :
+    totientDefect1 1729 = 433 ∧ primePowerExtraEnergy 1729 = 432 := by
+  have hphi : Nat.totient 1729 = 1296 := by
+    rw [show (1729 : ℕ) = 7 * (13 * 19) by norm_num]
+    rw [Nat.totient_mul (by decide), Nat.totient_mul (by decide)]
+    rw [Nat.totient_prime (by decide), Nat.totient_prime (by decide),
+      Nat.totient_prime (by decide)]
+  unfold primePowerExtraEnergy totientDefect1
+  rw [hphi]
+  decide
+
+end CarmichaelKorseltImmunity
+
 end RiemannBlueprint.Section8_VasyuninBDR

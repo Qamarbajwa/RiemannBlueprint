@@ -136,6 +136,33 @@ theorem collapseWeightPurePower_k_eq_one (p : ℕ) :
     RiemannBlueprint.Section8_VasyuninBDR.collapseWeightPurePower p 1 = 0 :=
   RiemannBlueprint.Section8_VasyuninBDR.collapseWeightPurePower_k_eq_one p
 
+/-- **C4. Composite Totient-Defect Lower Bound (`D₁(n) ≥ 2`):** Any non-prime integer `n > 1`
+satisfies `2 ≤ totientDefect1 n`. -/
+theorem two_le_totientDefect1_of_not_prime (n : ℕ) (hn : 1 < n) (hnp : ¬ Nat.Prime n) :
+    2 ≤ RiemannBlueprint.Section8_VasyuninBDR.totientDefect1 n :=
+  RiemannBlueprint.Section8_VasyuninBDR.two_le_totientDefect1_of_not_prime n hn hnp
+
+/-- **C5. Korselt–Carmichael Totient-Defect Immunity:** Every Korselt–Carmichael number `n`
+satisfies `2 ≤ totientDefect1 n` (never colliding with `D₁(p) = 1`). -/
+theorem carmichael_totientDefect1_ge_two (n : ℕ)
+    (hc : RiemannBlueprint.Section8_VasyuninBDR.IsKorseltCarmichael n) :
+    2 ≤ RiemannBlueprint.Section8_VasyuninBDR.totientDefect1 n :=
+  RiemannBlueprint.Section8_VasyuninBDR.carmichael_totientDefect1_ge_two n hc
+
+/-- **C6. First Carmichael Number (`561 = 3 × 11 × 17`):**
+`totientDefect1 561 = 241 ∧ primePowerExtraEnergy 561 = 240`. -/
+theorem totientDefect1_carmichael_561 :
+    RiemannBlueprint.Section8_VasyuninBDR.totientDefect1 561 = 241 ∧
+      RiemannBlueprint.Section8_VasyuninBDR.primePowerExtraEnergy 561 = 240 :=
+  RiemannBlueprint.Section8_VasyuninBDR.totientDefect1_carmichael_561
+
+/-- **C7. Hardy–Ramanujan Carmichael Number (`1729 = 7 × 13 × 19`):**
+`totientDefect1 1729 = 433 ∧ primePowerExtraEnergy 1729 = 432`. -/
+theorem totientDefect1_hardy_ramanujan_1729 :
+    RiemannBlueprint.Section8_VasyuninBDR.totientDefect1 1729 = 433 ∧
+      RiemannBlueprint.Section8_VasyuninBDR.primePowerExtraEnergy 1729 = 432 :=
+  RiemannBlueprint.Section8_VasyuninBDR.totientDefect1_hardy_ramanujan_1729
+
 end PR_C_TotientCollapseEnergy
 
 /-! ## PR-D: Nyman–Beurling / Rank-4 BDR / Right-Triangle & Dedekind Reciprocity Closure (`Analysis.InnerProductSpace` / `NumberTheory.NymanBeurling`) -/
@@ -731,7 +758,7 @@ theorem RiemannHypothesis.of_track3_dedekind_reciprocity_closure
 
 end PR_D_NymanBeurlingBDRClosure
 
--- Kernel Axiom Audits (41 theorems; strictly [propext, Classical.choice, Quot.sound])
+-- Kernel Axiom Audits (45 theorems; strictly [propext, Classical.choice, Quot.sound])
 #print axioms riemannZeta_eq_tsum_harmonicUnitSummand
 #print axioms riemannZeta_conj_of_pos_re
 #print axioms im_ne_zero_of_inCriticalStrip_zeta_zero
@@ -744,6 +771,10 @@ end PR_D_NymanBeurlingBDRClosure
 #print axioms totientDefect1_prime
 #print axioms primePowerExtraEnergy_prime_pow
 #print axioms collapseWeightPurePower_k_eq_one
+#print axioms two_le_totientDefect1_of_not_prime
+#print axioms carmichael_totientDefect1_ge_two
+#print axioms totientDefect1_carmichael_561
+#print axioms totientDefect1_hardy_ramanujan_1729
 #print axioms nymanBeurling_spatial_cauchy_floor
 #print axioms baezDuarte_unconstrained_spatial_floor
 #print axioms RiemannHypothesis.of_nymanBeurling_approx

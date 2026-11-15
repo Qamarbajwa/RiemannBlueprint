@@ -265,6 +265,15 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check RiemannBlueprint.Section8_VasyuninBDR.ramanujanOffResonance_eq_neg_totientDefect1
 #check RiemannBlueprint.Section8_VasyuninBDR.ramanujan_prime_pow_charge_balance
 #check RiemannBlueprint.Section8_VasyuninBDR.noether_clay_charge_conservation
+#check RiemannBlueprint.Section8_VasyuninBDR.IsKorseltCarmichael
+#check RiemannBlueprint.Section8_VasyuninBDR.totient_le_sub_two_of_not_prime
+#check RiemannBlueprint.Section8_VasyuninBDR.two_le_totientDefect1_of_not_prime
+#check RiemannBlueprint.Section8_VasyuninBDR.carmichael_totientDefect1_ge_two
+#check RiemannBlueprint.Section8_VasyuninBDR.carmichael_totientDefect1_gt_one
+#check RiemannBlueprint.Section8_VasyuninBDR.isKorseltCarmichael_561
+#check RiemannBlueprint.Section8_VasyuninBDR.isKorseltCarmichael_1729
+#check RiemannBlueprint.Section8_VasyuninBDR.totientDefect1_carmichael_561
+#check RiemannBlueprint.Section8_VasyuninBDR.totientDefect1_hardy_ramanujan_1729
 
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
 #print axioms RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic
@@ -441,3 +450,11 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.ramanujanOffResonance_eq_neg_totientDefect1
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.ramanujan_prime_pow_charge_balance
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.noether_clay_charge_conservation
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.totient_le_sub_two_of_not_prime
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.two_le_totientDefect1_of_not_prime
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.carmichael_totientDefect1_ge_two
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.carmichael_totientDefect1_gt_one
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.isKorseltCarmichael_561
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.isKorseltCarmichael_1729
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.totientDefect1_carmichael_561
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.totientDefect1_hardy_ramanujan_1729
