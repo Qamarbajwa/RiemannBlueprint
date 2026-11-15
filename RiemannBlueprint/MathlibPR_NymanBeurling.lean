@@ -380,6 +380,54 @@ theorem RiemannHypothesis.of_szego_and_clayRank4GalerkinRay_rayQuotient_limit
   CMIAudit.clayRank4GalerkinRay_rayQuotient_limit_implies_rh_of_szego
     D gamma_E G_cot hG_symm u_seq h_szego h_nonneg hA h_ub h_ray_lim
 
+/-- **19. First-Stage Prime Totient Defect:** For any prime `p`, `p - φ(p) = 1`. -/
+theorem totientDefect1_prime (p : ℕ) (hp : Nat.Prime p) :
+    RiemannBlueprint.Section8_VasyuninBDR.totientDefect1 p = 1 :=
+  RiemannBlueprint.Section8_VasyuninBDR.totientDefect1_prime p hp
+
+/-- **20. Prime-Power Collapse Excess Energy:** For any prime `p` and `k ≥ 1`,
+`primePowerExtraEnergy (p ^ k) = p ^ (k - 1) - 1`. -/
+theorem primePowerExtraEnergy_prime_pow (p k : ℕ) (hp : Nat.Prime p) (hk : 1 ≤ k) :
+    RiemannBlueprint.Section8_VasyuninBDR.primePowerExtraEnergy (p ^ k) = p ^ (k - 1) - 1 :=
+  RiemannBlueprint.Section8_VasyuninBDR.primePowerExtraEnergy_prime_pow p k hp hk
+
+/-- **21. Vanishing of Collapse Weight at Exponent 1:** For any prime `p`,
+`collapseWeightPurePower p 1 = 0`. -/
+theorem collapseWeightPurePower_k_eq_one (p : ℕ) :
+    RiemannBlueprint.Section8_VasyuninBDR.collapseWeightPurePower p 1 = 0 :=
+  RiemannBlueprint.Section8_VasyuninBDR.collapseWeightPurePower_k_eq_one p
+
+/-- **22. Decomposed Hardy–Cauchy–Schwarz & 1D Rayleigh Quotient Forward Theorem:**
+Combines `SatisfiesHardyCauchySchwarz D pairing szegoNormSq`,
+`vasyunin_energy_clayRank4GalerkinRay_eq_sub_rayQuotient`, and
+`phiCotRayQuotient G_cot (clayRank4Hom (u_seq N) N) N → 1 + Q_cot_quad G_cot clayRank4Base 4`
+to deduce `_root_.RiemannHypothesis` without taking any reflection hypothesis. -/
+theorem RiemannHypothesis.of_hardyCauchySchwarz_and_clayRank4GalerkinRay_rayQuotient_limit
+    (D : ℕ → ℝ) (pairing : ℂ → ℕ → ℝ) (szegoNormSq : ℂ → ℝ)
+    (gamma_E : ℝ) (G_cot : ℕ → ℕ → ℝ) (hG_symm : ∀ j k, G_cot j k = G_cot k j)
+    (u_seq : ℕ → (ℕ → ℝ))
+    (h_hcs : CMIAudit.SatisfiesHardyCauchySchwarz D pairing szegoNormSq)
+    (h_nonneg : ∀ N : ℕ, 0 ≤ CMIAudit.baezDuarteDistSq D N)
+    (hA : ∀ N, 4 ≤ N →
+      RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N) N ≠ 0)
+    (h_ub : ∀ N, 4 ≤ N →
+      let v := RiemannBlueprint.Section8_VasyuninBDR.clayRank4GalerkinRay G_cot (u_seq N) N
+      CMIAudit.baezDuarteDistSq D N ≤
+        CMIAudit.vasyuninQuadraticEnergy
+          (RiemannBlueprint.Section8_VasyuninBDR.GVasyuninDecomp gamma_E G_cot)
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.bVasyunin k gamma_E) N
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k + v k))
+    (h_ray_lim : Filter.Tendsto
+      (fun N => RiemannBlueprint.Section8_VasyuninBDR.phiCotRayQuotient G_cot
+        (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N) N)
+      Filter.atTop
+      (nhds (1 + RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base 4))) :
+    _root_.RiemannHypothesis :=
+  CMIAudit.clayRank4GalerkinRay_rayQuotient_limit_implies_rh_of_hardyCauchySchwarz
+    D pairing szegoNormSq gamma_E G_cot hG_symm u_seq h_hcs h_nonneg hA h_ub h_ray_lim
+
 #print axioms riemannZeta_eq_tsum_harmonicUnitSummand
 #print axioms mellin_recipFract_unit_interval
 #print axioms riemannZeta_conj_of_pos_re
@@ -399,5 +447,9 @@ theorem RiemannHypothesis.of_szego_and_clayRank4GalerkinRay_rayQuotient_limit
 #print axioms RiemannHypothesis.of_clayRank4GalerkinRay_rayQuotient_limit
 #print axioms zetaZeroReflectionSymmetry
 #print axioms RiemannHypothesis.of_szego_and_clayRank4GalerkinRay_rayQuotient_limit
+#print axioms totientDefect1_prime
+#print axioms primePowerExtraEnergy_prime_pow
+#print axioms collapseWeightPurePower_k_eq_one
+#print axioms RiemannHypothesis.of_hardyCauchySchwarz_and_clayRank4GalerkinRay_rayQuotient_limit
 
 end MathlibPR.NymanBeurling

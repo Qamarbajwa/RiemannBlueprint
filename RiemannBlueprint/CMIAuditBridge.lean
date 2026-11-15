@@ -1697,6 +1697,60 @@ theorem clayRank4GalerkinRay_rayQuotient_limit_implies_rh_of_szego
       (Filter.eventually_atTop.mpr ⟨4, h_ub⟩) hE_lim
   exact rh_of_szego_and_collapse_zero_unconditional_symm D h_szego hD_lim
 
+/-- Decomposed Hardy `H²(Re(s) > 1/2)` Cauchy–Schwarz reproducing pairing predicate:
+separates the unit evaluation pairing `pairing s₀ N = 1`, the Szegő kernel norm squared
+`szegoNormSq s₀ = |s₀|² / (2 Re(s₀) - 1)`, and the Cauchy–Schwarz inequality
+`(pairing s₀ N)² ≤ D_N² * szegoNormSq s₀`. -/
+def SatisfiesHardyCauchySchwarz (D : ℕ → ℝ) (pairing : ℂ → ℕ → ℝ) (szegoNormSq : ℂ → ℝ) : Prop :=
+  ∀ s₀ : ℂ, InCriticalStrip s₀ → 1 / 2 < s₀.re → riemannZeta s₀ = 0 →
+    (∀ N : ℕ, pairing s₀ N = 1) ∧
+    (szegoNormSq s₀ = Complex.normSq s₀ / (2 * s₀.re - 1)) ∧
+    (∀ N : ℕ, (pairing s₀ N) ^ 2 ≤ baezDuarteDistSq D N * szegoNormSq s₀)
+
+/-- Derives `SzegoReproducingInequality D` from
+`SatisfiesHardyCauchySchwarz D pairing szegoNormSq`. -/
+theorem szegoReproducingInequality_of_hardyCauchySchwarz
+    (D : ℕ → ℝ) (pairing : ℂ → ℕ → ℝ) (szegoNormSq : ℂ → ℝ)
+    (h_hcs : SatisfiesHardyCauchySchwarz D pairing szegoNormSq) :
+    SzegoReproducingInequality D := by
+  intro s₀ hs hre hz N
+  rcases h_hcs s₀ hs hre hz with ⟨h_pair, h_norm, h_cs⟩
+  have hN := h_cs N
+  rw [h_pair N, one_pow, h_norm] at hN
+  exact hN
+
+/-- Bridge Theorem 12 — Decomposed Hardy–Cauchy–Schwarz & 1D Rayleigh Quotient Forward Theorem:
+combines `SatisfiesHardyCauchySchwarz` (via `szegoReproducingInequality_of_hardyCauchySchwarz`)
+with `clayRank4GalerkinRay_rayQuotient_limit_implies_rh_of_szego` to prove
+`_root_.RiemannHypothesis` without requiring `ZetaZeroReflectionSymmetry` as a premise. -/
+theorem clayRank4GalerkinRay_rayQuotient_limit_implies_rh_of_hardyCauchySchwarz
+    (D : ℕ → ℝ) (pairing : ℂ → ℕ → ℝ) (szegoNormSq : ℂ → ℝ)
+    (gamma_E : ℝ) (G_cot : ℕ → ℕ → ℝ) (hG_symm : ∀ j k, G_cot j k = G_cot k j)
+    (u_seq : ℕ → (ℕ → ℝ))
+    (h_hcs : SatisfiesHardyCauchySchwarz D pairing szegoNormSq)
+    (h_nonneg : ∀ N : ℕ, 0 ≤ baezDuarteDistSq D N)
+    (hA : ∀ N, 4 ≤ N →
+      RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N) N ≠ 0)
+    (h_ub : ∀ N, 4 ≤ N →
+      let v := RiemannBlueprint.Section8_VasyuninBDR.clayRank4GalerkinRay G_cot (u_seq N) N
+      baezDuarteDistSq D N ≤
+        vasyuninQuadraticEnergy
+          (RiemannBlueprint.Section8_VasyuninBDR.GVasyuninDecomp gamma_E G_cot)
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.bVasyunin k gamma_E) N
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k + v k))
+    (h_ray_lim : Filter.Tendsto
+      (fun N => RiemannBlueprint.Section8_VasyuninBDR.phiCotRayQuotient G_cot
+        (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N) N)
+      Filter.atTop
+      (nhds (1 + RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base 4))) :
+    _root_.RiemannHypothesis :=
+  clayRank4GalerkinRay_rayQuotient_limit_implies_rh_of_szego
+    D gamma_E G_cot hG_symm u_seq
+    (szegoReproducingInequality_of_hardyCauchySchwarz D pairing szegoNormSq h_hcs)
+    h_nonneg hA h_ub h_ray_lim
+
 #print axioms riemannHypothesis_iff_collapse_zero
 #print axioms collapse_zero_implies_rh_strip
 #print axioms cmi_criterion1_spectral_residual_eq
@@ -1740,5 +1794,7 @@ theorem clayRank4GalerkinRay_rayQuotient_limit_implies_rh_of_szego
 #print axioms zetaZeroReflectionSymmetry_unconditional
 #print axioms rh_of_szego_and_collapse_zero_unconditional_symm
 #print axioms clayRank4GalerkinRay_rayQuotient_limit_implies_rh_of_szego
+#print axioms szegoReproducingInequality_of_hardyCauchySchwarz
+#print axioms clayRank4GalerkinRay_rayQuotient_limit_implies_rh_of_hardyCauchySchwarz
 
 end CMIAudit

@@ -1461,4 +1461,68 @@ theorem intervalIntegral_sq_dilation (k : ℕ) (hk : 1 ≤ k) :
 
 end Rank4AndL2Calculus
 
+section TotientCollapseEnergy
+
+/-- First-stage totient defect `D₁(n) = n - φ(n)`. -/
+def totientDefect1 (n : ℕ) : ℕ :=
+  n - Nat.totient n
+
+/-- Excess prime-power collapse energy above the unit prime baseline: `E_extra(n) = D₁(n) - 1`. -/
+def primePowerExtraEnergy (n : ℕ) : ℕ :=
+  totientDefect1 n - 1
+
+/-- Collapse-augmented pure prime-power weight `w_col(p^k) = ((-1)^k / k) * (1 - 1 / p^(k - 1))`. -/
+noncomputable def collapseWeightPurePower (p k : ℕ) : ℝ :=
+  ((-1 : ℝ) ^ k / (k : ℝ)) * (1 - 1 / ((p : ℝ) ^ (k - 1)))
+
+/-- For any prime `p`, the first-stage totient defect equals `1`. -/
+theorem totientDefect1_prime (p : ℕ) (hp : Nat.Prime p) :
+    totientDefect1 p = 1 := by
+  unfold totientDefect1
+  rw [Nat.totient_prime hp]
+  have hp2 : 2 ≤ p := hp.two_le
+  omega
+
+/-- For any prime `p`, the excess prime-power collapse energy vanishes. -/
+theorem primePowerExtraEnergy_prime (p : ℕ) (hp : Nat.Prime p) :
+    primePowerExtraEnergy p = 0 := by
+  unfold primePowerExtraEnergy
+  rw [totientDefect1_prime p hp]
+
+/-- For any prime `p` and exponent `k ≥ 1`, `totientDefect1 (p ^ k) = p ^ (k - 1)`. -/
+theorem totientDefect1_prime_pow (p k : ℕ) (hp : Nat.Prime p) (hk : 1 ≤ k) :
+    totientDefect1 (p ^ k) = p ^ (k - 1) := by
+  unfold totientDefect1
+  rw [Nat.totient_prime_pow hp (by omega : 0 < k)]
+  have hpow : p ^ k = p ^ (k - 1) * p := by
+    conv_lhs => rw [show k = (k - 1) + 1 by omega, pow_succ]
+  have hp_pos : 1 ≤ p := hp.pos
+  calc
+    p ^ k - p ^ (k - 1) * (p - 1)
+        = p ^ (k - 1) * p - p ^ (k - 1) * (p - 1) := by rw [hpow]
+    _ = p ^ (k - 1) * (p - (p - 1)) := by rw [← Nat.mul_sub_left_distrib]
+    _ = p ^ (k - 1) * 1 := by rw [show p - (p - 1) = 1 by omega]
+    _ = p ^ (k - 1) := Nat.mul_one _
+
+/-- For any prime `p` and exponent `k ≥ 1`, `primePowerExtraEnergy (p ^ k) = p ^ (k - 1) - 1`. -/
+theorem primePowerExtraEnergy_prime_pow (p k : ℕ) (hp : Nat.Prime p) (hk : 1 ≤ k) :
+    primePowerExtraEnergy (p ^ k) = p ^ (k - 1) - 1 := by
+  unfold primePowerExtraEnergy
+  rw [totientDefect1_prime_pow p k hp hk]
+
+/-- Certifies the first composite step-impostor `9 = 3²`: `primePowerExtraEnergy 9 = 2`. -/
+theorem primePowerExtraEnergy_nine_eq_two :
+    primePowerExtraEnergy 9 = 2 := by
+  rw [show (9 : ℕ) = 3 ^ 2 from rfl,
+    primePowerExtraEnergy_prime_pow 3 2 Nat.prime_three (by omega)]
+  rfl
+
+/-- At exponent `k = 1`, `collapseWeightPurePower p 1 = 0`. -/
+theorem collapseWeightPurePower_k_eq_one (p : ℕ) :
+    collapseWeightPurePower p 1 = 0 := by
+  unfold collapseWeightPurePower
+  norm_num
+
+end TotientCollapseEnergy
+
 end RiemannBlueprint.Section8_VasyuninBDR

@@ -201,6 +201,18 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check CMIAudit.zetaZeroReflectionSymmetry_unconditional
 #check CMIAudit.rh_of_szego_and_collapse_zero_unconditional_symm
 #check CMIAudit.clayRank4GalerkinRay_rayQuotient_limit_implies_rh_of_szego
+#check RiemannBlueprint.Section8_VasyuninBDR.totientDefect1
+#check RiemannBlueprint.Section8_VasyuninBDR.primePowerExtraEnergy
+#check RiemannBlueprint.Section8_VasyuninBDR.collapseWeightPurePower
+#check RiemannBlueprint.Section8_VasyuninBDR.totientDefect1_prime
+#check RiemannBlueprint.Section8_VasyuninBDR.primePowerExtraEnergy_prime
+#check RiemannBlueprint.Section8_VasyuninBDR.totientDefect1_prime_pow
+#check RiemannBlueprint.Section8_VasyuninBDR.primePowerExtraEnergy_prime_pow
+#check RiemannBlueprint.Section8_VasyuninBDR.primePowerExtraEnergy_nine_eq_two
+#check RiemannBlueprint.Section8_VasyuninBDR.collapseWeightPurePower_k_eq_one
+#check CMIAudit.SatisfiesHardyCauchySchwarz
+#check CMIAudit.szegoReproducingInequality_of_hardyCauchySchwarz
+#check CMIAudit.clayRank4GalerkinRay_rayQuotient_limit_implies_rh_of_hardyCauchySchwarz
 
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
 #print axioms RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic
@@ -331,3 +343,11 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms CMIAudit.zetaZeroReflectionSymmetry_unconditional
 #print axioms CMIAudit.rh_of_szego_and_collapse_zero_unconditional_symm
 #print axioms CMIAudit.clayRank4GalerkinRay_rayQuotient_limit_implies_rh_of_szego
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.totientDefect1_prime
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.primePowerExtraEnergy_prime
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.totientDefect1_prime_pow
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.primePowerExtraEnergy_prime_pow
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.primePowerExtraEnergy_nine_eq_two
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.collapseWeightPurePower_k_eq_one
+#print axioms CMIAudit.szegoReproducingInequality_of_hardyCauchySchwarz
+#print axioms CMIAudit.clayRank4GalerkinRay_rayQuotient_limit_implies_rh_of_hardyCauchySchwarz
