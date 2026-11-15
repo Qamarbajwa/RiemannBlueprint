@@ -580,6 +580,62 @@ theorem RiemannHypothesis.of_master_effective_potential_closure
   CMIAudit.cmi_master_effective_potential_closure_implies_rh
     D pairing szegoNormSq gamma_E G_cot hG_symm u_seq h_ihcs h_nonneg hA h_ub h_eff_lim
 
+/-- 34. Central-Diagonal & Strict Right-Triangle Decomposition of `Q_cot_quad`. -/
+theorem Q_cot_quad_eq_diag_add_two_mul_rightTriangle (G_cot : ℕ → ℕ → ℝ)
+    (hG_symm : ∀ j k, G_cot j k = G_cot k j) (v : ℕ → ℝ) (N : ℕ) :
+    RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot v N =
+      RiemannBlueprint.Section8_VasyuninBDR.Q_cot_diag G_cot v N +
+        2 * RiemannBlueprint.Section8_VasyuninBDR.Q_cot_rightTriangle G_cot v N :=
+  RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad_eq_diag_add_two_mul_rightTriangle
+    G_cot hG_symm v N
+
+/-- 35. Strict Off-Diagonal Right-Triangle Collapse Under Vanishing Diagonal. -/
+theorem Q_cot_quad_eq_two_mul_rightTriangle_of_diag_zero (G_cot : ℕ → ℕ → ℝ)
+    (hG_symm : ∀ j k, G_cot j k = G_cot k j)
+    (hG_diag : ∀ k, G_cot k k = 0) (v : ℕ → ℝ) (N : ℕ) :
+    RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot v N =
+      2 * RiemannBlueprint.Section8_VasyuninBDR.Q_cot_rightTriangle G_cot v N :=
+  RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad_eq_two_mul_rightTriangle_of_diag_zero
+    G_cot hG_symm hG_diag v N
+
+/-- 36. Monotonicity of Canonical Riesz-Effective Tail Sum of Squares. -/
+theorem rieszEffectiveTailSqSum_mono (G_cot : ℕ → ℕ → ℝ) {M N : ℕ} (hMN : M ≤ N) :
+    RiemannBlueprint.Section8_VasyuninBDR.rieszEffectiveTailSqSum G_cot M ≤
+      RiemannBlueprint.Section8_VasyuninBDR.rieszEffectiveTailSqSum G_cot N :=
+  RiemannBlueprint.Section8_VasyuninBDR.rieszEffectiveTailSqSum_mono G_cot hMN
+
+/-- 37. Right-Triangle Off-Diagonal & Riesz-Effective Closure Implies RH. -/
+theorem RiemannHypothesis.of_master_rightTriangle_effective_closure
+    (D : ℕ → ℝ) (pairing : ℂ → ℕ → ℝ) (szegoNormSq : ℂ → ℝ)
+    (gamma_E : ℝ) (G_cot : ℕ → ℕ → ℝ)
+    (hG_symm : ∀ j k, G_cot j k = G_cot k j)
+    (hG_diag : ∀ k, G_cot k k = 0)
+    (u_seq : ℕ → (ℕ → ℝ))
+    (h_ihcs : CMIAudit.SatisfiesIntegralHardyCauchySchwarz D pairing szegoNormSq)
+    (h_nonneg : ∀ N : ℕ, 0 ≤ CMIAudit.baezDuarteDistSq D N)
+    (hA : ∀ N, 4 ≤ N →
+      2 * RiemannBlueprint.Section8_VasyuninBDR.Q_cot_rightTriangle G_cot
+        (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N) N ≠ 0)
+    (h_ub : ∀ N, 4 ≤ N →
+      let v := RiemannBlueprint.Section8_VasyuninBDR.clayRank4UnconstrainedRay G_cot (u_seq N) N
+      CMIAudit.baezDuarteDistSq D N ≤
+        CMIAudit.vasyuninQuadraticEnergy
+          (RiemannBlueprint.Section8_VasyuninBDR.GVasyuninDecomp gamma_E G_cot)
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.bVasyunin k gamma_E) N
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k + v k))
+    (h_rt_lim : Filter.Tendsto
+      (fun N =>
+        (∑ m ∈ Finset.Icc 5 N, u_seq N m *
+          RiemannBlueprint.Section8_VasyuninBDR.phiCotEffective G_cot m) ^ 2 /
+          (2 * RiemannBlueprint.Section8_VasyuninBDR.Q_cot_rightTriangle G_cot
+            (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N) N))
+      Filter.atTop
+      (nhds (1 + 2 * RiemannBlueprint.Section8_VasyuninBDR.Q_cot_rightTriangle G_cot
+        RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base 4))) :
+    _root_.RiemannHypothesis :=
+  CMIAudit.cmi_master_rightTriangle_effective_closure_implies_rh
+    D pairing szegoNormSq gamma_E G_cot hG_symm hG_diag u_seq h_ihcs h_nonneg hA h_ub h_rt_lim
+
 #print axioms riemannZeta_eq_tsum_harmonicUnitSummand
 #print axioms mellin_recipFract_unit_interval
 #print axioms riemannZeta_conj_of_pos_re
@@ -613,5 +669,9 @@ theorem RiemannHypothesis.of_master_effective_potential_closure
 #print axioms sum_clayRank4Hom_mul_phiCotBase_eq_tail_phiCotEffective
 #print axioms phiCotUnconstrainedRayQuotient_eq_tail_phiCotEffective
 #print axioms RiemannHypothesis.of_master_effective_potential_closure
+#print axioms Q_cot_quad_eq_diag_add_two_mul_rightTriangle
+#print axioms Q_cot_quad_eq_two_mul_rightTriangle_of_diag_zero
+#print axioms rieszEffectiveTailSqSum_mono
+#print axioms RiemannHypothesis.of_master_rightTriangle_effective_closure
 
 end MathlibPR.NymanBeurling

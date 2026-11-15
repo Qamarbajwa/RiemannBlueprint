@@ -1625,6 +1625,89 @@ theorem phiCotUnconstrainedRayQuotient_eq_tail_phiCotEffective
   unfold phiCotUnconstrainedRayQuotient phiCotRayQuotient
   rw [sum_clayRank4Hom_mul_phiCotBase_eq_tail_phiCotEffective G_cot u N hN]
 
+/-- Central-diagonal sum `∑_{k=1}^N v_k^2 G_{k,k}^{(cot)}`. -/
+def Q_cot_diag (G_cot : ℕ → ℕ → ℝ) (v : ℕ → ℝ) (N : ℕ) : ℝ :=
+  ∑ k ∈ Finset.Icc 1 N, v k * v k * G_cot k k
+
+/-- Strict upper right-triangle sum `∑_{k=1}^N ∑_{j=1}^{k-1} v_j v_k G_{j,k}^{(cot)}`. -/
+def Q_cot_rightTriangle (G_cot : ℕ → ℕ → ℝ) (v : ℕ → ℝ) (N : ℕ) : ℝ :=
+  ∑ k ∈ Finset.Icc 1 N, ∑ j ∈ Finset.Icc 1 (k - 1), v j * v k * G_cot j k
+
+/-- Central-diagonal and strict upper right-triangle decomposition of `Q_cot_quad` for any
+symmetric matrix `G_cot`. -/
+theorem Q_cot_quad_eq_diag_add_two_mul_rightTriangle (G_cot : ℕ → ℕ → ℝ)
+    (hG_symm : ∀ j k, G_cot j k = G_cot k j) (v : ℕ → ℝ) (N : ℕ) :
+    Q_cot_quad G_cot v N =
+      Q_cot_diag G_cot v N + 2 * Q_cot_rightTriangle G_cot v N := by
+  induction N with
+  | zero =>
+    simp [Q_cot_quad, Q_cot_diag, Q_cot_rightTriangle]
+  | succ N ih =>
+    have h1 : 1 ≤ N + 1 := Nat.succ_pos N
+    unfold Q_cot_quad Q_cot_diag Q_cot_rightTriangle at ih ⊢
+    rw [Finset.sum_Icc_succ_top h1]
+    have h_inner :
+        (∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 (N + 1), v j * v k * G_cot j k) =
+          (∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N, v j * v k * G_cot j k) +
+            ∑ j ∈ Finset.Icc 1 N, v j * v (N + 1) * G_cot j (N + 1) := by
+      rw [← Finset.sum_add_distrib]
+      refine Finset.sum_congr rfl fun j _ => ?_
+      exact Finset.sum_Icc_succ_top h1 (fun k => v j * v k * G_cot j k)
+    have h_top :
+        (∑ k ∈ Finset.Icc 1 (N + 1), v (N + 1) * v k * G_cot (N + 1) k) =
+          (∑ k ∈ Finset.Icc 1 N, v (N + 1) * v k * G_cot (N + 1) k) +
+            v (N + 1) * v (N + 1) * G_cot (N + 1) (N + 1) :=
+      Finset.sum_Icc_succ_top h1 (fun k => v (N + 1) * v k * G_cot (N + 1) k)
+    have h_symm_row :
+        (∑ k ∈ Finset.Icc 1 N, v (N + 1) * v k * G_cot (N + 1) k) =
+          ∑ j ∈ Finset.Icc 1 N, v j * v (N + 1) * G_cot j (N + 1) := by
+      refine Finset.sum_congr rfl fun k _ => ?_
+      rw [hG_symm (N + 1) k]
+      ring
+    rw [h_inner, h_top, h_symm_row, ih]
+    rw [Finset.sum_Icc_succ_top h1 (fun k => v k * v k * G_cot k k)]
+    rw [Finset.sum_Icc_succ_top h1
+      (fun k => ∑ j ∈ Finset.Icc 1 (k - 1), v j * v k * G_cot j k)]
+    simp only [Nat.add_sub_cancel]
+    ring
+
+/-- When the central diagonal of a symmetric cotangent matrix vanishes identically,
+`Q_cot_quad` collapses to twice the strict upper right-triangle sum. -/
+theorem Q_cot_quad_eq_two_mul_rightTriangle_of_diag_zero (G_cot : ℕ → ℕ → ℝ)
+    (hG_symm : ∀ j k, G_cot j k = G_cot k j)
+    (hG_diag : ∀ k, G_cot k k = 0) (v : ℕ → ℝ) (N : ℕ) :
+    Q_cot_quad G_cot v N = 2 * Q_cot_rightTriangle G_cot v N := by
+  rw [Q_cot_quad_eq_diag_add_two_mul_rightTriangle G_cot hG_symm v N]
+  have hdiag : Q_cot_diag G_cot v N = 0 := by
+    simp [Q_cot_diag, hG_diag]
+  rw [hdiag, zero_add]
+
+/-- Canonical Riesz-effective tail sum of squares on `Finset.Icc 5 N`. -/
+noncomputable def rieszEffectiveTailSqSum (G_cot : ℕ → ℕ → ℝ) (N : ℕ) : ℝ :=
+  ∑ m ∈ Finset.Icc 5 N, (phiCotEffective G_cot m) ^ 2
+
+/-- Evaluating the 1D `phiCotBase` pairing on `u = phiCotEffective G_cot` yields the canonical
+Riesz-effective tail sum of squares `rieszEffectiveTailSqSum G_cot N` for all `N ≥ 4`. -/
+theorem sum_clayRank4Hom_phiCotEffective_eq_rieszEffectiveTailSqSum
+    (G_cot : ℕ → ℕ → ℝ) (N : ℕ) (hN : 4 ≤ N) :
+    (∑ k ∈ Finset.Icc 1 N, clayRank4Hom (phiCotEffective G_cot) N k * phiCotBase G_cot k) =
+      rieszEffectiveTailSqSum G_cot N := by
+  rw [sum_clayRank4Hom_mul_phiCotBase_eq_tail_phiCotEffective G_cot (phiCotEffective G_cot) N hN]
+  unfold rieszEffectiveTailSqSum
+  refine Finset.sum_congr rfl fun m _ => ?_
+  ring
+
+/-- Non-negativity of `rieszEffectiveTailSqSum`. -/
+theorem rieszEffectiveTailSqSum_nonneg (G_cot : ℕ → ℕ → ℝ) (N : ℕ) :
+    0 ≤ rieszEffectiveTailSqSum G_cot N :=
+  Finset.sum_nonneg fun _ _ => sq_nonneg _
+
+/-- Monotonicity of `rieszEffectiveTailSqSum` in the horizon `N`. -/
+theorem rieszEffectiveTailSqSum_mono (G_cot : ℕ → ℕ → ℝ) {M N : ℕ} (hMN : M ≤ N) :
+    rieszEffectiveTailSqSum G_cot M ≤ rieszEffectiveTailSqSum G_cot N :=
+  Finset.sum_le_sum_of_subset_of_nonneg (Finset.Icc_subset_Icc_right hMN)
+    fun _ _ _ => sq_nonneg _
+
 end BoundaryFunctionals
 
 section Rank4AndL2Calculus
