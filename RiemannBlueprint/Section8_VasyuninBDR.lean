@@ -1401,6 +1401,54 @@ theorem vasyunin_energy_clayRank4UnconstrainedRay_eq_sub_rayQuotient
   exact vasyunin_energy_clayRank4GalerkinRay_eq_sub_rayQuotient
     gamma_E G_cot hG_symm u N hN hA
 
+/-- For `4 < k`, `clayRank4Hom u N` preserves the tail coordinate `u k` identically. -/
+theorem clayRank4Hom_eq_self_of_lt_four (u : ℕ → ℝ) (N k : ℕ) (hk : 4 < k) :
+    clayRank4Hom u N k = u k := by
+  unfold clayRank4Hom
+  rw [w_rank4_corrector_eq_zero_of_lt_four _ _ _ _ k hk, add_zero]
+
+/-- For `4 < k`, `clayRank4Lock u N` preserves the tail coordinate `u k` identically. -/
+theorem clayRank4Lock_eq_self_of_lt_four (u : ℕ → ℝ) (N k : ℕ) (hk : 4 < k) :
+    clayRank4Lock u N k = u k := by
+  rw [clayRank4Lock_eq_base_add_hom u N k,
+    clayRank4Base_eq_zero_of_lt_four k hk,
+    clayRank4Hom_eq_self_of_lt_four u N k hk, zero_add]
+
+/-- Anchor-plus-tail split of the 1D `phiCotBase` pairing of `clayRank4Hom u N` (`4 ≤ N`):
+separates the 4-point anchor reaction on `Finset.Icc 1 4` from the unmodified tail sum on
+`Finset.Icc 5 N`. -/
+theorem sum_clayRank4Hom_mul_phiCotBase_split (G_cot : ℕ → ℕ → ℝ)
+    (u : ℕ → ℝ) (N : ℕ) (hN : 4 ≤ N) :
+    (∑ k ∈ Finset.Icc 1 N, clayRank4Hom u N k * phiCotBase G_cot k) =
+      (∑ k ∈ Finset.Icc 1 4, clayRank4Hom u N k * phiCotBase G_cot k) +
+        (∑ k ∈ Finset.Icc 5 N, u k * phiCotBase G_cot k) := by
+  have h_union : Finset.Icc 1 N = Finset.Icc 1 4 ∪ Finset.Icc 5 N := by
+    ext k
+    simp only [Finset.mem_union, Finset.mem_Icc]
+    omega
+  have h_disj : Disjoint (Finset.Icc 1 4) (Finset.Icc 5 N) := by
+    rw [Finset.disjoint_left]
+    intro k hk1 hk2
+    rw [Finset.mem_Icc] at hk1 hk2
+    omega
+  rw [h_union, Finset.sum_union h_disj]
+  congr 1
+  refine Finset.sum_congr rfl fun k hk => ?_
+  have hk4 : 4 < k := by
+    rw [Finset.mem_Icc] at hk
+    omega
+  rw [clayRank4Hom_eq_self_of_lt_four u N k hk4]
+
+/-- Symmetry of the bilinear cotangent pairing `B_cot_bilinear` when `G_cot` is symmetric. -/
+theorem B_cot_bilinear_comm (G_cot : ℕ → ℕ → ℝ)
+    (hG_symm : ∀ j k, G_cot j k = G_cot k j) (u v : ℕ → ℝ) (N : ℕ) :
+    B_cot_bilinear G_cot u v N = B_cot_bilinear G_cot v u N := by
+  unfold B_cot_bilinear
+  rw [Finset.sum_comm]
+  refine Finset.sum_congr rfl fun j _ => Finset.sum_congr rfl fun k _ => ?_
+  rw [hG_symm k j]
+  ring
+
 end BoundaryFunctionals
 
 section Rank4AndL2Calculus

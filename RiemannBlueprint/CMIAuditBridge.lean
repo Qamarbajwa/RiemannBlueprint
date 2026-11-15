@@ -1841,6 +1841,105 @@ theorem clayRank4UnconstrainedRay_limit_implies_rh_of_hardyCauchySchwarz
   exact clayRank4GalerkinRay_rayQuotient_limit_implies_rh_of_hardyCauchySchwarz
     D pairing szegoNormSq gamma_E G_cot hG_symm u_seq h_hcs h_nonneg hA h_ub' h_ray_lim
 
+/-- Continuity of `szegoKernelIntegrand s₀` on `ℝ` whenever `1 / 2 < s₀.re`. -/
+theorem continuous_szegoKernelIntegrand (s₀ : ℂ) (h_re : 1 / 2 < s₀.re) :
+    Continuous (szegoKernelIntegrand s₀) := by
+  unfold szegoKernelIntegrand
+  refine continuous_const.mul (continuous_const.div ?_ fun t => ?_)
+  · exact continuous_const.add ((continuous_id.sub continuous_const).pow 2)
+  · have ha : s₀.re - 1 / 2 ≠ 0 := sub_ne_zero.mpr (ne_of_gt h_re)
+    exact ne_of_gt (add_pos_of_pos_of_nonneg (sq_pos_of_ne_zero ha) (sq_nonneg _))
+
+/-- Fundamental Theorem of Calculus evaluation of the definite integral of `szegoKernelIntegrand s₀`
+on `[a, b]` for `1 / 2 < s₀.re`. -/
+theorem integral_szegoKernelIntegrand_eq_sub (s₀ : ℂ) (h_re : 1 / 2 < s₀.re) (a b : ℝ) :
+    (∫ t in a..b, szegoKernelIntegrand s₀ t) =
+      szegoKernelAntideriv s₀ b - szegoKernelAntideriv s₀ a := by
+  refine intervalIntegral.integral_eq_sub_of_hasDerivAt
+    (fun t _ => hasDerivAt_szegoKernelAntideriv s₀ h_re t) ?_
+  exact (continuous_szegoKernelIntegrand s₀ h_re).intervalIntegrable a b
+
+/-- Unconditional convergence of the symmetric critical-line Szegő kernel integral
+`∫_{-T}^T szegoKernelIntegrand(s₀, t) dt → Complex.normSq s₀ / (2 * s₀.re - 1)` as `T → ∞`
+for `1 / 2 < s₀.re`. -/
+theorem tendsto_integral_szegoKernelIntegrand_atTop (s₀ : ℂ) (h_re : 1 / 2 < s₀.re) :
+    Filter.Tendsto (fun T : ℝ => ∫ t in (-T)..T, szegoKernelIntegrand s₀ t)
+      Filter.atTop (nhds (Complex.normSq s₀ / (2 * s₀.re - 1))) := by
+  have ha : 0 < s₀.re - 1 / 2 := sub_pos.mpr h_re
+  have h_top_lin : Filter.Tendsto (fun T : ℝ => (T - s₀.im) / (s₀.re - 1 / 2))
+      Filter.atTop Filter.atTop :=
+    (Filter.tendsto_atTop_add_const_right Filter.atTop (-s₀.im) Filter.tendsto_id).atTop_div_const ha
+  have h_bot_lin : Filter.Tendsto (fun T : ℝ => (-T - s₀.im) / (s₀.re - 1 / 2))
+      Filter.atTop Filter.atBot :=
+    (Filter.tendsto_atBot_add_const_right Filter.atTop (-s₀.im) Filter.tendsto_neg_atTop_atBot).atBot_div_const ha
+  have h_top_atan : Filter.Tendsto (fun T : ℝ => Real.arctan ((T - s₀.im) / (s₀.re - 1 / 2)))
+      Filter.atTop (nhds (Real.pi / 2)) :=
+    (tendsto_nhds_of_tendsto_nhdsWithin Real.tendsto_arctan_atTop).comp h_top_lin
+  have h_bot_atan : Filter.Tendsto (fun T : ℝ => Real.arctan ((-T - s₀.im) / (s₀.re - 1 / 2)))
+      Filter.atTop (nhds (-(Real.pi / 2))) :=
+    (tendsto_nhds_of_tendsto_nhdsWithin Real.tendsto_arctan_atBot).comp h_bot_lin
+  have h_upper : Filter.Tendsto (fun T : ℝ => szegoKernelAntideriv s₀ T)
+      Filter.atTop (nhds ((Complex.normSq s₀ / (2 * Real.pi * (s₀.re - 1 / 2))) * (Real.pi / 2))) :=
+    h_top_atan.const_mul _
+  have h_lower : Filter.Tendsto (fun T : ℝ => szegoKernelAntideriv s₀ (-T))
+      Filter.atTop (nhds ((Complex.normSq s₀ / (2 * Real.pi * (s₀.re - 1 / 2))) * (-(Real.pi / 2)))) :=
+    h_bot_atan.const_mul _
+  have h_sub := h_upper.sub h_lower
+  rw [szegoKernelAntideriv_upper_sub_lower s₀ h_re] at h_sub
+  refine h_sub.congr fun T => ?_
+  exact (integral_szegoKernelIntegrand_eq_sub s₀ h_re (-T) T).symm
+
+/-- Integral-grounded Hardy `H²(Re(s) > 1/2)` Cauchy–Schwarz predicate where `szegoNormSq s₀` is
+characterized purely as the improper integral limit of `∫_{-T}^T szegoKernelIntegrand s₀ t dt`. -/
+def SatisfiesIntegralHardyCauchySchwarz (D : ℕ → ℝ) (pairing : ℂ → ℕ → ℝ) (szegoNormSq : ℂ → ℝ) : Prop :=
+  ∀ s₀ : ℂ, InCriticalStrip s₀ → 1 / 2 < s₀.re → riemannZeta s₀ = 0 →
+    (∀ N : ℕ, pairing s₀ N = 1) ∧
+    Filter.Tendsto (fun T : ℝ => ∫ t in (-T)..T, szegoKernelIntegrand s₀ t)
+      Filter.atTop (nhds (szegoNormSq s₀)) ∧
+    (∀ N : ℕ, (pairing s₀ N) ^ 2 ≤ baezDuarteDistSq D N * szegoNormSq s₀)
+
+/-- Uniqueness of limits in `ℝ` (`tendsto_nhds_unique`) combined with
+`tendsto_integral_szegoKernelIntegrand_atTop` discharges the closed-form Szegő norm identity from
+`SatisfiesIntegralHardyCauchySchwarz`. -/
+theorem satisfiesHardyCauchySchwarz_of_integral
+    (D : ℕ → ℝ) (pairing : ℂ → ℕ → ℝ) (szegoNormSq : ℂ → ℝ)
+    (h_ihcs : SatisfiesIntegralHardyCauchySchwarz D pairing szegoNormSq) :
+    SatisfiesHardyCauchySchwarz D pairing szegoNormSq := by
+  intro s₀ hs hre hz
+  rcases h_ihcs s₀ hs hre hz with ⟨h_pair, h_tendsto, h_cs⟩
+  exact ⟨h_pair, tendsto_nhds_unique h_tendsto (tendsto_integral_szegoKernelIntegrand_atTop s₀ hre), h_cs⟩
+
+/-- Integral-Grounded Hardy–Cauchy–Schwarz & Unconstrained Ray 1D Limit Implies RH:
+eliminates both homogeneous boundary conditions on `u_seq` and the algebraic formula for
+`szegoNormSq s₀` in favor of the improper critical-line integral of `szegoKernelIntegrand`. -/
+theorem clayRank4UnconstrainedRay_limit_implies_rh_of_integralHardyCauchySchwarz
+    (D : ℕ → ℝ) (pairing : ℂ → ℕ → ℝ) (szegoNormSq : ℂ → ℝ)
+    (gamma_E : ℝ) (G_cot : ℕ → ℕ → ℝ) (hG_symm : ∀ j k, G_cot j k = G_cot k j)
+    (u_seq : ℕ → (ℕ → ℝ))
+    (h_ihcs : SatisfiesIntegralHardyCauchySchwarz D pairing szegoNormSq)
+    (h_nonneg : ∀ N : ℕ, 0 ≤ baezDuarteDistSq D N)
+    (hA : ∀ N, 4 ≤ N →
+      RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N) N ≠ 0)
+    (h_ub : ∀ N, 4 ≤ N →
+      let v := RiemannBlueprint.Section8_VasyuninBDR.clayRank4UnconstrainedRay G_cot (u_seq N) N
+      baezDuarteDistSq D N ≤
+        vasyuninQuadraticEnergy
+          (RiemannBlueprint.Section8_VasyuninBDR.GVasyuninDecomp gamma_E G_cot)
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.bVasyunin k gamma_E) N
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k + v k))
+    (h_ray_lim : Filter.Tendsto
+      (fun N =>
+        RiemannBlueprint.Section8_VasyuninBDR.phiCotUnconstrainedRayQuotient G_cot (u_seq N) N)
+      Filter.atTop
+      (nhds (1 + RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base 4))) :
+    _root_.RiemannHypothesis :=
+  clayRank4UnconstrainedRay_limit_implies_rh_of_hardyCauchySchwarz
+    D pairing szegoNormSq gamma_E G_cot hG_symm u_seq
+    (satisfiesHardyCauchySchwarz_of_integral D pairing szegoNormSq h_ihcs)
+    h_nonneg hA h_ub h_ray_lim
+
 #print axioms riemannHypothesis_iff_collapse_zero
 #print axioms collapse_zero_implies_rh_strip
 #print axioms cmi_criterion1_spectral_residual_eq
@@ -1889,5 +1988,10 @@ theorem clayRank4UnconstrainedRay_limit_implies_rh_of_hardyCauchySchwarz
 #print axioms szegoKernelAntideriv_upper_sub_lower
 #print axioms hasDerivAt_szegoKernelAntideriv
 #print axioms clayRank4UnconstrainedRay_limit_implies_rh_of_hardyCauchySchwarz
+#print axioms continuous_szegoKernelIntegrand
+#print axioms integral_szegoKernelIntegrand_eq_sub
+#print axioms tendsto_integral_szegoKernelIntegrand_atTop
+#print axioms satisfiesHardyCauchySchwarz_of_integral
+#print axioms clayRank4UnconstrainedRay_limit_implies_rh_of_integralHardyCauchySchwarz
 
 end CMIAudit

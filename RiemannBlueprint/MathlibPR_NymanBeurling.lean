@@ -472,6 +472,57 @@ theorem RiemannHypothesis.of_hardyCauchySchwarz_and_unconstrainedRayQuotient_lim
   CMIAudit.clayRank4UnconstrainedRay_limit_implies_rh_of_hardyCauchySchwarz
     D pairing szegoNormSq gamma_E G_cot hG_symm u_seq h_hcs h_nonneg hA h_ub h_ray_lim
 
+/-- 27. Tail Coordinate Invariance for `4 < k`:
+for every tail index `4 < k`, `clayRank4Hom u N` preserves `u k` identically. -/
+theorem clayRank4Hom_eq_self_of_lt_four (u : ℕ → ℝ) (N k : ℕ) (hk : 4 < k) :
+    RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom u N k = u k :=
+  RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom_eq_self_of_lt_four u N k hk
+
+/-- 28. Fundamental Theorem of Calculus Evaluation for `szegoKernelIntegrand`:
+`(∫ t in a..b, szegoKernelIntegrand s₀ t) = szegoKernelAntideriv s₀ b - szegoKernelAntideriv s₀ a`
+for `1 / 2 < s₀.re`. -/
+theorem integral_szegoKernelIntegrand_eq_sub (s₀ : ℂ) (h_re : 1 / 2 < s₀.re) (a b : ℝ) :
+    (∫ t in a..b, CMIAudit.szegoKernelIntegrand s₀ t) =
+      CMIAudit.szegoKernelAntideriv s₀ b - CMIAudit.szegoKernelAntideriv s₀ a :=
+  CMIAudit.integral_szegoKernelIntegrand_eq_sub s₀ h_re a b
+
+/-- 29. Unconditional Critical-Line Improper Integral Limit of `szegoKernelIntegrand`:
+symmetric definite integrals `∫ t in (-T)..T, szegoKernelIntegrand s₀ t` converge as `T → ∞` to
+`Complex.normSq s₀ / (2 * s₀.re - 1)` for `1 / 2 < s₀.re`. -/
+theorem tendsto_integral_szegoKernelIntegrand_atTop (s₀ : ℂ) (h_re : 1 / 2 < s₀.re) :
+    Filter.Tendsto (fun T : ℝ => ∫ t in (-T)..T, CMIAudit.szegoKernelIntegrand s₀ t)
+      Filter.atTop (nhds (Complex.normSq s₀ / (2 * s₀.re - 1))) :=
+  CMIAudit.tendsto_integral_szegoKernelIntegrand_atTop s₀ h_re
+
+/-- 30. Integral-Grounded Hardy–Cauchy–Schwarz & Unconstrained Ray 1D Limit Implies RH:
+requires only the improper integral characterization `SatisfiesIntegralHardyCauchySchwarz` and
+unconstrained raw vectors `u_seq`. -/
+theorem RiemannHypothesis.of_integralHardyCauchySchwarz_and_unconstrainedRayQuotient_limit
+    (D : ℕ → ℝ) (pairing : ℂ → ℕ → ℝ) (szegoNormSq : ℂ → ℝ)
+    (gamma_E : ℝ) (G_cot : ℕ → ℕ → ℝ) (hG_symm : ∀ j k, G_cot j k = G_cot k j)
+    (u_seq : ℕ → (ℕ → ℝ))
+    (h_ihcs : CMIAudit.SatisfiesIntegralHardyCauchySchwarz D pairing szegoNormSq)
+    (h_nonneg : ∀ N : ℕ, 0 ≤ CMIAudit.baezDuarteDistSq D N)
+    (hA : ∀ N, 4 ≤ N →
+      RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N) N ≠ 0)
+    (h_ub : ∀ N, 4 ≤ N →
+      let v := RiemannBlueprint.Section8_VasyuninBDR.clayRank4UnconstrainedRay G_cot (u_seq N) N
+      CMIAudit.baezDuarteDistSq D N ≤
+        CMIAudit.vasyuninQuadraticEnergy
+          (RiemannBlueprint.Section8_VasyuninBDR.GVasyuninDecomp gamma_E G_cot)
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.bVasyunin k gamma_E) N
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k + v k))
+    (h_ray_lim : Filter.Tendsto
+      (fun N =>
+        RiemannBlueprint.Section8_VasyuninBDR.phiCotUnconstrainedRayQuotient G_cot (u_seq N) N)
+      Filter.atTop
+      (nhds (1 + RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base 4))) :
+    _root_.RiemannHypothesis :=
+  CMIAudit.clayRank4UnconstrainedRay_limit_implies_rh_of_integralHardyCauchySchwarz
+    D pairing szegoNormSq gamma_E G_cot hG_symm u_seq h_ihcs h_nonneg hA h_ub h_ray_lim
+
 #print axioms riemannZeta_eq_tsum_harmonicUnitSummand
 #print axioms mellin_recipFract_unit_interval
 #print axioms riemannZeta_conj_of_pos_re
@@ -498,5 +549,9 @@ theorem RiemannHypothesis.of_hardyCauchySchwarz_and_unconstrainedRayQuotient_lim
 #print axioms szegoKernelAntideriv_upper_sub_lower
 #print axioms hasDerivAt_szegoKernelAntideriv
 #print axioms RiemannHypothesis.of_hardyCauchySchwarz_and_unconstrainedRayQuotient_limit
+#print axioms clayRank4Hom_eq_self_of_lt_four
+#print axioms integral_szegoKernelIntegrand_eq_sub
+#print axioms tendsto_integral_szegoKernelIntegrand_atTop
+#print axioms RiemannHypothesis.of_integralHardyCauchySchwarz_and_unconstrainedRayQuotient_limit
 
 end MathlibPR.NymanBeurling

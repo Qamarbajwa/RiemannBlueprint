@@ -225,6 +225,16 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check CMIAudit.szegoKernelAntideriv_upper_sub_lower
 #check CMIAudit.hasDerivAt_szegoKernelAntideriv
 #check CMIAudit.clayRank4UnconstrainedRay_limit_implies_rh_of_hardyCauchySchwarz
+#check RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom_eq_self_of_lt_four
+#check RiemannBlueprint.Section8_VasyuninBDR.clayRank4Lock_eq_self_of_lt_four
+#check RiemannBlueprint.Section8_VasyuninBDR.sum_clayRank4Hom_mul_phiCotBase_split
+#check RiemannBlueprint.Section8_VasyuninBDR.B_cot_bilinear_comm
+#check CMIAudit.continuous_szegoKernelIntegrand
+#check CMIAudit.integral_szegoKernelIntegrand_eq_sub
+#check CMIAudit.tendsto_integral_szegoKernelIntegrand_atTop
+#check CMIAudit.SatisfiesIntegralHardyCauchySchwarz
+#check CMIAudit.satisfiesHardyCauchySchwarz_of_integral
+#check CMIAudit.clayRank4UnconstrainedRay_limit_implies_rh_of_integralHardyCauchySchwarz
 
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
 #print axioms RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic
@@ -371,3 +381,12 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms CMIAudit.szegoKernelAntideriv_upper_sub_lower
 #print axioms CMIAudit.hasDerivAt_szegoKernelAntideriv
 #print axioms CMIAudit.clayRank4UnconstrainedRay_limit_implies_rh_of_hardyCauchySchwarz
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom_eq_self_of_lt_four
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.clayRank4Lock_eq_self_of_lt_four
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.sum_clayRank4Hom_mul_phiCotBase_split
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.B_cot_bilinear_comm
+#print axioms CMIAudit.continuous_szegoKernelIntegrand
+#print axioms CMIAudit.integral_szegoKernelIntegrand_eq_sub
+#print axioms CMIAudit.tendsto_integral_szegoKernelIntegrand_atTop
+#print axioms CMIAudit.satisfiesHardyCauchySchwarz_of_integral
+#print axioms CMIAudit.clayRank4UnconstrainedRay_limit_implies_rh_of_integralHardyCauchySchwarz
