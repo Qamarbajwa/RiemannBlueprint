@@ -4,6 +4,8 @@ import Mathlib.Data.Nat.Factorization.PrimePow
 import Mathlib.Data.Nat.Totient
 import Mathlib.Data.Finset.Card
 import Mathlib.NumberTheory.ArithmeticFunction.VonMangoldt
+import Mathlib.NumberTheory.ArithmeticFunction.Moebius
+import Mathlib.Algebra.BigOperators.Intervals
 import RiemannBlueprint.Section2_PrimeAtoms
 
 /-!
@@ -12,6 +14,8 @@ Formalization of Section 3 from the monograph.
 -/
 
 namespace RiemannBlueprint.Section3_CompositeTaxonomy
+
+open scoped ArithmeticFunction.zeta
 
 open RiemannBlueprint.Section2_PrimeAtoms (Primes Composites)
 
@@ -242,5 +246,140 @@ theorem carmichael_korselt_and_totient_unmasking :
   refine ⟨⟨by norm_num, h561_comp, h561_kor, ?_, ?_, ?_⟩,
     ⟨by norm_num, h1105_comp, h1105_kor, ?_, ?_, ?_⟩,
     ⟨by norm_num, by norm_num, by norm_num, h1729_comp, h1729_kor, ?_, ?_, ?_⟩⟩ <;> omega
+
+/-! ### Truncated Möbius Divisor Sums -/
+
+/-- The partial Möbius divisor sum `∑_{d ∣ n, d ≤ N} μ(d)` truncated at `N`. -/
+def truncatedMoebiusDivisorSum (N n : ℕ) : ℤ :=
+  ∑ d ∈ n.divisors.filter (· ≤ N), ArithmeticFunction.moebius d
+
+/-- For `2 ≤ n ≤ N`, every divisor `d ∣ n` satisfies `d ≤ n ≤ N`,
+so the truncated Möbius sum equals the complete Möbius divisor sum, which vanishes. -/
+theorem truncatedMoebiusDivisorSum_eq_zero_of_le {N n : ℕ} (hn : 2 ≤ n) (hnN : n ≤ N) :
+    truncatedMoebiusDivisorSum N n = 0 := by
+  unfold truncatedMoebiusDivisorSum
+  have hfilter : n.divisors.filter (· ≤ N) = n.divisors := by
+    ext d
+    simp only [Finset.mem_filter, Nat.mem_divisors, and_iff_left_iff_imp]
+    rintro ⟨hd, _hn0⟩
+    exact (Nat.le_of_dvd (by omega) hd).trans hnN
+  rw [hfilter]
+  have h_conv : (∑ d ∈ n.divisors, ArithmeticFunction.moebius d) =
+      (ArithmeticFunction.moebius * ArithmeticFunction.zeta : ArithmeticFunction ℤ) n := by
+    rw [ArithmeticFunction.coe_mul_zeta_apply]
+  rw [h_conv, ArithmeticFunction.moebius_mul_coe_zeta]
+  exact ArithmeticFunction.one_apply_ne (by omega)
+
+/-- For prime `p > N` with `1 ≤ N`, the only divisor `d ∣ p` with `d ≤ N` is `d = 1`,
+so the truncated sum equals `μ(1) = 1`. -/
+theorem truncatedMoebiusDivisorSum_prime_of_lt {N p : ℕ} (hN : 1 ≤ N) (hp : p.Prime)
+    (hNp : N < p) :
+    truncatedMoebiusDivisorSum N p = 1 := by
+  unfold truncatedMoebiusDivisorSum
+  have hdiv : p.divisors = {1, p} := hp.divisors
+  rw [hdiv]
+  have hfilter : ({1, p} : Finset ℕ).filter (· ≤ N) = {1} := by
+    ext d
+    simp only [Finset.mem_filter, Finset.mem_insert, Finset.mem_singleton]
+    constructor
+    · rintro ⟨rfl | rfl, hdN⟩
+      · simp
+      · omega
+    · rintro rfl
+      exact ⟨Or.inl rfl, hN⟩
+  rw [hfilter, Finset.sum_singleton, ArithmeticFunction.moebius_apply_one]
+
+/-- For prime powers `p^k` with `p ≤ N` and `1 ≤ k`, the only divisors `d ≤ N`
+with non-zero Möbius value are `d = 1` and `d = p`, yielding `μ(1) + μ(p) = 0`. -/
+theorem truncatedMoebiusDivisorSum_prime_pow_of_le {N p k : ℕ} (hp : p.Prime)
+    (hk : 1 ≤ k) (hpN : p ≤ N) :
+    truncatedMoebiusDivisorSum N (p ^ k) = 0 := by
+  unfold truncatedMoebiusDivisorSum
+  have h_full : ∑ d ∈ (p ^ k).divisors, ArithmeticFunction.moebius d = 0 := by
+    have h_conv : (∑ d ∈ (p ^ k).divisors, ArithmeticFunction.moebius d) =
+        (ArithmeticFunction.moebius * ArithmeticFunction.zeta : ArithmeticFunction ℤ) (p ^ k) := by
+      rw [ArithmeticFunction.coe_mul_zeta_apply]
+    rw [h_conv, ArithmeticFunction.moebius_mul_coe_zeta]
+    have hpk_gt1 : 1 < p ^ k := Nat.one_lt_pow (by omega) hp.one_lt
+    exact ArithmeticFunction.one_apply_ne hpk_gt1.ne'
+  have h_split :=
+    (Finset.sum_filter_add_sum_filter_not (p ^ k).divisors (· ≤ N) ArithmeticFunction.moebius).symm
+  have h_tail_zero :
+      ∑ d ∈ (p ^ k).divisors.filter (fun d => ¬(d ≤ N)), ArithmeticFunction.moebius d = 0 := by
+    refine Finset.sum_eq_zero fun d hd => ?_
+    simp only [Finset.mem_filter, Nat.mem_divisors_prime_pow hp] at hd
+    rcases hd with ⟨⟨j, _hj_le, rfl⟩, hdN⟩
+    have hj2 : 2 ≤ j := by
+      by_contra hc
+      have : j = 0 ∨ j = 1 := by omega
+      rcases this with rfl | rfl
+      · rw [pow_zero] at hdN
+        have h1N : 1 ≤ N := (Nat.Prime.pos hp).trans_le hpN
+        exact (hdN h1N).elim
+      · rw [pow_one] at hdN
+        exact (hdN hpN).elim
+    rw [ArithmeticFunction.moebius_apply_prime_pow hp (by omega)]
+    split_ifs with hj1
+    · omega
+    · rfl
+  linarith [h_split, h_full, h_tail_zero]
+
+/-- For distinct primes `p < q ≤ N < p * q`, all proper divisors `{1, p, q}` satisfy `≤ N`,
+while `p * q > N` is excluded, giving `0 - μ(p * q) = -1`. -/
+theorem truncatedMoebiusDivisorSum_mul_primes_of_lt {N p q : ℕ} (hp : p.Prime) (hq : q.Prime)
+    (hpq_ne : p ≠ q) (hpN : p ≤ N) (hqN : q ≤ N) (hNpq : N < p * q) :
+    truncatedMoebiusDivisorSum N (p * q) = -1 := by
+  unfold truncatedMoebiusDivisorSum
+  have hpq_pos : 1 < p * q := by
+    have hp2 : 2 ≤ p := hp.two_le
+    have hq2 : 2 ≤ q := hq.two_le
+    nlinarith
+  have h_full : ∑ d ∈ (p * q).divisors, ArithmeticFunction.moebius d = 0 := by
+    have h_conv : (∑ d ∈ (p * q).divisors, ArithmeticFunction.moebius d) =
+        (ArithmeticFunction.moebius * ArithmeticFunction.zeta : ArithmeticFunction ℤ) (p * q) := by
+      rw [ArithmeticFunction.coe_mul_zeta_apply]
+    rw [h_conv, ArithmeticFunction.moebius_mul_coe_zeta]
+    exact ArithmeticFunction.one_apply_ne hpq_pos.ne'
+  have h_split :=
+    (Finset.sum_filter_add_sum_filter_not (p * q).divisors (· ≤ N) ArithmeticFunction.moebius).symm
+  have h_tail_filter : (p * q).divisors.filter (fun d => ¬(d ≤ N)) = {p * q} := by
+    ext d
+    simp only [Finset.mem_filter, Nat.mem_divisors, Finset.mem_singleton]
+    constructor
+    · rintro ⟨⟨hd_dvd, _⟩, hdN⟩
+      by_cases hd1 : d = 1
+      · subst hd1
+        have : 1 ≤ N := (Nat.Prime.pos hp).trans_le hpN
+        exact (hdN this).elim
+      obtain ⟨r, hr, hrd⟩ := Nat.exists_prime_and_dvd hd1
+      have hr_pq : r ∣ p * q := hrd.trans hd_dvd
+      rcases (Nat.Prime.dvd_mul hr).mp hr_pq with hrp | hrq
+      · have hr_eq : r = p := (Nat.prime_dvd_prime_iff_eq hr hp).mp hrp
+        rw [hr_eq] at hrd
+        obtain ⟨m, rfl⟩ := hrd
+        have hm_dvd : m ∣ q := (mul_dvd_mul_iff_left hp.ne_zero).mp hd_dvd
+        rcases (Nat.dvd_prime hq).mp hm_dvd with rfl | rfl
+        · rw [mul_one] at hdN
+          exact (hdN hpN).elim
+        · rfl
+      · have hr_eq : r = q := (Nat.prime_dvd_prime_iff_eq hr hq).mp hrq
+        rw [hr_eq] at hrd
+        obtain ⟨m, rfl⟩ := hrd
+        have hd_dvd' : q * m ∣ q * p := by rw [mul_comm q p]; exact hd_dvd
+        have hm_dvd : m ∣ p := (mul_dvd_mul_iff_left hq.ne_zero).mp hd_dvd'
+        rcases (Nat.dvd_prime hp).mp hm_dvd with rfl | rfl
+        · rw [mul_one] at hdN
+          exact (hdN hqN).elim
+        · rw [mul_comm]
+    · rintro rfl
+      refine ⟨⟨dvd_rfl, by omega⟩, by omega⟩
+  have h_tail :
+      ∑ d ∈ (p * q).divisors.filter (fun d => ¬(d ≤ N)), ArithmeticFunction.moebius d = 1 := by
+    rw [h_tail_filter, Finset.sum_singleton]
+    have hcp : Nat.Coprime p q := (Nat.coprime_primes hp hq).mpr hpq_ne
+    rw [ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hcp,
+      ArithmeticFunction.moebius_apply_prime hp, ArithmeticFunction.moebius_apply_prime hq]
+    rfl
+  linarith [h_split, h_full, h_tail]
 
 end RiemannBlueprint.Section3_CompositeTaxonomy

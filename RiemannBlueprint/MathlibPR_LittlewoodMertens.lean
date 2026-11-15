@@ -20,7 +20,7 @@ This file formalizes Littlewood's 1912 forward theorem: if the Mertens summatory
 
 @[expose] public section
 
-open scoped ArithmeticFunction.Moebius LSeries.notation Topology
+open scoped LSeries.notation Topology
 open Asymptotics Complex Filter MeasureTheory Set
 
 /-- The Mertens summatory function `M(x) = ∑_{n ≤ x} μ(n)`. -/

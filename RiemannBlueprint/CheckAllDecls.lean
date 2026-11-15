@@ -1,4 +1,6 @@
 import RiemannBlueprint
+import RiemannBlueprint.MathlibPR_LittlewoodMertens
+import RiemannBlueprint.MathlibPR_LittlewoodConverse
 
 /-!
 Verification of all declarations linked in blueprint/lean_decls,
@@ -24,6 +26,11 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check RiemannBlueprint.Section3_CompositeTaxonomy.divisor_count_composite
 #check RiemannBlueprint.Section3_CompositeTaxonomy.prime_vs_composite_totient_gap
 #check RiemannBlueprint.Section3_CompositeTaxonomy.coprime_composite_lattice
+#check RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum
+#check RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum_eq_zero_of_le
+#check RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum_prime_of_lt
+#check RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum_prime_pow_of_le
+#check RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum_mul_primes_of_lt
 
 #check RiemannBlueprint.Section4_CompositeZeta.PrimeZeta
 #check RiemannBlueprint.Section4_CompositeZeta.pointwise_additive_partition
@@ -52,6 +59,9 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check RiemannBlueprint.LittlewoodForward.riemannZeta_mul_mellinMertens_eq_one
 #check RiemannBlueprint.LittlewoodForward.mertens_inversion_of_bound
 #check RiemannBlueprint.LittlewoodConverse.rh_implies_mertens_bound
+#check riemannZeta_inv_growth_of_riemannHypothesis
+#check isBigO_mertens_of_riemannHypothesis
+#check riemannHypothesis_iff_mertens_isBigO
 #check RiemannBlueprint.Section5_MobiusMertens.zero_free_re_gt_half_of_mertens
 #check RiemannBlueprint.Section5_MobiusMertens.mertens_implies_rh
 #check RiemannBlueprint.Section5_MobiusMertens.half_plane_zero_free_implies_rh
@@ -549,3 +559,13 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms RiemannBlueprint.OpenStripRouche.critical_line_penetration_lower_bound
 #print axioms RiemannBlueprint.OpenStripRouche.theorem1_rouche_zero_exclusion
 #print axioms RiemannBlueprint.OpenStripRouche.theorem2_rouche_exhaustion_implies_rh
+
+#print axioms RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum
+#print axioms RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum_eq_zero_of_le
+#print axioms RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum_prime_of_lt
+#print axioms RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum_prime_pow_of_le
+#print axioms RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum_mul_primes_of_lt
+
+#print axioms riemannZeta_inv_growth_of_riemannHypothesis
+#print axioms isBigO_mertens_of_riemannHypothesis
+#print axioms riemannHypothesis_iff_mertens_isBigO
