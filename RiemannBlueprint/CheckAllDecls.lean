@@ -274,6 +274,13 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check RiemannBlueprint.Section8_VasyuninBDR.isKorseltCarmichael_1729
 #check RiemannBlueprint.Section8_VasyuninBDR.totientDefect1_carmichael_561
 #check RiemannBlueprint.Section8_VasyuninBDR.totientDefect1_hardy_ramanujan_1729
+#check RiemannBlueprint.Section8_VasyuninBDR.IsTwinPrimePair
+#check RiemannBlueprint.Section8_VasyuninBDR.totientDefect1_twin_prime_sum
+#check RiemannBlueprint.Section8_VasyuninBDR.primePowerExtraEnergy_twin_prime_sum
+#check RiemannBlueprint.Section8_VasyuninBDR.totient_twin_prime_semiprime
+#check RiemannBlueprint.Section8_VasyuninBDR.totientDefect1_twin_prime_semiprime
+#check RiemannBlueprint.Section8_VasyuninBDR.primePowerExtraEnergy_twin_prime_semiprime
+#check RiemannBlueprint.Section8_VasyuninBDR.twin_impostor_seven_nine_extra_energy
 
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
 #print axioms RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic
@@ -458,3 +465,9 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.isKorseltCarmichael_1729
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.totientDefect1_carmichael_561
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.totientDefect1_hardy_ramanujan_1729
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.totientDefect1_twin_prime_sum
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.primePowerExtraEnergy_twin_prime_sum
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.totient_twin_prime_semiprime
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.totientDefect1_twin_prime_semiprime
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.primePowerExtraEnergy_twin_prime_semiprime
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.twin_impostor_seven_nine_extra_energy

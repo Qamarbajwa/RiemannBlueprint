@@ -163,6 +163,21 @@ theorem totientDefect1_hardy_ramanujan_1729 :
       RiemannBlueprint.Section8_VasyuninBDR.primePowerExtraEnergy 1729 = 432 :=
   RiemannBlueprint.Section8_VasyuninBDR.totientDefect1_hardy_ramanujan_1729
 
+/-- **C8. Twin-Prime Totient Defect Sum:** For any twin prime pair `(p, p + 2)`,
+`totientDefect1 p + totientDefect1 (p + 2) = 2`. -/
+theorem totientDefect1_twin_prime_sum (p : ℕ)
+    (h : RiemannBlueprint.Section8_VasyuninBDR.IsTwinPrimePair p) :
+    RiemannBlueprint.Section8_VasyuninBDR.totientDefect1 p +
+      RiemannBlueprint.Section8_VasyuninBDR.totientDefect1 (p + 2) = 2 :=
+  RiemannBlueprint.Section8_VasyuninBDR.totientDefect1_twin_prime_sum p h
+
+/-- **C9. Twin-Prime Semiprime Midpoint Defect Law:** For any twin prime pair `(p, p + 2)`
+with `p ≠ 2`, `totientDefect1 (p * (p + 2)) = 2 * p + 1`. -/
+theorem totientDefect1_twin_prime_semiprime (p : ℕ)
+    (h : RiemannBlueprint.Section8_VasyuninBDR.IsTwinPrimePair p) (hp2 : p ≠ 2) :
+    RiemannBlueprint.Section8_VasyuninBDR.totientDefect1 (p * (p + 2)) = 2 * p + 1 :=
+  RiemannBlueprint.Section8_VasyuninBDR.totientDefect1_twin_prime_semiprime p h hp2
+
 end PR_C_TotientCollapseEnergy
 
 /-! ## PR-D: Nyman–Beurling / Rank-4 BDR / Right-Triangle & Dedekind Reciprocity Closure (`Analysis.InnerProductSpace` / `NumberTheory.NymanBeurling`) -/
@@ -758,7 +773,7 @@ theorem RiemannHypothesis.of_track3_dedekind_reciprocity_closure
 
 end PR_D_NymanBeurlingBDRClosure
 
--- Kernel Axiom Audits (45 theorems; strictly [propext, Classical.choice, Quot.sound])
+-- Kernel Axiom Audits (47 theorems; strictly [propext, Classical.choice, Quot.sound])
 #print axioms riemannZeta_eq_tsum_harmonicUnitSummand
 #print axioms riemannZeta_conj_of_pos_re
 #print axioms im_ne_zero_of_inCriticalStrip_zeta_zero
@@ -775,6 +790,8 @@ end PR_D_NymanBeurlingBDRClosure
 #print axioms carmichael_totientDefect1_ge_two
 #print axioms totientDefect1_carmichael_561
 #print axioms totientDefect1_hardy_ramanujan_1729
+#print axioms totientDefect1_twin_prime_sum
+#print axioms totientDefect1_twin_prime_semiprime
 #print axioms nymanBeurling_spatial_cauchy_floor
 #print axioms baezDuarte_unconstrained_spatial_floor
 #print axioms RiemannHypothesis.of_nymanBeurling_approx

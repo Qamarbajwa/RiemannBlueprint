@@ -2219,4 +2219,69 @@ theorem totientDefect1_hardy_ramanujan_1729 :
 
 end CarmichaelKorseltImmunity
 
+section TwinPrimeCollapse
+
+/-- **Twin Prime Pair Predicate:** `(p, p + 2)` are both prime. -/
+def IsTwinPrimePair (p : ℕ) : Prop :=
+  Nat.Prime p ∧ Nat.Prime (p + 2)
+
+/-- **Twin-Prime Totient Defect Sum:** For any twin prime pair `(p, p + 2)`,
+`D₁(p) + D₁(p + 2) = 2`. -/
+theorem totientDefect1_twin_prime_sum (p : ℕ) (h : IsTwinPrimePair p) :
+    totientDefect1 p + totientDefect1 (p + 2) = 2 := by
+  rw [totientDefect1_prime p h.1, totientDefect1_prime (p + 2) h.2]
+
+/-- **Twin-Prime Excess Collapse Energy Vanishing:** For any twin prime pair `(p, p + 2)`,
+`E_extra(p) + E_extra(p + 2) = 0`. -/
+theorem primePowerExtraEnergy_twin_prime_sum (p : ℕ) (h : IsTwinPrimePair p) :
+    primePowerExtraEnergy p + primePowerExtraEnergy (p + 2) = 0 := by
+  rw [primePowerExtraEnergy_prime p h.1, primePowerExtraEnergy_prime (p + 2) h.2]
+
+/-- **Twin-Prime Semiprime Totient Product:** For any twin prime pair `(p, p + 2)`,
+`φ(p * (p + 2)) = (p - 1) * (p + 1)`. -/
+theorem totient_twin_prime_semiprime (p : ℕ) (h : IsTwinPrimePair p) :
+    Nat.totient (p * (p + 2)) = (p - 1) * (p + 1) := by
+  have hp2 : p ≠ 2 := by
+    rintro rfl
+    exact absurd h.2 (by decide)
+  have hp_gt2 : 2 < p := lt_of_le_of_ne h.1.two_le hp2.symm
+  have hndvd : ¬ p ∣ p + 2 := by
+    intro hdvd
+    have hsub : p ∣ 2 := (Nat.dvd_add_right ⟨1, by ring⟩).mp hdvd
+    have hle : p ≤ 2 := Nat.le_of_dvd (by decide) hsub
+    omega
+  have hcop : Nat.Coprime p (p + 2) := h.1.coprime_iff_not_dvd.mpr hndvd
+  rw [Nat.totient_mul hcop, Nat.totient_prime h.1, Nat.totient_prime h.2,
+    show p + 2 - 1 = p + 1 by omega]
+
+/-- **Twin-Prime Semiprime Midpoint Defect Law:** For any twin prime pair `(p, p + 2)`
+with `p ≠ 2`, `D₁(p * (p + 2)) = 2 * p + 1`. -/
+theorem totientDefect1_twin_prime_semiprime (p : ℕ) (h : IsTwinPrimePair p) (hp2 : p ≠ 2) :
+    totientDefect1 (p * (p + 2)) = 2 * p + 1 := by
+  have _ : 2 < p := lt_of_le_of_ne h.1.two_le hp2.symm
+  unfold totientDefect1
+  rw [totient_twin_prime_semiprime p h]
+  obtain ⟨k, rfl⟩ := Nat.exists_eq_succ_of_ne_zero h.1.ne_zero
+  simp only [Nat.succ_sub_one]
+  rw [show (k + 1) * (k + 1 + 2) = k * (k + 1 + 1) + (2 * (k + 1) + 1) by ring,
+    Nat.add_sub_cancel_left]
+
+/-- **Twin-Prime Semiprime Excess Collapse Energy:** For any twin prime pair `(p, p + 2)`
+with `p ≠ 2`, `E_extra(p * (p + 2)) = 2 * p`. -/
+theorem primePowerExtraEnergy_twin_prime_semiprime (p : ℕ) (h : IsTwinPrimePair p)
+    (hp2 : p ≠ 2) :
+    primePowerExtraEnergy (p * (p + 2)) = 2 * p := by
+  unfold primePowerExtraEnergy
+  rw [totientDefect1_twin_prime_semiprime p h hp2]
+  omega
+
+/-- **Twin Impostor Separation `(7, 9)`:** Unlike genuine twin primes where
+`E_extra(p) + E_extra(p + 2) = 0`, the prime–prime-square shift `(7, 3²)` has joint
+excess collapse energy `E_extra(7) + E_extra(9) = 2`. -/
+theorem twin_impostor_seven_nine_extra_energy :
+    primePowerExtraEnergy 7 + primePowerExtraEnergy 9 = 2 := by
+  rw [primePowerExtraEnergy_prime 7 (by decide), primePowerExtraEnergy_nine_eq_two]
+
+end TwinPrimeCollapse
+
 end RiemannBlueprint.Section8_VasyuninBDR
