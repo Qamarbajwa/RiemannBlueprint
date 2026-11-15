@@ -206,6 +206,27 @@ theorem ramanujanC9_eq_neg_one_sub_ramanujanC3_of_squarefree (k : ℕ) (hsq : Sq
       -1 - RiemannBlueprint.Section8_VasyuninBDR.ramanujanC3 k :=
   RiemannBlueprint.Section8_VasyuninBDR.ramanujanC9_eq_neg_one_sub_ramanujanC3_of_squarefree k hsq
 
+/-- **C14. Period-12 Ramanujan Divisor-Sum Orthogonality:**
+`1 + c₂(k) + c₃(k) + c₄(k) + c₆(k) + c₁₂(k) = 12 · 1_{12 ∣ k}` for every `k : ℕ`. -/
+theorem ramanujan_period12_divisor_sum_eq_ite (k : ℕ) :
+    1 + RiemannBlueprint.Section8_VasyuninBDR.ramanujanC2 k +
+      RiemannBlueprint.Section8_VasyuninBDR.ramanujanC3 k +
+      RiemannBlueprint.Section8_VasyuninBDR.ramanujanC4 k +
+      RiemannBlueprint.Section8_VasyuninBDR.ramanujanC6 k +
+      RiemannBlueprint.Section8_VasyuninBDR.ramanujanC12 k =
+      if k % 12 = 0 then 12 else 0 :=
+  RiemannBlueprint.Section8_VasyuninBDR.ramanujan_period12_divisor_sum_eq_ite k
+
+/-- **C15. Squarefree Annihilation of the Full Period-12 Divisor Sum:**
+for every squarefree `k`, `1 + c₂(k) + c₃(k) + c₄(k) + c₆(k) + c₁₂(k) = 0`. -/
+theorem ramanujan_period12_divisor_sum_eq_zero_of_squarefree (k : ℕ) (hsq : Squarefree k) :
+    1 + RiemannBlueprint.Section8_VasyuninBDR.ramanujanC2 k +
+      RiemannBlueprint.Section8_VasyuninBDR.ramanujanC3 k +
+      RiemannBlueprint.Section8_VasyuninBDR.ramanujanC4 k +
+      RiemannBlueprint.Section8_VasyuninBDR.ramanujanC6 k +
+      RiemannBlueprint.Section8_VasyuninBDR.ramanujanC12 k = 0 :=
+  RiemannBlueprint.Section8_VasyuninBDR.ramanujan_period12_divisor_sum_eq_zero_of_squarefree k hsq
+
 end PR_C_TotientCollapseEnergy
 
 /-! ## PR-D: Nyman–Beurling / Rank-4 BDR / Right-Triangle & Dedekind Reciprocity Closure (`Analysis.InnerProductSpace` / `NumberTheory.NymanBeurling`) -/
@@ -801,7 +822,7 @@ theorem RiemannHypothesis.of_track3_dedekind_reciprocity_closure
 
 end PR_D_NymanBeurlingBDRClosure
 
--- Kernel Axiom Audits (51 theorems; strictly [propext, Classical.choice, Quot.sound])
+-- Kernel Axiom Audits (53 theorems; strictly [propext, Classical.choice, Quot.sound])
 #print axioms riemannZeta_eq_tsum_harmonicUnitSummand
 #print axioms riemannZeta_conj_of_pos_re
 #print axioms im_ne_zero_of_inCriticalStrip_zeta_zero
@@ -824,6 +845,8 @@ end PR_D_NymanBeurlingBDRClosure
 #print axioms ramanujanC4_eq_neg_one_sub_ramanujanC2_of_squarefree
 #print axioms ramanujanC9_add_ramanujanC3_add_one
 #print axioms ramanujanC9_eq_neg_one_sub_ramanujanC3_of_squarefree
+#print axioms ramanujan_period12_divisor_sum_eq_ite
+#print axioms ramanujan_period12_divisor_sum_eq_zero_of_squarefree
 #print axioms nymanBeurling_spatial_cauchy_floor
 #print axioms baezDuarte_unconstrained_spatial_floor
 #print axioms RiemannHypothesis.of_nymanBeurling_approx

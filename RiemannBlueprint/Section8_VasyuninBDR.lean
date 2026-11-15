@@ -2361,7 +2361,7 @@ theorem ramanujanC4_eq_neg_one_sub_ramanujanC2_of_not_four_dvd (k : ℕ) (hk : �
     ramanujanC4 k = -1 - ramanujanC2 k := by
   have hmod : k % 4 ≠ 0 := fun h => hk (Nat.dvd_of_mod_eq_zero h)
   have hsyz := ramanujanC4_add_ramanujanC2_add_one k
-  rw [if_neg hmod] at hsyz
+  simp [hmod] at hsyz
   omega
 
 /-- **Squarefree Syzygy Reduction (`Squarefree k ⇒ c₄(k) = -1 - c₂(k)`):** for every squarefree `k`,
@@ -2402,7 +2402,7 @@ theorem ramanujanC9_eq_neg_one_sub_ramanujanC3_of_not_nine_dvd (k : ℕ) (hk : �
     ramanujanC9 k = -1 - ramanujanC3 k := by
   have hmod : k % 9 ≠ 0 := fun h => hk (Nat.dvd_of_mod_eq_zero h)
   have hsyz := ramanujanC9_add_ramanujanC3_add_one k
-  rw [if_neg hmod] at hsyz
+  simp [hmod] at hsyz
   omega
 
 /-- **Squarefree Mod-9 Syzygy Reduction (`Squarefree k ⇒ c₉(k) = -1 - c₃(k)`):**
@@ -2416,6 +2416,47 @@ theorem ramanujanC9_eq_neg_one_sub_ramanujanC3_of_squarefree (k : ℕ) (hsq : Sq
     have hunit : IsUnit (3 : ℕ) := hsq 3 h33
     exact absurd (Nat.isUnit_iff.mp hunit) (by decide)
   exact ramanujanC9_eq_neg_one_sub_ramanujanC3_of_not_nine_dvd k hk9
+
+/-- Explicit period-6 Ramanujan sum `c₆(k) = c₂(k) * c₃(k)` by multiplicativity on coprime moduli. -/
+def ramanujanC6 (k : ℕ) : ℤ :=
+  ramanujanC2 k * ramanujanC3 k
+
+/-- Explicit period-12 Ramanujan sum `c₁₂(k) = c₄(k) * c₃(k)` by multiplicativity on coprime moduli. -/
+def ramanujanC12 (k : ℕ) : ℤ :=
+  ramanujanC4 k * ramanujanC3 k
+
+/-- **Period-12 Divisor-Lattice Factorization:**
+`1 + c₂(k) + c₃(k) + c₄(k) + c₆(k) + c₁₂(k) = (c₄(k) + c₂(k) + 1) * (c₃(k) + 1)`. -/
+theorem ramanujan_period12_divisor_sum_factored (k : ℕ) :
+    1 + ramanujanC2 k + ramanujanC3 k + ramanujanC4 k + ramanujanC6 k + ramanujanC12 k =
+      (ramanujanC4 k + ramanujanC2 k + 1) * (ramanujanC3 k + 1) := by
+  unfold ramanujanC6 ramanujanC12
+  ring
+
+/-- **Period-12 Ramanujan Orthogonality Indicator:**
+`1 + c₂(k) + c₃(k) + c₄(k) + c₆(k) + c₁₂(k) = 12 · 1_{12 ∣ k}` for every `k : ℕ`. -/
+theorem ramanujan_period12_divisor_sum_eq_ite (k : ℕ) :
+    1 + ramanujanC2 k + ramanujanC3 k + ramanujanC4 k + ramanujanC6 k + ramanujanC12 k =
+      if k % 12 = 0 then 12 else 0 := by
+  rw [ramanujan_period12_divisor_sum_factored,
+    ramanujanC4_add_ramanujanC2_add_one, ramanujanC3_add_one]
+  split_ifs <;> omega
+
+/-- **Off-12-Divisibility Annihilation (`¬ 12 ∣ k`):** whenever `12 ∤ k`, the full period-12 divisor
+sum `1 + c₂(k) + c₃(k) + c₄(k) + c₆(k) + c₁₂(k)` vanishes identically. -/
+theorem ramanujan_period12_divisor_sum_eq_zero_of_not_twelve_dvd (k : ℕ) (hk : ¬ (12 ∣ k)) :
+    1 + ramanujanC2 k + ramanujanC3 k + ramanujanC4 k + ramanujanC6 k + ramanujanC12 k = 0 := by
+  have hmod : k % 12 ≠ 0 := fun h => hk (Nat.dvd_of_mod_eq_zero h)
+  simp [ramanujan_period12_divisor_sum_eq_ite, hmod]
+
+/-- **Squarefree Annihilation of the Full Period-12 Divisor Sum (`Squarefree k ⇒ Σ = 0`):**
+since `Squarefree k ⇒ c₄(k) = -1 - c₂(k)`, the first factor vanishes identically on squarefree integers,
+isolating `12 · 1_{12 ∣ k}` as a pure non-squarefree anchor mode starting at `k = 12 = 2² · 3`. -/
+theorem ramanujan_period12_divisor_sum_eq_zero_of_squarefree (k : ℕ) (hsq : Squarefree k) :
+    1 + ramanujanC2 k + ramanujanC3 k + ramanujanC4 k + ramanujanC6 k + ramanujanC12 k = 0 := by
+  have hk4 := ramanujanC4_eq_neg_one_sub_ramanujanC2_of_squarefree k hsq
+  rw [ramanujan_period12_divisor_sum_factored, hk4]
+  ring
 
 end RamanujanMod2Mod4Syzygy
 
