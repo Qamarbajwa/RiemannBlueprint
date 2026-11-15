@@ -2042,6 +2042,70 @@ theorem cmi_master_rightTriangle_effective_closure_implies_rh
   exact cmi_master_effective_potential_closure_implies_rh
     D pairing szegoNormSq gamma_E G_cot hG_symm u_seq h_ihcs h_nonneg hA' h_ub h_eff_lim
 
+/-- Track 3 Unified Dedekind–Hardy Closure Bridge: combines
+`SatisfiesDedekindCotangentReciprocity G_cot`, `vasyunin_energy_unconstrainedRay_eq_rightTriangle_of_reciprocity`,
+`satisfiesHardyCauchySchwarz_of_integral` (via `tendsto_integral_szegoKernelIntegrand_atTop`), and
+`zetaZeroReflectionSymmetry_unconditional` (via `rh_of_szego_and_collapse_zero_unconditional_symm`)
+into a single end-to-end theorem discharging both kernel symmetry and diagonal vanishing from
+reciprocity. -/
+theorem cmi_track3_dedekind_reciprocity_closure_implies_rh
+    (D : ℕ → ℝ) (pairing : ℂ → ℕ → ℝ) (szegoNormSq : ℂ → ℝ)
+    (gamma_E : ℝ) (G_cot : ℕ → ℕ → ℝ)
+    (h_rec : RiemannBlueprint.Section8_VasyuninBDR.SatisfiesDedekindCotangentReciprocity G_cot)
+    (u_seq : ℕ → (ℕ → ℝ))
+    (h_ihcs : SatisfiesIntegralHardyCauchySchwarz D pairing szegoNormSq)
+    (h_nonneg : ∀ N : ℕ, 0 ≤ baezDuarteDistSq D N)
+    (hA : ∀ N, 4 ≤ N →
+      RiemannBlueprint.Section8_VasyuninBDR.Q_cot_rightTriangle G_cot
+        (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N) N ≠ 0)
+    (h_ub : ∀ N, 4 ≤ N →
+      let v := RiemannBlueprint.Section8_VasyuninBDR.clayRank4UnconstrainedRay G_cot (u_seq N) N
+      baezDuarteDistSq D N ≤
+        vasyuninQuadraticEnergy
+          (RiemannBlueprint.Section8_VasyuninBDR.GVasyuninDecomp gamma_E G_cot)
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.bVasyunin k gamma_E) N
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k + v k))
+    (h_rt_lim : Filter.Tendsto
+      (fun N =>
+        (∑ m ∈ Finset.Icc 5 N, u_seq N m *
+          RiemannBlueprint.Section8_VasyuninBDR.phiCotEffective G_cot m) ^ 2 /
+          (2 * RiemannBlueprint.Section8_VasyuninBDR.Q_cot_rightTriangle G_cot
+            (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N) N))
+      Filter.atTop
+      (nhds (1 + 2 * RiemannBlueprint.Section8_VasyuninBDR.Q_cot_rightTriangle G_cot
+        RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base 4))) :
+    _root_.RiemannHypothesis := by
+  have h_szego : SzegoReproducingInequality D :=
+    szegoReproducingInequality_of_hardyCauchySchwarz D pairing szegoNormSq
+      (satisfiesHardyCauchySchwarz_of_integral D pairing szegoNormSq h_ihcs)
+  let E_seq : ℕ → ℝ := fun N =>
+    vasyuninQuadraticEnergy
+      (RiemannBlueprint.Section8_VasyuninBDR.GVasyuninDecomp gamma_E G_cot)
+      (fun k => RiemannBlueprint.Section8_VasyuninBDR.bVasyunin k gamma_E) N
+      (fun k => RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k +
+        RiemannBlueprint.Section8_VasyuninBDR.clayRank4UnconstrainedRay G_cot (u_seq N) N k)
+  have hE_ev : ∀ᶠ N in Filter.atTop, E_seq N =
+      (1 + 2 * RiemannBlueprint.Section8_VasyuninBDR.Q_cot_rightTriangle G_cot
+          RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base 4) -
+        (∑ m ∈ Finset.Icc 5 N, u_seq N m *
+          RiemannBlueprint.Section8_VasyuninBDR.phiCotEffective G_cot m) ^ 2 /
+          (2 * RiemannBlueprint.Section8_VasyuninBDR.Q_cot_rightTriangle G_cot
+            (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N) N) := by
+    rw [Filter.eventually_atTop]
+    refine ⟨4, fun N hN4 => ?_⟩
+    exact RiemannBlueprint.Section8_VasyuninBDR.vasyunin_energy_unconstrainedRay_eq_rightTriangle_of_reciprocity
+      gamma_E G_cot h_rec (u_seq N) N hN4 (hA N hN4)
+  have hE_lim : Filter.Tendsto E_seq Filter.atTop (nhds 0) := by
+    rw [Filter.tendsto_congr' hE_ev]
+    let C := 1 + 2 * RiemannBlueprint.Section8_VasyuninBDR.Q_cot_rightTriangle G_cot
+      RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base 4
+    have hC : Filter.Tendsto (fun _ : ℕ => C) Filter.atTop (nhds C) := tendsto_const_nhds
+    simpa [C, sub_self] using hC.sub h_rt_lim
+  have hD_lim : Filter.Tendsto (baezDuarteDistSq D) Filter.atTop (nhds 0) :=
+    squeeze_zero' (Filter.Eventually.of_forall h_nonneg)
+      (Filter.eventually_atTop.mpr ⟨4, h_ub⟩) hE_lim
+  exact rh_of_szego_and_collapse_zero_unconditional_symm D h_szego hD_lim
+
 #print axioms riemannHypothesis_iff_collapse_zero
 #print axioms collapse_zero_implies_rh_strip
 #print axioms cmi_criterion1_spectral_residual_eq
@@ -2097,5 +2161,6 @@ theorem cmi_master_rightTriangle_effective_closure_implies_rh
 #print axioms clayRank4UnconstrainedRay_limit_implies_rh_of_integralHardyCauchySchwarz
 #print axioms cmi_master_effective_potential_closure_implies_rh
 #print axioms cmi_master_rightTriangle_effective_closure_implies_rh
+#print axioms cmi_track3_dedekind_reciprocity_closure_implies_rh
 
 end CMIAudit

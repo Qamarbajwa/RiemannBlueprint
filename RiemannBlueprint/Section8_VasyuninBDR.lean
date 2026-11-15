@@ -1708,6 +1708,65 @@ theorem rieszEffectiveTailSqSum_mono (G_cot : ℕ → ℕ → ℝ) {M N : ℕ} (
   Finset.sum_le_sum_of_subset_of_nonneg (Finset.Icc_subset_Icc_right hMN)
     fun _ _ _ => sq_nonneg _
 
+/-- Structural Dedekind cotangent reciprocity symmetry (`G j k = G k j`) and central diagonal
+vanishing (`G k k = 0`). -/
+def SatisfiesDedekindCotangentReciprocity (G_cot : ℕ → ℕ → ℝ) : Prop :=
+  (∀ j k, G_cot j k = G_cot k j) ∧ (∀ k, G_cot k k = 0)
+
+/-- Constructive symmetric zero-diagonal cotangent kernel extracted from any raw two-index kernel `K`. -/
+noncomputable def mkSymmetricZeroDiagKernel (K : ℕ → ℕ → ℝ) (j k : ℕ) : ℝ :=
+  if j = k then 0 else (K j k + K k j) / 2
+
+/-- Symmetry of `mkSymmetricZeroDiagKernel`. -/
+theorem mkSymmetricZeroDiagKernel_symm (K : ℕ → ℕ → ℝ) (j k : ℕ) :
+    mkSymmetricZeroDiagKernel K j k = mkSymmetricZeroDiagKernel K k j := by
+  unfold mkSymmetricZeroDiagKernel
+  by_cases h : j = k
+  · subst h; simp
+  · have h' : k ≠ j := fun hk => h hk.symm
+    simp [h, h', add_comm]
+
+/-- Diagonal vanishing of `mkSymmetricZeroDiagKernel`. -/
+theorem mkSymmetricZeroDiagKernel_diag (K : ℕ → ℕ → ℝ) (k : ℕ) :
+    mkSymmetricZeroDiagKernel K k k = 0 := by
+  simp [mkSymmetricZeroDiagKernel]
+
+/-- Every `mkSymmetricZeroDiagKernel K` satisfies `SatisfiesDedekindCotangentReciprocity`. -/
+theorem mkSymmetricZeroDiagKernel_satisfies_reciprocity (K : ℕ → ℕ → ℝ) :
+    SatisfiesDedekindCotangentReciprocity (mkSymmetricZeroDiagKernel K) :=
+  ⟨mkSymmetricZeroDiagKernel_symm K, mkSymmetricZeroDiagKernel_diag K⟩
+
+/-- Vanishing of the central-diagonal quadratic sum `Q_cot_diag` under Dedekind cotangent reciprocity. -/
+theorem Q_cot_diag_eq_zero_of_reciprocity (G_cot : ℕ → ℕ → ℝ)
+    (h_rec : SatisfiesDedekindCotangentReciprocity G_cot) (v : ℕ → ℝ) (N : ℕ) :
+    Q_cot_diag G_cot v N = 0 := by
+  simp [Q_cot_diag, h_rec.2]
+
+/-- Right-triangle Riesz-effective energy reduction for unconstrained raw vectors under Dedekind
+cotangent reciprocity (`N ≥ 4`). -/
+theorem vasyunin_energy_unconstrainedRay_eq_rightTriangle_of_reciprocity
+    (gamma_E : ℝ) (G_cot : ℕ → ℕ → ℝ)
+    (h_rec : SatisfiesDedekindCotangentReciprocity G_cot)
+    (u : ℕ → ℝ) (N : ℕ) (hN : 4 ≤ N)
+    (hA : Q_cot_rightTriangle G_cot (clayRank4Hom u N) N ≠ 0) :
+    1 - 2 * (∑ k ∈ Finset.Icc 1 N,
+        (clayRank4Base k + clayRank4UnconstrainedRay G_cot u N k) * bVasyunin k gamma_E) +
+      (∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N,
+        (clayRank4Base j + clayRank4UnconstrainedRay G_cot u N j) *
+          (clayRank4Base k + clayRank4UnconstrainedRay G_cot u N k) *
+          GVasyuninDecomp gamma_E G_cot j k) =
+      (1 + 2 * Q_cot_rightTriangle G_cot clayRank4Base 4) -
+        (∑ m ∈ Finset.Icc 5 N, u m * phiCotEffective G_cot m) ^ 2 /
+          (2 * Q_cot_rightTriangle G_cot (clayRank4Hom u N) N) := by
+  have hA_quad : Q_cot_quad G_cot (clayRank4Hom u N) N ≠ 0 := by
+    rw [Q_cot_quad_eq_two_mul_rightTriangle_of_diag_zero G_cot h_rec.1 h_rec.2]
+    exact mul_ne_zero two_ne_zero hA
+  rw [vasyunin_energy_clayRank4UnconstrainedRay_eq_sub_rayQuotient
+    gamma_E G_cot h_rec.1 u N hN hA_quad]
+  rw [phiCotUnconstrainedRayQuotient_eq_tail_phiCotEffective G_cot u N hN]
+  rw [Q_cot_quad_eq_two_mul_rightTriangle_of_diag_zero G_cot h_rec.1 h_rec.2 clayRank4Base 4]
+  rw [Q_cot_quad_eq_two_mul_rightTriangle_of_diag_zero G_cot h_rec.1 h_rec.2 (clayRank4Hom u N) N]
+
 end BoundaryFunctionals
 
 section Rank4AndL2Calculus

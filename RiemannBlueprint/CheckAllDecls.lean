@@ -252,6 +252,14 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check RiemannBlueprint.Section8_VasyuninBDR.rieszEffectiveTailSqSum_nonneg
 #check RiemannBlueprint.Section8_VasyuninBDR.rieszEffectiveTailSqSum_mono
 #check CMIAudit.cmi_master_rightTriangle_effective_closure_implies_rh
+#check RiemannBlueprint.Section8_VasyuninBDR.SatisfiesDedekindCotangentReciprocity
+#check RiemannBlueprint.Section8_VasyuninBDR.mkSymmetricZeroDiagKernel
+#check RiemannBlueprint.Section8_VasyuninBDR.mkSymmetricZeroDiagKernel_symm
+#check RiemannBlueprint.Section8_VasyuninBDR.mkSymmetricZeroDiagKernel_diag
+#check RiemannBlueprint.Section8_VasyuninBDR.mkSymmetricZeroDiagKernel_satisfies_reciprocity
+#check RiemannBlueprint.Section8_VasyuninBDR.Q_cot_diag_eq_zero_of_reciprocity
+#check RiemannBlueprint.Section8_VasyuninBDR.vasyunin_energy_unconstrainedRay_eq_rightTriangle_of_reciprocity
+#check CMIAudit.cmi_track3_dedekind_reciprocity_closure_implies_rh
 
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
 #print axioms RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic
@@ -419,3 +427,9 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.rieszEffectiveTailSqSum_nonneg
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.rieszEffectiveTailSqSum_mono
 #print axioms CMIAudit.cmi_master_rightTriangle_effective_closure_implies_rh
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.mkSymmetricZeroDiagKernel_symm
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.mkSymmetricZeroDiagKernel_diag
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.mkSymmetricZeroDiagKernel_satisfies_reciprocity
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.Q_cot_diag_eq_zero_of_reciprocity
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.vasyunin_energy_unconstrainedRay_eq_rightTriangle_of_reciprocity
+#print axioms CMIAudit.cmi_track3_dedekind_reciprocity_closure_implies_rh
