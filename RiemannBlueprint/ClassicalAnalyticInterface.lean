@@ -48,10 +48,12 @@ def VonKochRemainderBound : Prop :=
 
 /--
 Transparent interface bundling the remaining external classical complex-analytic results
-not yet formalized in Mathlib4 (natural boundary of P(s)/ζ_C(s), Perron contour shift
-for RH → Mertens, and the converse Perron/explicit-formula direction RH → VonKoch).
-Notice that both forward directions (`MertensBound → RiemannHypothesis` in
-`LittlewoodForward.lean` and `VonKochRemainderBound → RiemannHypothesis` in
+not yet formalized in Mathlib4 (natural boundary of P(s)/ζ_C(s) and the converse
+explicit-formula direction RH → VonKoch).
+Notice that the full Littlewood equivalence (`MertensBound → RiemannHypothesis` in
+`LittlewoodForward.lean` / `Section5_MobiusMertens.lean` and
+`RiemannHypothesis → MertensBound` in `LittlewoodConverse.lean`) and the forward
+Von Koch direction (`VonKochRemainderBound → RiemannHypothesis` in
 `Section7_SpectralBridge.lean`) are now proved unconditionally without any field
 in this interface. No global `axiom` declarations are used anywhere.
 -/
@@ -63,8 +65,6 @@ structure ClassicalAnalyticInterface : Prop where
   natural_boundary_obstruction_at_zero :
     ¬ ∃ (f : ℂ → ℂ), AnalyticOn ℂ f {s : ℂ | -1 < s.re ∧ 0 < s.im} ∧
       ∀ s : ℂ, 1 < s.re → 0 < s.im → f s = CompositeZeta s
-  rh_implies_mertens_bound :
-    _root_.RiemannHypothesis → MertensBound
   explicit_formula_spectral_equivalence :
     _root_.RiemannHypothesis → VonKochRemainderBound
 

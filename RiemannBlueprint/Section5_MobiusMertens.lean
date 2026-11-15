@@ -10,6 +10,7 @@ import RiemannBlueprint.Section3_CompositeTaxonomy
 import RiemannBlueprint.Section4_CompositeZeta
 import RiemannBlueprint.ClassicalAnalyticInterface
 import RiemannBlueprint.LittlewoodForward
+import RiemannBlueprint.LittlewoodConverse
 
 /-!
 # Section 5: The Multiplicative Inversion Sieve & Mertens Dual Systems
@@ -470,8 +471,49 @@ theorem mertens_implies_rh (h_mertens : MertensBound) :
 
 /-- Theorem 5.20 (Mertens-Riemann Spectral Equivalence):
 Forward direction (`MertensBound → RH`) is unconditional; converse assumes `H.rh_implies_mertens_bound`. -/
-theorem mertens_riemann_equivalence (H : ClassicalAnalyticInterface) :
+theorem mertens_riemann_equivalence :
     RiemannHypothesis ↔ MertensBound :=
-  ⟨H.rh_implies_mertens_bound, mertens_implies_rh⟩
+  ⟨RiemannBlueprint.LittlewoodConverse.rh_implies_mertens_bound, mertens_implies_rh⟩
+
+/-- Half-plane zero-freeness of `riemannZeta` on `Re(s) > 1/2` implies `_root_.RiemannHypothesis`
+via the functional-equation reflection `zeta_zero_reflection`. -/
+theorem half_plane_zero_free_implies_rh
+    (h_zf : ∀ s : ℂ, 1 / 2 < s.re → riemannZeta s ≠ 0) :
+    RiemannHypothesis := by
+  intro s hs_zero h_not_triv h_ne_one
+  by_contra h_ne
+  rcases lt_or_gt_of_ne h_ne with hs_lt | hs_gt
+  · obtain ⟨h_refl_zero, h_refl_gt⟩ := zeta_zero_reflection hs_zero h_not_triv h_ne_one hs_lt
+    exact h_zf (1 - s) h_refl_gt h_refl_zero
+  · exact h_zf s hs_gt hs_zero
+
+/-- Unconditional 4-way Littlewood (1912) / Mellin–Mertens logical equivalence:
+1. `_root_.RiemannHypothesis`
+2. `MertensBound` (`|M(x)| ≤ C * x^(1/2 + ε)`)
+3. Half-plane zero-freeness (`∀ s, 1/2 < s.re → riemannZeta s ≠ 0`)
+4. Analytic Mellin–Mertens inversion on `Re(s) > 1/2` (`∃ I_M, ...`). -/
+theorem mellin_mertens_unconditional_equivalence :
+    (RiemannHypothesis ↔ MertensBound) ∧
+    (MertensBound ↔ ∀ s : ℂ, 1 / 2 < s.re → riemannZeta s ≠ 0) ∧
+    ((∀ s : ℂ, 1 / 2 < s.re → riemannZeta s ≠ 0) ↔
+      ∃ I_M : ℂ → ℂ,
+        (∀ s : ℂ, 1 / 2 < s.re → s ≠ 1 → I_M s = LittlewoodForward.mellinMertens s) ∧
+        ∀ s : ℂ, 1 / 2 < s.re → riemannZeta s * I_M s = 1) := by
+  refine ⟨mertens_riemann_equivalence, ?_, ?_⟩
+  · exact ⟨zero_free_re_gt_half_of_mertens,
+      fun h_zf => mertens_riemann_equivalence.mp (half_plane_zero_free_implies_rh h_zf)⟩
+  · refine ⟨fun h_zf => ?_, fun ⟨I_M, _, h_inv⟩ s hs => ne_zero_of_reciprocal_product (h_inv s hs)⟩
+    have hm : MertensBound :=
+      mertens_riemann_equivalence.mp (half_plane_zero_free_implies_rh h_zf)
+    refine ⟨fun s => if s = 1 then (riemannZeta 1)⁻¹ else LittlewoodForward.mellinMertens s,
+      ?_, ?_⟩
+    · intro s _ hs_ne1
+      simp [hs_ne1]
+    · intro s hs
+      by_cases hs1 : s = 1
+      · subst hs1
+        simp [mul_inv_cancel₀ (h_zf 1 (by norm_num))]
+      · simp only [hs1, ↓reduceIte]
+        exact LittlewoodForward.riemannZeta_mul_mellinMertens_eq_one hm s hs hs1
 
 end RiemannBlueprint.Section5_MobiusMertens

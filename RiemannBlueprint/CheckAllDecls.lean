@@ -51,9 +51,12 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check RiemannBlueprint.LittlewoodForward.mellinMertens
 #check RiemannBlueprint.LittlewoodForward.riemannZeta_mul_mellinMertens_eq_one
 #check RiemannBlueprint.LittlewoodForward.mertens_inversion_of_bound
+#check RiemannBlueprint.LittlewoodConverse.rh_implies_mertens_bound
 #check RiemannBlueprint.Section5_MobiusMertens.zero_free_re_gt_half_of_mertens
 #check RiemannBlueprint.Section5_MobiusMertens.mertens_implies_rh
+#check RiemannBlueprint.Section5_MobiusMertens.half_plane_zero_free_implies_rh
 #check RiemannBlueprint.Section5_MobiusMertens.mertens_riemann_equivalence
+#check RiemannBlueprint.Section5_MobiusMertens.mellin_mertens_unconditional_equivalence
 #check RiemannBlueprint.Section5_MobiusMertens.mertensReal
 #check RiemannBlueprint.Section5_MobiusMertens.abel_summation_moebius_finset
 #check RiemannBlueprint.Section5_MobiusMertens.norm_mertensReal_le
@@ -333,9 +336,12 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms RiemannBlueprint.Section5_MobiusMertens.reciprocal_partition_identity
 #print axioms RiemannBlueprint.Section5_MobiusMertens.zeta_zero_reflection
 #print axioms RiemannBlueprint.LittlewoodForward.mertens_inversion_of_bound
+#print axioms RiemannBlueprint.LittlewoodConverse.rh_implies_mertens_bound
 #print axioms RiemannBlueprint.Section5_MobiusMertens.zero_free_re_gt_half_of_mertens
 #print axioms RiemannBlueprint.Section5_MobiusMertens.mertens_implies_rh
+#print axioms RiemannBlueprint.Section5_MobiusMertens.half_plane_zero_free_implies_rh
 #print axioms RiemannBlueprint.Section5_MobiusMertens.mertens_riemann_equivalence
+#print axioms RiemannBlueprint.Section5_MobiusMertens.mellin_mertens_unconditional_equivalence
 #print axioms RiemannBlueprint.Section5_MobiusMertens.abel_summation_moebius_finset
 #print axioms RiemannBlueprint.Section5_MobiusMertens.norm_mertensReal_le
 #print axioms RiemannBlueprint.Section5_MobiusMertens.mertens_abel_integral_finset

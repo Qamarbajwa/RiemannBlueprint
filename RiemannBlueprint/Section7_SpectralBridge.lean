@@ -631,6 +631,6 @@ The Mertens squarefree inversion bound is equivalent to the Chebyshev prime-powe
 remainder bound via the spectral zeros of the Riemann zeta function. -/
 theorem master_dual_system_equivalence (H : ClassicalAnalyticInterface) :
     MertensBound ↔ VonKochRemainderBound :=
-  (mertens_riemann_equivalence H).symm.trans (spectral_stability_theorem H)
+  mertens_riemann_equivalence.symm.trans (spectral_stability_theorem H)
 
 end RiemannBlueprint.Section7_SpectralBridge
