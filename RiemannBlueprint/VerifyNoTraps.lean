@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Qamar Munawer
 -/
 import RiemannBlueprint.MathlibPR_LittlewoodMertens
+import RiemannBlueprint.MathlibPR_ZetaInvGrowth
 import RiemannBlueprint.MathlibPR_LittlewoodConverse
 import RiemannBlueprint.MathlibPR_NymanBeurling
 
@@ -160,19 +161,26 @@ theorem recipFract_one_third_witness : recipFract (1 / 3 : ℝ) = 0 := by
     (fun x : ℝ => (mertens x : ℝ)) =O[Filter.atTop] fun x => x ^ ((1 / 2 : ℝ) + ε)) →
   _root_.RiemannHypothesis)
 
--- 2. Converse Littlewood theorem: depends only on official RiemannHypothesis
+-- 2. Reciprocal zeta bound under RH: conditional subpolynomial growth
+#check (riemannZeta_inv_growth_of_riemannHypothesis :
+  _root_.RiemannHypothesis →
+  ∀ {σ₀ ε : ℝ}, 1 / 2 < σ₀ → 0 < ε →
+    ∃ C > 0, ∀ s : ℂ, σ₀ ≤ s.re → 2 ≤ |s.im| →
+      ‖(riemannZeta s)⁻¹‖ ≤ C * (1 + |s.im|) ^ ε)
+
+-- 3. Converse Littlewood theorem: depends only on official RiemannHypothesis
 #check (isBigO_mertens_of_riemannHypothesis :
   _root_.RiemannHypothesis →
   ∀ ε : ℝ, 0 < ε →
     (fun x : ℝ => (mertens x : ℝ)) =O[Filter.atTop] fun x => x ^ ((1 / 2 : ℝ) + ε))
 
--- 3. Bidirectional equivalence: exact logical if-and-only-if
+-- 4. Bidirectional equivalence: exact logical if-and-only-if
 #check (riemannHypothesis_iff_mertens_isBigO :
   _root_.RiemannHypothesis ↔
     ∀ ε : ℝ, 0 < ε →
       (fun x : ℝ => (mertens x : ℝ)) =O[Filter.atTop] fun x => x ^ ((1 / 2 : ℝ) + ε))
 
--- 4. Nyman-Beurling approximation theorem
+-- 5. Nyman-Beurling approximation theorem
 #check (RiemannHypothesis.of_nymanBeurling_approx :
   (∀ (ε : ℝ), 0 < ε →
     ∃ (N : ℕ) (c : ℕ → ℂ),
@@ -181,7 +189,7 @@ theorem recipFract_one_third_witness : recipFract (1 / 3 : ℝ) = 0 := by
         ‖1 - ∑ k ∈ Finset.Icc 1 N, c k * (recipFractScaled k x : ℂ)‖ ^ 2) < ε) →
   _root_.RiemannHypothesis)
 
--- 5. Báez-Duarte unconstrained approximation theorem
+-- 6. Báez-Duarte unconstrained approximation theorem
 #check (RiemannHypothesis.of_baezDuarte_approx :
   (∀ (ε : ℝ), 0 < ε →
     ∃ (N : ℕ) (c : ℕ → ℂ),
@@ -201,6 +209,7 @@ theorem recipFract_one_third_witness : recipFract (1 / 3 : ℝ) = 0 := by
 #print axioms recipFract_two_fifths_witness
 #print axioms recipFract_one_third_witness
 #print axioms RiemannHypothesis.of_mertens_isBigO
+#print axioms riemannZeta_inv_growth_of_riemannHypothesis
 #print axioms isBigO_mertens_of_riemannHypothesis
 #print axioms riemannHypothesis_iff_mertens_isBigO
 #print axioms RiemannHypothesis.of_nymanBeurling_approx
