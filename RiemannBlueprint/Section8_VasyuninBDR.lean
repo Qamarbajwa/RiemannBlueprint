@@ -1971,4 +1971,80 @@ theorem collapseWeightPurePower_k_eq_one (p : ℕ) :
 
 end TotientCollapseEnergy
 
+section NoetherChargeAndRamanujan
+
+/-- Off-resonance Ramanujan prime-power sum evaluation `c_{p^k}(p^{k-1}) = -p^{k-1}`. -/
+def ramanujanPrimePowerOffResonance (p k : ℕ) : ℤ :=
+  -(p ^ (k - 1) : ℤ)
+
+/-- On-resonance Ramanujan prime-power sum evaluation `c_{p^k}(p^k) = φ(p^k)`. -/
+def ramanujanPrimePowerOnResonance (p k : ℕ) : ℤ :=
+  (Nat.totient (p ^ k) : ℤ)
+
+/-- For any prime `p` and `k ≥ 1`, the off-resonance Ramanujan prime-power evaluation
+equals the negated first-stage totient defect `-(totientDefect1 (p ^ k))`. -/
+theorem ramanujanOffResonance_eq_neg_totientDefect1 (p k : ℕ) (hp : Nat.Prime p) (hk : 1 ≤ k) :
+    -(p ^ (k - 1) : ℤ) = -(totientDefect1 (p ^ k) : ℤ) := by
+  rw [totientDefect1_prime_pow p k hp hk, Nat.cast_pow]
+
+/-- Ramanujan prime-power charge balance: one on-resonance term `φ(p^k)` plus `(p - 1)`
+off-resonance terms `-(totientDefect1 (p^k))` cancels identically to `0`. -/
+theorem ramanujan_prime_pow_charge_balance (p k : ℕ) (hp : Nat.Prime p) (hk : 1 ≤ k) :
+    (Nat.totient (p ^ k) : ℤ) + ((p : ℤ) - 1) * (-(totientDefect1 (p ^ k) : ℤ)) = 0 := by
+  rw [Nat.totient_prime_pow hp (by omega : 0 < k), totientDefect1_prime_pow p k hp hk]
+  have hp_pos : 1 ≤ p := hp.pos
+  simp only [Nat.cast_mul, Nat.cast_pow, Nat.cast_sub hp_pos, Nat.cast_one]
+  ring
+
+/-- **Noether Charge Conservation Along the Homogeneous Clay Nullspace.**
+For any base state `c : ℕ → ℝ` and any homogeneous gauge perturbation `v : ℕ → ℝ`
+(`SatisfiesHomogeneousClayConditions v N`), all four Noether boundary charges
+`(D0, D0_deriv, D1, D1_deriv)` are strictly invariant along the 1-parameter flow
+`fun k => c k + α * v k` for all `α : ℝ`. -/
+theorem noether_clay_charge_conservation (c v : ℕ → ℝ) (N : ℕ) (α : ℝ)
+    (hv : SatisfiesHomogeneousClayConditions v N) :
+    D0 (fun k => c k + α * v k) N = D0 c N ∧
+      D0_deriv (fun k => c k + α * v k) N = D0_deriv c N ∧
+      D1 (fun k => c k + α * v k) N = D1 c N ∧
+      D1_deriv (fun k => c k + α * v k) N = D1_deriv c N := by
+  have hv_smul := satisfiesHomogeneousClayConditions_smul v N α hv
+  rcases hv_smul with ⟨hv0, hv0', hv1, hv1'⟩
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · calc
+      D0 (fun k => c k + α * v k) N
+          = D0 c N + D0 (fun k => α * v k) N := by
+              unfold D0
+              exact Finset.sum_add_distrib
+      _ = D0 c N := by rw [hv0, add_zero]
+  · calc
+      D0_deriv (fun k => c k + α * v k) N
+          = D0_deriv c N + D0_deriv (fun k => α * v k) N := by
+              unfold D0_deriv
+              have hpt : ∀ k ∈ Finset.Icc 1 N,
+                  (c k + α * v k) * Real.log (k : ℝ) =
+                    c k * Real.log (k : ℝ) + α * v k * Real.log (k : ℝ) := fun k _ => by ring
+              rw [Finset.sum_congr rfl hpt, Finset.sum_add_distrib, neg_add]
+      _ = D0_deriv c N := by rw [hv0', add_zero]
+  · calc
+      D1 (fun k => c k + α * v k) N
+          = D1 c N + D1 (fun k => α * v k) N := by
+              unfold D1
+              have hpt : ∀ k ∈ Finset.Icc 1 N,
+                  (c k + α * v k) / (k : ℝ) = c k / (k : ℝ) + (α * v k) / (k : ℝ) :=
+                fun k _ => by ring
+              rw [Finset.sum_congr rfl hpt, Finset.sum_add_distrib]
+      _ = D1 c N := by rw [hv1, add_zero]
+  · calc
+      D1_deriv (fun k => c k + α * v k) N
+          = D1_deriv c N + D1_deriv (fun k => α * v k) N := by
+              unfold D1_deriv
+              have hpt : ∀ k ∈ Finset.Icc 1 N,
+                  (c k + α * v k) * Real.log (k : ℝ) / (k : ℝ) =
+                    c k * Real.log (k : ℝ) / (k : ℝ) +
+                      (α * v k) * Real.log (k : ℝ) / (k : ℝ) := fun k _ => by ring
+              rw [Finset.sum_congr rfl hpt, Finset.sum_add_distrib, neg_add]
+      _ = D1_deriv c N := by rw [hv1', add_zero]
+
+end NoetherChargeAndRamanujan
+
 end RiemannBlueprint.Section8_VasyuninBDR

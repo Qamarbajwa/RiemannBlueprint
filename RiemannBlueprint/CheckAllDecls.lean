@@ -260,6 +260,11 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check RiemannBlueprint.Section8_VasyuninBDR.Q_cot_diag_eq_zero_of_reciprocity
 #check RiemannBlueprint.Section8_VasyuninBDR.vasyunin_energy_unconstrainedRay_eq_rightTriangle_of_reciprocity
 #check CMIAudit.cmi_track3_dedekind_reciprocity_closure_implies_rh
+#check RiemannBlueprint.Section8_VasyuninBDR.ramanujanPrimePowerOffResonance
+#check RiemannBlueprint.Section8_VasyuninBDR.ramanujanPrimePowerOnResonance
+#check RiemannBlueprint.Section8_VasyuninBDR.ramanujanOffResonance_eq_neg_totientDefect1
+#check RiemannBlueprint.Section8_VasyuninBDR.ramanujan_prime_pow_charge_balance
+#check RiemannBlueprint.Section8_VasyuninBDR.noether_clay_charge_conservation
 
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
 #print axioms RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic
@@ -433,3 +438,6 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.Q_cot_diag_eq_zero_of_reciprocity
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.vasyunin_energy_unconstrainedRay_eq_rightTriangle_of_reciprocity
 #print axioms CMIAudit.cmi_track3_dedekind_reciprocity_closure_implies_rh
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.ramanujanOffResonance_eq_neg_totientDefect1
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.ramanujan_prime_pow_charge_balance
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.noether_clay_charge_conservation
