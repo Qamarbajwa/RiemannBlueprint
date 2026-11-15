@@ -2045,6 +2045,60 @@ theorem noether_clay_charge_conservation (c v : ℕ → ℝ) (N : ℕ) (α : ℝ
               rw [Finset.sum_congr rfl hpt, Finset.sum_add_distrib, neg_add]
       _ = D1_deriv c N := by rw [hv1', add_zero]
 
+/-- Exact excess-energy form of the off-resonance Ramanujan prime-power identity:
+`c_{p^k}(p^{k-1}) = -(1 + E_extra(p^k))`. -/
+theorem ramanujanOffResonance_eq_neg_one_add_extraEnergy (p k : ℕ) (hp : Nat.Prime p)
+    (hk : 1 ≤ k) :
+    -(p ^ (k - 1) : ℤ) = -((1 + primePowerExtraEnergy (p ^ k) : ℕ) : ℤ) := by
+  have hpow_pos : 1 ≤ p ^ (k - 1) := Nat.one_le_pow (k - 1) p hp.pos
+  have h_eq : 1 + primePowerExtraEnergy (p ^ k) = p ^ (k - 1) := by
+    rw [primePowerExtraEnergy_prime_pow p k hp hk]
+    omega
+  rw [h_eq, Nat.cast_pow]
+
+/-- **Boundary-Locked Affine Cotangent Virial Theorem:**
+Along the homogeneous nullspace ray `c(α) = clayRank4Base + α • v` at the Rayleigh-optimal
+parameter `α* = -B / A` (where `B = B_cot_bilinear G_cot clayRank4Base v N` and
+`A = Q_cot_quad G_cot v N ≠ 0`), (1) the first-variation virial gradient vanishes identically
+(`B_cot_bilinear G_cot c(α*) v N = 0`), and (2) the full decomposed Vasyunin energy reduces
+exact-algebraically to `(1 + Q_cot_quad G_cot clayRank4Base 4) - B^2 / A`. -/
+theorem affine_cotangent_virial_theorem (gamma_E : ℝ) (G_cot : ℕ → ℕ → ℝ)
+    (hG_symm : ∀ j k, G_cot j k = G_cot k j) (v : ℕ → ℝ) (N : ℕ)
+    (hN : 4 ≤ N) (hv : SatisfiesHomogeneousClayConditions v N)
+    (hA : Q_cot_quad G_cot v N ≠ 0) :
+    let B := B_cot_bilinear G_cot clayRank4Base v N
+    let A := Q_cot_quad G_cot v N
+    B_cot_bilinear G_cot (fun k => clayRank4Base k + (-B / A) * v k) v N = 0 ∧
+      1 - 2 * (∑ k ∈ Finset.Icc 1 N,
+        (clayRank4Base k + (-B / A) * v k) * bVasyunin k gamma_E) +
+        (∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N,
+          (clayRank4Base j + (-B / A) * v j) * (clayRank4Base k + (-B / A) * v k) *
+            GVasyuninDecomp gamma_E G_cot j k) =
+        (1 + Q_cot_quad G_cot clayRank4Base 4) - B ^ 2 / A := by
+  intro B A
+  refine ⟨?_, ?_⟩
+  · have h_lin :
+        B_cot_bilinear G_cot (fun k => clayRank4Base k + (-B / A) * v k) v N =
+          B + (-B / A) * A := by
+      change B_cot_bilinear G_cot (fun k => clayRank4Base k + (-B / A) * v k) v N =
+        B_cot_bilinear G_cot clayRank4Base v N + (-B / A) * Q_cot_quad G_cot v N
+      unfold B_cot_bilinear Q_cot_quad
+      have h_inner : ∀ j ∈ Finset.Icc 1 N,
+          (∑ k ∈ Finset.Icc 1 N, (clayRank4Base j + (-B / A) * v j) * v k * G_cot j k) =
+            (∑ k ∈ Finset.Icc 1 N, clayRank4Base j * v k * G_cot j k) +
+              (-B / A) * (∑ k ∈ Finset.Icc 1 N, v j * v k * G_cot j k) := by
+        intro j _
+        have hpt : ∀ k ∈ Finset.Icc 1 N,
+            (clayRank4Base j + (-B / A) * v j) * v k * G_cot j k =
+              clayRank4Base j * v k * G_cot j k + (-B / A) * (v j * v k * G_cot j k) :=
+          fun k _ => by ring
+        rw [Finset.sum_congr rfl hpt, Finset.sum_add_distrib, ← Finset.mul_sum]
+      rw [Finset.sum_congr rfl h_inner, Finset.sum_add_distrib, ← Finset.mul_sum]
+    rw [h_lin, div_mul_cancel₀ (-B) hA, add_neg_cancel]
+  · have h_en := vasyunin_energy_clayRank4Base_opt_step gamma_E G_cot hG_symm v N hN hv hA
+    rw [Q_cot_quad_clayRank4Base_eq_four G_cot N hN] at h_en
+    exact h_en
+
 end NoetherChargeAndRamanujan
 
 section CarmichaelKorseltImmunity

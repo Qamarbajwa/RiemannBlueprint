@@ -281,6 +281,10 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check RiemannBlueprint.Section8_VasyuninBDR.totientDefect1_twin_prime_semiprime
 #check RiemannBlueprint.Section8_VasyuninBDR.primePowerExtraEnergy_twin_prime_semiprime
 #check RiemannBlueprint.Section8_VasyuninBDR.twin_impostor_seven_nine_extra_energy
+#check RiemannBlueprint.Section8_VasyuninBDR.ramanujanOffResonance_eq_neg_one_add_extraEnergy
+#check RiemannBlueprint.Section8_VasyuninBDR.affine_cotangent_virial_theorem
+#check RiemannBlueprint.Section3_CompositeTaxonomy.SatisfiesKorseltCriterion
+#check RiemannBlueprint.Section3_CompositeTaxonomy.carmichael_korselt_and_totient_unmasking
 
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
 #print axioms RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic
@@ -471,3 +475,6 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.totientDefect1_twin_prime_semiprime
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.primePowerExtraEnergy_twin_prime_semiprime
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.twin_impostor_seven_nine_extra_energy
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.ramanujanOffResonance_eq_neg_one_add_extraEnergy
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.affine_cotangent_virial_theorem
+#print axioms RiemannBlueprint.Section3_CompositeTaxonomy.carmichael_korselt_and_totient_unmasking

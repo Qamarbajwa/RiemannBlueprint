@@ -130,4 +130,117 @@ theorem coprime_composite_lattice (u v : ℕ) (hu : u > 1) (hv : v > 1) :
     have : v = 1 := mul_left_cancel₀ (by omega) h_eq
     omega
 
+/-- **Korselt Criterion Predicate** for composite odd Fermat-type pseudoprimes:
+`n > 1`, `¬ Nat.Prime n`, and every prime factor `p ∣ n` satisfies `(p - 1) ∣ (n - 1)`. -/
+def SatisfiesKorseltCriterion (n : ℕ) : Prop :=
+  1 < n ∧ ¬ Nat.Prime n ∧ ∀ p : ℕ, Nat.Prime p → p ∣ n → (p - 1) ∣ (n - 1)
+
+private lemma totient_three_distinct_primes (p q r : ℕ)
+    (hp : Nat.Prime p) (hq : Nat.Prime q) (hr : Nat.Prime r)
+    (hpq : p ≠ q) (hpr : p ≠ r) (hqr : q ≠ r) :
+    Nat.totient (p * (q * r)) = (p - 1) * ((q - 1) * (r - 1)) := by
+  have hcpq : Nat.Coprime p q := (hp.coprime_iff_not_dvd).mpr fun hdvd =>
+    hpq ((Nat.prime_dvd_prime_iff_eq hp hq).mp hdvd)
+  have hcpr : Nat.Coprime p r := (hp.coprime_iff_not_dvd).mpr fun hdvd =>
+    hpr ((Nat.prime_dvd_prime_iff_eq hp hr).mp hdvd)
+  have hcqr : Nat.Coprime q r := (hq.coprime_iff_not_dvd).mpr fun hdvd =>
+    hqr ((Nat.prime_dvd_prime_iff_eq hq hr).mp hdvd)
+  have hcp_qr : Nat.Coprime p (q * r) := hcpq.mul_right hcpr
+  rw [Nat.totient_mul hcp_qr, Nat.totient_mul hcqr,
+    Nat.totient_prime hp, Nat.totient_prime hq, Nat.totient_prime hr]
+
+private lemma card_divisors_three_distinct_primes (p q r : ℕ)
+    (hp : Nat.Prime p) (hq : Nat.Prime q) (hr : Nat.Prime r)
+    (hpq : p ≠ q) (hpr : p ≠ r) (hqr : q ≠ r) :
+    (p * (q * r)).divisors.card = 8 := by
+  have hcpq : Nat.Coprime p q := (hp.coprime_iff_not_dvd).mpr fun hdvd =>
+    hpq ((Nat.prime_dvd_prime_iff_eq hp hq).mp hdvd)
+  have hcpr : Nat.Coprime p r := (hp.coprime_iff_not_dvd).mpr fun hdvd =>
+    hpr ((Nat.prime_dvd_prime_iff_eq hp hr).mp hdvd)
+  have hcqr : Nat.Coprime q r := (hq.coprime_iff_not_dvd).mpr fun hdvd =>
+    hqr ((Nat.prime_dvd_prime_iff_eq hq hr).mp hdvd)
+  have hcp_qr : Nat.Coprime p (q * r) := hcpq.mul_right hcpr
+  rw [hcp_qr.card_divisors_mul, hcqr.card_divisors_mul,
+    hp.divisors, hq.divisors, hr.divisors,
+    Finset.card_pair hp.ne_one.symm, Finset.card_pair hq.ne_one.symm,
+    Finset.card_pair hr.ne_one.symm]
+
+private lemma korselt_of_three_primes (n p q r : ℕ) (hn : n = p * (q * r))
+    (hp : Nat.Prime p) (hq : Nat.Prime q) (hr : Nat.Prime r)
+    (hdp : (p - 1) ∣ (n - 1)) (hdq : (q - 1) ∣ (n - 1)) (hdr : (r - 1) ∣ (n - 1)) :
+    ∀ x : ℕ, Nat.Prime x → x ∣ n → (x - 1) ∣ (n - 1) := by
+  intro x hx hxd
+  rw [hn] at hxd
+  rcases hx.dvd_mul.mp hxd with hxp | hxqr
+  · rw [(Nat.prime_dvd_prime_iff_eq hx hp).mp hxp]
+    exact hdp
+  · rcases hx.dvd_mul.mp hxqr with hxq | hxr
+    · rw [(Nat.prime_dvd_prime_iff_eq hx hq).mp hxq]
+      exact hdq
+    · rw [(Nat.prime_dvd_prime_iff_eq hx hr).mp hxr]
+      exact hdr
+
+/-- **Korselt–Carmichael & Totient-Unmasking Theorem (`561`, `1105`, `1729`):**
+Certifies unconditionally that the first three Carmichael numbers — `561 = 3 * 11 * 17`,
+`1105 = 5 * 13 * 17`, and Hardy–Ramanujan's `1729 = 7 * 13 * 19 = 12^3 + 1^3 = 10^3 + 9^3` —
+all lie in `Composites` and satisfy Korselt's Criterion `(p - 1) ∣ (n - 1)` for all primes `p ∣ n`,
+yet are unmasked from primes by `n - φ(n) ∈ {241, 337, 433} > 1` and `d(n) - 2 = 6 > 0`. -/
+theorem carmichael_korselt_and_totient_unmasking :
+    (561 = 3 * 11 * 17 ∧ 561 ∈ Composites ∧ SatisfiesKorseltCriterion 561 ∧
+      561 - Nat.totient 561 = 241 ∧ 1 < 561 - Nat.totient 561 ∧
+      (561 : ℕ).divisors.card - 2 = 6) ∧
+    (1105 = 5 * 13 * 17 ∧ 1105 ∈ Composites ∧ SatisfiesKorseltCriterion 1105 ∧
+      1105 - Nat.totient 1105 = 337 ∧ 1 < 1105 - Nat.totient 1105 ∧
+      (1105 : ℕ).divisors.card - 2 = 6) ∧
+    (1729 = 7 * 13 * 19 ∧ 12 ^ 3 + 1 ^ 3 = 1729 ∧ 10 ^ 3 + 9 ^ 3 = 1729 ∧
+      1729 ∈ Composites ∧ SatisfiesKorseltCriterion 1729 ∧
+      1729 - Nat.totient 1729 = 433 ∧ 1 < 1729 - Nat.totient 1729 ∧
+      (1729 : ℕ).divisors.card - 2 = 6) := by
+  have h3 : Nat.Prime 3 := by decide
+  have h5 : Nat.Prime 5 := by decide
+  have h7 : Nat.Prime 7 := by decide
+  have h11 : Nat.Prime 11 := by decide
+  have h13 : Nat.Prime 13 := by decide
+  have h17 : Nat.Prime 17 := by decide
+  have h19 : Nat.Prime 19 := by decide
+  have h561_comp : (561 : ℕ) ∈ Composites := by
+    rw [show (561 : ℕ) = 3 * 187 by norm_num]
+    exact coprime_composite_lattice 3 187 (by omega) (by omega)
+  have h1105_comp : (1105 : ℕ) ∈ Composites := by
+    rw [show (1105 : ℕ) = 5 * 221 by norm_num]
+    exact coprime_composite_lattice 5 221 (by omega) (by omega)
+  have h1729_comp : (1729 : ℕ) ∈ Composites := by
+    rw [show (1729 : ℕ) = 7 * 247 by norm_num]
+    exact coprime_composite_lattice 7 247 (by omega) (by omega)
+  have h561_tot : Nat.totient 561 = 320 := by
+    rw [show (561 : ℕ) = 3 * (11 * 17) by norm_num,
+      totient_three_distinct_primes 3 11 17 h3 h11 h17 (by omega) (by omega) (by omega)]
+  have h1105_tot : Nat.totient 1105 = 768 := by
+    rw [show (1105 : ℕ) = 5 * (13 * 17) by norm_num,
+      totient_three_distinct_primes 5 13 17 h5 h13 h17 (by omega) (by omega) (by omega)]
+  have h1729_tot : Nat.totient 1729 = 1296 := by
+    rw [show (1729 : ℕ) = 7 * (13 * 19) by norm_num,
+      totient_three_distinct_primes 7 13 19 h7 h13 h19 (by omega) (by omega) (by omega)]
+  have h561_div : (561 : ℕ).divisors.card = 8 := by
+    rw [show (561 : ℕ) = 3 * (11 * 17) by norm_num]
+    exact card_divisors_three_distinct_primes 3 11 17 h3 h11 h17 (by omega) (by omega) (by omega)
+  have h1105_div : (1105 : ℕ).divisors.card = 8 := by
+    rw [show (1105 : ℕ) = 5 * (13 * 17) by norm_num]
+    exact card_divisors_three_distinct_primes 5 13 17 h5 h13 h17 (by omega) (by omega) (by omega)
+  have h1729_div : (1729 : ℕ).divisors.card = 8 := by
+    rw [show (1729 : ℕ) = 7 * (13 * 19) by norm_num]
+    exact card_divisors_three_distinct_primes 7 13 19 h7 h13 h19 (by omega) (by omega) (by omega)
+  have h561_kor : SatisfiesKorseltCriterion 561 :=
+    ⟨by omega, h561_comp.2, korselt_of_three_primes 561 3 11 17 (by norm_num) h3 h11 h17
+      ⟨280, by norm_num⟩ ⟨56, by norm_num⟩ ⟨35, by norm_num⟩⟩
+  have h1105_kor : SatisfiesKorseltCriterion 1105 :=
+    ⟨by omega, h1105_comp.2, korselt_of_three_primes 1105 5 13 17 (by norm_num) h5 h13 h17
+      ⟨276, by norm_num⟩ ⟨92, by norm_num⟩ ⟨69, by norm_num⟩⟩
+  have h1729_kor : SatisfiesKorseltCriterion 1729 :=
+    ⟨by omega, h1729_comp.2, korselt_of_three_primes 1729 7 13 19 (by norm_num) h7 h13 h19
+      ⟨288, by norm_num⟩ ⟨144, by norm_num⟩ ⟨96, by norm_num⟩⟩
+  refine ⟨⟨by norm_num, h561_comp, h561_kor, ?_, ?_, ?_⟩,
+    ⟨by norm_num, h1105_comp, h1105_kor, ?_, ?_, ?_⟩,
+    ⟨by norm_num, by norm_num, by norm_num, h1729_comp, h1729_kor, ?_, ?_, ?_⟩⟩ <;> omega
+
 end RiemannBlueprint.Section3_CompositeTaxonomy
