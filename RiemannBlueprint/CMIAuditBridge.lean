@@ -1940,6 +1940,53 @@ theorem clayRank4UnconstrainedRay_limit_implies_rh_of_integralHardyCauchySchwarz
     (satisfiesHardyCauchySchwarz_of_integral D pairing szegoNormSq h_ihcs)
     h_nonneg hA h_ub h_ray_lim
 
+/-- End-to-End Unified Master Closure Theorem (`cmi_master_effective_potential_closure_implies_rh`):
+attaches unconditional critical-strip reflection (`zetaZeroReflectionSymmetry_unconditional`),
+FTC critical-line Szegő kernel calculus (`tendsto_integral_szegoKernelIntegrand_atTop`,
+`satisfiesHardyCauchySchwarz_of_integral`), unconstrained raw-vector Clay–Galerkin energy
+reduction (`vasyunin_energy_clayRank4UnconstrainedRay_eq_sub_rayQuotient`), and pure tail
+adjoint Riesz-effective potential reduction (`phiCotUnconstrainedRayQuotient_eq_tail_phiCotEffective`)
+to deduce `_root_.RiemannHypothesis` from any raw sequence `u_seq : ℕ → ℕ → ℝ` whose tail
+Riesz-effective Rayleigh quotient converges to `1 + Q_cot_quad G_cot clayRank4Base 4`. -/
+theorem cmi_master_effective_potential_closure_implies_rh
+    (D : ℕ → ℝ) (pairing : ℂ → ℕ → ℝ) (szegoNormSq : ℂ → ℝ)
+    (gamma_E : ℝ) (G_cot : ℕ → ℕ → ℝ) (hG_symm : ∀ j k, G_cot j k = G_cot k j)
+    (u_seq : ℕ → (ℕ → ℝ))
+    (h_ihcs : SatisfiesIntegralHardyCauchySchwarz D pairing szegoNormSq)
+    (h_nonneg : ∀ N : ℕ, 0 ≤ baezDuarteDistSq D N)
+    (hA : ∀ N, 4 ≤ N →
+      RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N) N ≠ 0)
+    (h_ub : ∀ N, 4 ≤ N →
+      let v := RiemannBlueprint.Section8_VasyuninBDR.clayRank4UnconstrainedRay G_cot (u_seq N) N
+      baezDuarteDistSq D N ≤
+        vasyuninQuadraticEnergy
+          (RiemannBlueprint.Section8_VasyuninBDR.GVasyuninDecomp gamma_E G_cot)
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.bVasyunin k gamma_E) N
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k + v k))
+    (h_eff_lim : Filter.Tendsto
+      (fun N =>
+        (∑ m ∈ Finset.Icc 5 N, u_seq N m *
+          RiemannBlueprint.Section8_VasyuninBDR.phiCotEffective G_cot m) ^ 2 /
+          RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+            (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N) N)
+      Filter.atTop
+      (nhds (1 + RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base 4))) :
+    _root_.RiemannHypothesis := by
+  have h_ray_lim : Filter.Tendsto
+      (fun N =>
+        RiemannBlueprint.Section8_VasyuninBDR.phiCotUnconstrainedRayQuotient G_cot (u_seq N) N)
+      Filter.atTop
+      (nhds (1 + RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base 4)) := by
+    refine h_eff_lim.congr' ?_
+    exact Filter.eventually_atTop.mpr ⟨4, fun N hN4 =>
+      (RiemannBlueprint.Section8_VasyuninBDR.phiCotUnconstrainedRayQuotient_eq_tail_phiCotEffective
+        G_cot (u_seq N) N hN4).symm⟩
+  exact clayRank4UnconstrainedRay_limit_implies_rh_of_integralHardyCauchySchwarz
+    D pairing szegoNormSq gamma_E G_cot hG_symm u_seq h_ihcs h_nonneg hA h_ub h_ray_lim
+
 #print axioms riemannHypothesis_iff_collapse_zero
 #print axioms collapse_zero_implies_rh_strip
 #print axioms cmi_criterion1_spectral_residual_eq
@@ -1993,5 +2040,6 @@ theorem clayRank4UnconstrainedRay_limit_implies_rh_of_integralHardyCauchySchwarz
 #print axioms tendsto_integral_szegoKernelIntegrand_atTop
 #print axioms satisfiesHardyCauchySchwarz_of_integral
 #print axioms clayRank4UnconstrainedRay_limit_implies_rh_of_integralHardyCauchySchwarz
+#print axioms cmi_master_effective_potential_closure_implies_rh
 
 end CMIAudit

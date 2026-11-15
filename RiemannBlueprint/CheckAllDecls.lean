@@ -235,6 +235,14 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check CMIAudit.SatisfiesIntegralHardyCauchySchwarz
 #check CMIAudit.satisfiesHardyCauchySchwarz_of_integral
 #check CMIAudit.clayRank4UnconstrainedRay_limit_implies_rh_of_integralHardyCauchySchwarz
+#check RiemannBlueprint.Section8_VasyuninBDR.w_rank4_mode_defect
+#check RiemannBlueprint.Section8_VasyuninBDR.phiCotEffective
+#check RiemannBlueprint.Section8_VasyuninBDR.w_rank4_corrector_neg_D_eq_sum_mode_defect
+#check RiemannBlueprint.Section8_VasyuninBDR.sum_clayRank4Hom_mul_phiCotBase_eq_sum_phiCotEffective
+#check RiemannBlueprint.Section8_VasyuninBDR.phiCotEffective_eq_zero_of_le_four
+#check RiemannBlueprint.Section8_VasyuninBDR.sum_clayRank4Hom_mul_phiCotBase_eq_tail_phiCotEffective
+#check RiemannBlueprint.Section8_VasyuninBDR.phiCotUnconstrainedRayQuotient_eq_tail_phiCotEffective
+#check CMIAudit.cmi_master_effective_potential_closure_implies_rh
 
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
 #print axioms RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic
@@ -390,3 +398,9 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms CMIAudit.tendsto_integral_szegoKernelIntegrand_atTop
 #print axioms CMIAudit.satisfiesHardyCauchySchwarz_of_integral
 #print axioms CMIAudit.clayRank4UnconstrainedRay_limit_implies_rh_of_integralHardyCauchySchwarz
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.w_rank4_corrector_neg_D_eq_sum_mode_defect
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.sum_clayRank4Hom_mul_phiCotBase_eq_sum_phiCotEffective
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.phiCotEffective_eq_zero_of_le_four
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.sum_clayRank4Hom_mul_phiCotBase_eq_tail_phiCotEffective
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.phiCotUnconstrainedRayQuotient_eq_tail_phiCotEffective
+#print axioms CMIAudit.cmi_master_effective_potential_closure_implies_rh

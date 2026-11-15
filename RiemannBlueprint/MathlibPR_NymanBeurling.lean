@@ -523,6 +523,63 @@ theorem RiemannHypothesis.of_integralHardyCauchySchwarz_and_unconstrainedRayQuot
   CMIAudit.clayRank4UnconstrainedRay_limit_implies_rh_of_integralHardyCauchySchwarz
     D pairing szegoNormSq gamma_E G_cot hG_symm u_seq h_ihcs h_nonneg hA h_ub h_ray_lim
 
+/-- 31. Pure Tail Riesz-Effective Pairing Reduction (`N ≥ 4`):
+transposes `clayRank4Hom` onto `phiCotEffective` and drops `m ∈ {1, 2, 3, 4}` identically. -/
+theorem sum_clayRank4Hom_mul_phiCotBase_eq_tail_phiCotEffective
+    (G_cot : ℕ → ℕ → ℝ) (u : ℕ → ℝ) (N : ℕ) (hN : 4 ≤ N) :
+    (∑ k ∈ Finset.Icc 1 N,
+      RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom u N k *
+        RiemannBlueprint.Section8_VasyuninBDR.phiCotBase G_cot k) =
+      ∑ m ∈ Finset.Icc 5 N,
+        u m * RiemannBlueprint.Section8_VasyuninBDR.phiCotEffective G_cot m :=
+  RiemannBlueprint.Section8_VasyuninBDR.sum_clayRank4Hom_mul_phiCotBase_eq_tail_phiCotEffective
+    G_cot u N hN
+
+/-- 32. Pure Tail Unconstrained Clay–Galerkin Rayleigh Quotient Identity (`N ≥ 4`). -/
+theorem phiCotUnconstrainedRayQuotient_eq_tail_phiCotEffective
+    (G_cot : ℕ → ℕ → ℝ) (u : ℕ → ℝ) (N : ℕ) (hN : 4 ≤ N) :
+    RiemannBlueprint.Section8_VasyuninBDR.phiCotUnconstrainedRayQuotient G_cot u N =
+      (∑ m ∈ Finset.Icc 5 N,
+        u m * RiemannBlueprint.Section8_VasyuninBDR.phiCotEffective G_cot m) ^ 2 /
+        RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+          (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom u N) N :=
+  RiemannBlueprint.Section8_VasyuninBDR.phiCotUnconstrainedRayQuotient_eq_tail_phiCotEffective
+    G_cot u N hN
+
+/-- 33. Unified End-to-End Master Riesz-Effective Closure Implies RH:
+for any unconstrained sequence `u_seq : ℕ → ℕ → ℝ`, convergence of the pure tail
+`phiCotEffective` Rayleigh quotient on `Finset.Icc 5 N` to
+`1 + Q_cot_quad G_cot clayRank4Base 4` under `SatisfiesIntegralHardyCauchySchwarz` implies
+`_root_.RiemannHypothesis`. -/
+theorem RiemannHypothesis.of_master_effective_potential_closure
+    (D : ℕ → ℝ) (pairing : ℂ → ℕ → ℝ) (szegoNormSq : ℂ → ℝ)
+    (gamma_E : ℝ) (G_cot : ℕ → ℕ → ℝ) (hG_symm : ∀ j k, G_cot j k = G_cot k j)
+    (u_seq : ℕ → (ℕ → ℝ))
+    (h_ihcs : CMIAudit.SatisfiesIntegralHardyCauchySchwarz D pairing szegoNormSq)
+    (h_nonneg : ∀ N : ℕ, 0 ≤ CMIAudit.baezDuarteDistSq D N)
+    (hA : ∀ N, 4 ≤ N →
+      RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N) N ≠ 0)
+    (h_ub : ∀ N, 4 ≤ N →
+      let v := RiemannBlueprint.Section8_VasyuninBDR.clayRank4UnconstrainedRay G_cot (u_seq N) N
+      CMIAudit.baezDuarteDistSq D N ≤
+        CMIAudit.vasyuninQuadraticEnergy
+          (RiemannBlueprint.Section8_VasyuninBDR.GVasyuninDecomp gamma_E G_cot)
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.bVasyunin k gamma_E) N
+          (fun k => RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base k + v k))
+    (h_eff_lim : Filter.Tendsto
+      (fun N =>
+        (∑ m ∈ Finset.Icc 5 N, u_seq N m *
+          RiemannBlueprint.Section8_VasyuninBDR.phiCotEffective G_cot m) ^ 2 /
+          RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+            (RiemannBlueprint.Section8_VasyuninBDR.clayRank4Hom (u_seq N) N) N)
+      Filter.atTop
+      (nhds (1 + RiemannBlueprint.Section8_VasyuninBDR.Q_cot_quad G_cot
+        RiemannBlueprint.Section8_VasyuninBDR.clayRank4Base 4))) :
+    _root_.RiemannHypothesis :=
+  CMIAudit.cmi_master_effective_potential_closure_implies_rh
+    D pairing szegoNormSq gamma_E G_cot hG_symm u_seq h_ihcs h_nonneg hA h_ub h_eff_lim
+
 #print axioms riemannZeta_eq_tsum_harmonicUnitSummand
 #print axioms mellin_recipFract_unit_interval
 #print axioms riemannZeta_conj_of_pos_re
@@ -553,5 +610,8 @@ theorem RiemannHypothesis.of_integralHardyCauchySchwarz_and_unconstrainedRayQuot
 #print axioms integral_szegoKernelIntegrand_eq_sub
 #print axioms tendsto_integral_szegoKernelIntegrand_atTop
 #print axioms RiemannHypothesis.of_integralHardyCauchySchwarz_and_unconstrainedRayQuotient_limit
+#print axioms sum_clayRank4Hom_mul_phiCotBase_eq_tail_phiCotEffective
+#print axioms phiCotUnconstrainedRayQuotient_eq_tail_phiCotEffective
+#print axioms RiemannHypothesis.of_master_effective_potential_closure
 
 end MathlibPR.NymanBeurling

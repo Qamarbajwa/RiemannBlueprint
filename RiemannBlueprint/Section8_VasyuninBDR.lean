@@ -1449,6 +1449,182 @@ theorem B_cot_bilinear_comm (G_cot : ℕ → ℕ → ℝ)
   rw [hG_symm k j]
   ring
 
+/-- Mode-wise 4-boundary defect corrector weight `w_rank4_mode_defect m j` supported on
+`j ∈ {1, 2, 3, 4}`. -/
+noncomputable def w_rank4_mode_defect (m j : ℕ) : ℝ :=
+  w_rank4_corrector (-1) (Real.log (m : ℝ)) (-(1 / (m : ℝ))) (Real.log (m : ℝ) / (m : ℝ)) j
+
+/-- The `N`-independent adjoint Riesz-effective cotangent potential `Φ_eff(G_cot, m)` obtained by
+transposing `clayRank4Hom` off the raw vector `u` onto the kernel. -/
+noncomputable def phiCotEffective (G_cot : ℕ → ℕ → ℝ) (m : ℕ) : ℝ :=
+  phiCotBase G_cot m + ∑ j ∈ Finset.Icc 1 4, w_rank4_mode_defect m j * phiCotBase G_cot j
+
+private lemma w_rank4_corrector_add (t0 t0' t1 t1' s0 s0' s1 s1' : ℝ) (j : ℕ) :
+    w_rank4_corrector (t0 + s0) (t0' + s0') (t1 + s1) (t1' + s1') j =
+      w_rank4_corrector t0 t0' t1 t1' j + w_rank4_corrector s0 s0' s1 s1' j := by
+  unfold w_rank4_corrector
+  dsimp only
+  split_ifs <;> ring
+
+private lemma w_rank4_corrector_smul (r t0 t0' t1 t1' : ℝ) (j : ℕ) :
+    w_rank4_corrector (r * t0) (r * t0') (r * t1) (r * t1') j =
+      r * w_rank4_corrector t0 t0' t1 t1' j := by
+  unfold w_rank4_corrector
+  dsimp only
+  split_ifs <;> ring
+
+private lemma w_rank4_corrector_sum (s : Finset ℕ) (f0 f0' f1 f1' : ℕ → ℝ) (j : ℕ) :
+    w_rank4_corrector (∑ m ∈ s, f0 m) (∑ m ∈ s, f0' m) (∑ m ∈ s, f1 m) (∑ m ∈ s, f1' m) j =
+      ∑ m ∈ s, w_rank4_corrector (f0 m) (f0' m) (f1 m) (f1' m) j := by
+  induction s using Finset.induction_on with
+  | empty => simp [w_rank4_corrector_zero]
+  | @insert a s ha ih =>
+    rw [Finset.sum_insert ha, Finset.sum_insert ha, Finset.sum_insert ha, Finset.sum_insert ha,
+      Finset.sum_insert ha, w_rank4_corrector_add, ih]
+
+/-- Exact linearity of the 4-boundary corrector: the global `N`-dependent correction on `u`
+expands as `∑ m ∈ Finset.Icc 1 N, u m * w_rank4_mode_defect m j`. -/
+theorem w_rank4_corrector_neg_D_eq_sum_mode_defect (u : ℕ → ℝ) (N j : ℕ) :
+    w_rank4_corrector (-D0 u N) (-D0_deriv u N) (-D1 u N) (-D1_deriv u N) j =
+      ∑ m ∈ Finset.Icc 1 N, u m * w_rank4_mode_defect m j := by
+  have h0 : -D0 u N = ∑ m ∈ Finset.Icc 1 N, u m * (-1 : ℝ) := by
+    unfold D0
+    rw [← Finset.sum_neg_distrib]
+    refine Finset.sum_congr rfl fun m _ => ?_
+    ring
+  have h0' : -D0_deriv u N = ∑ m ∈ Finset.Icc 1 N, u m * Real.log (m : ℝ) := by
+    unfold D0_deriv
+    rw [neg_neg]
+  have h1 : -D1 u N = ∑ m ∈ Finset.Icc 1 N, u m * (-(1 / (m : ℝ))) := by
+    unfold D1
+    rw [← Finset.sum_neg_distrib]
+    refine Finset.sum_congr rfl fun m _ => ?_
+    ring
+  have h1' : -D1_deriv u N = ∑ m ∈ Finset.Icc 1 N, u m * (Real.log (m : ℝ) / (m : ℝ)) := by
+    unfold D1_deriv
+    rw [neg_neg]
+    refine Finset.sum_congr rfl fun m _ => ?_
+    ring
+  rw [h0, h0', h1, h1', w_rank4_corrector_sum]
+  refine Finset.sum_congr rfl fun m _ => ?_
+  unfold w_rank4_mode_defect
+  exact w_rank4_corrector_smul (u m) (-1) (Real.log (m : ℝ)) (-(1 / (m : ℝ)))
+    (Real.log (m : ℝ) / (m : ℝ)) j
+
+/-- Adjoint transpose of `clayRank4Hom`: for all `N ≥ 4` and any raw vector `u : ℕ → ℝ`, the
+1D `phiCotBase` pairing of `clayRank4Hom u N` equals the direct pairing of `u` against the
+`N`-independent kernel `phiCotEffective G_cot`. -/
+theorem sum_clayRank4Hom_mul_phiCotBase_eq_sum_phiCotEffective
+    (G_cot : ℕ → ℕ → ℝ) (u : ℕ → ℝ) (N : ℕ) (hN : 4 ≤ N) :
+    (∑ k ∈ Finset.Icc 1 N, clayRank4Hom u N k * phiCotBase G_cot k) =
+      ∑ m ∈ Finset.Icc 1 N, u m * phiCotEffective G_cot m := by
+  let corr := w_rank4_corrector (-D0 u N) (-D0_deriv u N) (-D1 u N) (-D1_deriv u N)
+  have h_lhs :
+      (∑ k ∈ Finset.Icc 1 N, clayRank4Hom u N k * phiCotBase G_cot k) =
+        (∑ k ∈ Finset.Icc 1 N, u k * phiCotBase G_cot k) +
+          ∑ j ∈ Finset.Icc 1 4, corr j * phiCotBase G_cot j := by
+    have hpt : ∀ k ∈ Finset.Icc 1 N,
+        clayRank4Hom u N k * phiCotBase G_cot k =
+          u k * phiCotBase G_cot k + corr k * phiCotBase G_cot k := by
+      intro k _
+      unfold clayRank4Hom
+      dsimp only [corr]
+      ring
+    rw [Finset.sum_congr rfl hpt, Finset.sum_add_distrib]
+    congr 1
+    have hsub : Finset.Icc 1 4 ⊆ Finset.Icc 1 N := by
+      intro x hx
+      rw [Finset.mem_Icc] at hx ⊢
+      omega
+    refine (Finset.sum_subset hsub fun j hj hnot4 => ?_).symm
+    have hj4 : 4 < j := by
+      rw [Finset.mem_Icc] at hj hnot4
+      omega
+    dsimp only [corr]
+    rw [w_rank4_corrector_eq_zero_of_lt_four _ _ _ _ j hj4, zero_mul]
+  have h_rhs :
+      (∑ m ∈ Finset.Icc 1 N, u m * phiCotEffective G_cot m) =
+        (∑ m ∈ Finset.Icc 1 N, u m * phiCotBase G_cot m) +
+          ∑ j ∈ Finset.Icc 1 4, corr j * phiCotBase G_cot j := by
+    have hpt : ∀ m ∈ Finset.Icc 1 N,
+        u m * phiCotEffective G_cot m =
+          u m * phiCotBase G_cot m +
+            ∑ j ∈ Finset.Icc 1 4, (u m * w_rank4_mode_defect m j) * phiCotBase G_cot j := by
+      intro m _
+      unfold phiCotEffective
+      rw [mul_add, Finset.mul_sum]
+      congr 1
+      refine Finset.sum_congr rfl fun j _ => by ring
+    rw [Finset.sum_congr rfl hpt, Finset.sum_add_distrib, Finset.sum_comm]
+    congr 1
+    refine Finset.sum_congr rfl fun j _ => ?_
+    rw [← Finset.sum_mul, ← w_rank4_corrector_neg_D_eq_sum_mode_defect u N j]
+  rw [h_lhs, h_rhs]
+
+/-- Exact cancellation of the 4 anchor modes `m ∈ {1, 2, 3, 4}` under `phiCotEffective`:
+`phiCotEffective G_cot 1 = 0 ∧ phiCotEffective G_cot 2 = 0 ∧
+ phiCotEffective G_cot 3 = 0 ∧ phiCotEffective G_cot 4 = 0`. -/
+theorem phiCotEffective_eq_zero_of_le_four (G_cot : ℕ → ℕ → ℝ) :
+    phiCotEffective G_cot 1 = 0 ∧
+    phiCotEffective G_cot 2 = 0 ∧
+    phiCotEffective G_cot 3 = 0 ∧
+    phiCotEffective G_cot 4 = 0 := by
+  have hIcc : Finset.Icc 1 4 = ({1, 2, 3, 4} : Finset ℕ) := by decide
+  have hL2 : Real.log 2 ≠ 0 := (Real.log_pos (by norm_num)).ne'
+  have hDelta' : Real.log 2 * 8 - Real.log 3 * 5 ≠ 0 := by
+    intro h; apply delta_log256_243_ne_zero; linarith
+  have hDelta3 : Real.log 2 * 24 - Real.log 3 * 15 ≠ 0 := by
+    intro h; apply delta_log256_243_ne_zero; linarith
+  have h4log : Real.log (4 : ℝ) = 2 * Real.log 2 := by
+    rw [show (4 : ℝ) = (2 : ℝ) ^ (2 : ℕ) by norm_num, Real.log_pow]; norm_num
+  unfold phiCotEffective
+  rw [hIcc]
+  simp only [Finset.mem_insert, Finset.mem_singleton, OfNat.one_ne_ofNat, Nat.reduceEqDiff,
+    or_self, not_false_eq_true, Finset.sum_insert, Finset.sum_singleton]
+  unfold w_rank4_mode_defect w_rank4_corrector
+  norm_num only [Real.log_one]
+  simp only [ite_true, ite_false]
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · ring
+  · field_simp [hL2]; ring
+  · field_simp [hL2, hDelta', hDelta3]; ring
+  · rw [h4log]; field_simp [hL2]; ring
+
+/-- Pure tail reduction of the 1D `phiCotBase` pairing of `clayRank4Hom u N` (`N ≥ 4`):
+since `phiCotEffective G_cot m = 0` for `m ∈ {1, 2, 3, 4}`, the full pairing collapses identically
+to `∑ m ∈ Finset.Icc 5 N, u m * phiCotEffective G_cot m`. -/
+theorem sum_clayRank4Hom_mul_phiCotBase_eq_tail_phiCotEffective
+    (G_cot : ℕ → ℕ → ℝ) (u : ℕ → ℝ) (N : ℕ) (hN : 4 ≤ N) :
+    (∑ k ∈ Finset.Icc 1 N, clayRank4Hom u N k * phiCotBase G_cot k) =
+      ∑ m ∈ Finset.Icc 5 N, u m * phiCotEffective G_cot m := by
+  rw [sum_clayRank4Hom_mul_phiCotBase_eq_sum_phiCotEffective G_cot u N hN]
+  have h_union : Finset.Icc 1 N = Finset.Icc 1 4 ∪ Finset.Icc 5 N := by
+    ext m
+    simp only [Finset.mem_union, Finset.mem_Icc]
+    omega
+  have h_disj : Disjoint (Finset.Icc 1 4) (Finset.Icc 5 N) := by
+    rw [Finset.disjoint_left]
+    intro m hm1 hm2
+    rw [Finset.mem_Icc] at hm1 hm2
+    omega
+  rcases phiCotEffective_eq_zero_of_le_four G_cot with ⟨h1, h2, h3, h4⟩
+  have h_anchor : (∑ m ∈ Finset.Icc 1 4, u m * phiCotEffective G_cot m) = 0 := by
+    have hIcc : Finset.Icc 1 4 = ({1, 2, 3, 4} : Finset ℕ) := by decide
+    rw [hIcc]
+    simp only [Finset.mem_insert, Finset.mem_singleton, OfNat.one_ne_ofNat, Nat.reduceEqDiff,
+      or_self, not_false_eq_true, Finset.sum_insert, Finset.sum_singleton,
+      h1, h2, h3, h4, mul_zero, add_zero]
+  rw [h_union, Finset.sum_union h_disj, h_anchor, zero_add]
+
+/-- Pure tail Riesz-effective Rayleigh quotient identity for all `N ≥ 4`. -/
+theorem phiCotUnconstrainedRayQuotient_eq_tail_phiCotEffective
+    (G_cot : ℕ → ℕ → ℝ) (u : ℕ → ℝ) (N : ℕ) (hN : 4 ≤ N) :
+    phiCotUnconstrainedRayQuotient G_cot u N =
+      (∑ m ∈ Finset.Icc 5 N, u m * phiCotEffective G_cot m) ^ 2 /
+        Q_cot_quad G_cot (clayRank4Hom u N) N := by
+  unfold phiCotUnconstrainedRayQuotient phiCotRayQuotient
+  rw [sum_clayRank4Hom_mul_phiCotBase_eq_tail_phiCotEffective G_cot u N hN]
+
 end BoundaryFunctionals
 
 section Rank4AndL2Calculus
