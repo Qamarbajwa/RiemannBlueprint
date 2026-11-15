@@ -289,6 +289,12 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check RiemannBlueprint.Section8_VasyuninBDR.ramanujanC4_add_ramanujanC2_add_one
 #check RiemannBlueprint.Section8_VasyuninBDR.ramanujanC4_eq_neg_one_sub_ramanujanC2_of_not_four_dvd
 #check RiemannBlueprint.Section8_VasyuninBDR.ramanujanC4_eq_neg_one_sub_ramanujanC2_of_squarefree
+#check RiemannBlueprint.Section8_VasyuninBDR.ramanujanC3
+#check RiemannBlueprint.Section8_VasyuninBDR.ramanujanC9
+#check RiemannBlueprint.Section8_VasyuninBDR.ramanujanC3_add_one
+#check RiemannBlueprint.Section8_VasyuninBDR.ramanujanC9_add_ramanujanC3_add_one
+#check RiemannBlueprint.Section8_VasyuninBDR.ramanujanC9_eq_neg_one_sub_ramanujanC3_of_not_nine_dvd
+#check RiemannBlueprint.Section8_VasyuninBDR.ramanujanC9_eq_neg_one_sub_ramanujanC3_of_squarefree
 
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
 #print axioms RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic
@@ -485,3 +491,7 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.ramanujanC4_add_ramanujanC2_add_one
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.ramanujanC4_eq_neg_one_sub_ramanujanC2_of_not_four_dvd
 #print axioms RiemannBlueprint.Section8_VasyuninBDR.ramanujanC4_eq_neg_one_sub_ramanujanC2_of_squarefree
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.ramanujanC3_add_one
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.ramanujanC9_add_ramanujanC3_add_one
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.ramanujanC9_eq_neg_one_sub_ramanujanC3_of_not_nine_dvd
+#print axioms RiemannBlueprint.Section8_VasyuninBDR.ramanujanC9_eq_neg_one_sub_ramanujanC3_of_squarefree

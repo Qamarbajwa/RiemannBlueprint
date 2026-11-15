@@ -192,6 +192,20 @@ theorem ramanujanC4_eq_neg_one_sub_ramanujanC2_of_squarefree (k : ℕ) (hsq : Sq
       -1 - RiemannBlueprint.Section8_VasyuninBDR.ramanujanC2 k :=
   RiemannBlueprint.Section8_VasyuninBDR.ramanujanC4_eq_neg_one_sub_ramanujanC2_of_squarefree k hsq
 
+/-- **C12. Ramanujan Mod-3 / Mod-9 Syzygy:** `c₉(k) + c₃(k) + 1 = 9 · 1_{9 ∣ k}` for every `k : ℕ`. -/
+theorem ramanujanC9_add_ramanujanC3_add_one (k : ℕ) :
+    RiemannBlueprint.Section8_VasyuninBDR.ramanujanC9 k +
+      RiemannBlueprint.Section8_VasyuninBDR.ramanujanC3 k + 1 =
+      if k % 9 = 0 then 9 else 0 :=
+  RiemannBlueprint.Section8_VasyuninBDR.ramanujanC9_add_ramanujanC3_add_one k
+
+/-- **C13. Squarefree Ramanujan Mod-9 Linear Dependence:** for every squarefree `k`,
+`c₉(k) = -1 - c₃(k)`. -/
+theorem ramanujanC9_eq_neg_one_sub_ramanujanC3_of_squarefree (k : ℕ) (hsq : Squarefree k) :
+    RiemannBlueprint.Section8_VasyuninBDR.ramanujanC9 k =
+      -1 - RiemannBlueprint.Section8_VasyuninBDR.ramanujanC3 k :=
+  RiemannBlueprint.Section8_VasyuninBDR.ramanujanC9_eq_neg_one_sub_ramanujanC3_of_squarefree k hsq
+
 end PR_C_TotientCollapseEnergy
 
 /-! ## PR-D: Nyman–Beurling / Rank-4 BDR / Right-Triangle & Dedekind Reciprocity Closure (`Analysis.InnerProductSpace` / `NumberTheory.NymanBeurling`) -/
@@ -787,7 +801,7 @@ theorem RiemannHypothesis.of_track3_dedekind_reciprocity_closure
 
 end PR_D_NymanBeurlingBDRClosure
 
--- Kernel Axiom Audits (49 theorems; strictly [propext, Classical.choice, Quot.sound])
+-- Kernel Axiom Audits (51 theorems; strictly [propext, Classical.choice, Quot.sound])
 #print axioms riemannZeta_eq_tsum_harmonicUnitSummand
 #print axioms riemannZeta_conj_of_pos_re
 #print axioms im_ne_zero_of_inCriticalStrip_zeta_zero
@@ -808,6 +822,8 @@ end PR_D_NymanBeurlingBDRClosure
 #print axioms totientDefect1_twin_prime_semiprime
 #print axioms ramanujanC4_add_ramanujanC2_add_one
 #print axioms ramanujanC4_eq_neg_one_sub_ramanujanC2_of_squarefree
+#print axioms ramanujanC9_add_ramanujanC3_add_one
+#print axioms ramanujanC9_eq_neg_one_sub_ramanujanC3_of_squarefree
 #print axioms nymanBeurling_spatial_cauchy_floor
 #print axioms baezDuarte_unconstrained_spatial_floor
 #print axioms RiemannHypothesis.of_nymanBeurling_approx

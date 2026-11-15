@@ -2376,6 +2376,47 @@ theorem ramanujanC4_eq_neg_one_sub_ramanujanC2_of_squarefree (k : ℕ) (hsq : Sq
     exact absurd (Nat.isUnit_iff.mp hunit) (by decide)
   exact ramanujanC4_eq_neg_one_sub_ramanujanC2_of_not_four_dvd k hk4
 
+/-- Explicit period-3 Ramanujan sum `c₃(k)`: equals `2` if `3 ∣ k` and `-1` otherwise. -/
+def ramanujanC3 (k : ℕ) : ℤ :=
+  if k % 3 = 0 then 2 else -1
+
+/-- Explicit period-9 Ramanujan sum `c₉(k)`: equals `6` if `9 ∣ k`, `-3` if `k ≡ 3, 6 (mod 9)`,
+and `0` if `3 ∤ k`. -/
+def ramanujanC9 (k : ℕ) : ℤ :=
+  if k % 9 = 0 then 6 else if k % 3 = 0 then -3 else 0
+
+/-- **Ramanujan Mod-3 Shifting Identity:** `c₃(k) + 1 = 3 · 1_{3 ∣ k}` for every `k : ℕ`. -/
+theorem ramanujanC3_add_one (k : ℕ) :
+    ramanujanC3 k + 1 = if k % 3 = 0 then 3 else 0 := by
+  unfold ramanujanC3
+  split_ifs <;> omega
+
+/-- **Ramanujan Mod-3 / Mod-9 Syzygy:** `c₉(k) + c₃(k) + 1 = 9 · 1_{9 ∣ k}` for every `k : ℕ`. -/
+theorem ramanujanC9_add_ramanujanC3_add_one (k : ℕ) :
+    ramanujanC9 k + ramanujanC3 k + 1 = if k % 9 = 0 then 9 else 0 := by
+  unfold ramanujanC9 ramanujanC3
+  split_ifs <;> omega
+
+/-- **Off-9-Divisibility Linear Dependence (`¬ 9 ∣ k`):** whenever `9 ∤ k`, `c₉(k) = -1 - c₃(k)`. -/
+theorem ramanujanC9_eq_neg_one_sub_ramanujanC3_of_not_nine_dvd (k : ℕ) (hk : ¬ (9 ∣ k)) :
+    ramanujanC9 k = -1 - ramanujanC3 k := by
+  have hmod : k % 9 ≠ 0 := fun h => hk (Nat.dvd_of_mod_eq_zero h)
+  have hsyz := ramanujanC9_add_ramanujanC3_add_one k
+  rw [if_neg hmod] at hsyz
+  omega
+
+/-- **Squarefree Mod-9 Syzygy Reduction (`Squarefree k ⇒ c₉(k) = -1 - c₃(k)`):**
+for every squarefree `k`, `3 * 3 ∤ k`, so `c₉(k)` is linearly redundant on squarefree templates,
+while unlocking an orthogonal non-squarefree 3-adic mode starting at `k = 9 = 3²`. -/
+theorem ramanujanC9_eq_neg_one_sub_ramanujanC3_of_squarefree (k : ℕ) (hsq : Squarefree k) :
+    ramanujanC9 k = -1 - ramanujanC3 k := by
+  have hk9 : ¬ (9 ∣ k) := by
+    intro h9
+    have h33 : 3 * 3 ∣ k := by simpa using h9
+    have hunit : IsUnit (3 : ℕ) := hsq 3 h33
+    exact absurd (Nat.isUnit_iff.mp hunit) (by decide)
+  exact ramanujanC9_eq_neg_one_sub_ramanujanC3_of_not_nine_dvd k hk9
+
 end RamanujanMod2Mod4Syzygy
 
 end RiemannBlueprint.Section8_VasyuninBDR
