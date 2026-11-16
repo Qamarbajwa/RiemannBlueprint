@@ -5,6 +5,7 @@ import RiemannBlueprint.MathlibPR_NymanBeurling
 import RiemannBlueprint.MathlibPR_ZetaLogDeriv
 import RiemannBlueprint.MathlibPR_NymanBeurlingConverse
 import RiemannBlueprint.MathlibPR_CriticalLineZeros
+import RiemannBlueprint.MathlibPR_ZeroFreeRegion
 import RiemannBlueprint.MathlibPR_VasyuninIntegral
 import RiemannBlueprint.VerifyNoTraps
 
@@ -383,6 +384,13 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check deLaValleePoussin_trig_nonneg
 #check sum_deLaValleePoussin_nonneg
 
+#check norm_riemannZeta_product_ge_one
+#check riemannZeta_norm_cubed_fourth_mul_ge_one
+#check riemannZeta_one_add_eq
+#check valleePoussin_cubic_opt_identity
+#check deLaValleePoussin_zero_repulsion
+#check riemannZeta_ne_zero_of_one_le_re_strip
+
 #check recipFractScaled_eq_one_div_of_mem_Ioo
 #check recipFractScaled_eq_one_div_of_mem_uIoc
 #check intervalIntegral_linear_dilation
@@ -667,6 +675,13 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms deLaValleePoussin_trig_eq
 #print axioms deLaValleePoussin_trig_nonneg
 #print axioms sum_deLaValleePoussin_nonneg
+
+#print axioms norm_riemannZeta_product_ge_one
+#print axioms riemannZeta_norm_cubed_fourth_mul_ge_one
+#print axioms riemannZeta_one_add_eq
+#print axioms valleePoussin_cubic_opt_identity
+#print axioms deLaValleePoussin_zero_repulsion
+#print axioms riemannZeta_ne_zero_of_one_le_re_strip
 
 #print axioms recipFractScaled_eq_one_div_of_mem_Ioo
 #print axioms recipFractScaled_eq_one_div_of_mem_uIoc
