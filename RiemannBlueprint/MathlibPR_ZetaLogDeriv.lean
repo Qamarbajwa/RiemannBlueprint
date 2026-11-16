@@ -13,7 +13,7 @@ public import RiemannBlueprint.MathlibPR_LittlewoodMertens
 public import RiemannBlueprint.MathlibPR_LittlewoodConverse
 
 /-!
-# Logarithmic Derivative and Speiser Simple-Zero Disjointness
+# Logarithmic Derivative and Inverse Zeta Holomorphy
 
 This file formalizes the holomorphic regularity of the logarithmic derivative
 `s ↦ ζ'(s) / ζ(s)` and the disjointness of non-trivial zeros off the critical line

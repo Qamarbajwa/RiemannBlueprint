@@ -2,7 +2,7 @@ import RiemannBlueprint
 import RiemannBlueprint.MathlibPR_LittlewoodMertens
 import RiemannBlueprint.MathlibPR_LittlewoodConverse
 import RiemannBlueprint.MathlibPR_NymanBeurling
-import RiemannBlueprint.MathlibPR_SpeiserLogDeriv
+import RiemannBlueprint.MathlibPR_ZetaLogDeriv
 import RiemannBlueprint.MathlibPR_NymanBeurlingConverse
 import RiemannBlueprint.MathlibPR_CriticalLineZeros
 import RiemannBlueprint.MathlibPR_VasyuninIntegral
