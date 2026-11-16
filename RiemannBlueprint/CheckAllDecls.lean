@@ -9,6 +9,7 @@ import RiemannBlueprint.MathlibPR_ZeroFreeRegion
 import RiemannBlueprint.MathlibPR_HardyZeros
 import RiemannBlueprint.MathlibPR_VasyuninIntegral
 import RiemannBlueprint.MathlibPR_VasyuninCrossIntegral
+import RiemannBlueprint.MathlibPR_ForwardCandidate
 import RiemannBlueprint.VerifyNoTraps
 
 /-!
@@ -431,6 +432,12 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check affine_l2_dist_eq_one_sub_scot
 #check nymanBeurling_approx_iff_scot_gt
 #check riemannHypothesis_of_cotangent_limit
+#check MathlibPR.ForwardCandidate.projectAffine_D1
+#check MathlibPR.ForwardCandidate.projectAffine_D0
+#check MathlibPR.ForwardCandidate.projectAffine_mem_A_N
+#check MathlibPR.ForwardCandidate.projectAffine_l2_dist_eq_one_sub_scot
+#check MathlibPR.ForwardCandidate.cCandidateMobius_mem_A_N
+#check MathlibPR.ForwardCandidate.riemannHypothesis_of_cCandidateMobius_limit
 
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
 #print axioms RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic
@@ -747,3 +754,9 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms affine_l2_dist_eq_one_sub_scot
 #print axioms nymanBeurling_approx_iff_scot_gt
 #print axioms riemannHypothesis_of_cotangent_limit
+#print axioms MathlibPR.ForwardCandidate.projectAffine_D1
+#print axioms MathlibPR.ForwardCandidate.projectAffine_D0
+#print axioms MathlibPR.ForwardCandidate.projectAffine_mem_A_N
+#print axioms MathlibPR.ForwardCandidate.projectAffine_l2_dist_eq_one_sub_scot
+#print axioms MathlibPR.ForwardCandidate.cCandidateMobius_mem_A_N
+#print axioms MathlibPR.ForwardCandidate.riemannHypothesis_of_cCandidateMobius_limit
