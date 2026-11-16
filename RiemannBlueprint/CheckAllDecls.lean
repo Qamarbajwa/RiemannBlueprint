@@ -453,6 +453,9 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check MathlibPR.ForwardCandidate.cCandidateSelberg_l2_dist_sq_decomposition
 #check MathlibPR.ForwardCandidate.riemannHypothesis_of_cCandidateSelberg_limit
 #check MathlibPR.ForwardCandidate.riemannHypothesis_of_cCandidateSelberg_l2_dist
+#check MathlibPR.ForwardCandidate.riemannHypothesis_of_log_decay_bound
+#check MathlibPR.ForwardCandidate.riemannHypothesis_of_cCandidateMobius_log_decay
+#check MathlibPR.ForwardCandidate.riemannHypothesis_of_cCandidateSelberg_log_decay
 
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
 #print axioms RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic
@@ -790,3 +793,6 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms MathlibPR.ForwardCandidate.cCandidateSelberg_l2_dist_sq_decomposition
 #print axioms MathlibPR.ForwardCandidate.riemannHypothesis_of_cCandidateSelberg_limit
 #print axioms MathlibPR.ForwardCandidate.riemannHypothesis_of_cCandidateSelberg_l2_dist
+#print axioms MathlibPR.ForwardCandidate.riemannHypothesis_of_log_decay_bound
+#print axioms MathlibPR.ForwardCandidate.riemannHypothesis_of_cCandidateMobius_log_decay
+#print axioms MathlibPR.ForwardCandidate.riemannHypothesis_of_cCandidateSelberg_log_decay

@@ -7,6 +7,7 @@ import Mathlib.Algebra.BigOperators.Intervals
 import Mathlib.Tactic.Ring
 import Mathlib.Tactic.Linarith
 import Mathlib.Tactic.FieldSimp
+import Mathlib.Analysis.SpecialFunctions.Exp
 import RiemannBlueprint.Section8_VasyuninBDR
 import RiemannBlueprint.MathlibPR_VasyuninCrossIntegral
 
@@ -379,5 +380,73 @@ theorem riemannHypothesis_of_cCandidateSelberg_l2_dist (h_dist : ∀ ε > 0, ∃
   intro ε hε
   rcases h_dist ε hε with ⟨N, hΔ, hdist⟩
   refine ⟨N, cCandidateSelberg N, (cCandidateSelberg_mem_A_N N hΔ).1, hdist⟩
+
+/-- Asymptotic Sandwich Theorem: If a constructive candidate sequence on A_N
+  satisfies a logarithmic upper bound D_N^2 ≤ C / ln N for some constant C > 0,
+  then the Riemann Hypothesis holds. -/
+theorem riemannHypothesis_of_log_decay_bound
+    (c : ℕ → ℕ → ℝ)
+    (h_A_N : ∀ N ≥ 2, D1 (c N) N = 0)
+    (h_dist_bound : ∃ C > 0, ∀ N ≥ 2,
+      (∫ x in (0 : ℝ)..1, (1 - ∑ k ∈ Finset.Icc 1 N, c N k * recipFractScaled k x) ^ 2) ≤
+        C / Real.log (N : ℝ))
+    (h_nb : (∀ ε > 0, ∃ N c, D1 c N = 0 ∧
+      (∫ x in (0 : ℝ)..1, (1 - ∑ k ∈ Finset.Icc 1 N, c k * recipFractScaled k x) ^ 2) < ε) →
+      RiemannHypothesis) :
+    RiemannHypothesis := by
+  apply h_nb
+  intro ε hε
+  rcases h_dist_bound with ⟨C, hC, hbound⟩
+  have h_ratio_pos : 0 < C / ε := div_pos hC hε
+  have h_exp_pos : 0 < Real.exp (C / ε) := Real.exp_pos (C / ε)
+  obtain ⟨M, hM⟩ := exists_nat_gt (Real.exp (C / ε) + 2)
+  have hM_gt_exp : Real.exp (C / ε) < (M : ℝ) := by linarith
+  have hM_ge_2 : 2 ≤ M := by
+    exact_mod_cast (by linarith [h_exp_pos] : (1 : ℝ) < (M : ℝ))
+  have h_log_gt : C / ε < Real.log (M : ℝ) := by
+    rw [← Real.log_exp (C / ε)]
+    exact Real.log_lt_log h_exp_pos hM_gt_exp
+  have h_log_pos : 0 < Real.log (M : ℝ) := by
+    calc 0 < C / ε := h_ratio_pos
+      _ < Real.log (M : ℝ) := h_log_gt
+  have h_div_lt : C / Real.log (M : ℝ) < ε := by
+    rw [div_lt_iff₀ h_log_pos]
+    have : C < Real.log (M : ℝ) * ε := by
+      rw [← div_lt_iff₀ hε]
+      exact h_log_gt
+    linarith
+  have h_dist_M := hbound M hM_ge_2
+  have h_dist_lt : (∫ x in (0 : ℝ)..1,
+      (1 - ∑ k ∈ Finset.Icc 1 M, c M k * recipFractScaled k x) ^ 2) < ε :=
+    lt_of_le_of_lt h_dist_M h_div_lt
+  exact ⟨M, c M, h_A_N M hM_ge_2, h_dist_lt⟩
+
+/-- Logarithmic Decay Sandwich Theorem for mollified Möbius sequence. -/
+theorem riemannHypothesis_of_cCandidateMobius_log_decay
+    (hΔ : ∀ N ≥ 2, DeltaDet N ≠ 0)
+    (h_dist_bound : ∃ C > 0, ∀ N ≥ 2,
+      (∫ x in (0 : ℝ)..1, (1 - ∑ k ∈ Finset.Icc 1 N,
+        cCandidateMobius N k * recipFractScaled k x) ^ 2) ≤
+        C / Real.log (N : ℝ))
+    (h_nb : (∀ ε > 0, ∃ N c, D1 c N = 0 ∧
+      (∫ x in (0 : ℝ)..1, (1 - ∑ k ∈ Finset.Icc 1 N, c k * recipFractScaled k x) ^ 2) < ε) →
+      RiemannHypothesis) :
+    RiemannHypothesis :=
+  riemannHypothesis_of_log_decay_bound (fun N => cCandidateMobius N)
+    (fun N hN => (cCandidateMobius_mem_A_N N (hΔ N hN)).1) h_dist_bound h_nb
+
+/-- Logarithmic Decay Sandwich Theorem for Selberg sieve candidate sequence. -/
+theorem riemannHypothesis_of_cCandidateSelberg_log_decay
+    (hΔ : ∀ N ≥ 2, DeltaDet N ≠ 0)
+    (h_dist_bound : ∃ C > 0, ∀ N ≥ 2,
+      (∫ x in (0 : ℝ)..1, (1 - ∑ k ∈ Finset.Icc 1 N,
+        cCandidateSelberg N k * recipFractScaled k x) ^ 2) ≤
+        C / Real.log (N : ℝ))
+    (h_nb : (∀ ε > 0, ∃ N c, D1 c N = 0 ∧
+      (∫ x in (0 : ℝ)..1, (1 - ∑ k ∈ Finset.Icc 1 N, c k * recipFractScaled k x) ^ 2) < ε) →
+      RiemannHypothesis) :
+    RiemannHypothesis :=
+  riemannHypothesis_of_log_decay_bound (fun N => cCandidateSelberg N)
+    (fun N hN => (cCandidateSelberg_mem_A_N N (hΔ N hN)).1) h_dist_bound h_nb
 
 end MathlibPR.ForwardCandidate
