@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Qamar Munawer
 -/
 import RiemannBlueprint.MathlibPR_LittlewoodMertens
-import RiemannBlueprint.MathlibPR_ZetaInvGrowth
+import RiemannBlueprint.MathlibPR_ZetaInvSubpolynomial
 import RiemannBlueprint.MathlibPR_LittlewoodConverse
 import RiemannBlueprint.MathlibPR_NymanBeurling
 

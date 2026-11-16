@@ -17,13 +17,13 @@ public import Mathlib.NumberTheory.LSeries.Nonvanishing
 public import Mathlib.NumberTheory.LSeries.RiemannZeta
 public import Mathlib.NumberTheory.LSeries.SumCoeff
 public import RiemannBlueprint.MathlibPR_LittlewoodMertens
-public import RiemannBlueprint.MathlibPR_ZetaInvGrowth
+public import RiemannBlueprint.MathlibPR_ZetaInvSubpolynomial
 
 /-!
 # Littlewood's (1912) Converse & Unconditional Mellin–Mertens Equivalence
 
 This file formalizes Stages 4–5 of Littlewood's (1912) converse theorem:
-using the conditional reciprocal zeta bound from MathlibPR_ZetaInvGrowth
+using the conditional reciprocal zeta bound from MathlibPR_ZetaInvSubpolynomial
 and the trapezoidal Mellin inversion formula, we establish that RiemannHypothesis
 implies the pointwise asymptotic Mertens bound M(x) = O(x ^ (1 / 2 + ε)).
 Combining this with Littlewood's forward theorem (RiemannHypothesis.of_mertens_isBigO
