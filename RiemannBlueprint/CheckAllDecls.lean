@@ -4,6 +4,8 @@ import RiemannBlueprint.MathlibPR_LittlewoodConverse
 import RiemannBlueprint.MathlibPR_NymanBeurling
 import RiemannBlueprint.MathlibPR_SpeiserLogDeriv
 import RiemannBlueprint.MathlibPR_NymanBeurlingConverse
+import RiemannBlueprint.MathlibPR_CriticalLineZeros
+import RiemannBlueprint.MathlibPR_VasyuninIntegral
 import RiemannBlueprint.VerifyNoTraps
 
 /-!
@@ -372,6 +374,26 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check riemannZeta_Or_deriv_ne_zero_of_riemannHypothesis
 #check riemannHypothesis_iff_analyticAt_inv_riemannZeta
 
+#check criticalLine
+#check criticalLine_re
+#check one_sub_criticalLine
+#check completedRiemannZeta_criticalLine_neg
+#check exists_criticalLine_zero_of_sign_change
+#check deLaValleePoussin_trig_eq
+#check deLaValleePoussin_trig_nonneg
+#check sum_deLaValleePoussin_nonneg
+
+#check recipFractScaled_eq_one_div_of_mem_Ioo
+#check recipFractScaled_eq_one_div_of_mem_uIoc
+#check intervalIntegral_linear_dilation
+#check intervalIntegral_sq_dilation
+#check intervalIntegrable_recipFractScaled
+#check intervalIntegrable_sq_recipFractScaled
+#check intervalIntegral_recipFractScaled_inv_to_one
+#check intervalIntegral_sq_recipFractScaled_inv_to_one
+#check intervalIntegral_recipFractScaled_zero_to_one
+#check intervalIntegral_sq_recipFractScaled_zero_to_one
+
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
 #print axioms RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic
 #print axioms RiemannBlueprint.Section3_CompositeTaxonomy.arithmetic_classification_partition
@@ -637,3 +659,22 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms mellin_nymanDipole_unit_interval
 #print axioms two_var_jump_and_pole_eq_zero
 #print axioms mellin_nymanTripole_unit_interval
+
+#print axioms criticalLine_re
+#print axioms one_sub_criticalLine
+#print axioms completedRiemannZeta_criticalLine_neg
+#print axioms exists_criticalLine_zero_of_sign_change
+#print axioms deLaValleePoussin_trig_eq
+#print axioms deLaValleePoussin_trig_nonneg
+#print axioms sum_deLaValleePoussin_nonneg
+
+#print axioms recipFractScaled_eq_one_div_of_mem_Ioo
+#print axioms recipFractScaled_eq_one_div_of_mem_uIoc
+#print axioms intervalIntegral_linear_dilation
+#print axioms intervalIntegral_sq_dilation
+#print axioms intervalIntegrable_recipFractScaled
+#print axioms intervalIntegrable_sq_recipFractScaled
+#print axioms intervalIntegral_recipFractScaled_inv_to_one
+#print axioms intervalIntegral_sq_recipFractScaled_inv_to_one
+#print axioms intervalIntegral_recipFractScaled_zero_to_one
+#print axioms intervalIntegral_sq_recipFractScaled_zero_to_one

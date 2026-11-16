@@ -9,6 +9,8 @@ import RiemannBlueprint.MathlibPR_LittlewoodConverse
 import RiemannBlueprint.MathlibPR_NymanBeurling
 import RiemannBlueprint.MathlibPR_SpeiserLogDeriv
 import RiemannBlueprint.MathlibPR_NymanBeurlingConverse
+import RiemannBlueprint.MathlibPR_CriticalLineZeros
+import RiemannBlueprint.MathlibPR_VasyuninIntegral
 
 /-!
 # Anti-Trap, Anti-Circularity & Non-Vacuity Verification Suite
