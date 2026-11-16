@@ -383,6 +383,67 @@ theorem truncatedMoebiusDivisorSum_mul_primes_of_lt {N p q : ℕ} (hp : p.Prime)
     rfl
   linarith [h_split, h_full, h_tail]
 
+/-- For `n ≤ N`, filtering `n.divisors` by `· ≤ N` leaves all divisors of `n` intact,
+so any sequence `c : ℕ → ℤ` with `c 1 = 1` whose truncated divisor sums vanish for all
+`2 ≤ m ≤ N` satisfies the exact Möbius inversion identity `c n = μ(n)` for all `1 ≤ n ≤ N`. -/
+theorem eq_moebius_of_truncated_divisor_sum_eq_zero {N : ℕ} {c : ℕ → ℤ}
+    (hc1 : c 1 = 1)
+    (hcz : ∀ m, 2 ≤ m → m ≤ N → ∑ d ∈ m.divisors.filter (· ≤ N), c d = 0)
+    {n : ℕ} (hn1 : 1 ≤ n) (hnN : n ≤ N) :
+    c n = ArithmeticFunction.moebius n := by
+  revert hn1 hnN
+  refine Nat.strong_induction_on n fun k ih hk1 hkN => ?_
+  by_cases hk : k = 1
+  · subst hk
+    rw [hc1, ArithmeticFunction.moebius_apply_one]
+  · have hk2 : 2 ≤ k := by omega
+    have hdN : ∀ d ∈ k.divisors, d ≤ N :=
+      fun d hd => (Nat.le_of_dvd (by omega) (Nat.dvd_of_mem_divisors hd)).trans hkN
+    have hfilter : k.divisors.filter (· ≤ N) = k.divisors := by
+      ext d
+      simp only [Finset.mem_filter, and_iff_left_iff_imp]
+      exact hdN d
+    have hsum_c : ∑ d ∈ k.divisors, c d = 0 := by
+      have h0 := hcz k hk2 hkN
+      rwa [hfilter] at h0
+    have hk_mem : k ∈ k.divisors := Nat.mem_divisors.mpr ⟨dvd_rfl, by omega⟩
+    have hsplit_c : ∑ d ∈ k.divisors, c d = c k + ∑ d ∈ k.divisors.erase k, c d :=
+      (Finset.add_sum_erase k.divisors c hk_mem).symm
+    have hc_k : c k = - ∑ d ∈ k.divisors.erase k, c d := by
+      rw [hsplit_c] at hsum_c
+      calc c k = (c k + ∑ d ∈ k.divisors.erase k, c d) - ∑ d ∈ k.divisors.erase k, c d := by ring
+        _ = 0 - ∑ d ∈ k.divisors.erase k, c d := by rw [hsum_c]
+        _ = - ∑ d ∈ k.divisors.erase k, c d := by ring
+    have h_conv : (∑ d ∈ k.divisors, ArithmeticFunction.moebius d) =
+        (ArithmeticFunction.moebius * ArithmeticFunction.zeta : ArithmeticFunction ℤ) k := by
+      rw [ArithmeticFunction.coe_mul_zeta_apply]
+    have h_mu_zero : (∑ d ∈ k.divisors, ArithmeticFunction.moebius d) = 0 := by
+      rw [h_conv, ArithmeticFunction.moebius_mul_coe_zeta]
+      have : k ≠ 1 := by omega
+      simp [this]
+    have hsplit_mu : ∑ d ∈ k.divisors, ArithmeticFunction.moebius d =
+        ArithmeticFunction.moebius k + ∑ d ∈ k.divisors.erase k, ArithmeticFunction.moebius d :=
+      (Finset.add_sum_erase k.divisors ArithmeticFunction.moebius hk_mem).symm
+    have hmu_k : ArithmeticFunction.moebius k =
+        - ∑ d ∈ k.divisors.erase k, ArithmeticFunction.moebius d := by
+      rw [hsplit_mu] at h_mu_zero
+      calc ArithmeticFunction.moebius k =
+          (ArithmeticFunction.moebius k +
+            ∑ d ∈ k.divisors.erase k, ArithmeticFunction.moebius d) -
+            ∑ d ∈ k.divisors.erase k, ArithmeticFunction.moebius d := by ring
+        _ = 0 - ∑ d ∈ k.divisors.erase k, ArithmeticFunction.moebius d := by rw [h_mu_zero]
+        _ = - ∑ d ∈ k.divisors.erase k, ArithmeticFunction.moebius d := by ring
+    have h_erase_eq : ∑ d ∈ k.divisors.erase k, c d =
+        ∑ d ∈ k.divisors.erase k, ArithmeticFunction.moebius d := by
+      refine Finset.sum_congr rfl fun d hd => ?_
+      simp only [Finset.mem_erase, Nat.mem_divisors] at hd
+      rcases hd with ⟨hd_ne, hd_dvd, -⟩
+      have hd_pos : 1 ≤ d := Nat.pos_of_dvd_of_pos hd_dvd (by omega)
+      have hd_lt : d < k := Nat.lt_of_le_of_ne (Nat.le_of_dvd (by omega) hd_dvd) hd_ne
+      have hdN_le : d ≤ N := hd_lt.le.trans hkN
+      exact ih d hd_lt hd_pos hdN_le
+    rw [hc_k, h_erase_eq, ← hmu_k]
+
 /-- Bridge lemma: Local jump-zero cancellation on divisors forces the Dirichlet polynomial
 coefficients to match the Möbius arithmetic function up to the truncation boundary `N`. -/
 theorem truncated_dirichlet_inverse_bridge (N : ℕ) (c : ℕ → ℂ) (hc1 : c 1 = 1)

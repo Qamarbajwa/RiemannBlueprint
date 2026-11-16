@@ -45,6 +45,7 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum_prime_of_lt
 #check RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum_prime_pow_of_le
 #check RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum_mul_primes_of_lt
+#check RiemannBlueprint.Section3_CompositeTaxonomy.eq_moebius_of_truncated_divisor_sum_eq_zero
 #check RiemannBlueprint.Section3_CompositeTaxonomy.truncated_dirichlet_inverse_bridge
 #check RiemannBlueprint.Section3_CompositeTaxonomy.truncated_dirichlet_convolution_bridge
 
@@ -581,6 +582,7 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum_prime_of_lt
 #print axioms RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum_prime_pow_of_le
 #print axioms RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum_mul_primes_of_lt
+#print axioms RiemannBlueprint.Section3_CompositeTaxonomy.eq_moebius_of_truncated_divisor_sum_eq_zero
 #print axioms RiemannBlueprint.Section3_CompositeTaxonomy.truncated_dirichlet_inverse_bridge
 #print axioms RiemannBlueprint.Section3_CompositeTaxonomy.truncated_dirichlet_convolution_bridge
 
