@@ -511,6 +511,36 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check MathlibPR.MontgomeryVaughan.riemannHypothesis_of_cCandidateMobius_stages
 #check MathlibPR.MontgomeryVaughan.riemannHypothesis_of_cCandidateSelberg_stages
 
+#check MathlibPR.SelbergSieveBound.midFreqWindow
+#check MathlibPR.SelbergSieveBound.spectralWeight_mid_suppression
+#check MathlibPR.SelbergSieveBound.MidFrequencyBound
+#check MathlibPR.SelbergSieveBound.FullSpectralSystem
+#check MathlibPR.SelbergSieveBound.frequencyDecomposition_of_full_system
+#check MathlibPR.SelbergSieveBound.cCandidateMobius_frequencyDecomposition
+#check MathlibPR.SelbergSieveBound.cCandidateSelberg_frequencyDecomposition
+#check MathlibPR.SelbergSieveBound.riemannHypothesis_of_full_spectral_system
+#check MathlibPR.SelbergSieveBound.riemannHypothesis_of_cCandidateMobius_full_system
+#check MathlibPR.SelbergSieveBound.riemannHypothesis_of_cCandidateSelberg_full_system
+#check MathlibPR.SelbergSieveBound.variational_domination
+#check MathlibPR.SelbergSieveBound.cCandidateMobius_variational_domination
+#check MathlibPR.SelbergSieveBound.cCandidateSelberg_variational_domination
+
+#check MathlibPR.ForwardClosure.ForwardPillarSynthesis
+#check MathlibPR.ForwardClosure.forwardClosureConstant
+#check MathlibPR.ForwardClosure.forwardClosureConstant_pos
+#check MathlibPR.ForwardClosure.forward_closure_l2_dist_bound
+#check MathlibPR.ForwardClosure.forward_closure_sandwich
+#check MathlibPR.ForwardClosure.forward_closure_riemann_hypothesis
+#check MathlibPR.ForwardClosure.CandidateMobiusPillarSynthesis
+#check MathlibPR.ForwardClosure.cCandidateMobius_pillar_synthesis
+#check MathlibPR.ForwardClosure.cCandidateMobius_forward_closure_bound
+#check MathlibPR.ForwardClosure.cCandidateMobius_forward_closure_riemann_hypothesis
+#check MathlibPR.ForwardClosure.CandidateSelbergPillarSynthesis
+#check MathlibPR.ForwardClosure.cCandidateSelberg_pillar_synthesis
+#check MathlibPR.ForwardClosure.cCandidateSelberg_forward_closure_bound
+#check MathlibPR.ForwardClosure.cCandidateSelberg_forward_closure_riemann_hypothesis
+#check MathlibPR.ForwardClosure.variational_infimum_squeeze
+
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
 #print axioms RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic
 #print axioms RiemannBlueprint.Section3_CompositeTaxonomy.arithmetic_classification_partition
@@ -901,3 +931,33 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms MathlibPR.MontgomeryVaughan.cCandidateSelberg_low_frequency_upper_bound
 #print axioms MathlibPR.MontgomeryVaughan.riemannHypothesis_of_cCandidateMobius_stages
 #print axioms MathlibPR.MontgomeryVaughan.riemannHypothesis_of_cCandidateSelberg_stages
+
+#print axioms MathlibPR.SelbergSieveBound.midFreqWindow
+#print axioms MathlibPR.SelbergSieveBound.spectralWeight_mid_suppression
+#print axioms MathlibPR.SelbergSieveBound.MidFrequencyBound
+#print axioms MathlibPR.SelbergSieveBound.FullSpectralSystem
+#print axioms MathlibPR.SelbergSieveBound.frequencyDecomposition_of_full_system
+#print axioms MathlibPR.SelbergSieveBound.cCandidateMobius_frequencyDecomposition
+#print axioms MathlibPR.SelbergSieveBound.cCandidateSelberg_frequencyDecomposition
+#print axioms MathlibPR.SelbergSieveBound.riemannHypothesis_of_full_spectral_system
+#print axioms MathlibPR.SelbergSieveBound.riemannHypothesis_of_cCandidateMobius_full_system
+#print axioms MathlibPR.SelbergSieveBound.riemannHypothesis_of_cCandidateSelberg_full_system
+#print axioms MathlibPR.SelbergSieveBound.variational_domination
+#print axioms MathlibPR.SelbergSieveBound.cCandidateMobius_variational_domination
+#print axioms MathlibPR.SelbergSieveBound.cCandidateSelberg_variational_domination
+
+#print axioms MathlibPR.ForwardClosure.ForwardPillarSynthesis
+#print axioms MathlibPR.ForwardClosure.forwardClosureConstant
+#print axioms MathlibPR.ForwardClosure.forwardClosureConstant_pos
+#print axioms MathlibPR.ForwardClosure.forward_closure_l2_dist_bound
+#print axioms MathlibPR.ForwardClosure.forward_closure_sandwich
+#print axioms MathlibPR.ForwardClosure.forward_closure_riemann_hypothesis
+#print axioms MathlibPR.ForwardClosure.CandidateMobiusPillarSynthesis
+#print axioms MathlibPR.ForwardClosure.cCandidateMobius_pillar_synthesis
+#print axioms MathlibPR.ForwardClosure.cCandidateMobius_forward_closure_bound
+#print axioms MathlibPR.ForwardClosure.cCandidateMobius_forward_closure_riemann_hypothesis
+#print axioms MathlibPR.ForwardClosure.CandidateSelbergPillarSynthesis
+#print axioms MathlibPR.ForwardClosure.cCandidateSelberg_pillar_synthesis
+#print axioms MathlibPR.ForwardClosure.cCandidateSelberg_forward_closure_bound
+#print axioms MathlibPR.ForwardClosure.cCandidateSelberg_forward_closure_riemann_hypothesis
+#print axioms MathlibPR.ForwardClosure.variational_infimum_squeeze
