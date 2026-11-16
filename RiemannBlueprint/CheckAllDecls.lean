@@ -12,6 +12,7 @@ import RiemannBlueprint.MathlibPR_VasyuninCrossIntegral
 import RiemannBlueprint.MathlibPR_ForwardCandidate
 import RiemannBlueprint.MathlibPR_LinearMomentLimit
 import RiemannBlueprint.MathlibPR_SpectralTailBound
+import RiemannBlueprint.MathlibPR_MontgomeryVaughan
 import RiemannBlueprint.VerifyNoTraps
 
 /-!
@@ -491,6 +492,24 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check MathlibPR.SpectralTailBound.riemannHypothesis_of_cCandidateMobius_pillars_I_and_II
 #check MathlibPR.SpectralTailBound.cCandidateSelberg_quadraticCrossTerm_bound
 #check MathlibPR.SpectralTailBound.riemannHypothesis_of_cCandidateSelberg_pillars_I_and_II
+#check MathlibPR.MontgomeryVaughan.lowFreqWindow
+#check MathlibPR.MontgomeryVaughan.lowFreqWindow_pos
+#check MathlibPR.MontgomeryVaughan.lowFreqWindow_nonneg
+#check MathlibPR.MontgomeryVaughan.mvDiagonalSum
+#check MathlibPR.MontgomeryVaughan.mvDiagonalSum_nonneg
+#check MathlibPR.MontgomeryVaughan.mvOffDiagBound
+#check MathlibPR.MontgomeryVaughan.mvOffDiagBound_nonneg
+#check MathlibPR.MontgomeryVaughan.LowFrequencyBound
+#check MathlibPR.MontgomeryVaughan.inv_log_sq_le_inv_log
+#check MathlibPR.MontgomeryVaughan.div_log_sq_le_div_log
+#check MathlibPR.MontgomeryVaughan.low_frequency_upper_bound
+#check MathlibPR.MontgomeryVaughan.low_mid_frequency_bound_of_components
+#check MathlibPR.MontgomeryVaughan.frequencyDecomposition_of_stages
+#check MathlibPR.MontgomeryVaughan.riemannHypothesis_of_low_mid_high_stages
+#check MathlibPR.MontgomeryVaughan.cCandidateMobius_low_frequency_upper_bound
+#check MathlibPR.MontgomeryVaughan.cCandidateSelberg_low_frequency_upper_bound
+#check MathlibPR.MontgomeryVaughan.riemannHypothesis_of_cCandidateMobius_stages
+#check MathlibPR.MontgomeryVaughan.riemannHypothesis_of_cCandidateSelberg_stages
 
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
 #print axioms RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic
@@ -864,3 +883,21 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms MathlibPR.SpectralTailBound.riemannHypothesis_of_cCandidateMobius_pillars_I_and_II
 #print axioms MathlibPR.SpectralTailBound.cCandidateSelberg_quadraticCrossTerm_bound
 #print axioms MathlibPR.SpectralTailBound.riemannHypothesis_of_cCandidateSelberg_pillars_I_and_II
+#print axioms MathlibPR.MontgomeryVaughan.lowFreqWindow
+#print axioms MathlibPR.MontgomeryVaughan.lowFreqWindow_pos
+#print axioms MathlibPR.MontgomeryVaughan.lowFreqWindow_nonneg
+#print axioms MathlibPR.MontgomeryVaughan.mvDiagonalSum
+#print axioms MathlibPR.MontgomeryVaughan.mvDiagonalSum_nonneg
+#print axioms MathlibPR.MontgomeryVaughan.mvOffDiagBound
+#print axioms MathlibPR.MontgomeryVaughan.mvOffDiagBound_nonneg
+#print axioms MathlibPR.MontgomeryVaughan.LowFrequencyBound
+#print axioms MathlibPR.MontgomeryVaughan.inv_log_sq_le_inv_log
+#print axioms MathlibPR.MontgomeryVaughan.div_log_sq_le_div_log
+#print axioms MathlibPR.MontgomeryVaughan.low_frequency_upper_bound
+#print axioms MathlibPR.MontgomeryVaughan.low_mid_frequency_bound_of_components
+#print axioms MathlibPR.MontgomeryVaughan.frequencyDecomposition_of_stages
+#print axioms MathlibPR.MontgomeryVaughan.riemannHypothesis_of_low_mid_high_stages
+#print axioms MathlibPR.MontgomeryVaughan.cCandidateMobius_low_frequency_upper_bound
+#print axioms MathlibPR.MontgomeryVaughan.cCandidateSelberg_low_frequency_upper_bound
+#print axioms MathlibPR.MontgomeryVaughan.riemannHypothesis_of_cCandidateMobius_stages
+#print axioms MathlibPR.MontgomeryVaughan.riemannHypothesis_of_cCandidateSelberg_stages
