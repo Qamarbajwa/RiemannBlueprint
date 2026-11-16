@@ -59,6 +59,54 @@ theorem riemannZeta_one_add_eq {x : ℝ} (hx : x ≠ 0) :
   rw [hsub] at this
   exact this
 
+/-- Quantitative pole bound from the entire regular part:
+For `0 < x ≤ 1`, if `‖riemannZeta₀ (1 + x)‖ ≤ M` with `0 ≤ M`, then
+`‖ζ(1 + x)‖ ≤ (1 + M) / x`.
+This constructively discharges the local pole hypothesis with `C_pole = 1 + M`. -/
+theorem norm_riemannZeta_one_add_le (x : ℝ) (hx_pos : 0 < x) (hx_le : x ≤ 1) (M : ℝ)
+    (hM_pos : 0 ≤ M) (hM : ‖riemannZeta₀ (1 + (x : ℂ))‖ ≤ M) :
+    ‖riemannZeta (1 + (x : ℂ))‖ ≤ (1 + M) / x := by
+  have hne : (x : ℂ) ≠ 0 := by exact_mod_cast ne_of_gt hx_pos
+  have hne1 : 1 + (x : ℂ) ≠ 1 := by
+    intro h
+    have : (x : ℂ) = 0 := by linear_combination h
+    exact hne this
+  have h_eq := riemannZeta_eq_inv_sub_add hne1
+  have hsub : 1 + (x : ℂ) - 1 = (x : ℂ) := by ring
+  rw [hsub] at h_eq
+  have h_tri := norm_add_le (x : ℂ)⁻¹ (riemannZeta₀ (1 + (x : ℂ)))
+  have h_inv : ‖(x : ℂ)⁻¹‖ = 1 / x := by
+    rw [norm_inv, norm_real, Real.norm_of_nonneg (le_of_lt hx_pos), one_div]
+  rw [h_inv] at h_tri
+  have h_tri' : ‖riemannZeta (1 + (x : ℂ))‖ ≤ 1 / x + ‖riemannZeta₀ (1 + (x : ℂ))‖ := by
+    rw [h_eq]
+    exact h_tri
+  have h_le : 1 / x + ‖riemannZeta₀ (1 + (x : ℂ))‖ ≤ 1 / x + M := by linarith
+  have h_comb : ‖riemannZeta (1 + (x : ℂ))‖ ≤ 1 / x + M := le_trans h_tri' h_le
+  have hx_ne : x ≠ 0 := ne_of_gt hx_pos
+  have heq : 1 / x + M ≤ (1 + M) / x := by
+    have h1 : 1 / x + M = (1 + M * x) / x := by
+      field_simp
+    rw [h1]
+    have h_num : 1 + M * x ≤ 1 + M := by nlinarith
+    exact div_le_div_of_nonneg_right h_num (le_of_lt hx_pos)
+  exact le_trans h_comb heq
+
+/-- Bounded pole upper bound from the entire regular part at `x = 3 * δ`:
+for `0 < 3 * δ ≤ 1`, if `‖riemannZeta₀ (1 + (3 * δ : ℂ))‖ ≤ M` with `0 ≤ M`, then
+`‖riemannZeta (1 + (3 * δ : ℂ))‖ ≤ (1 + M) / (3 * δ)`. -/
+theorem norm_riemannZeta_three_mul_delta_le {δ M : ℝ} (hδ_pos : 0 < δ) (hδ_le : 3 * δ ≤ 1)
+    (hM_nonneg : 0 ≤ M) (hM : ‖riemannZeta₀ (1 + (3 * δ : ℂ))‖ ≤ M) :
+    ‖riemannZeta (1 + (3 * (δ : ℂ)))‖ ≤ (1 + M) / (3 * δ) := by
+  have h3δ_pos : 0 < 3 * δ := by linarith
+  have h_le := norm_riemannZeta_one_add_le (3 * δ) h3δ_pos hδ_le M hM_nonneg
+  have hcast : (1 : ℂ) + (↑(3 * δ) : ℂ) = 1 + (3 * (δ : ℂ)) := by push_cast; ring
+  have hcast2 : (1 : ℂ) + (↑(3 * δ) : ℂ) = 1 + (3 * δ : ℂ) := by push_cast; rfl
+  have hM' : ‖riemannZeta₀ (1 + (↑(3 * δ) : ℂ))‖ ≤ M := by
+    rwa [hcast2]
+  have h_res := h_le hM'
+  rwa [hcast] at h_res
+
 /-- De la Vallée Poussin's (1899) cubic optimization identity:
 the function `f(η) = (η + δ)⁴ / η³` achieves its minimum at `η = 3δ` with value `(256 / 27) δ`. -/
 theorem valleePoussin_cubic_opt_identity (δ : ℝ) :
