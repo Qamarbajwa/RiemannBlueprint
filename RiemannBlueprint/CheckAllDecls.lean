@@ -445,12 +445,14 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check MathlibPR.ForwardCandidate.cCandidateMobius_linear_energy_eq_log_moment
 #check MathlibPR.ForwardCandidate.cCandidateMobius_l2_dist_sq_decomposition
 #check MathlibPR.ForwardCandidate.riemannHypothesis_of_cCandidateMobius_limit
+#check MathlibPR.ForwardCandidate.riemannHypothesis_of_cCandidateMobius_l2_dist
 #check MathlibPR.ForwardCandidate.selbergSieveWeights
 #check MathlibPR.ForwardCandidate.cCandidateSelberg
 #check MathlibPR.ForwardCandidate.cCandidateSelberg_mem_A_N
 #check MathlibPR.ForwardCandidate.cCandidateSelberg_linear_energy_eq_log_moment
 #check MathlibPR.ForwardCandidate.cCandidateSelberg_l2_dist_sq_decomposition
 #check MathlibPR.ForwardCandidate.riemannHypothesis_of_cCandidateSelberg_limit
+#check MathlibPR.ForwardCandidate.riemannHypothesis_of_cCandidateSelberg_l2_dist
 
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
 #print axioms RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic
@@ -780,9 +782,11 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms MathlibPR.ForwardCandidate.cCandidateMobius_linear_energy_eq_log_moment
 #print axioms MathlibPR.ForwardCandidate.cCandidateMobius_l2_dist_sq_decomposition
 #print axioms MathlibPR.ForwardCandidate.riemannHypothesis_of_cCandidateMobius_limit
+#print axioms MathlibPR.ForwardCandidate.riemannHypothesis_of_cCandidateMobius_l2_dist
 #print axioms MathlibPR.ForwardCandidate.selbergSieveWeights
 #print axioms MathlibPR.ForwardCandidate.cCandidateSelberg
 #print axioms MathlibPR.ForwardCandidate.cCandidateSelberg_mem_A_N
 #print axioms MathlibPR.ForwardCandidate.cCandidateSelberg_linear_energy_eq_log_moment
 #print axioms MathlibPR.ForwardCandidate.cCandidateSelberg_l2_dist_sq_decomposition
 #print axioms MathlibPR.ForwardCandidate.riemannHypothesis_of_cCandidateSelberg_limit
+#print axioms MathlibPR.ForwardCandidate.riemannHypothesis_of_cCandidateSelberg_l2_dist

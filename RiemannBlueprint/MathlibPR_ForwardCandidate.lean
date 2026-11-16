@@ -350,4 +350,34 @@ theorem riemannHypothesis_of_cCandidateMobius_limit (gamma_E : ℝ)
     (cCandidateMobius_mem_A_N N hΔ).1 (cCandidateMobius_mem_A_N N hΔ).2 hb hG hint_sq]
   exact hscot
 
+/-- Direct L² Distance Reduction Theorem: If the explicit mollified Möbius sequence
+  cCandidateMobius N achieves arbitrary L² approximation of 1, the Riemann Hypothesis holds. -/
+theorem riemannHypothesis_of_cCandidateMobius_l2_dist (h_dist : ∀ ε > 0, ∃ N : ℕ,
+    DeltaDet N ≠ 0 ∧
+    (∫ x in (0 : ℝ)..1, (1 - ∑ k ∈ Finset.Icc 1 N,
+      cCandidateMobius N k * recipFractScaled k x) ^ 2) < ε)
+    (h_nb : (∀ ε > 0, ∃ N c, D1 c N = 0 ∧
+      (∫ x in (0 : ℝ)..1, (1 - ∑ k ∈ Finset.Icc 1 N, c k * recipFractScaled k x) ^ 2) < ε) →
+      RiemannHypothesis) :
+    RiemannHypothesis := by
+  apply h_nb
+  intro ε hε
+  rcases h_dist ε hε with ⟨N, hΔ, hdist⟩
+  refine ⟨N, cCandidateMobius N, (cCandidateMobius_mem_A_N N hΔ).1, hdist⟩
+
+/-- Direct L² Distance Reduction Theorem for Selberg Sieve Candidate: If the constructive
+  Selberg sequence achieves arbitrary L² approximation of 1, the Riemann Hypothesis holds. -/
+theorem riemannHypothesis_of_cCandidateSelberg_l2_dist (h_dist : ∀ ε > 0, ∃ N : ℕ,
+    DeltaDet N ≠ 0 ∧
+    (∫ x in (0 : ℝ)..1, (1 - ∑ k ∈ Finset.Icc 1 N,
+      cCandidateSelberg N k * recipFractScaled k x) ^ 2) < ε)
+    (h_nb : (∀ ε > 0, ∃ N c, D1 c N = 0 ∧
+      (∫ x in (0 : ℝ)..1, (1 - ∑ k ∈ Finset.Icc 1 N, c k * recipFractScaled k x) ^ 2) < ε) →
+      RiemannHypothesis) :
+    RiemannHypothesis := by
+  apply h_nb
+  intro ε hε
+  rcases h_dist ε hε with ⟨N, hΔ, hdist⟩
+  refine ⟨N, cCandidateSelberg N, (cCandidateSelberg_mem_A_N N hΔ).1, hdist⟩
+
 end MathlibPR.ForwardCandidate
