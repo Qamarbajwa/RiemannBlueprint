@@ -11,6 +11,7 @@ import RiemannBlueprint.MathlibPR_VasyuninIntegral
 import RiemannBlueprint.MathlibPR_VasyuninCrossIntegral
 import RiemannBlueprint.MathlibPR_ForwardCandidate
 import RiemannBlueprint.MathlibPR_LinearMomentLimit
+import RiemannBlueprint.MathlibPR_SpectralTailBound
 import RiemannBlueprint.VerifyNoTraps
 
 /-!
@@ -474,6 +475,22 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check MathlibPR.LinearMomentLimit.cCandidateMobius_linearCrossTerm_log_decay
 #check MathlibPR.LinearMomentLimit.cCandidateSelberg_logMoment_decomp
 #check MathlibPR.LinearMomentLimit.cCandidateSelberg_linearCrossTerm_log_decay
+#check MathlibPR.SpectralTailBound.spectralWeight
+#check MathlibPR.SpectralTailBound.spectralWeight_pos
+#check MathlibPR.SpectralTailBound.spectralWeight_nonneg
+#check MathlibPR.SpectralTailBound.spectralWeight_le_inv_sq
+#check MathlibPR.SpectralTailBound.spectralWeight_tail_le
+#check MathlibPR.SpectralTailBound.div_nat_le_div_log
+#check MathlibPR.SpectralTailBound.cNormL1Half
+#check MathlibPR.SpectralTailBound.cNormL1Half_nonneg
+#check MathlibPR.SpectralTailBound.FrequencyDecomposition
+#check MathlibPR.SpectralTailBound.quadraticCrossTerm_bound_of_frequency_decomp
+#check MathlibPR.SpectralTailBound.l2_dist_bound_of_cross_terms
+#check MathlibPR.SpectralTailBound.riemannHypothesis_of_pillars_I_and_II
+#check MathlibPR.SpectralTailBound.cCandidateMobius_quadraticCrossTerm_bound
+#check MathlibPR.SpectralTailBound.riemannHypothesis_of_cCandidateMobius_pillars_I_and_II
+#check MathlibPR.SpectralTailBound.cCandidateSelberg_quadraticCrossTerm_bound
+#check MathlibPR.SpectralTailBound.riemannHypothesis_of_cCandidateSelberg_pillars_I_and_II
 
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
 #print axioms RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic
@@ -831,3 +848,19 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms MathlibPR.LinearMomentLimit.cCandidateMobius_linearCrossTerm_log_decay
 #print axioms MathlibPR.LinearMomentLimit.cCandidateSelberg_logMoment_decomp
 #print axioms MathlibPR.LinearMomentLimit.cCandidateSelberg_linearCrossTerm_log_decay
+#print axioms MathlibPR.SpectralTailBound.spectralWeight
+#print axioms MathlibPR.SpectralTailBound.spectralWeight_pos
+#print axioms MathlibPR.SpectralTailBound.spectralWeight_nonneg
+#print axioms MathlibPR.SpectralTailBound.spectralWeight_le_inv_sq
+#print axioms MathlibPR.SpectralTailBound.spectralWeight_tail_le
+#print axioms MathlibPR.SpectralTailBound.div_nat_le_div_log
+#print axioms MathlibPR.SpectralTailBound.cNormL1Half
+#print axioms MathlibPR.SpectralTailBound.cNormL1Half_nonneg
+#print axioms MathlibPR.SpectralTailBound.FrequencyDecomposition
+#print axioms MathlibPR.SpectralTailBound.quadraticCrossTerm_bound_of_frequency_decomp
+#print axioms MathlibPR.SpectralTailBound.l2_dist_bound_of_cross_terms
+#print axioms MathlibPR.SpectralTailBound.riemannHypothesis_of_pillars_I_and_II
+#print axioms MathlibPR.SpectralTailBound.cCandidateMobius_quadraticCrossTerm_bound
+#print axioms MathlibPR.SpectralTailBound.riemannHypothesis_of_cCandidateMobius_pillars_I_and_II
+#print axioms MathlibPR.SpectralTailBound.cCandidateSelberg_quadraticCrossTerm_bound
+#print axioms MathlibPR.SpectralTailBound.riemannHypothesis_of_cCandidateSelberg_pillars_I_and_II
