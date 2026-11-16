@@ -325,3 +325,76 @@ theorem affine_l2_pure_cotangent_bridge {N : ℕ} (c : ℕ → ℝ) (gamma_E : �
     rw [sum_congr rfl (fun j hj => hinner j hj), sum_add_distrib]
   rw [hG_sum, ← add_assoc]
   exact affine_bdr_pure_cotangent_identity c N gamma_E (QCot g_cot c N) hD1 hD0
+
+/-- The symmetric normalized Vasyunin cotangent sum S_cot(c, N) = - QCot g_cot c N.
+This equals (π / 2) * ∑∑ (c_j c_k / jk) (V(j, k) + V(k, j)). -/
+noncomputable def SCot (g_cot : ℕ → ℕ → ℝ) (c : ℕ → ℝ) (N : ℕ) : ℝ :=
+  - QCot g_cot c N
+
+/-- Exact L² distance formula in terms of SCot:
+  ∫_0^1 (1 - ∑ c_k {1/(kx)})² dx = 1 - SCot g_cot c N. -/
+theorem affine_l2_dist_eq_one_sub_scot {N : ℕ} (c : ℕ → ℝ) (gamma_E : ℝ)
+    (g_cot : ℕ → ℕ → ℝ)
+    (hD1 : D1 c N = 0) (hD0 : D0 c N = 2)
+    (hb : ∀ k ∈ Finset.Icc 1 N,
+      (∫ x in (0 : ℝ)..1, recipFractScaled k x) = bVasyunin k gamma_E)
+    (hG : ∀ j ∈ Finset.Icc 1 N, ∀ k ∈ Finset.Icc 1 N,
+      (∫ x in (0 : ℝ)..1, recipFractScaled j x * recipFractScaled k x) =
+        GSmooth gamma_E j k + g_cot j k)
+    (hint_sq : (∫ x in (0 : ℝ)..1, (1 - ∑ k ∈ Finset.Icc 1 N, c k * recipFractScaled k x) ^ 2) =
+      1 - 2 * (∑ k ∈ Finset.Icc 1 N, c k * ∫ x in (0 : ℝ)..1, recipFractScaled k x) +
+        ∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N, c j * c k *
+          ∫ x in (0 : ℝ)..1, recipFractScaled j x * recipFractScaled k x) :
+    (∫ x in (0 : ℝ)..1, (1 - ∑ k ∈ Finset.Icc 1 N, c k * recipFractScaled k x) ^ 2) =
+      1 - SCot g_cot c N := by
+  have h := affine_l2_pure_cotangent_bridge c gamma_E g_cot hD1 hD0 hb hG hint_sq
+  dsimp [SCot]
+  linarith
+
+/-- Equivalence of Nyman-Beurling epsilon approximation and SCot near 1:
+  ∫_0^1 (1 - ∑ c_k {1/(kx)})² dx < ε ↔ 1 - ε < SCot g_cot c N. -/
+theorem nymanBeurling_approx_iff_scot_gt {N : ℕ} (c : ℕ → ℝ) (gamma_E : ℝ)
+    (g_cot : ℕ → ℕ → ℝ) (ε : ℝ)
+    (hD1 : D1 c N = 0) (hD0 : D0 c N = 2)
+    (hb : ∀ k ∈ Finset.Icc 1 N,
+      (∫ x in (0 : ℝ)..1, recipFractScaled k x) = bVasyunin k gamma_E)
+    (hG : ∀ j ∈ Finset.Icc 1 N, ∀ k ∈ Finset.Icc 1 N,
+      (∫ x in (0 : ℝ)..1, recipFractScaled j x * recipFractScaled k x) =
+        GSmooth gamma_E j k + g_cot j k)
+    (hint_sq : (∫ x in (0 : ℝ)..1, (1 - ∑ k ∈ Finset.Icc 1 N, c k * recipFractScaled k x) ^ 2) =
+      1 - 2 * (∑ k ∈ Finset.Icc 1 N, c k * ∫ x in (0 : ℝ)..1, recipFractScaled k x) +
+        ∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N, c j * c k *
+          ∫ x in (0 : ℝ)..1, recipFractScaled j x * recipFractScaled k x) :
+    (∫ x in (0 : ℝ)..1, (1 - ∑ k ∈ Finset.Icc 1 N, c k * recipFractScaled k x) ^ 2) < ε ↔
+      1 - ε < SCot g_cot c N := by
+  rw [affine_l2_dist_eq_one_sub_scot c gamma_E g_cot hD1 hD0 hb hG hint_sq]
+  constructor <;> intro h <;> linarith
+
+/-- Main Theorem: Cotangent Limit Implies Riemann Hypothesis.
+Under the Báez-Duarte / Nyman-Beurling bridge, if the normalized cotangent double sum
+satisfies the limit condition SCot → 1 on the affine manifold A_N, then the
+square distance tends to 0, which implies the Riemann Hypothesis. -/
+theorem riemannHypothesis_of_cotangent_limit (gamma_E : ℝ)
+    (h_limit : ∀ ε > 0, ∃ (N : ℕ) (c : ℕ → ℝ),
+      D1 c N = 0 ∧ D0 c N = 2 ∧
+      (∀ k ∈ Finset.Icc 1 N,
+        (∫ x in (0 : ℝ)..1, recipFractScaled k x) = bVasyunin k gamma_E) ∧
+      (∀ j ∈ Finset.Icc 1 N, ∀ k ∈ Finset.Icc 1 N,
+        (∫ x in (0 : ℝ)..1, recipFractScaled j x * recipFractScaled k x) =
+          GSmooth gamma_E j k + vasyuninGCot j k) ∧
+      (∀ (M : ℕ) (w : ℕ → ℝ),
+        (∫ x in (0 : ℝ)..1, (1 - ∑ k ∈ Finset.Icc 1 M, w k * recipFractScaled k x) ^ 2) =
+        1 - 2 * (∑ k ∈ Finset.Icc 1 M, w k * ∫ x in (0 : ℝ)..1, recipFractScaled k x) +
+          ∑ j ∈ Finset.Icc 1 M, ∑ k ∈ Finset.Icc 1 M, w j * w k *
+            ∫ x in (0 : ℝ)..1, recipFractScaled j x * recipFractScaled k x) ∧
+      1 - ε < SCot vasyuninGCot c N)
+    (h_nb : (∀ ε > 0, ∃ N c, D1 c N = 0 ∧
+      (∫ x in (0 : ℝ)..1, (1 - ∑ k ∈ Finset.Icc 1 N, c k * recipFractScaled k x) ^ 2) < ε) →
+      RiemannHypothesis) :
+    RiemannHypothesis := by
+  apply h_nb
+  intro ε hε
+  rcases h_limit ε hε with ⟨N, c, hD1, hD0, hb, hG, hint_sq, hscot⟩
+  refine ⟨N, c, hD1, ?_⟩
+  rw [nymanBeurling_approx_iff_scot_gt c gamma_E vasyuninGCot ε hD1 hD0 hb hG (hint_sq N c)]
+  exact hscot

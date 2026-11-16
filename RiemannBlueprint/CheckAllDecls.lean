@@ -427,6 +427,10 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check intervalIntegral_sq_sub_sum
 #check QCot
 #check affine_l2_pure_cotangent_bridge
+#check SCot
+#check affine_l2_dist_eq_one_sub_scot
+#check nymanBeurling_approx_iff_scot_gt
+#check riemannHypothesis_of_cotangent_limit
 
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
 #print axioms RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic
@@ -740,3 +744,6 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms vasyuninGram_diag
 #print axioms intervalIntegral_sq_sub_sum
 #print axioms affine_l2_pure_cotangent_bridge
+#print axioms affine_l2_dist_eq_one_sub_scot
+#print axioms nymanBeurling_approx_iff_scot_gt
+#print axioms riemannHypothesis_of_cotangent_limit
