@@ -8,6 +8,7 @@ import RiemannBlueprint.MathlibPR_CriticalLineZeros
 import RiemannBlueprint.MathlibPR_ZeroFreeRegion
 import RiemannBlueprint.MathlibPR_HardyZeros
 import RiemannBlueprint.MathlibPR_VasyuninIntegral
+import RiemannBlueprint.MathlibPR_VasyuninCrossIntegral
 import RiemannBlueprint.VerifyNoTraps
 
 /-!
@@ -411,6 +412,22 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check intervalIntegral_recipFractScaled_zero_to_one
 #check intervalIntegral_sq_recipFractScaled_zero_to_one
 
+#check intervalIntegrable_recipFractScaled_mul
+#check recipFractScaled_mul_eq_on_uIoc
+#check intervalIntegral_inv_prod_x_sq
+#check intervalIntegral_recipFractScaled_mul_upper
+#check vasyuninCotSum
+#check vasyuninGCot
+#check vasyuninCotSum_diag
+#check vasyuninGCot_diag
+#check vasyuninGCot_comm
+#check GSmooth_comm
+#check GSmooth_diag
+#check vasyuninGram_diag
+#check intervalIntegral_sq_sub_sum
+#check QCot
+#check affine_l2_pure_cotangent_bridge
+
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
 #print axioms RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic
 #print axioms RiemannBlueprint.Section3_CompositeTaxonomy.arithmetic_classification_partition
@@ -710,3 +727,16 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms intervalIntegral_sq_recipFractScaled_inv_to_one
 #print axioms intervalIntegral_recipFractScaled_zero_to_one
 #print axioms intervalIntegral_sq_recipFractScaled_zero_to_one
+
+#print axioms intervalIntegrable_recipFractScaled_mul
+#print axioms recipFractScaled_mul_eq_on_uIoc
+#print axioms intervalIntegral_inv_prod_x_sq
+#print axioms intervalIntegral_recipFractScaled_mul_upper
+#print axioms vasyuninCotSum_diag
+#print axioms vasyuninGCot_diag
+#print axioms vasyuninGCot_comm
+#print axioms GSmooth_comm
+#print axioms GSmooth_diag
+#print axioms vasyuninGram_diag
+#print axioms intervalIntegral_sq_sub_sum
+#print axioms affine_l2_pure_cotangent_bridge
