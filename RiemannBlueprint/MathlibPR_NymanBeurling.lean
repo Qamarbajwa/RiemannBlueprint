@@ -60,7 +60,7 @@ private lemma measurable_recipFractScaled (k : ℕ) : Measurable (recipFractScal
 private lemma measurable_recipFract : Measurable recipFract :=
   measurable_fract.comp (measurable_const.div measurable_id)
 
-private lemma integrableOn_Ioc_cpow (s : ℂ) (hs_pos : 0 < s.re) :
+lemma integrableOn_Ioc_cpow (s : ℂ) (hs_pos : 0 < s.re) :
     IntegrableOn (fun x : ℝ => (x : ℂ) ^ (s - 1)) (Ioc (0 : ℝ) 1) := by
   have hrpow : IntegrableOn (fun x : ℝ => x ^ (s.re - 1)) (Ioc (0 : ℝ) 1) := by
     rw [← intervalIntegrable_iff_integrableOn_Ioc_of_le (by norm_num : (0 : ℝ) ≤ 1)]
@@ -812,7 +812,7 @@ theorem im_ne_zero_of_inCriticalStrip_zeta_zero (s₀ : ℂ) (hs : 0 < s₀.re �
   have hneg : 1 / (s₀.re - 1) < 0 := div_neg_of_pos_of_neg one_pos (by linarith [hs.2])
   linarith
 
-private lemma integral_Ioc_recipFractScaled_cpow (k : ℕ) (hk : 1 ≤ k) (s : ℂ)
+lemma integral_Ioc_recipFractScaled_cpow (k : ℕ) (hk : 1 ≤ k) (s : ℂ)
     (hs : 0 < s.re ∧ s.re < 1) :
     ∫ x in Ioc (0 : ℝ) 1, (recipFractScaled k x : ℂ) * (x : ℂ) ^ (s - 1) =
       1 / ((k : ℂ) * (s - 1)) - riemannZeta s / (s * (k : ℂ) ^ s) := by
@@ -962,7 +962,7 @@ private lemma integrableOn_Ioc_residual_sq (N : ℕ) (c : ℕ → ℂ) :
   rw [Real.norm_of_nonneg (sq_nonneg _)]
   exact pow_le_pow_left₀ (norm_nonneg _) (hbd x) 2
 
-private lemma integrableOn_Ioc_recipFractScaled_cpow (k : ℕ) (hk : 1 ≤ k) (s : ℂ)
+lemma integrableOn_Ioc_recipFractScaled_cpow (k : ℕ) (hk : 1 ≤ k) (s : ℂ)
     (hs : 0 < s.re ∧ s.re < 1) :
     IntegrableOn (fun x : ℝ => (recipFractScaled k x : ℂ) * (x : ℂ) ^ (s - 1)) (Ioc (0 : ℝ) 1) :=
   (integrableOn_Ioi_recipFractScaled_cpow k hk s hs.1 hs.2).mono_set fun _ hx => hx.1
@@ -1242,7 +1242,7 @@ theorem baezDuarte_unconstrained_spatial_floor (s₀ : ℂ) (hs : 0 < s₀.re �
   exact sq_sub_norm_lower_bound R h (α₀ / (H₀ : ℂ)) α₀ H₀ hH₀_pos
     (integrableOn_Ioc_residual_sq N c) hint_h2 hint_Rh h_R_inner rfl rfl
 
-private lemma riemannZeta_zero_strip_symm {s : ℂ} (hz : riemannZeta s = 0)
+lemma riemannZeta_zero_strip_symm {s : ℂ} (hz : riemannZeta s = 0)
     (h_not_triv : ¬∃ n : ℕ, s = -2 * (n + 1)) (h_not_one : s ≠ 1) :
     (0 < s.re ∧ s.re < 1) ∧ (riemannZeta (1 - s) = 0 ∧ 0 < (1 - s).re ∧ (1 - s).re < 1) := by
   have hs_lt_one : s.re < 1 := by

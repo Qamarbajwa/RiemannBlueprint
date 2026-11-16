@@ -444,6 +444,51 @@ theorem eq_moebius_of_truncated_divisor_sum_eq_zero {N : ℕ} {c : ℕ → ℤ}
       exact ih d hd_lt hd_pos hdN_le
     rw [hc_k, h_erase_eq, ← hmu_k]
 
+/-- On the interior range `1 ≤ n ≤ N`, the truncated Möbius divisor sum equals `1` at `n = 1`
+and `0` for all `2 ≤ n ≤ N`, matching the multiplicative identity of Dirichlet convolution. -/
+theorem truncatedMoebiusDivisorSum_eq_ite {N n : ℕ} (hn1 : 1 ≤ n) (hnN : n ≤ N) :
+    truncatedMoebiusDivisorSum N n = if n = 1 then 1 else 0 := by
+  by_cases hn : n = 1
+  · subst hn
+    unfold truncatedMoebiusDivisorSum
+    have h1 : (1 : ℕ).divisors.filter (· ≤ N) = {1} := by
+      ext d
+      simp only [Finset.mem_filter, Nat.divisors_one, Finset.mem_singleton]
+      constructor
+      · rintro ⟨rfl, -⟩; rfl
+      · rintro rfl; exact ⟨rfl, hnN⟩
+    rw [h1, Finset.sum_singleton, ArithmeticFunction.moebius_apply_one]
+    simp only [↓reduceIte]
+  · simp only [hn, ↓reduceIte]
+    have hn2 : 2 ≤ n := by omega
+    exact truncatedMoebiusDivisorSum_eq_zero_of_le hn2 hnN
+
+/-- Bridge between Identity #1 and Identity #2 of Zero: for any complex weight function
+`w : ℕ → ℂ` (such as `n ↦ (n : ℂ) ^ (-s)`), summing the truncated Möbius divisor jumps
+weighted by `w n` across the interior regime `1 ≤ n ≤ N` collapses all terms `2 ≤ n ≤ N`
+to zero and isolates `w 1`. -/
+theorem sum_Icc_truncatedMoebiusDivisorSum_mul {N : ℕ} (hN : 1 ≤ N) (w : ℕ → ℂ) :
+    ∑ n ∈ Finset.Icc 1 N, (truncatedMoebiusDivisorSum N n : ℂ) * w n = w 1 := by
+  have h1_mem : 1 ∈ Finset.Icc 1 N := Finset.mem_Icc.mpr ⟨le_rfl, hN⟩
+  have h_split := Finset.add_sum_erase (Finset.Icc 1 N)
+    (fun n => (truncatedMoebiusDivisorSum N n : ℂ) * w n) h1_mem
+  have h_tail_zero :
+      ∑ n ∈ (Finset.Icc 1 N).erase 1, (truncatedMoebiusDivisorSum N n : ℂ) * w n = 0 := by
+    refine Finset.sum_eq_zero fun n hn => ?_
+    simp only [Finset.mem_erase, Finset.mem_Icc] at hn
+    rcases hn with ⟨hn_ne, hn1, hnN⟩
+    rw [truncatedMoebiusDivisorSum_eq_ite hn1 hnN]
+    simp only [hn_ne, ↓reduceIte]
+    push_cast
+    ring
+  rw [h_tail_zero, add_zero] at h_split
+  have h1_val : (truncatedMoebiusDivisorSum N 1 : ℂ) * w 1 = w 1 := by
+    rw [truncatedMoebiusDivisorSum_eq_ite le_rfl hN]
+    simp only [↓reduceIte]
+    push_cast
+    ring
+  rw [← h_split, h1_val]
+
 /-- Bridge lemma: Local jump-zero cancellation on divisors forces the Dirichlet polynomial
 coefficients to match the Möbius arithmetic function up to the truncation boundary `N`. -/
 theorem truncated_dirichlet_inverse_bridge (N : ℕ) (c : ℕ → ℂ) (hc1 : c 1 = 1)

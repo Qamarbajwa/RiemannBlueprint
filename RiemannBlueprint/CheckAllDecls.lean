@@ -2,6 +2,8 @@ import RiemannBlueprint
 import RiemannBlueprint.MathlibPR_LittlewoodMertens
 import RiemannBlueprint.MathlibPR_LittlewoodConverse
 import RiemannBlueprint.MathlibPR_NymanBeurling
+import RiemannBlueprint.MathlibPR_SpeiserLogDeriv
+import RiemannBlueprint.MathlibPR_NymanBeurlingConverse
 import RiemannBlueprint.VerifyNoTraps
 
 /-!
@@ -353,6 +355,17 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check RiemannBlueprint.OpenStripRouche.theorem1_rouche_zero_exclusion
 #check RiemannBlueprint.OpenStripRouche.theorem2_rouche_exhaustion_implies_rh
 
+#check RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum_eq_ite
+#check RiemannBlueprint.Section3_CompositeTaxonomy.sum_Icc_truncatedMoebiusDivisorSum_mul
+#check tendsto_sum_moebius_cpow_of_riemannHypothesis
+#check tendsto_sum_moebius_div_self_of_riemannHypothesis
+#check riemannHypothesis_iff_tendsto_sum_moebius
+#check tendsto_mellin_moebius_recipFract_of_riemannHypothesis
+#check riemannHypothesis_iff_mellin_recipFract_approx
+#check differentiableOn_logDeriv_riemannZeta_of_riemannHypothesis
+#check riemannZeta_Or_deriv_ne_zero_of_riemannHypothesis
+#check riemannHypothesis_iff_analyticAt_inv_riemannZeta
+
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
 #print axioms RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic
 #print axioms RiemannBlueprint.Section3_CompositeTaxonomy.arithmetic_classification_partition
@@ -601,3 +614,14 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms recipFract_one_third_witness
 #print axioms RiemannHypothesis.of_nymanBeurling_approx
 #print axioms RiemannHypothesis.of_baezDuarte_approx
+
+#print axioms RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum_eq_ite
+#print axioms RiemannBlueprint.Section3_CompositeTaxonomy.sum_Icc_truncatedMoebiusDivisorSum_mul
+#print axioms tendsto_sum_moebius_cpow_of_riemannHypothesis
+#print axioms tendsto_sum_moebius_div_self_of_riemannHypothesis
+#print axioms riemannHypothesis_iff_tendsto_sum_moebius
+#print axioms tendsto_mellin_moebius_recipFract_of_riemannHypothesis
+#print axioms riemannHypothesis_iff_mellin_recipFract_approx
+#print axioms differentiableOn_logDeriv_riemannZeta_of_riemannHypothesis
+#print axioms riemannZeta_Or_deriv_ne_zero_of_riemannHypothesis
+#print axioms riemannHypothesis_iff_analyticAt_inv_riemannZeta

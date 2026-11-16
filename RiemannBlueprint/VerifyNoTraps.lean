@@ -7,6 +7,8 @@ import RiemannBlueprint.MathlibPR_LittlewoodMertens
 import RiemannBlueprint.MathlibPR_ZetaInvSubpolynomial
 import RiemannBlueprint.MathlibPR_LittlewoodConverse
 import RiemannBlueprint.MathlibPR_NymanBeurling
+import RiemannBlueprint.MathlibPR_SpeiserLogDeriv
+import RiemannBlueprint.MathlibPR_NymanBeurlingConverse
 
 /-!
 # Anti-Trap, Anti-Circularity & Non-Vacuity Verification Suite

@@ -10,11 +10,13 @@ public import Mathlib.Analysis.Complex.CauchyIntegral
 public import Mathlib.Analysis.Complex.HasPrimitives
 public import Mathlib.Analysis.MellinInversion
 public import Mathlib.Analysis.MellinTransform
+public import Mathlib.Analysis.Asymptotics.SpecificAsymptotics
 public import Mathlib.Analysis.PSeriesComplex
 public import Mathlib.MeasureTheory.Function.Floor
 public import Mathlib.NumberTheory.LSeries.Dirichlet
 public import Mathlib.NumberTheory.LSeries.Nonvanishing
 public import Mathlib.NumberTheory.LSeries.RiemannZeta
+public import Mathlib.NumberTheory.AbelSummation
 public import Mathlib.NumberTheory.LSeries.SumCoeff
 public import RiemannBlueprint.MathlibPR_LittlewoodMertens
 public import RiemannBlueprint.MathlibPR_ZetaInvSubpolynomial
@@ -1538,3 +1540,251 @@ theorem riemannHypothesis_iff_mertens_isBigO :
           fun x => x ^ ((1 / 2 : ℝ) + ε) :=
   ⟨fun hRH ε hε => isBigO_mertens_of_riemannHypothesis hRH ε hε,
    fun hO => RiemannHypothesis.of_mertens_isBigO hO⟩
+
+
+/-! ### Stage 6: Titchmarsh §14.25(A) Möbius Dirichlet Series Convergence & Equivalence -/
+
+private lemma isOpen_re_gt (r : ℝ) : IsOpen {s : ℂ | r < s.re} :=
+  isOpen_lt continuous_const Complex.continuous_re
+
+private noncomputable def moebC : ℕ → ℂ := fun n => (ArithmeticFunction.moebius n : ℂ)
+
+private lemma mertens_nat_cast (n : ℕ) :
+    (mertens (n : ℝ) : ℂ) = ∑ k ∈ Finset.Icc 0 n, moebC k := by
+  dsimp [mertens, moebC]
+  rw [Nat.floor_natCast]
+  push_cast
+  exact rfl
+
+private lemma cpow_neg_mul_eq_div (s : ℂ) {k : ℕ} (hk : 1 ≤ k) (c : ℂ) :
+    (k : ℂ) ^ (-s) * c = c / (k : ℂ) ^ s := by
+  have hk0 : (k : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr (by omega)
+  rw [cpow_neg, inv_mul_eq_div]
+
+private lemma sum_Icc_zero_moebC_mul {N : ℕ} (hN : 1 ≤ N) (g : ℕ → ℂ) :
+    ∑ k ∈ Finset.Icc 0 N, g k * moebC k = ∑ k ∈ Finset.Icc 1 N, g k * moebC k := by
+  have h_split : Finset.Icc 0 N = insert 0 (Finset.Icc 1 N) := by
+    ext x
+    simp only [Finset.mem_Icc, Finset.mem_insert]
+    omega
+  rw [h_split, Finset.sum_insert (by simp)]
+  have h0 : moebC 0 = 0 := by simp [moebC]
+  rw [h0, mul_zero, zero_add]
+
+private lemma integral_deriv_eq_mellinMertens (s : ℂ) (hs : 1 / 2 < s.re) :
+    -(∫ (t : ℝ) in Ioi 1, (deriv (fun x : ℝ => (x : ℂ) ^ (-s)) t) *
+        ∑ k ∈ Finset.Icc 0 ⌊t⌋₊, moebC k) = mellinMertens s := by
+  have hs_pos : 0 < s.re := by linarith
+  have hs_ne0 : s ≠ 0 := ne_zero_of_re_pos hs_pos
+  have h_deriv : ∀ᵐ (t : ℝ) ∂(volume.restrict (Ioi 1)),
+      (deriv (fun x : ℝ => (x : ℂ) ^ (-s)) t) * ∑ k ∈ Finset.Icc 0 ⌊t⌋₊, moebC k =
+        - (s * ((mertens t : ℂ) * (t : ℂ) ^ (-(s + 1)))) := by
+    filter_upwards [ae_restrict_mem measurableSet_Ioi] with t ht
+    have ht_pos : (0 : ℝ) < t := zero_lt_one.trans ht
+    have hd := deriv_ofReal_cpow_const ht_pos.ne' (neg_ne_zero.mpr hs_ne0)
+    have hm : ∑ k ∈ Finset.Icc 0 ⌊t⌋₊, moebC k = (mertens t : ℂ) := by
+      dsimp [mertens, moebC]
+      push_cast
+      exact rfl
+    rw [hd, hm]
+    have hexp : -s - 1 = -(s + 1) := by ring
+    rw [hexp]
+    ring
+  rw [integral_congr_ae h_deriv, integral_neg, neg_neg]
+  rw [integral_const_mul]
+  rfl
+
+/-- Value of mellinMertens 1 = 0 derived from the simple pole residue (s - 1) * ζ(s) → 1. -/
+lemma mellinMertens_one_eq_zero
+    (hM : ∀ ε : ℝ, 0 < ε →
+      (fun x : ℝ => (mertens x : ℝ)) =O[atTop] fun x => x ^ ((1 / 2 : ℝ) + ε)) :
+    mellinMertens 1 = 0 := by
+  have h_cont : ContinuousAt mellinMertens 1 :=
+    (mellinMertens_differentiableAt_of_isBigO hM (s := 1) (by norm_num)).continuousAt
+  have h_res := riemannZeta_residue_one
+  have h_prod : Tendsto (fun s => (s - 1) * riemannZeta s * mellinMertens s) (𝓝[≠] 1)
+      (𝓝 (1 * mellinMertens 1)) :=
+    h_res.mul (h_cont.tendsto.mono_left nhdsWithin_le_nhds)
+  have h_ev : ∀ᶠ s in 𝓝[≠] 1, (s - 1) * riemannZeta s * mellinMertens s = s - 1 := by
+    have h_nhds : {s : ℂ | 1 / 2 < s.re} ∈ 𝓝[≠] (1 : ℂ) :=
+      mem_nhdsWithin_of_mem_nhds
+        ((isOpen_re_gt (1 / 2)).mem_nhds (by norm_num : (1 / 2 : ℝ) < (1 : ℂ).re))
+    filter_upwards [h_nhds, self_mem_nhdsWithin] with s hs hne
+    rw [mul_assoc, riemannZeta_mul_mellinMertens_eq_one_of_isBigO hM s hs hne, mul_one]
+  have h_sub_lim : Tendsto (fun s : ℂ => s - 1) (𝓝[≠] 1) (𝓝 0) := by
+    have h1 : Tendsto (fun s : ℂ => s - 1) (𝓝 1) (𝓝 (1 - 1)) :=
+      (continuous_id.sub continuous_const).tendsto 1
+    rw [sub_self] at h1
+    exact h1.mono_left nhdsWithin_le_nhds
+  have h_prod_lim : Tendsto (fun s => (s - 1) * riemannZeta s * mellinMertens s) (𝓝[≠] 1) (𝓝 0) :=
+    (tendsto_congr' h_ev).mpr h_sub_lim
+  have h_eq := tendsto_nhds_unique h_prod h_prod_lim
+  rw [one_mul] at h_eq
+  exact h_eq
+
+/-- Under `RiemannHypothesis`, the reciprocal sum `∑_{k=1}^N μ(k) / k` converges to `0` as
+`N → ∞` via Abel summation and the residue value `mellinMertens 1 = 0`. -/
+theorem tendsto_sum_moebius_div_self_of_riemannHypothesis (hRH : _root_.RiemannHypothesis) :
+    Filter.Tendsto
+      (fun N : ℕ => ∑ k ∈ Finset.Icc 1 N, (ArithmeticFunction.moebius k : ℂ) / (k : ℂ))
+      Filter.atTop (nhds 0) := by
+  let s : ℂ := 1
+  have hs : (1 / 2 : ℝ) < s.re := by norm_num [s]
+  let ε : ℝ := (s.re - 1 / 2) / 2
+  have hε : 0 < ε := by dsimp [ε, s]; norm_num
+  have hr_pos : 0 ≤ (1 / 2 : ℝ) + ε := by dsimp [ε, s]; norm_num
+  have hs_pos : 0 < s.re := by norm_num [s]
+  have hs_ne0 : s ≠ 0 := by norm_num [s]
+  have hO := isBigO_mertens_of_riemannHypothesis hRH ε hε
+  have hf_diff : ∀ t ∈ Ici 1, DifferentiableAt ℝ (fun x : ℝ => (x : ℂ) ^ (-s)) t := fun t ht =>
+    differentiableAt_id.ofReal_cpow_const (zero_lt_one.trans_le ht).ne' (neg_ne_zero.mpr hs_ne0)
+  have hf_int : LocallyIntegrableOn (deriv (fun x : ℝ => (x : ℂ) ^ (-s))) (Ici 1) :=
+    (Iff.mpr integrableOn_Ici_iff_integrableOn_Ioi <|
+      integrableOn_Ioi_deriv_ofReal_cpow zero_lt_one
+        (by simp [Complex.neg_re, s])).locallyIntegrableOn
+  have h_sum_O : (fun n : ℕ => ∑ k ∈ Finset.Icc 0 n, moebC k) =O[atTop]
+      fun n : ℕ => (n : ℝ) ^ ((1 / 2 : ℝ) + ε) := by
+    have h_nat : (fun n : ℕ => (mertens (n : ℝ) : ℝ)) =O[atTop]
+        fun n : ℕ => (n : ℝ) ^ ((1 / 2 : ℝ) + ε) :=
+      hO.comp_tendsto tendsto_natCast_atTop_atTop
+    have h_m_c : (fun n : ℕ => (mertens (n : ℝ) : ℂ)) =O[atTop]
+        fun n : ℕ => (n : ℝ) ^ ((1 / 2 : ℝ) + ε) :=
+      isBigO_ofReal_left.mpr h_nat
+    simpa only [mertens_nat_cast] using h_m_c
+  have hlim : Tendsto (fun n : ℕ ↦ (n : ℝ) ^ (-(s.re - ((1 / 2 : ℝ) + ε)))) atTop (𝓝 0) :=
+    (tendsto_rpow_neg_atTop (by dsimp [ε, s]; norm_num)).comp tendsto_natCast_atTop_atTop
+  have h_lim : Tendsto (fun n : ℕ => (n : ℂ) ^ (-s) * ∑ k ∈ Finset.Icc 0 n, moebC k) atTop (𝓝 0) :=
+    (IsBigO.mul_atTop_rpow_natCast_of_isBigO_rpow (-s.re) _ _
+      (isBigO_norm_left.mp (norm_ofReal_cpow_eventually_eq_atTop _).isBigO.natCast_atTop)
+      h_sum_O (by dsimp [s, ε]; norm_num)).trans_tendsto hlim
+  let g : ℝ → ℝ := fun t => t ^ (-(s.re + 1) + ((1 / 2 : ℝ) + ε))
+  have h_int : IntegrableAtFilter g atTop := by
+    refine integrableAtFilter_rpow_atTop_iff.mpr ?_
+    show -(s.re + 1) + (1 / 2 + ε) < -1
+    dsimp [ε, s]
+    norm_num
+  have hg_dom : (fun t => deriv (fun x : ℝ => (x : ℂ) ^ (-s)) t *
+      ∑ k ∈ Finset.Icc 0 ⌊t⌋₊, moebC k) =O[atTop] g := by
+    refine .mul_atTop_rpow_of_isBigO_rpow (-(s + 1).re) ((1 / 2 : ℝ) + ε) _ ?_ ?_ ?_
+    · simpa [-neg_add_rev, neg_add'] using! isBigO_deriv_ofReal_cpow_const_atTop (-s)
+    · exact (h_sum_O.comp_tendsto tendsto_nat_floor_atTop).trans <|
+        isEquivalent_nat_floor.isBigO.rpow hr_pos (eventually_ge_atTop 0)
+    · have : (-s - 1).re = -(s.re + 1) := by rw [sub_re, neg_re, one_re]; ring
+      dsimp [g]
+      linarith
+  have h_abel := tendsto_sum_mul_atTop_nhds_one_sub_integral₀ (c := moebC)
+    (f := fun x : ℝ => (x : ℂ) ^ (-s)) (l := 0) (by simp [moebC]) hf_diff hf_int h_lim hg_dom h_int
+  have h_int_val : (0 : ℂ) - ∫ (t : ℝ) in Ioi 1, deriv (fun x : ℝ => (x : ℂ) ^ (-s)) t *
+      ∑ k ∈ Finset.Icc 0 ⌊t⌋₊, moebC k = mellinMertens s := by
+    rw [zero_sub, integral_deriv_eq_mellinMertens s hs]
+  rw [h_int_val] at h_abel
+  have h_m1 : mellinMertens s = 0 := by
+    change mellinMertens 1 = 0
+    exact mellinMertens_one_eq_zero (isBigO_mertens_of_riemannHypothesis hRH)
+  rw [h_m1] at h_abel
+  refine h_abel.congr' ?_
+  filter_upwards [eventually_ge_atTop 1] with N hN
+  rw [sum_Icc_zero_moebC_mul hN]
+  refine Finset.sum_congr rfl fun k hk => ?_
+  have hk_pos : 1 ≤ k := (Finset.mem_Icc.mp hk).1
+  have hk0 : (k : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr (by omega)
+  dsimp [moebC, s]
+  rw [cpow_neg, cpow_one, inv_mul_eq_div]
+
+/-- Titchmarsh §14.25(A): Under `RiemannHypothesis`, the Möbius Dirichlet series
+∑_{n=1}^N μ(n) n^{-s} converges to (riemannZeta s)⁻¹ at every point in the half-plane
+1 / 2 < s.re with s ≠ 1. -/
+theorem tendsto_sum_moebius_cpow_of_riemannHypothesis (hRH : _root_.RiemannHypothesis)
+    {s : ℂ} (hs : 1 / 2 < s.re) (hs1 : s ≠ 1) :
+    Filter.Tendsto
+      (fun N : ℕ => ∑ n ∈ Finset.Icc 1 N, (ArithmeticFunction.moebius n : ℂ) / (n : ℂ) ^ s)
+      Filter.atTop (nhds (riemannZeta s)⁻¹) := by
+  let ε : ℝ := (s.re - 1 / 2) / 2
+  have hε : 0 < ε := by dsimp [ε]; linarith
+  have hr : (1 / 2 : ℝ) + ε < s.re := by dsimp [ε]; linarith
+  have hr_pos : 0 ≤ (1 / 2 : ℝ) + ε := by linarith
+  have hs_pos : 0 < s.re := by linarith
+  have hs_ne0 : s ≠ 0 := ne_zero_of_re_pos hs_pos
+  have hO := isBigO_mertens_of_riemannHypothesis hRH ε hε
+  have hf_diff : ∀ t ∈ Ici 1, DifferentiableAt ℝ (fun x : ℝ => (x : ℂ) ^ (-s)) t := fun t ht =>
+    differentiableAt_id.ofReal_cpow_const (zero_lt_one.trans_le ht).ne' (neg_ne_zero.mpr hs_ne0)
+  have hf_int : LocallyIntegrableOn (deriv (fun x : ℝ => (x : ℂ) ^ (-s))) (Ici 1) :=
+    (Iff.mpr integrableOn_Ici_iff_integrableOn_Ioi <|
+      integrableOn_Ioi_deriv_ofReal_cpow zero_lt_one
+        (by simp [Complex.neg_re]; linarith)).locallyIntegrableOn
+  have h_sum_O : (fun n : ℕ => ∑ k ∈ Finset.Icc 0 n, moebC k) =O[atTop]
+      fun n : ℕ => (n : ℝ) ^ ((1 / 2 : ℝ) + ε) := by
+    have h_nat : (fun n : ℕ => (mertens (n : ℝ) : ℝ)) =O[atTop]
+        fun n : ℕ => (n : ℝ) ^ ((1 / 2 : ℝ) + ε) :=
+      hO.comp_tendsto tendsto_natCast_atTop_atTop
+    have h_m_c : (fun n : ℕ => (mertens (n : ℝ) : ℂ)) =O[atTop]
+        fun n : ℕ => (n : ℝ) ^ ((1 / 2 : ℝ) + ε) :=
+      isBigO_ofReal_left.mpr h_nat
+    simpa only [mertens_nat_cast] using h_m_c
+  have hlim : Tendsto (fun n : ℕ ↦ (n : ℝ) ^ (-(s.re - ((1 / 2 : ℝ) + ε)))) atTop (𝓝 0) :=
+    (tendsto_rpow_neg_atTop (by dsimp [ε]; linarith)).comp tendsto_natCast_atTop_atTop
+  have h_lim : Tendsto (fun n : ℕ => (n : ℂ) ^ (-s) * ∑ k ∈ Finset.Icc 0 n, moebC k) atTop (𝓝 0) :=
+    (IsBigO.mul_atTop_rpow_natCast_of_isBigO_rpow (-s.re) _ _
+      (isBigO_norm_left.mp (norm_ofReal_cpow_eventually_eq_atTop _).isBigO.natCast_atTop)
+      h_sum_O (by linarith)).trans_tendsto hlim
+  let g : ℝ → ℝ := fun t => t ^ (-(s.re + 1) + ((1 / 2 : ℝ) + ε))
+  have h_int : IntegrableAtFilter g atTop := by
+    refine integrableAtFilter_rpow_atTop_iff.mpr ?_
+    show -(s.re + 1) + (1 / 2 + ε) < -1
+    dsimp [ε]
+    linarith
+  have hg_dom : (fun t => deriv (fun x : ℝ => (x : ℂ) ^ (-s)) t *
+      ∑ k ∈ Finset.Icc 0 ⌊t⌋₊, moebC k) =O[atTop] g := by
+    refine .mul_atTop_rpow_of_isBigO_rpow (-(s + 1).re) ((1 / 2 : ℝ) + ε) _ ?_ ?_ ?_
+    · simpa [-neg_add_rev, neg_add'] using! isBigO_deriv_ofReal_cpow_const_atTop (-s)
+    · exact (h_sum_O.comp_tendsto tendsto_nat_floor_atTop).trans <|
+        isEquivalent_nat_floor.isBigO.rpow hr_pos (eventually_ge_atTop 0)
+    · have : (-s - 1).re = -(s.re + 1) := by rw [sub_re, neg_re, one_re]; ring
+      dsimp [g]
+      linarith
+  have h_abel := tendsto_sum_mul_atTop_nhds_one_sub_integral₀ (c := moebC)
+    (f := fun x : ℝ => (x : ℂ) ^ (-s)) (l := 0) (by simp [moebC]) hf_diff hf_int h_lim hg_dom h_int
+  have h_int_val : (0 : ℂ) - ∫ (t : ℝ) in Ioi 1, deriv (fun x : ℝ => (x : ℂ) ^ (-s)) t *
+      ∑ k ∈ Finset.Icc 0 ⌊t⌋₊, moebC k = mellinMertens s := by
+    rw [zero_sub, integral_deriv_eq_mellinMertens s hs]
+  rw [h_int_val] at h_abel
+  have h_zeta_mul := riemannZeta_mul_mellinMertens_eq_one_of_isBigO
+    (isBigO_mertens_of_riemannHypothesis hRH) s hs hs1
+  have h_mellin_eq : mellinMertens s = (riemannZeta s)⁻¹ :=
+    eq_inv_of_mul_eq_one_right h_zeta_mul
+  rw [h_mellin_eq] at h_abel
+  refine h_abel.congr' ?_
+  filter_upwards [eventually_ge_atTop 1] with N hN
+  rw [sum_Icc_zero_moebC_mul hN]
+  refine Finset.sum_congr rfl fun k hk => ?_
+  exact cpow_neg_mul_eq_div s (Finset.mem_Icc.mp hk).1 _
+
+/-- _root_.RiemannHypothesis holds if and only if for every s : ℂ with 1 / 2 < s.re
+and s ≠ 1, the Möbius Dirichlet series partial sums converge to (riemannZeta s)⁻¹
+and 
+iemannZeta s ≠ 0. -/
+theorem riemannHypothesis_iff_tendsto_sum_moebius :
+    _root_.RiemannHypothesis ↔
+      ∀ s : ℂ, 1 / 2 < s.re → s ≠ 1 →
+        Filter.Tendsto
+          (fun N : ℕ => ∑ n ∈ Finset.Icc 1 N, (ArithmeticFunction.moebius n : ℂ) / (n : ℂ) ^ s)
+          Filter.atTop (nhds (riemannZeta s)⁻¹) ∧ riemannZeta s ≠ 0 := by
+  constructor
+  · intro hRH s hs hs1
+    refine ⟨tendsto_sum_moebius_cpow_of_riemannHypothesis hRH hs hs1, ?_⟩
+    have hM := isBigO_mertens_of_riemannHypothesis hRH
+    have h_inv := riemannZeta_mul_mellinMertens_eq_one_of_isBigO hM s hs hs1
+    intro hz
+    rw [hz, zero_mul] at h_inv
+    exact zero_ne_one h_inv
+  · intro h s hz h_not_triv h_not_one
+    by_contra h_ne
+    rcases lt_or_gt_of_ne h_ne with hlt | hgt
+    · have hre_refl : 1 / 2 < (1 - s).re := by rw [Complex.sub_re, Complex.one_re]; linarith
+      have hz_refl := riemannZeta_zero_reflection hz h_not_triv h_not_one hlt
+      have h1ms_ne : 1 - s ≠ 1 := fun h1 => by
+        have : s = 0 := by linear_combination -h1
+        subst this
+        simp [riemannZeta_zero] at hz
+      exact (h (1 - s) hre_refl h1ms_ne).2 hz_refl.1
+    · exact (h s hgt h_not_one).2 hz
