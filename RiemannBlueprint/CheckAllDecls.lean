@@ -815,6 +815,9 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms MathlibPR.ForwardCandidate.riemannHypothesis_of_cCandidateMobius_log_decay
 #print axioms MathlibPR.ForwardCandidate.riemannHypothesis_of_cCandidateSelberg_log_decay
 
+#print axioms MathlibPR.LinearMomentLimit.logMoment
+#print axioms MathlibPR.LinearMomentLimit.sumLogOverKsq
+#print axioms MathlibPR.LinearMomentLimit.sumLogOverK
 #print axioms MathlibPR.LinearMomentLimit.sumLogOverKsq_nonneg
 #print axioms MathlibPR.LinearMomentLimit.sumLogOverK_nonneg
 #print axioms MathlibPR.LinearMomentLimit.projectAffine_logMoment
