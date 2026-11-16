@@ -103,6 +103,67 @@ theorem deLaValleePoussin_zero_repulsion {δ y C_pole C_lip C_growth : ℝ}
   rw [heq] at hdiv
   exact hdiv
 
+/-- If `δ < c / ln⁹(|y| + 2)`, then the classical upper bound product evaluates strictly
+below 1, contradicting the required non-trivial lower bound `≥ 1`. -/
+theorem deLaValleePoussin_product_lt_one_of_lt_repulsion {δ y C_pole C_lip C_growth : ℝ}
+    (hδ_pos : 0 < δ) (hy : 2 ≤ |y|)
+    (hC_pole : 0 < C_pole) (hC_lip : 0 < C_lip) (hC_growth : 0 < C_growth)
+    (hδ_lt : δ < (27 : ℝ) / (256 * C_pole ^ 3 * C_lip ^ 4 * C_growth * Real.log (|y| + 2) ^ 9)) :
+    (C_pole / (3 * δ)) ^ 3 * (C_lip * Real.log (|y| + 2) ^ 2 * (4 * δ)) ^ 4 *
+      (C_growth * Real.log (|y| + 2)) < 1 := by
+  have hlog_pos : 0 < Real.log (|y| + 2) := by
+    apply Real.log_pos
+    linarith
+  have _hlog_ne : Real.log (|y| + 2) ≠ 0 := ne_of_gt hlog_pos
+  have _hδ_ne : δ ≠ 0 := ne_of_gt hδ_pos
+  have h_alg : (C_pole / (3 * δ)) ^ 3 * (C_lip * Real.log (|y| + 2) ^ 2 * (4 * δ)) ^ 4 *
+      (C_growth * Real.log (|y| + 2)) =
+      δ * ((256 / 27 : ℝ) * C_pole ^ 3 * C_lip ^ 4 * C_growth * Real.log (|y| + 2) ^ 9) := by
+    field_simp
+    ring
+  rw [h_alg]
+  have hcoeff_pos : 0 < (256 / 27 : ℝ) * C_pole ^ 3 * C_lip ^ 4 *
+      C_growth * Real.log (|y| + 2) ^ 9 := by
+    positivity
+  have heq : (27 : ℝ) / (256 * C_pole ^ 3 * C_lip ^ 4 * C_growth * Real.log (|y| + 2) ^ 9) =
+      1 / ((256 / 27 : ℝ) * C_pole ^ 3 * C_lip ^ 4 * C_growth * Real.log (|y| + 2) ^ 9) := by
+    field_simp
+  rw [heq] at hδ_lt
+  exact (lt_div_iff₀ hcoeff_pos).mp hδ_lt
+
+/-- De la Vallée Poussin's (1899) Contradiction Theorem:
+No non-trivial zero of the Riemann zeta function can satisfy the local pole, growth, and
+Lipschitz upper bounds while lying within distance `δ < c / ln⁹(|y| + 2)` of `Re(s) = 1`. -/
+theorem deLaValleePoussin_contradiction {δ y C_pole C_lip C_growth : ℝ}
+    (hδ_pos : 0 < δ) (hy : 2 ≤ |y|)
+    (hC_pole : 0 < C_pole) (hC_lip : 0 < C_lip) (hC_growth : 0 < C_growth)
+    (h_pole : ‖riemannZeta (1 + (3 * δ : ℂ))‖ ≤ C_pole / (3 * δ))
+    (h_lip : ‖riemannZeta (1 + (3 * δ : ℂ) + I * y)‖ ≤ C_lip * Real.log (|y| + 2) ^ 2 * (4 * δ))
+    (h_growth : ‖riemannZeta (1 + (3 * δ : ℂ) + 2 * I * y)‖ ≤ C_growth * Real.log (|y| + 2))
+    (hδ_lt : δ < (27 : ℝ) / (256 * C_pole ^ 3 * C_lip ^ 4 * C_growth * Real.log (|y| + 2) ^ 9)) :
+    False := by
+  have h3δ_pos : 0 < 3 * δ := mul_pos (by norm_num) hδ_pos
+  have h_ge := riemannZeta_norm_cubed_fourth_mul_ge_one h3δ_pos y
+  have hcast : (1 : ℂ) + (↑(3 * δ) : ℂ) = 1 + (3 * δ : ℂ) := by push_cast; rfl
+  rw [hcast] at h_ge
+  have h_bound_lt_one := deLaValleePoussin_product_lt_one_of_lt_repulsion
+    hδ_pos hy hC_pole hC_lip hC_growth hδ_lt
+  have h_prod_le : ‖riemannZeta (1 + (3 * δ : ℂ))‖ ^ 3 *
+      ‖riemannZeta (1 + (3 * δ : ℂ) + I * y)‖ ^ 4 *
+      ‖riemannZeta (1 + (3 * δ : ℂ) + 2 * I * y)‖ ≤
+      (C_pole / (3 * δ)) ^ 3 * (C_lip * Real.log (|y| + 2) ^ 2 * (4 * δ)) ^ 4 *
+      (C_growth * Real.log (|y| + 2)) := by
+    have h1 : ‖riemannZeta (1 + (3 * δ : ℂ))‖ ^ 3 ≤ (C_pole / (3 * δ)) ^ 3 := by
+      gcongr
+    have h2 : ‖riemannZeta (1 + (3 * δ : ℂ) + I * y)‖ ^ 4 ≤
+        (C_lip * Real.log (|y| + 2) ^ 2 * (4 * δ)) ^ 4 := by
+      gcongr
+    gcongr
+  have h_lt : ‖riemannZeta (1 + (3 * δ : ℂ))‖ ^ 3 * ‖riemannZeta (1 + (3 * δ : ℂ) + I * y)‖ ^ 4 *
+      ‖riemannZeta (1 + (3 * δ : ℂ) + 2 * I * y)‖ < 1 :=
+    lt_of_le_of_lt h_prod_le h_bound_lt_one
+  exact lt_irrefl _ (lt_of_lt_of_le h_lt h_ge)
+
 /-- Non-vanishing criterion on the right half-plane `Re(s) ≥ 1`:
 immediate consequence of Mathlib's `riemannZeta_ne_zero_of_one_le_re`. -/
 theorem riemannZeta_ne_zero_of_one_le_re_strip {s : ℂ} (hs : 1 ≤ s.re) :

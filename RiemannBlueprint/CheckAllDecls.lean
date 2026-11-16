@@ -389,6 +389,8 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check riemannZeta_one_add_eq
 #check valleePoussin_cubic_opt_identity
 #check deLaValleePoussin_zero_repulsion
+#check deLaValleePoussin_product_lt_one_of_lt_repulsion
+#check deLaValleePoussin_contradiction
 #check riemannZeta_ne_zero_of_one_le_re_strip
 
 #check recipFractScaled_eq_one_div_of_mem_Ioo
@@ -681,6 +683,8 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms riemannZeta_one_add_eq
 #print axioms valleePoussin_cubic_opt_identity
 #print axioms deLaValleePoussin_zero_repulsion
+#print axioms deLaValleePoussin_product_lt_one_of_lt_repulsion
+#print axioms deLaValleePoussin_contradiction
 #print axioms riemannZeta_ne_zero_of_one_le_re_strip
 
 #print axioms recipFractScaled_eq_one_div_of_mem_Ioo
