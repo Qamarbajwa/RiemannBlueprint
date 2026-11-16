@@ -10,6 +10,7 @@ import RiemannBlueprint.MathlibPR_HardyZeros
 import RiemannBlueprint.MathlibPR_VasyuninIntegral
 import RiemannBlueprint.MathlibPR_VasyuninCrossIntegral
 import RiemannBlueprint.MathlibPR_ForwardCandidate
+import RiemannBlueprint.MathlibPR_LinearMomentLimit
 import RiemannBlueprint.VerifyNoTraps
 
 /-!
@@ -457,6 +458,23 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check MathlibPR.ForwardCandidate.riemannHypothesis_of_cCandidateMobius_log_decay
 #check MathlibPR.ForwardCandidate.riemannHypothesis_of_cCandidateSelberg_log_decay
 
+#check MathlibPR.LinearMomentLimit.logMoment
+#check MathlibPR.LinearMomentLimit.sumLogOverKsq
+#check MathlibPR.LinearMomentLimit.sumLogOverK
+#check MathlibPR.LinearMomentLimit.sumLogOverKsq_nonneg
+#check MathlibPR.LinearMomentLimit.sumLogOverK_nonneg
+#check MathlibPR.LinearMomentLimit.projectAffine_logMoment
+#check MathlibPR.LinearMomentLimit.projectAffine_logMoment_sub_one
+#check MathlibPR.LinearMomentLimit.linearCrossTerm_eq_neg_two_mul_logMoment
+#check MathlibPR.LinearMomentLimit.linearCrossTerm_sub_neg_two_eq
+#check MathlibPR.LinearMomentLimit.linearCrossTerm_dist_le_of_logMoment_dist_le
+#check MathlibPR.LinearMomentLimit.linearCrossTerm_log_decay_of_logMoment_log_decay
+#check MathlibPR.LinearMomentLimit.linearCrossTerm_sandwich_of_logMoment_bound
+#check MathlibPR.LinearMomentLimit.cCandidateMobius_logMoment_decomp
+#check MathlibPR.LinearMomentLimit.cCandidateMobius_linearCrossTerm_log_decay
+#check MathlibPR.LinearMomentLimit.cCandidateSelberg_logMoment_decomp
+#check MathlibPR.LinearMomentLimit.cCandidateSelberg_linearCrossTerm_log_decay
+
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
 #print axioms RiemannBlueprint.Section2_PrimeAtoms.fundamental_theorem_of_arithmetic
 #print axioms RiemannBlueprint.Section3_CompositeTaxonomy.arithmetic_classification_partition
@@ -796,3 +814,17 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms MathlibPR.ForwardCandidate.riemannHypothesis_of_log_decay_bound
 #print axioms MathlibPR.ForwardCandidate.riemannHypothesis_of_cCandidateMobius_log_decay
 #print axioms MathlibPR.ForwardCandidate.riemannHypothesis_of_cCandidateSelberg_log_decay
+
+#print axioms MathlibPR.LinearMomentLimit.sumLogOverKsq_nonneg
+#print axioms MathlibPR.LinearMomentLimit.sumLogOverK_nonneg
+#print axioms MathlibPR.LinearMomentLimit.projectAffine_logMoment
+#print axioms MathlibPR.LinearMomentLimit.projectAffine_logMoment_sub_one
+#print axioms MathlibPR.LinearMomentLimit.linearCrossTerm_eq_neg_two_mul_logMoment
+#print axioms MathlibPR.LinearMomentLimit.linearCrossTerm_sub_neg_two_eq
+#print axioms MathlibPR.LinearMomentLimit.linearCrossTerm_dist_le_of_logMoment_dist_le
+#print axioms MathlibPR.LinearMomentLimit.linearCrossTerm_log_decay_of_logMoment_log_decay
+#print axioms MathlibPR.LinearMomentLimit.linearCrossTerm_sandwich_of_logMoment_bound
+#print axioms MathlibPR.LinearMomentLimit.cCandidateMobius_logMoment_decomp
+#print axioms MathlibPR.LinearMomentLimit.cCandidateMobius_linearCrossTerm_log_decay
+#print axioms MathlibPR.LinearMomentLimit.cCandidateSelberg_logMoment_decomp
+#print axioms MathlibPR.LinearMomentLimit.cCandidateSelberg_linearCrossTerm_log_decay
