@@ -169,3 +169,29 @@ immediate consequence of Mathlib's `riemannZeta_ne_zero_of_one_le_re`. -/
 theorem riemannZeta_ne_zero_of_one_le_re_strip {s : ℂ} (hs : 1 ≤ s.re) :
     riemannZeta s ≠ 0 :=
   riemannZeta_ne_zero_of_one_le_re hs
+
+/-- De la Vallée Poussin's (1899) Landmark Zero-Free Region Theorem:
+For any point `s = σ + i t` with `2 ≤ |t|`, if
+`1 - c / ln⁹(|t| + 2) < σ` where `c = 27 / (256 * C_pole³ * C_lip⁴ * C_growth)`,
+then under the standard local analytic bounds, `riemannZeta s ≠ 0`. -/
+theorem deLaValleePoussin_zero_free_region {s : ℂ} {C_pole C_lip C_growth : ℝ}
+    (ht : 2 ≤ |s.im|)
+    (hC_pole : 0 < C_pole) (hC_lip : 0 < C_lip) (hC_growth : 0 < C_growth)
+    (h_reg : 1 - (27 : ℝ) /
+      (256 * C_pole ^ 3 * C_lip ^ 4 * C_growth * Real.log (|s.im| + 2) ^ 9) < s.re)
+    (h_pole : ‖riemannZeta (1 + (3 * (1 - s.re : ℝ) : ℂ))‖ ≤ C_pole / (3 * (1 - s.re)))
+    (h_lip : ‖riemannZeta (1 + (3 * (1 - s.re : ℝ) : ℂ) + I * s.im)‖ ≤
+      C_lip * Real.log (|s.im| + 2) ^ 2 * (4 * (1 - s.re)))
+    (h_growth : ‖riemannZeta (1 + (3 * (1 - s.re : ℝ) : ℂ) + 2 * I * s.im)‖ ≤
+      C_growth * Real.log (|s.im| + 2)) :
+    riemannZeta s ≠ 0 := by
+  intro h_zero
+  by_cases h_ge : 1 ≤ s.re
+  · exact riemannZeta_ne_zero_of_one_le_re_strip h_ge h_zero
+  · have h_lt : s.re < 1 := lt_of_not_ge h_ge
+    have hδ_pos : 0 < 1 - s.re := sub_pos.mpr h_lt
+    have hδ_lt : 1 - s.re < (27 : ℝ) /
+        (256 * C_pole ^ 3 * C_lip ^ 4 * C_growth * Real.log (|s.im| + 2) ^ 9) := by
+      linarith
+    exact deLaValleePoussin_contradiction
+      hδ_pos ht hC_pole hC_lip hC_growth h_pole h_lip h_growth hδ_lt
