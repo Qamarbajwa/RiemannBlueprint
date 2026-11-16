@@ -435,8 +435,11 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check MathlibPR.ForwardCandidate.projectAffine_D1
 #check MathlibPR.ForwardCandidate.projectAffine_D0
 #check MathlibPR.ForwardCandidate.projectAffine_mem_A_N
+#check MathlibPR.ForwardCandidate.affine_linear_energy_eq_log_moment
+#check MathlibPR.ForwardCandidate.projectAffine_linear_energy_eq_log_moment
 #check MathlibPR.ForwardCandidate.projectAffine_l2_dist_eq_one_sub_scot
 #check MathlibPR.ForwardCandidate.cCandidateMobius_mem_A_N
+#check MathlibPR.ForwardCandidate.cCandidateMobius_linear_energy_eq_log_moment
 #check MathlibPR.ForwardCandidate.riemannHypothesis_of_cCandidateMobius_limit
 
 -- Global Axiom Audits (MUST output only standard Lean axioms: propext, Classical.choice, Quot.sound)
@@ -757,6 +760,9 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms MathlibPR.ForwardCandidate.projectAffine_D1
 #print axioms MathlibPR.ForwardCandidate.projectAffine_D0
 #print axioms MathlibPR.ForwardCandidate.projectAffine_mem_A_N
+#print axioms MathlibPR.ForwardCandidate.affine_linear_energy_eq_log_moment
+#print axioms MathlibPR.ForwardCandidate.projectAffine_linear_energy_eq_log_moment
 #print axioms MathlibPR.ForwardCandidate.projectAffine_l2_dist_eq_one_sub_scot
 #print axioms MathlibPR.ForwardCandidate.cCandidateMobius_mem_A_N
+#print axioms MathlibPR.ForwardCandidate.cCandidateMobius_linear_energy_eq_log_moment
 #print axioms MathlibPR.ForwardCandidate.riemannHypothesis_of_cCandidateMobius_limit

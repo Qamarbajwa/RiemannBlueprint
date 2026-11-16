@@ -135,6 +135,30 @@ theorem projectAffine_mem_A_N (u : ℕ → ℝ) (N : ℕ) (hΔ : DeltaDet N ≠ 
     D1 (projectAffine u N) N = 0 ∧ D0 (projectAffine u N) N = 2 :=
   ⟨projectAffine_D1 u N hΔ, projectAffine_D0 u N hΔ⟩
 
+/-- On the Báez-Duarte affine subspace A_N (where D1 c N = 0), the linear energy
+  ∑ c_k bVasyunin(k, γ) against Vasyunin's kernel is completely independent of
+  the Euler-Mascheroni constant γ and equals the pure logarithmic moment ∑ c_k (ln k / k). -/
+theorem affine_linear_energy_eq_log_moment (c : ℕ → ℝ) (N : ℕ) (gamma_E : ℝ)
+    (hD1 : D1 c N = 0) :
+    (∑ k ∈ Finset.Icc 1 N, c k * bVasyunin k gamma_E) =
+      ∑ k ∈ Finset.Icc 1 N, c k * Real.log (k : ℝ) / (k : ℝ) := by
+  have h_split : ∀ k ∈ Finset.Icc 1 N,
+      c k * bVasyunin k gamma_E = c k * Real.log (k : ℝ) / (k : ℝ) + (1 - gamma_E) * (c k / (k : ℝ)) := by
+    intro k _
+    unfold bVasyunin
+    ring
+  rw [Finset.sum_congr rfl h_split, Finset.sum_add_distrib, ← Finset.mul_sum]
+  unfold D1 at hD1
+  rw [hD1, mul_zero, add_zero]
+
+/-- The linear energy of any projected vector projectAffine u N against Vasyunin's kernel
+  equals its pure logarithmic moment whenever DeltaDet N ≠ 0. -/
+theorem projectAffine_linear_energy_eq_log_moment (u : ℕ → ℝ) (N : ℕ) (gamma_E : ℝ)
+    (hΔ : DeltaDet N ≠ 0) :
+    (∑ k ∈ Finset.Icc 1 N, projectAffine u N k * bVasyunin k gamma_E) =
+      ∑ k ∈ Finset.Icc 1 N, projectAffine u N k * Real.log (k : ℝ) / (k : ℝ) :=
+  affine_linear_energy_eq_log_moment (projectAffine u N) N gamma_E (projectAffine_D1 u N hΔ)
+
 /-- The exact L² distance formula for any projected candidate vector:
   ∫_0^1 (1 - ∑ c_k {1/(kx)})² dx = 1 - SCot g_cot (projectAffine u N) N. -/
 theorem projectAffine_l2_dist_eq_one_sub_scot (u : ℕ → ℝ) (N : ℕ) (gamma_E : ℝ)
@@ -172,6 +196,14 @@ lies strictly on the Báez-Duarte affine subspace A_N = { c | D1 = 0, D0 = 2 }. 
 theorem cCandidateMobius_mem_A_N (N : ℕ) (hΔ : DeltaDet N ≠ 0) :
     D1 (cCandidateMobius N) N = 0 ∧ D0 (cCandidateMobius N) N = 2 :=
   projectAffine_mem_A_N (mollifiedMobius N) N hΔ
+
+/-- The linear energy of the constructive mollified Möbius sequence cCandidateMobius N
+  against Vasyunin's kernel equals its pure logarithmic moment whenever DeltaDet N ≠ 0. -/
+theorem cCandidateMobius_linear_energy_eq_log_moment (N : ℕ) (gamma_E : ℝ)
+    (hΔ : DeltaDet N ≠ 0) :
+    (∑ k ∈ Finset.Icc 1 N, cCandidateMobius N k * bVasyunin k gamma_E) =
+      ∑ k ∈ Finset.Icc 1 N, cCandidateMobius N k * Real.log (k : ℝ) / (k : ℝ) :=
+  projectAffine_linear_energy_eq_log_moment (mollifiedMobius N) N gamma_E hΔ
 
 /-- Main Reduction: If the constructive mollified Möbius cotangent sum converges to 1,
 then the Riemann Hypothesis holds. -/
