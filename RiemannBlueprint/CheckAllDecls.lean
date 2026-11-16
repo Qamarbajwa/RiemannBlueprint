@@ -45,6 +45,8 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum_prime_of_lt
 #check RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum_prime_pow_of_le
 #check RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum_mul_primes_of_lt
+#check RiemannBlueprint.Section3_CompositeTaxonomy.truncated_dirichlet_inverse_bridge
+#check RiemannBlueprint.Section3_CompositeTaxonomy.truncated_dirichlet_convolution_bridge
 
 #check RiemannBlueprint.Section4_CompositeZeta.PrimeZeta
 #check RiemannBlueprint.Section4_CompositeZeta.pointwise_additive_partition
@@ -579,6 +581,8 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum_prime_of_lt
 #print axioms RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum_prime_pow_of_le
 #print axioms RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum_mul_primes_of_lt
+#print axioms RiemannBlueprint.Section3_CompositeTaxonomy.truncated_dirichlet_inverse_bridge
+#print axioms RiemannBlueprint.Section3_CompositeTaxonomy.truncated_dirichlet_convolution_bridge
 
 #print axioms riemannZeta_inv_growth_of_riemannHypothesis
 #print axioms isBigO_mertens_of_riemannHypothesis

@@ -6,6 +6,7 @@ import Mathlib.Data.Finset.Card
 import Mathlib.NumberTheory.ArithmeticFunction.VonMangoldt
 import Mathlib.NumberTheory.ArithmeticFunction.Moebius
 import Mathlib.Algebra.BigOperators.Intervals
+import Mathlib.Basic.Complex.Basic
 import RiemannBlueprint.Section2_PrimeAtoms
 
 /-!
@@ -381,5 +382,97 @@ theorem truncatedMoebiusDivisorSum_mul_primes_of_lt {N p q : ℕ} (hp : p.Prime)
       ArithmeticFunction.moebius_apply_prime hp, ArithmeticFunction.moebius_apply_prime hq]
     rfl
   linarith [h_split, h_full, h_tail]
+
+/-- Bridge lemma: Local jump-zero cancellation on divisors forces the Dirichlet polynomial
+coefficients to match the Möbius arithmetic function up to the truncation boundary `N`. -/
+theorem truncated_dirichlet_inverse_bridge (N : ℕ) (c : ℕ → ℂ) (hc1 : c 1 = 1)
+    (hc : ∀ n, 2 ≤ n → n ≤ N → ∑ d ∈ n.divisors.filter (· ≤ N), c d = 0) :
+    ∀ n, 1 ≤ n → n ≤ N → c n = (ArithmeticFunction.moebius n : ℂ) := by
+  intro n
+  refine Nat.strong_induction_on n fun n ih => ?_
+  intro hn1 hnN
+  by_cases hn2 : n = 1
+  · subst hn2
+    rw [hc1, ArithmeticFunction.moebius_apply_one]
+    push_cast
+    rfl
+  · have hn_ge2 : 2 ≤ n := by omega
+    have hdN : ∀ d ∈ n.divisors, d ≤ N :=
+      fun d hd => (Nat.le_of_dvd (by omega) (Nat.dvd_of_mem_divisors hd)).trans hnN
+    have hfilter : n.divisors.filter (· ≤ N) = n.divisors := by
+      ext d
+      simp only [Finset.mem_filter, and_iff_left_iff_imp]
+      exact hdN d
+    have hsum_c : ∑ d ∈ n.divisors, c d = 0 := by
+      have h0 := hc n hn_ge2 hnN
+      rwa [hfilter] at h0
+    have hn_mem : n ∈ n.divisors := Nat.mem_divisors.mpr ⟨dvd_rfl, by omega⟩
+    have hsplit_c : ∑ d ∈ n.divisors, c d = c n + ∑ d ∈ n.divisors.erase n, c d :=
+      (Finset.add_sum_erase n.divisors c hn_mem).symm
+    have hc_n : c n = - ∑ d ∈ n.divisors.erase n, c d := by
+      rw [hsplit_c] at hsum_c
+      calc c n = (c n + ∑ d ∈ n.divisors.erase n, c d) - ∑ d ∈ n.divisors.erase n, c d := by ring
+        _ = 0 - ∑ d ∈ n.divisors.erase n, c d := by rw [hsum_c]
+        _ = - ∑ d ∈ n.divisors.erase n, c d := by ring
+    have h_conv : (∑ d ∈ n.divisors, ArithmeticFunction.moebius d) =
+        (ArithmeticFunction.moebius * ArithmeticFunction.zeta : ArithmeticFunction ℤ) n := by
+      rw [ArithmeticFunction.coe_mul_zeta_apply]
+    have h_mu_zero_int : (∑ d ∈ n.divisors, ArithmeticFunction.moebius d) = 0 := by
+      rw [h_conv, ArithmeticFunction.moebius_mul_coe_zeta]
+      have : n ≠ 1 := by omega
+      simp [this]
+    have h_mu_zero : (∑ d ∈ n.divisors, (ArithmeticFunction.moebius d : ℂ)) = 0 := by
+      have : (∑ d ∈ n.divisors, (ArithmeticFunction.moebius d : ℂ)) =
+          ↑(∑ d ∈ n.divisors, ArithmeticFunction.moebius d) := by
+        push_cast
+        rfl
+      rw [this, h_mu_zero_int, Int.cast_zero]
+    have hsplit_mu : ∑ d ∈ n.divisors, (ArithmeticFunction.moebius d : ℂ) =
+        (ArithmeticFunction.moebius n : ℂ) +
+          ∑ d ∈ n.divisors.erase n, (ArithmeticFunction.moebius d : ℂ) :=
+      (Finset.add_sum_erase n.divisors (fun d => (ArithmeticFunction.moebius d : ℂ)) hn_mem).symm
+    have hmu_n : (ArithmeticFunction.moebius n : ℂ) =
+        - ∑ d ∈ n.divisors.erase n, (ArithmeticFunction.moebius d : ℂ) := by
+      rw [hsplit_mu] at h_mu_zero
+      calc (ArithmeticFunction.moebius n : ℂ) =
+          ((ArithmeticFunction.moebius n : ℂ) +
+            ∑ d ∈ n.divisors.erase n, (ArithmeticFunction.moebius d : ℂ)) -
+            ∑ d ∈ n.divisors.erase n, (ArithmeticFunction.moebius d : ℂ) := by ring
+        _ = 0 - ∑ d ∈ n.divisors.erase n, (ArithmeticFunction.moebius d : ℂ) := by rw [h_mu_zero]
+        _ = - ∑ d ∈ n.divisors.erase n, (ArithmeticFunction.moebius d : ℂ) := by ring
+    have h_erase_eq : ∑ d ∈ n.divisors.erase n, c d =
+        ∑ d ∈ n.divisors.erase n, (ArithmeticFunction.moebius d : ℂ) := by
+      refine Finset.sum_congr rfl fun d hd => ?_
+      simp only [Finset.mem_erase, Nat.mem_divisors] at hd
+      rcases hd with ⟨hd_ne, hd_dvd, -⟩
+      have hd_pos : 1 ≤ d := Nat.pos_of_dvd_of_pos hd_dvd (by omega)
+      have hd_lt : d < n := Nat.lt_of_le_of_ne (Nat.le_of_dvd (by omega) hd_dvd) hd_ne
+      have hdN_le : d ≤ N := hd_lt.le.trans hnN
+      exact ih d hd_lt hd_pos hdN_le
+    rw [hc_n, h_erase_eq, ← hmu_n]
+
+/-- Convolution bridge: Local jump-zero cancellation on divisors forces the truncated Dirichlet
+product to match the identity arithmetic function `1 = μ * ζ` up to `N`. -/
+theorem truncated_dirichlet_convolution_bridge (N : ℕ) (c : ℕ → ℂ) (hc1 : c 1 = 1)
+    (hc : ∀ n, 2 ≤ n → n ≤ N → ∑ d ∈ n.divisors.filter (· ≤ N), c d = 0) :
+    ∀ n, 1 ≤ n → n ≤ N →
+      ∑ d ∈ n.divisors.filter (· ≤ N), c d =
+        ((1 : ArithmeticFunction ℂ) n) := by
+  intro n hn1 hnN
+  by_cases hn2 : n = 1
+  · subst hn2
+    have h1 : (1 : ℕ).divisors.filter (· ≤ N) = {1} := by
+      ext d
+      simp only [Finset.mem_filter, Nat.divisors_one, Finset.mem_singleton]
+      constructor
+      · rintro ⟨rfl, -⟩; rfl
+      · rintro rfl; exact ⟨rfl, hnN⟩
+    rw [h1, Finset.sum_singleton, hc1]
+    simp
+  · have hn_ge2 : 2 ≤ n := by omega
+    have h0 := hc n hn_ge2 hnN
+    rw [h0]
+    have hne : n ≠ 1 := by omega
+    simp [hne]
 
 end RiemannBlueprint.Section3_CompositeTaxonomy
