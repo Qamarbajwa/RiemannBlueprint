@@ -5,9 +5,9 @@ Authors: Qamar Munawer
 -/
 module
 
-public import Mathlib.NumberTheory.LSeries.Nonvanishing
 public import Mathlib.NumberTheory.Harmonic.ZetaAsymp
 public import RiemannBlueprint.MathlibPR_CriticalLineZeros
+public import Mathlib.NumberTheory.LSeries.Nonvanishing
 
 /-!
 # De la Vallée Poussin's (1899) Classical Unconditional Zero-Free Region

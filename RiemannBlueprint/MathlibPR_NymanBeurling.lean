@@ -713,23 +713,26 @@ theorem riemannZeta_eq_tsum_harmonicUnitSummand (s : ℂ) (hs_pos : 0 < s.re) (h
   have htop_open : IsOpen U_top :=
     (isOpen_lt continuous_const Complex.continuous_re).inter
       (isOpen_lt continuous_const Complex.continuous_im)
+  have hU_top_sub : U_top ⊆ S := fun z ⟨hz_re, hz_im⟩ =>
+    ⟨hz_re, fun h1 => by subst h1; simp at hz_im⟩
+  have hU_bot_sub : U_bot ⊆ S := fun z ⟨hz_re, hz_im⟩ =>
+    ⟨hz_re, fun h1 => by subst h1; simp at hz_im⟩
+  have hU_left_sub : U_left ⊆ S := fun z ⟨hz_re, hz_lt⟩ =>
+    ⟨hz_re, fun h1 => by subst h1; simp at hz_lt⟩
   have hzero_top : Set.EqOn F 0 U_top := by
-    refine (hF_ana.mono fun z hz =>
-        ⟨hz.1, fun h1 => by subst h1; simp [U_top] at hz⟩).eqOn_of_preconnected_of_eventuallyEq
+    refine (hF_ana.mono hU_top_sub).eqOn_of_preconnected_of_eventuallyEq
       analyticOnNhd_const (hre0.inter (convex_linear_gt Complex.imLm 0)).isPreconnected
       (z₀ := (2 : ℂ) + Complex.I) (by simp [U_top]) ?_
     exact Filter.eventuallyEq_iff_exists_mem.mpr
       ⟨{z : ℂ | 1 < z.re}, hright_open.mem_nhds (by simp), fun z hz => hF_gt_one z hz⟩
   have hzero_bot : Set.EqOn F 0 U_bot := by
-    refine (hF_ana.mono fun z hz =>
-        ⟨hz.1, fun h1 => by subst h1; simp [U_bot] at hz⟩).eqOn_of_preconnected_of_eventuallyEq
+    refine (hF_ana.mono hU_bot_sub).eqOn_of_preconnected_of_eventuallyEq
       analyticOnNhd_const (hre0.inter (convex_linear_lt Complex.imLm 0)).isPreconnected
       (z₀ := (2 : ℂ) - Complex.I) (by simp [U_bot]) ?_
     exact Filter.eventuallyEq_iff_exists_mem.mpr
       ⟨{z : ℂ | 1 < z.re}, hright_open.mem_nhds (by simp), fun z hz => hF_gt_one z hz⟩
   have hzero_left : Set.EqOn F 0 U_left := by
-    refine (hF_ana.mono fun z hz =>
-        ⟨hz.1, fun h1 => by subst h1; simp [U_left] at hz⟩).eqOn_of_preconnected_of_eventuallyEq
+    refine (hF_ana.mono hU_left_sub).eqOn_of_preconnected_of_eventuallyEq
       analyticOnNhd_const (hre0.inter (convex_linear_lt Complex.reLm 1)).isPreconnected
       (z₀ := (1 / 2 : ℂ) + Complex.I) (by simp [U_left]; norm_num) ?_
     exact Filter.eventuallyEq_iff_exists_mem.mpr

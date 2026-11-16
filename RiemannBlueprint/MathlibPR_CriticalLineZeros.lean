@@ -5,8 +5,8 @@ Authors: Qamar Munawer
 -/
 module
 
-public import Mathlib.NumberTheory.LSeries.RiemannZeta
 public import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
+public import Mathlib.NumberTheory.LSeries.RiemannZeta
 public import Mathlib.Topology.Order.IntermediateValue
 
 /-!

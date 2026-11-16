@@ -5,12 +5,12 @@ Authors: Qamar Munawer
 -/
 module
 
-public import Mathlib.NumberTheory.LSeries.HardyZ
 public import Mathlib.Basic.Real.Basic
-public import Mathlib.Order.Bounds.Basic
 public import Mathlib.Data.Set.Finite.Lattice
-public import Mathlib.Tactic.Linarith
 public import RiemannBlueprint.MathlibPR_CriticalLineZeros
+public import Mathlib.NumberTheory.LSeries.HardyZ
+public import Mathlib.Order.Bounds.Basic
+public import Mathlib.Tactic.Linarith
 
 /-!
 # Hardy's (1914) Critical-Line Zeros Theorem
