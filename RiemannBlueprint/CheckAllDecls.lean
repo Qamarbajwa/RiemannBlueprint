@@ -6,6 +6,7 @@ import RiemannBlueprint.MathlibPR_ZetaLogDeriv
 import RiemannBlueprint.MathlibPR_NymanBeurlingConverse
 import RiemannBlueprint.MathlibPR_CriticalLineZeros
 import RiemannBlueprint.MathlibPR_ZeroFreeRegion
+import RiemannBlueprint.MathlibPR_HardyZeros
 import RiemannBlueprint.MathlibPR_VasyuninIntegral
 import RiemannBlueprint.VerifyNoTraps
 
@@ -394,6 +395,11 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check deLaValleePoussin_zero_free_region
 #check riemannZeta_ne_zero_of_one_le_re_strip
 
+#check infinite_of_forall_exists_gt
+#check exists_criticalLine_zero_of_hardyZ_sign_change
+#check infinite_criticalLine_zeros_of_sign_changes
+#check infinite_hardyZ_zeros_of_sign_changes
+
 #check recipFractScaled_eq_one_div_of_mem_Ioo
 #check recipFractScaled_eq_one_div_of_mem_uIoc
 #check intervalIntegral_linear_dilation
@@ -688,6 +694,11 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms deLaValleePoussin_contradiction
 #print axioms deLaValleePoussin_zero_free_region
 #print axioms riemannZeta_ne_zero_of_one_le_re_strip
+
+#print axioms infinite_of_forall_exists_gt
+#print axioms exists_criticalLine_zero_of_hardyZ_sign_change
+#print axioms infinite_criticalLine_zeros_of_sign_changes
+#print axioms infinite_hardyZ_zeros_of_sign_changes
 
 #print axioms recipFractScaled_eq_one_div_of_mem_Ioo
 #print axioms recipFractScaled_eq_one_div_of_mem_uIoc
