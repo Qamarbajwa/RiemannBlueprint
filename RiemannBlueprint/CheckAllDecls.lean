@@ -357,6 +357,10 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 
 #check RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum_eq_ite
 #check RiemannBlueprint.Section3_CompositeTaxonomy.sum_Icc_truncatedMoebiusDivisorSum_mul
+#check RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum_two_mul
+#check RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum_two_of_odd
+#check mellin_eulerTwoPair_unit_interval
+#check mellin_nymanDipole_unit_interval
 #check tendsto_sum_moebius_cpow_of_riemannHypothesis
 #check tendsto_sum_moebius_div_self_of_riemannHypothesis
 #check riemannHypothesis_iff_tendsto_sum_moebius
@@ -625,3 +629,7 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms differentiableOn_logDeriv_riemannZeta_of_riemannHypothesis
 #print axioms riemannZeta_Or_deriv_ne_zero_of_riemannHypothesis
 #print axioms riemannHypothesis_iff_analyticAt_inv_riemannZeta
+#print axioms RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum_two_mul
+#print axioms RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum_two_of_odd
+#print axioms mellin_eulerTwoPair_unit_interval
+#print axioms mellin_nymanDipole_unit_interval

@@ -1344,3 +1344,63 @@ theorem RiemannHypothesis.of_baezDuarte_approx
   · rcases baezDuarte_unconstrained_spatial_floor s₀ hs hgt hz with ⟨δ, hδ, hfloor⟩
     rcases h_bd δ hδ with ⟨N, c, hlt_eps⟩
     linarith [hfloor N c]
+
+/-- Subtracting the `k = 2` sawtooth dilation `{1 / (2 * x)}` from `{1 / x}` multiplies the
+Mellin transform by the `p = 2` Euler factor `(1 - 2 ^ (-s))`, removing all even harmonics
+and leaving the `1 / (2 * (s - 1))` pole from the odd-integer Dirichlet series. -/
+theorem mellin_eulerTwoPair_unit_interval {s : ℂ} (hs_lo : 0 < s.re) (hs_hi : s.re < 1) :
+    (∫ x : ℝ in Set.Ioo 0 1,
+      ((recipFractScaled 1 x : ℂ) - (recipFractScaled 2 x : ℂ)) * (x : ℂ) ^ (s - 1)) =
+    1 / (2 * (s - 1)) - (riemannZeta s / s) * (1 - (2 : ℂ) ^ (-s)) := by
+  have hs : 0 < s.re ∧ s.re < 1 := ⟨hs_lo, hs_hi⟩
+  have h1 := integrableOn_Ioc_recipFractScaled_cpow 1 (by norm_num) s hs
+  have h2 := integrableOn_Ioc_recipFractScaled_cpow 2 (by norm_num) s hs
+  have hIoo : (∫ x : ℝ in Set.Ioo 0 1,
+      ((recipFractScaled 1 x : ℂ) - (recipFractScaled 2 x : ℂ)) * (x : ℂ) ^ (s - 1)) =
+      ∫ x : ℝ in Ioc 0 1,
+        ((recipFractScaled 1 x : ℂ) * (x : ℂ) ^ (s - 1) -
+          (recipFractScaled 2 x : ℂ) * (x : ℂ) ^ (s - 1)) := by
+    rw [MeasureTheory.setIntegral_congr_set Ioo_ae_eq_Ioc]
+    refine MeasureTheory.setIntegral_congr_fun measurableSet_Ioc (fun x _ => ?_)
+    ring
+  rw [hIoo, MeasureTheory.integral_sub h1 h2,
+    integral_Ioc_recipFractScaled_cpow 1 (by norm_num) s hs,
+    integral_Ioc_recipFractScaled_cpow 2 (by norm_num) s hs]
+  have hs0 : s ≠ 0 := fun h0 => by rw [h0] at hs_lo; simp at hs_lo
+  have hs1 : s - 1 ≠ 0 := sub_ne_zero.mpr (fun h1 => by rw [h1] at hs_hi; simp at hs_hi)
+  have h2_ne : (2 : ℂ) ≠ 0 := by norm_num
+  have h2s_ne : (2 : ℂ) ^ s ≠ 0 := Complex.cpow_ne_zero_iff.mpr (Or.inl h2_ne)
+  simp only [Nat.cast_one, Nat.cast_ofNat, Complex.one_cpow]
+  rw [Complex.cpow_neg (2 : ℂ) s]
+  field_simp
+  ring
+
+/-- The minimal Nyman dipole `{1 / x} - 2 * {1 / (2 * x)}` satisfies the Nyman pole-cancellation
+constraint `1 / 1 - 2 / 2 = 0` and has Mellin transform `-(riemannZeta s / s) * (1 - 2 ^ (1 - s))`,
+where the factor `1 - 2 ^ (1 - s)` vanishes at `s = 1` to neutralize the pole of `riemannZeta`. -/
+theorem mellin_nymanDipole_unit_interval {s : ℂ} (hs_lo : 0 < s.re) (hs_hi : s.re < 1) :
+    (∫ x : ℝ in Set.Ioo 0 1,
+      ((recipFractScaled 1 x : ℂ) - 2 * (recipFractScaled 2 x : ℂ)) * (x : ℂ) ^ (s - 1)) =
+    -(riemannZeta s / s) * (1 - (2 : ℂ) ^ (1 - s)) := by
+  have hs : 0 < s.re ∧ s.re < 1 := ⟨hs_lo, hs_hi⟩
+  have h1 := integrableOn_Ioc_recipFractScaled_cpow 1 (by norm_num) s hs
+  have h2 := (integrableOn_Ioc_recipFractScaled_cpow 2 (by norm_num) s hs).const_mul (2 : ℂ)
+  have hIoo : (∫ x : ℝ in Set.Ioo 0 1,
+      ((recipFractScaled 1 x : ℂ) - 2 * (recipFractScaled 2 x : ℂ)) * (x : ℂ) ^ (s - 1)) =
+      ∫ x : ℝ in Ioc 0 1,
+        ((recipFractScaled 1 x : ℂ) * (x : ℂ) ^ (s - 1) -
+          (2 : ℂ) * ((recipFractScaled 2 x : ℂ) * (x : ℂ) ^ (s - 1))) := by
+    rw [MeasureTheory.setIntegral_congr_set Ioo_ae_eq_Ioc]
+    refine MeasureTheory.setIntegral_congr_fun measurableSet_Ioc (fun x _ => ?_)
+    ring
+  rw [hIoo, MeasureTheory.integral_sub h1 h2, MeasureTheory.integral_const_mul,
+    integral_Ioc_recipFractScaled_cpow 1 (by norm_num) s hs,
+    integral_Ioc_recipFractScaled_cpow 2 (by norm_num) s hs]
+  have hs0 : s ≠ 0 := fun h0 => by rw [h0] at hs_lo; simp at hs_lo
+  have hs1 : s - 1 ≠ 0 := sub_ne_zero.mpr (fun h1 => by rw [h1] at hs_hi; simp at hs_hi)
+  have h2_ne : (2 : ℂ) ≠ 0 := by norm_num
+  have h2s_ne : (2 : ℂ) ^ s ≠ 0 := Complex.cpow_ne_zero_iff.mpr (Or.inl h2_ne)
+  simp only [Nat.cast_one, Nat.cast_ofNat, Complex.one_cpow]
+  rw [Complex.cpow_sub _ _ h2_ne, Complex.cpow_one]
+  field_simp
+  ring

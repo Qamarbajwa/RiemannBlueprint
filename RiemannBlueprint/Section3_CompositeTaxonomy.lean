@@ -444,6 +444,47 @@ theorem eq_moebius_of_truncated_divisor_sum_eq_zero {N : ℕ} {c : ℕ → ℤ}
       exact ih d hd_lt hd_pos hdN_le
     rw [hc_k, h_erase_eq, ← hmu_k]
 
+/-- Pairing `k = 1` and `k = 2` (`N = 2`) annihilates the truncated Möbius divisor jump
+at every positive even integer `2 * m` (`m ≥ 1`), even when `2 * m > 2`. -/
+theorem truncatedMoebiusDivisorSum_two_mul {m : ℕ} (hm : 1 ≤ m) :
+    truncatedMoebiusDivisorSum 2 (2 * m) = 0 := by
+  unfold truncatedMoebiusDivisorSum
+  have hfilt : (2 * m).divisors.filter (· ≤ 2) = {1, 2} := by
+    ext d
+    simp only [Finset.mem_filter, Nat.mem_divisors, Finset.mem_insert, Finset.mem_singleton]
+    constructor
+    · rintro ⟨⟨hd_dvd, h2m_ne⟩, hd2⟩
+      have hd_pos : 1 ≤ d := Nat.pos_of_dvd_of_pos hd_dvd (by omega)
+      omega
+    · rintro (rfl | rfl)
+      · exact ⟨⟨one_dvd _, by omega⟩, by omega⟩
+      · exact ⟨⟨dvd_mul_right 2 m, by omega⟩, le_rfl⟩
+  rw [hfilt, Finset.sum_pair (by decide), ArithmeticFunction.moebius_apply_one,
+    ArithmeticFunction.moebius_apply_prime Nat.prime_two]
+  ring
+
+/-- For any odd integer `n` (`n % 2 = 1`), the only divisor `d ∣ n` with `d ≤ 2` is `d = 1`,
+so `truncatedMoebiusDivisorSum 2 n` equals `truncatedMoebiusDivisorSum 2 1 = 1`.
+In particular, once `k = 2` cancels all even jumps, the unit jump at `1` reappears
+identically at `3` and every odd prime `p ≥ 3`. -/
+theorem truncatedMoebiusDivisorSum_two_of_odd {n : ℕ} (hn : n % 2 = 1) :
+    truncatedMoebiusDivisorSum 2 n = 1 := by
+  unfold truncatedMoebiusDivisorSum
+  have hfilt : n.divisors.filter (· ≤ 2) = {1} := by
+    ext d
+    simp only [Finset.mem_filter, Nat.mem_divisors, Finset.mem_singleton]
+    constructor
+    · rintro ⟨⟨hd_dvd, hn_ne⟩, hd2⟩
+      have hd_pos : 1 ≤ d := Nat.pos_of_dvd_of_pos hd_dvd (Nat.pos_of_ne_zero hn_ne)
+      by_cases hd_eq2 : d = 2
+      · subst hd_eq2
+        obtain ⟨k, rfl⟩ := hd_dvd
+        omega
+      · omega
+    · rintro rfl
+      exact ⟨⟨one_dvd _, by omega⟩, by omega⟩
+  rw [hfilt, Finset.sum_singleton, ArithmeticFunction.moebius_apply_one]
+
 /-- On the interior range `1 ≤ n ≤ N`, the truncated Möbius divisor sum equals `1` at `n = 1`
 and `0` for all `2 ≤ n ≤ N`, matching the multiplicative identity of Dirichlet convolution. -/
 theorem truncatedMoebiusDivisorSum_eq_ite {N n : ℕ} (hn1 : 1 ≤ n) (hnN : n ≤ N) :
