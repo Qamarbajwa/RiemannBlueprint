@@ -361,6 +361,8 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #check RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum_two_of_odd
 #check mellin_eulerTwoPair_unit_interval
 #check mellin_nymanDipole_unit_interval
+#check two_var_jump_and_pole_eq_zero
+#check mellin_nymanTripole_unit_interval
 #check tendsto_sum_moebius_cpow_of_riemannHypothesis
 #check tendsto_sum_moebius_div_self_of_riemannHypothesis
 #check riemannHypothesis_iff_tendsto_sum_moebius
@@ -633,3 +635,5 @@ plus complete global `#print axioms` audit confirming ZERO custom `axiom` declar
 #print axioms RiemannBlueprint.Section3_CompositeTaxonomy.truncatedMoebiusDivisorSum_two_of_odd
 #print axioms mellin_eulerTwoPair_unit_interval
 #print axioms mellin_nymanDipole_unit_interval
+#print axioms two_var_jump_and_pole_eq_zero
+#print axioms mellin_nymanTripole_unit_interval

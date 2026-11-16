@@ -1404,3 +1404,55 @@ theorem mellin_nymanDipole_unit_interval {s : ℂ} (hs_lo : 0 < s.re) (hs_hi : s
   rw [Complex.cpow_sub _ _ h2_ne, Complex.cpow_one]
   field_simp
   ring
+
+/-- At scale `N = 2`, no non-zero pair `(c₁, c₂)` can simultaneously annihilate the
+even spatial jump (`c₁ + c₂ = 0`) and the `s = 1` pole residue (`c₁ + c₂ / 2 = 0`). -/
+theorem two_var_jump_and_pole_eq_zero {c₁ c₂ : ℂ}
+    (h_jump : c₁ + c₂ = 0) (h_pole : c₁ + c₂ / 2 = 0) :
+    c₁ = 0 ∧ c₂ = 0 := by
+  constructor
+  · linear_combination -h_jump + 2 * h_pole
+  · linear_combination 2 * h_jump - 2 * h_pole
+
+/-- Recruiting `k = 3` with `(c₁, c₂, c₃) = (1, -1, -3/2)` preserves even-jump cancellation
+(`c₁ + c₂ = 0`) while transferring the residual `1 / (2 * (s - 1))` pole of `{1/x} - {1/(2x)}`
+onto `{1/(3x)}`, yielding a pole-free Mellin transform
+`-(riemannZeta s / s) * (1 - 2^(-s) - (3/2) * 3^(-s))` whose Dirichlet factor vanishes
+at `s = 1`. -/
+theorem mellin_nymanTripole_unit_interval {s : ℂ} (hs_lo : 0 < s.re) (hs_hi : s.re < 1) :
+    (∫ x : ℝ in Set.Ioo 0 1,
+      ((recipFractScaled 1 x : ℂ) - (recipFractScaled 2 x : ℂ) -
+        (3 / 2 : ℂ) * (recipFractScaled 3 x : ℂ)) * (x : ℂ) ^ (s - 1)) =
+    -(riemannZeta s / s) * (1 - (2 : ℂ) ^ (-s) - (3 / 2 : ℂ) * (3 : ℂ) ^ (-s)) := by
+  have hs : 0 < s.re ∧ s.re < 1 := ⟨hs_lo, hs_hi⟩
+  have h1 := integrableOn_Ioc_recipFractScaled_cpow 1 (by norm_num) s hs
+  have h2 := integrableOn_Ioc_recipFractScaled_cpow 2 (by norm_num) s hs
+  have h3 := (integrableOn_Ioc_recipFractScaled_cpow 3 (by norm_num) s hs).const_mul (3 / 2 : ℂ)
+  have h12 : IntegrableOn (fun x : ℝ =>
+      (recipFractScaled 1 x : ℂ) * (x : ℂ) ^ (s - 1) -
+        (recipFractScaled 2 x : ℂ) * (x : ℂ) ^ (s - 1)) (Ioc 0 1) := h1.sub h2
+  have hIoo : (∫ x : ℝ in Set.Ioo 0 1,
+      ((recipFractScaled 1 x : ℂ) - (recipFractScaled 2 x : ℂ) -
+        (3 / 2 : ℂ) * (recipFractScaled 3 x : ℂ)) * (x : ℂ) ^ (s - 1)) =
+      ∫ x : ℝ in Ioc 0 1,
+        (((recipFractScaled 1 x : ℂ) * (x : ℂ) ^ (s - 1) -
+          (recipFractScaled 2 x : ℂ) * (x : ℂ) ^ (s - 1)) -
+          (3 / 2 : ℂ) * ((recipFractScaled 3 x : ℂ) * (x : ℂ) ^ (s - 1))) := by
+    rw [MeasureTheory.setIntegral_congr_set Ioo_ae_eq_Ioc]
+    refine MeasureTheory.setIntegral_congr_fun measurableSet_Ioc (fun x _ => ?_)
+    ring
+  rw [hIoo, MeasureTheory.integral_sub h12 h3, MeasureTheory.integral_sub h1 h2,
+    MeasureTheory.integral_const_mul,
+    integral_Ioc_recipFractScaled_cpow 1 (by norm_num) s hs,
+    integral_Ioc_recipFractScaled_cpow 2 (by norm_num) s hs,
+    integral_Ioc_recipFractScaled_cpow 3 (by norm_num) s hs]
+  have hs0 : s ≠ 0 := fun h0 => by rw [h0] at hs_lo; simp at hs_lo
+  have hs1 : s - 1 ≠ 0 := sub_ne_zero.mpr (fun h1 => by rw [h1] at hs_hi; simp at hs_hi)
+  have h2_ne : (2 : ℂ) ≠ 0 := by norm_num
+  have h3_ne : (3 : ℂ) ≠ 0 := by norm_num
+  have h2s_ne : (2 : ℂ) ^ s ≠ 0 := Complex.cpow_ne_zero_iff.mpr (Or.inl h2_ne)
+  have h3s_ne : (3 : ℂ) ^ s ≠ 0 := Complex.cpow_ne_zero_iff.mpr (Or.inl h3_ne)
+  simp only [Nat.cast_one, Nat.cast_ofNat, Complex.one_cpow]
+  rw [Complex.cpow_neg (2 : ℂ) s, Complex.cpow_neg (3 : ℂ) s]
+  field_simp
+  ring
