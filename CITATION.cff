@@ -4,7 +4,7 @@ title: "RiemannBlueprint: Axiom-Free Lean 4 Formalizations of Classical Analytic
 version: "3.0.0"
 date-released: "2026-11-18"
 license: "Apache-2.0"
-doi: "10.5281/zenodo.24353134"
+doi: "10.5281/zenodo.24353918"
 url: "https://github.com/Qamarbajwa/RiemannBlueprint"
 repository-code: "https://github.com/Qamarbajwa/RiemannBlueprint"
 authors:
@@ -24,6 +24,12 @@ abstract: >-
   de la Vallee Poussin, Hardy, Vasyunin-Baez-Duarte, and 64 self-contained,
   linter-verified modular Lean 4 formalization units, updated from 57, 58, 59, 60, 61, 62, and 63). Conditional equivalences parameterize their analytic hypotheses explicitly (MSC 2020 11M26, 46E20, 68V20).
 identifiers:
+  - type: doi
+    value: "10.5281/zenodo.24353918"
+    description: "Zenodo Hub 07 v3.0.12 software archive"
+  - type: doi
+    value: "10.5281/zenodo.24353366"
+    description: "Zenodo Hub 07 v3.0.11 software archive"
   - type: doi
     value: "10.5281/zenodo.24353134"
     description: "Zenodo Hub 07 v3.0.10 software archive"
