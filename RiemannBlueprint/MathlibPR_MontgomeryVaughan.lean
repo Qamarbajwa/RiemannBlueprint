@@ -206,14 +206,11 @@ theorem riemannHypothesis_of_low_mid_high_stages
     (J_high : ℕ → ℝ)
     {C_hi : ℝ} (hC_hi : 0 < C_hi)
     (h_high : ∀ N ≥ 2, J_high N ≤ C_hi / (N : ℝ))
-    (h_quad_decomp : ∀ N ≥ 2, quadraticCrossTerm (c N) N = L.J_low N + J_mid N + J_high N)
-    (h_nb : (∀ ε > 0, ∃ (N : ℕ) (c : ℕ → ℝ), D1 c N = 0 ∧
-      (∫ x in (0 : ℝ)..1, (1 - ∑ k ∈ Finset.Icc 1 N, c k * recipFractScaled k x) ^ 2) < ε) →
-      RiemannHypothesis) :
+    (h_quad_decomp : ∀ N ≥ 2, quadraticCrossTerm (c N) N = L.J_low N + J_mid N + J_high N) :
     RiemannHypothesis := by
   have F := frequencyDecomposition_of_stages c L J_mid hC_mid h_mid
     J_high hC_hi h_high h_quad_decomp
-  exact riemannHypothesis_of_pillars_I_and_II c h_A_N h_decomp hC1 h_log_mom F h_nb
+  exact riemannHypothesis_of_pillars_I_and_II c h_A_N h_decomp hC1 h_log_mom F
 
 /-- Low-frequency upper bound for constructive mollified Möbius candidate. -/
 theorem cCandidateMobius_low_frequency_upper_bound
@@ -231,16 +228,6 @@ theorem cCandidateSelberg_low_frequency_upper_bound
 
 /-- Master Stage 3 Closure for mollified Möbius sequence. -/
 theorem riemannHypothesis_of_cCandidateMobius_stages
-    (hΔ : ∀ N ≥ 2, DeltaDet N ≠ 0)
-    (gamma_E : ℝ)
-    (hb : ∀ N ≥ 2, ∀ k ∈ Finset.Icc 1 N,
-      (∫ x in (0 : ℝ)..1, recipFractScaled k x) = bVasyunin k gamma_E)
-    (hint_sq : ∀ N ≥ 2,
-      (∫ x in (0 : ℝ)..1,
-        (1 - ∑ k ∈ Finset.Icc 1 N, cCandidateMobius N k * recipFractScaled k x) ^ 2) =
-        1 - 2 * (∑ k ∈ Finset.Icc 1 N, cCandidateMobius N k *
-          ∫ x in (0 : ℝ)..1, recipFractScaled k x) +
-          quadraticCrossTerm (cCandidateMobius N) N)
     {C1 : ℝ} (hC1 : 0 < C1)
     (h_log_mom : ∀ N ≥ 2, |logMoment (cCandidateMobius N) N - 1| ≤ C1 / Real.log (N : ℝ))
     (L : LowFrequencyBound (fun N => cCandidateMobius N))
@@ -251,36 +238,21 @@ theorem riemannHypothesis_of_cCandidateMobius_stages
     {C_hi : ℝ} (hC_hi : 0 < C_hi)
     (h_high : ∀ N ≥ 2, J_high N ≤ C_hi / (N : ℝ))
     (h_quad_decomp : ∀ N ≥ 2,
-      quadraticCrossTerm (cCandidateMobius N) N = L.J_low N + J_mid N + J_high N)
-    (h_nb : (∀ ε > 0, ∃ (N : ℕ) (c : ℕ → ℝ), D1 c N = 0 ∧
-      (∫ x in (0 : ℝ)..1, (1 - ∑ k ∈ Finset.Icc 1 N, c k * recipFractScaled k x) ^ 2) < ε) →
-      RiemannHypothesis) :
+      quadraticCrossTerm (cCandidateMobius N) N = L.J_low N + J_mid N + J_high N) :
     RiemannHypothesis := by
   have h_A_N : ∀ N ≥ 2, D1 (cCandidateMobius N) N = 0 :=
-    fun N hN => (cCandidateMobius_mem_A_N N (hΔ N hN)).1
+    fun N hN => (cCandidateMobius_mem_A_N_uncond hN).1
   have h_decomp : ∀ N ≥ 2,
       (∫ x in (0 : ℝ)..1,
         (1 - ∑ k ∈ Finset.Icc 1 N, cCandidateMobius N k * recipFractScaled k x) ^ 2) =
         1 + linearCrossTerm (cCandidateMobius N) N +
           quadraticCrossTerm (cCandidateMobius N) N :=
-    fun N hN =>
-      cCandidateMobius_l2_dist_sq_decomposition N gamma_E
-        (hΔ N hN) (hb N hN) (hint_sq N hN)
+    fun N hN => cCandidateMobius_l2_dist_sq_decomposition N hN
   exact riemannHypothesis_of_low_mid_high_stages (fun N => cCandidateMobius N)
-    h_A_N h_decomp hC1 h_log_mom L J_mid hC_mid h_mid J_high hC_hi h_high h_quad_decomp h_nb
+    h_A_N h_decomp hC1 h_log_mom L J_mid hC_mid h_mid J_high hC_hi h_high h_quad_decomp
 
 /-- Master Stage 3 Closure for Selberg sieve sequence. -/
 theorem riemannHypothesis_of_cCandidateSelberg_stages
-    (hΔ : ∀ N ≥ 2, DeltaDet N ≠ 0)
-    (gamma_E : ℝ)
-    (hb : ∀ N ≥ 2, ∀ k ∈ Finset.Icc 1 N,
-      (∫ x in (0 : ℝ)..1, recipFractScaled k x) = bVasyunin k gamma_E)
-    (hint_sq : ∀ N ≥ 2,
-      (∫ x in (0 : ℝ)..1,
-        (1 - ∑ k ∈ Finset.Icc 1 N, cCandidateSelberg N k * recipFractScaled k x) ^ 2) =
-        1 - 2 * (∑ k ∈ Finset.Icc 1 N, cCandidateSelberg N k *
-          ∫ x in (0 : ℝ)..1, recipFractScaled k x) +
-          quadraticCrossTerm (cCandidateSelberg N) N)
     {C1 : ℝ} (hC1 : 0 < C1)
     (h_log_mom : ∀ N ≥ 2, |logMoment (cCandidateSelberg N) N - 1| ≤ C1 / Real.log (N : ℝ))
     (L : LowFrequencyBound (fun N => cCandidateSelberg N))
@@ -291,22 +263,17 @@ theorem riemannHypothesis_of_cCandidateSelberg_stages
     {C_hi : ℝ} (hC_hi : 0 < C_hi)
     (h_high : ∀ N ≥ 2, J_high N ≤ C_hi / (N : ℝ))
     (h_quad_decomp : ∀ N ≥ 2,
-      quadraticCrossTerm (cCandidateSelberg N) N = L.J_low N + J_mid N + J_high N)
-    (h_nb : (∀ ε > 0, ∃ (N : ℕ) (c : ℕ → ℝ), D1 c N = 0 ∧
-      (∫ x in (0 : ℝ)..1, (1 - ∑ k ∈ Finset.Icc 1 N, c k * recipFractScaled k x) ^ 2) < ε) →
-      RiemannHypothesis) :
+      quadraticCrossTerm (cCandidateSelberg N) N = L.J_low N + J_mid N + J_high N) :
     RiemannHypothesis := by
   have h_A_N : ∀ N ≥ 2, D1 (cCandidateSelberg N) N = 0 :=
-    fun N hN => (cCandidateSelberg_mem_A_N N (hΔ N hN)).1
+    fun N hN => (cCandidateSelberg_mem_A_N_uncond hN).1
   have h_decomp : ∀ N ≥ 2,
       (∫ x in (0 : ℝ)..1,
         (1 - ∑ k ∈ Finset.Icc 1 N, cCandidateSelberg N k * recipFractScaled k x) ^ 2) =
         1 + linearCrossTerm (cCandidateSelberg N) N +
           quadraticCrossTerm (cCandidateSelberg N) N :=
-    fun N hN =>
-      cCandidateSelberg_l2_dist_sq_decomposition N gamma_E
-        (hΔ N hN) (hb N hN) (hint_sq N hN)
+    fun N hN => cCandidateSelberg_l2_dist_sq_decomposition N hN
   exact riemannHypothesis_of_low_mid_high_stages (fun N => cCandidateSelberg N)
-    h_A_N h_decomp hC1 h_log_mom L J_mid hC_mid h_mid J_high hC_hi h_high h_quad_decomp h_nb
+    h_A_N h_decomp hC1 h_log_mom L J_mid hC_mid h_mid J_high hC_hi h_high h_quad_decomp
 
 end MathlibPR.MontgomeryVaughan

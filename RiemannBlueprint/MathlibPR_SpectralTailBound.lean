@@ -173,17 +173,14 @@ theorem riemannHypothesis_of_pillars_I_and_II
         1 + linearCrossTerm (c N) N + quadraticCrossTerm (c N) N)
     {C1 : ℝ} (hC1 : 0 < C1)
     (h_log_mom : ∀ N ≥ 2, |logMoment (c N) N - 1| ≤ C1 / Real.log (N : ℝ))
-    (F : FrequencyDecomposition c)
-    (h_nb : (∀ ε > 0, ∃ (N : ℕ) (c : ℕ → ℝ), D1 c N = 0 ∧
-      (∫ x in (0 : ℝ)..1, (1 - ∑ k ∈ Finset.Icc 1 N, c k * recipFractScaled k x) ^ 2) < ε) →
-      RiemannHypothesis) :
+    (F : FrequencyDecomposition c) :
     RiemannHypothesis := by
   have hI1_sandwich := linearCrossTerm_sandwich_of_logMoment_bound c h_log_mom
   have hI1 : ∀ N ≥ 2, linearCrossTerm (c N) N ≤ -2 + (2 * C1) / Real.log (N : ℝ) :=
     fun N hN => (hI1_sandwich N hN).2
   rcases quadraticCrossTerm_bound_of_frequency_decomp c F with ⟨C2, hC2, hI2⟩
   have h_dist_bound := l2_dist_bound_of_cross_terms c h_decomp hC1 hI1 hC2 hI2
-  exact riemannHypothesis_of_log_decay_bound c h_A_N h_dist_bound h_nb
+  exact riemannHypothesis_of_log_decay_bound c h_A_N h_dist_bound
 
 /-- Quadratic cross-term bound for constructive mollified Möbius candidate. -/
 theorem cCandidateMobius_quadraticCrossTerm_bound
@@ -194,35 +191,20 @@ theorem cCandidateMobius_quadraticCrossTerm_bound
 
 /-- Specialization to the constructive mollified Möbius candidate sequence. -/
 theorem riemannHypothesis_of_cCandidateMobius_pillars_I_and_II
-    (hΔ : ∀ N ≥ 2, DeltaDet N ≠ 0)
-    (gamma_E : ℝ)
-    (hb : ∀ N ≥ 2, ∀ k ∈ Finset.Icc 1 N,
-      (∫ x in (0 : ℝ)..1, recipFractScaled k x) = bVasyunin k gamma_E)
-    (hint_sq : ∀ N ≥ 2,
-      (∫ x in (0 : ℝ)..1,
-        (1 - ∑ k ∈ Finset.Icc 1 N, cCandidateMobius N k * recipFractScaled k x) ^ 2) =
-        1 - 2 * (∑ k ∈ Finset.Icc 1 N, cCandidateMobius N k *
-          ∫ x in (0 : ℝ)..1, recipFractScaled k x) +
-          quadraticCrossTerm (cCandidateMobius N) N)
     {C1 : ℝ} (hC1 : 0 < C1)
     (h_log_mom : ∀ N ≥ 2, |logMoment (cCandidateMobius N) N - 1| ≤ C1 / Real.log (N : ℝ))
-    (F : FrequencyDecomposition (fun N => cCandidateMobius N))
-    (h_nb : (∀ ε > 0, ∃ (N : ℕ) (c : ℕ → ℝ), D1 c N = 0 ∧
-      (∫ x in (0 : ℝ)..1, (1 - ∑ k ∈ Finset.Icc 1 N, c k * recipFractScaled k x) ^ 2) < ε) →
-      RiemannHypothesis) :
+    (F : FrequencyDecomposition (fun N => cCandidateMobius N)) :
     RiemannHypothesis := by
   have h_A_N : ∀ N ≥ 2, D1 (cCandidateMobius N) N = 0 :=
-    fun N hN => (cCandidateMobius_mem_A_N N (hΔ N hN)).1
+    fun N hN => (cCandidateMobius_mem_A_N_uncond hN).1
   have h_decomp : ∀ N ≥ 2,
       (∫ x in (0 : ℝ)..1,
         (1 - ∑ k ∈ Finset.Icc 1 N, cCandidateMobius N k * recipFractScaled k x) ^ 2) =
         1 + linearCrossTerm (cCandidateMobius N) N +
           quadraticCrossTerm (cCandidateMobius N) N :=
-    fun N hN =>
-      cCandidateMobius_l2_dist_sq_decomposition N gamma_E
-        (hΔ N hN) (hb N hN) (hint_sq N hN)
+    fun N hN => cCandidateMobius_l2_dist_sq_decomposition N hN
   exact riemannHypothesis_of_pillars_I_and_II (fun N => cCandidateMobius N)
-    h_A_N h_decomp hC1 h_log_mom F h_nb
+    h_A_N h_decomp hC1 h_log_mom F
 
 /-- Quadratic cross-term bound for constructive Selberg sieve candidate. -/
 theorem cCandidateSelberg_quadraticCrossTerm_bound
@@ -233,34 +215,19 @@ theorem cCandidateSelberg_quadraticCrossTerm_bound
 
 /-- Specialization to the constructive Selberg sieve candidate sequence. -/
 theorem riemannHypothesis_of_cCandidateSelberg_pillars_I_and_II
-    (hΔ : ∀ N ≥ 2, DeltaDet N ≠ 0)
-    (gamma_E : ℝ)
-    (hb : ∀ N ≥ 2, ∀ k ∈ Finset.Icc 1 N,
-      (∫ x in (0 : ℝ)..1, recipFractScaled k x) = bVasyunin k gamma_E)
-    (hint_sq : ∀ N ≥ 2,
-      (∫ x in (0 : ℝ)..1,
-        (1 - ∑ k ∈ Finset.Icc 1 N, cCandidateSelberg N k * recipFractScaled k x) ^ 2) =
-        1 - 2 * (∑ k ∈ Finset.Icc 1 N, cCandidateSelberg N k *
-          ∫ x in (0 : ℝ)..1, recipFractScaled k x) +
-          quadraticCrossTerm (cCandidateSelberg N) N)
     {C1 : ℝ} (hC1 : 0 < C1)
     (h_log_mom : ∀ N ≥ 2, |logMoment (cCandidateSelberg N) N - 1| ≤ C1 / Real.log (N : ℝ))
-    (F : FrequencyDecomposition (fun N => cCandidateSelberg N))
-    (h_nb : (∀ ε > 0, ∃ (N : ℕ) (c : ℕ → ℝ), D1 c N = 0 ∧
-      (∫ x in (0 : ℝ)..1, (1 - ∑ k ∈ Finset.Icc 1 N, c k * recipFractScaled k x) ^ 2) < ε) →
-      RiemannHypothesis) :
+    (F : FrequencyDecomposition (fun N => cCandidateSelberg N)) :
     RiemannHypothesis := by
   have h_A_N : ∀ N ≥ 2, D1 (cCandidateSelberg N) N = 0 :=
-    fun N hN => (cCandidateSelberg_mem_A_N N (hΔ N hN)).1
+    fun N hN => (cCandidateSelberg_mem_A_N_uncond hN).1
   have h_decomp : ∀ N ≥ 2,
       (∫ x in (0 : ℝ)..1,
         (1 - ∑ k ∈ Finset.Icc 1 N, cCandidateSelberg N k * recipFractScaled k x) ^ 2) =
         1 + linearCrossTerm (cCandidateSelberg N) N +
           quadraticCrossTerm (cCandidateSelberg N) N :=
-    fun N hN =>
-      cCandidateSelberg_l2_dist_sq_decomposition N gamma_E
-        (hΔ N hN) (hb N hN) (hint_sq N hN)
+    fun N hN => cCandidateSelberg_l2_dist_sq_decomposition N hN
   exact riemannHypothesis_of_pillars_I_and_II (fun N => cCandidateSelberg N)
-    h_A_N h_decomp hC1 h_log_mom F h_nb
+    h_A_N h_decomp hC1 h_log_mom F
 
 end MathlibPR.SpectralTailBound

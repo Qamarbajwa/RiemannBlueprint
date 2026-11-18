@@ -125,77 +125,44 @@ theorem riemannHypothesis_of_full_spectral_system
         1 + linearCrossTerm (c N) N + quadraticCrossTerm (c N) N)
     {C1 : ℝ} (hC1 : 0 < C1)
     (h_log_mom : ∀ N ≥ 2, |logMoment (c N) N - 1| ≤ C1 / Real.log (N : ℝ))
-    (S : FullSpectralSystem c)
-    (h_nb : (∀ ε > 0, ∃ (N : ℕ) (c : ℕ → ℝ), D1 c N = 0 ∧
-      (∫ x in (0 : ℝ)..1, (1 - ∑ k ∈ Finset.Icc 1 N, c k * recipFractScaled k x) ^ 2) < ε) →
-      RiemannHypothesis) :
+    (S : FullSpectralSystem c) :
     RiemannHypothesis :=
   riemannHypothesis_of_pillars_I_and_II c h_A_N h_decomp hC1 h_log_mom
-    (frequencyDecomposition_of_full_system c S) h_nb
+    (frequencyDecomposition_of_full_system c S)
 
 /-- Master Reduction for constructive mollified Möbius candidate from Full Spectral System. -/
 theorem riemannHypothesis_of_cCandidateMobius_full_system
-    (hΔ : ∀ N ≥ 2, DeltaDet N ≠ 0)
-    (gamma_E : ℝ)
-    (hb : ∀ N ≥ 2, ∀ k ∈ Finset.Icc 1 N,
-      (∫ x in (0 : ℝ)..1, recipFractScaled k x) = bVasyunin k gamma_E)
-    (hint_sq : ∀ N ≥ 2,
-      (∫ x in (0 : ℝ)..1,
-        (1 - ∑ k ∈ Finset.Icc 1 N, cCandidateMobius N k * recipFractScaled k x) ^ 2) =
-        1 - 2 * (∑ k ∈ Finset.Icc 1 N, cCandidateMobius N k *
-          ∫ x in (0 : ℝ)..1, recipFractScaled k x) +
-          quadraticCrossTerm (cCandidateMobius N) N)
     {C1 : ℝ} (hC1 : 0 < C1)
     (h_log_mom : ∀ N ≥ 2, |logMoment (cCandidateMobius N) N - 1| ≤ C1 / Real.log (N : ℝ))
-    (S : FullSpectralSystem (fun N => cCandidateMobius N))
-    (h_nb : (∀ ε > 0, ∃ (N : ℕ) (c : ℕ → ℝ), D1 c N = 0 ∧
-      (∫ x in (0 : ℝ)..1, (1 - ∑ k ∈ Finset.Icc 1 N, c k * recipFractScaled k x) ^ 2) < ε) →
-      RiemannHypothesis) :
+    (S : FullSpectralSystem (fun N => cCandidateMobius N)) :
     RiemannHypothesis := by
   have h_A_N : ∀ N ≥ 2, D1 (cCandidateMobius N) N = 0 :=
-    fun N hN => (cCandidateMobius_mem_A_N N (hΔ N hN)).1
+    fun N hN => (cCandidateMobius_mem_A_N_uncond hN).1
   have h_decomp : ∀ N ≥ 2,
       (∫ x in (0 : ℝ)..1,
         (1 - ∑ k ∈ Finset.Icc 1 N, cCandidateMobius N k * recipFractScaled k x) ^ 2) =
         1 + linearCrossTerm (cCandidateMobius N) N +
           quadraticCrossTerm (cCandidateMobius N) N :=
-    fun N hN =>
-      cCandidateMobius_l2_dist_sq_decomposition N gamma_E
-        (hΔ N hN) (hb N hN) (hint_sq N hN)
+    fun N hN => cCandidateMobius_l2_dist_sq_decomposition N hN
   exact riemannHypothesis_of_full_spectral_system (fun N => cCandidateMobius N)
-    h_A_N h_decomp hC1 h_log_mom S h_nb
+    h_A_N h_decomp hC1 h_log_mom S
 
 /-- Master Reduction for constructive Selberg sieve candidate from Full Spectral System. -/
 theorem riemannHypothesis_of_cCandidateSelberg_full_system
-    (hΔ : ∀ N ≥ 2, DeltaDet N ≠ 0)
-    (gamma_E : ℝ)
-    (hb : ∀ N ≥ 2, ∀ k ∈ Finset.Icc 1 N,
-      (∫ x in (0 : ℝ)..1, recipFractScaled k x) = bVasyunin k gamma_E)
-    (hint_sq : ∀ N ≥ 2,
-      (∫ x in (0 : ℝ)..1,
-        (1 - ∑ k ∈ Finset.Icc 1 N, cCandidateSelberg N k * recipFractScaled k x) ^ 2) =
-        1 - 2 * (∑ k ∈ Finset.Icc 1 N, cCandidateSelberg N k *
-          ∫ x in (0 : ℝ)..1, recipFractScaled k x) +
-          quadraticCrossTerm (cCandidateSelberg N) N)
     {C1 : ℝ} (hC1 : 0 < C1)
     (h_log_mom : ∀ N ≥ 2, |logMoment (cCandidateSelberg N) N - 1| ≤ C1 / Real.log (N : ℝ))
-    (S : FullSpectralSystem (fun N => cCandidateSelberg N))
-    (h_nb : (∀ ε > 0, ∃ (N : ℕ) (c : ℕ → ℝ), D1 c N = 0 ∧
-      (∫ x in (0 : ℝ)..1, (1 - ∑ k ∈ Finset.Icc 1 N, c k * recipFractScaled k x) ^ 2) < ε) →
-      RiemannHypothesis) :
+    (S : FullSpectralSystem (fun N => cCandidateSelberg N)) :
     RiemannHypothesis := by
   have h_A_N : ∀ N ≥ 2, D1 (cCandidateSelberg N) N = 0 :=
-    fun N hN => (cCandidateSelberg_mem_A_N N (hΔ N hN)).1
+    fun N hN => (cCandidateSelberg_mem_A_N_uncond hN).1
   have h_decomp : ∀ N ≥ 2,
       (∫ x in (0 : ℝ)..1,
         (1 - ∑ k ∈ Finset.Icc 1 N, cCandidateSelberg N k * recipFractScaled k x) ^ 2) =
         1 + linearCrossTerm (cCandidateSelberg N) N +
           quadraticCrossTerm (cCandidateSelberg N) N :=
-    fun N hN =>
-      cCandidateSelberg_l2_dist_sq_decomposition N gamma_E
-        (hΔ N hN) (hb N hN) (hint_sq N hN)
+    fun N hN => cCandidateSelberg_l2_dist_sq_decomposition N hN
   exact riemannHypothesis_of_full_spectral_system (fun N => cCandidateSelberg N)
-    h_A_N h_decomp hC1 h_log_mom S h_nb
+    h_A_N h_decomp hC1 h_log_mom S
 
 /-- Variational Domination Principle:
 For any sequence $c^{(N)} \in \mathcal{A}_N$, any valid upper bound

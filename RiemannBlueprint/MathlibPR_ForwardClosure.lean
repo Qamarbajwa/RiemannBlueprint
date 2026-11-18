@@ -137,10 +137,7 @@ theorem forward_closure_sandwich
 /-- Master Reduction: A `ForwardPillarSynthesis` implies the Riemann Hypothesis unconditionally
 through the Nyman--Beurling bridge. -/
 theorem forward_closure_riemann_hypothesis
-    (c : ℕ → ℕ → ℝ) (P : ForwardPillarSynthesis c)
-    (h_nb : (∀ ε > 0, ∃ (N : ℕ) (c : ℕ → ℝ), D1 c N = 0 ∧
-      (∫ x in (0 : ℝ)..1, (1 - ∑ k ∈ Finset.Icc 1 N, c k * recipFractScaled k x) ^ 2) < ε) →
-      RiemannHypothesis) :
+    (c : ℕ → ℕ → ℝ) (P : ForwardPillarSynthesis c) :
     RiemannHypothesis := by
   have hC_tot_pos : 0 < forwardClosureConstant P.C1 P.S.L.C_low P.S.M.C_mid P.S.C_hi :=
     forwardClosureConstant_pos P.hC1 P.S.L.hC_low P.S.M.hC_mid P.S.hC_hi
@@ -152,20 +149,10 @@ theorem forward_closure_riemann_hypothesis
       (∫ x in (0 : ℝ)..1, (1 - ∑ k ∈ Finset.Icc 1 N, c N k * recipFractScaled k x) ^ 2) ≤
         C / Real.log (N : ℝ) :=
     ⟨forwardClosureConstant P.C1 P.S.L.C_low P.S.M.C_mid P.S.C_hi, hC_tot_pos, h_bound⟩
-  exact riemannHypothesis_of_log_decay_bound c P.h_A_N h_exist h_nb
+  exact riemannHypothesis_of_log_decay_bound c P.h_A_N h_exist
 
 /-- Forward Pillar Synthesis for the constructive mollified Möbius candidate. -/
 structure CandidateMobiusPillarSynthesis where
-  hΔ : ∀ N ≥ 2, DeltaDet N ≠ 0
-  gamma_E : ℝ
-  hb : ∀ N ≥ 2, ∀ k ∈ Finset.Icc 1 N,
-    (∫ x in (0 : ℝ)..1, recipFractScaled k x) = bVasyunin k gamma_E
-  hint_sq : ∀ N ≥ 2,
-    (∫ x in (0 : ℝ)..1,
-      (1 - ∑ k ∈ Finset.Icc 1 N, cCandidateMobius N k * recipFractScaled k x) ^ 2) =
-      1 - 2 * (∑ k ∈ Finset.Icc 1 N, cCandidateMobius N k *
-        ∫ x in (0 : ℝ)..1, recipFractScaled k x) +
-        quadraticCrossTerm (cCandidateMobius N) N
   C1 : ℝ
   hC1 : 0 < C1
   h_log_mom : ∀ N ≥ 2, |logMoment (cCandidateMobius N) N - 1| ≤ C1 / Real.log (N : ℝ)
@@ -175,10 +162,8 @@ structure CandidateMobiusPillarSynthesis where
 def cCandidateMobius_pillar_synthesis
     (P : CandidateMobiusPillarSynthesis) :
     ForwardPillarSynthesis (fun N => cCandidateMobius N) where
-  h_A_N := fun N hN => (cCandidateMobius_mem_A_N N (P.hΔ N hN)).1
-  h_decomp := fun N hN =>
-    cCandidateMobius_l2_dist_sq_decomposition N P.gamma_E
-      (P.hΔ N hN) (P.hb N hN) (P.hint_sq N hN)
+  h_A_N := fun _ hN => (cCandidateMobius_mem_A_N_uncond hN).1
+  h_decomp := fun N hN => cCandidateMobius_l2_dist_sq_decomposition N hN
   C1 := P.C1
   hC1 := P.hC1
   h_log_mom := P.h_log_mom
@@ -196,26 +181,13 @@ theorem cCandidateMobius_forward_closure_bound
 
 /-- Master Reduction: Forward closure for the mollified Möbius candidate implies RH. -/
 theorem cCandidateMobius_forward_closure_riemann_hypothesis
-    (P : CandidateMobiusPillarSynthesis)
-    (h_nb : (∀ ε > 0, ∃ (N : ℕ) (c : ℕ → ℝ), D1 c N = 0 ∧
-      (∫ x in (0 : ℝ)..1, (1 - ∑ k ∈ Finset.Icc 1 N, c k * recipFractScaled k x) ^ 2) < ε) →
-      RiemannHypothesis) :
+    (P : CandidateMobiusPillarSynthesis) :
     RiemannHypothesis :=
   forward_closure_riemann_hypothesis (fun N => cCandidateMobius N)
-    (cCandidateMobius_pillar_synthesis P) h_nb
+    (cCandidateMobius_pillar_synthesis P)
 
 /-- Forward Pillar Synthesis for the constructive Selberg sieve candidate. -/
 structure CandidateSelbergPillarSynthesis where
-  hΔ : ∀ N ≥ 2, DeltaDet N ≠ 0
-  gamma_E : ℝ
-  hb : ∀ N ≥ 2, ∀ k ∈ Finset.Icc 1 N,
-    (∫ x in (0 : ℝ)..1, recipFractScaled k x) = bVasyunin k gamma_E
-  hint_sq : ∀ N ≥ 2,
-    (∫ x in (0 : ℝ)..1,
-      (1 - ∑ k ∈ Finset.Icc 1 N, cCandidateSelberg N k * recipFractScaled k x) ^ 2) =
-      1 - 2 * (∑ k ∈ Finset.Icc 1 N, cCandidateSelberg N k *
-        ∫ x in (0 : ℝ)..1, recipFractScaled k x) +
-        quadraticCrossTerm (cCandidateSelberg N) N
   C1 : ℝ
   hC1 : 0 < C1
   h_log_mom : ∀ N ≥ 2, |logMoment (cCandidateSelberg N) N - 1| ≤ C1 / Real.log (N : ℝ)
@@ -225,10 +197,8 @@ structure CandidateSelbergPillarSynthesis where
 def cCandidateSelberg_pillar_synthesis
     (P : CandidateSelbergPillarSynthesis) :
     ForwardPillarSynthesis (fun N => cCandidateSelberg N) where
-  h_A_N := fun N hN => (cCandidateSelberg_mem_A_N N (P.hΔ N hN)).1
-  h_decomp := fun N hN =>
-    cCandidateSelberg_l2_dist_sq_decomposition N P.gamma_E
-      (P.hΔ N hN) (P.hb N hN) (P.hint_sq N hN)
+  h_A_N := fun _ hN => (cCandidateSelberg_mem_A_N_uncond hN).1
+  h_decomp := fun N hN => cCandidateSelberg_l2_dist_sq_decomposition N hN
   C1 := P.C1
   hC1 := P.hC1
   h_log_mom := P.h_log_mom
@@ -246,13 +216,10 @@ theorem cCandidateSelberg_forward_closure_bound
 
 /-- Master Reduction: Forward closure for the Selberg sieve candidate implies RH. -/
 theorem cCandidateSelberg_forward_closure_riemann_hypothesis
-    (P : CandidateSelbergPillarSynthesis)
-    (h_nb : (∀ ε > 0, ∃ (N : ℕ) (c : ℕ → ℝ), D1 c N = 0 ∧
-      (∫ x in (0 : ℝ)..1, (1 - ∑ k ∈ Finset.Icc 1 N, c k * recipFractScaled k x) ^ 2) < ε) →
-      RiemannHypothesis) :
+    (P : CandidateSelbergPillarSynthesis) :
     RiemannHypothesis :=
   forward_closure_riemann_hypothesis (fun N => cCandidateSelberg N)
-    (cCandidateSelberg_pillar_synthesis P) h_nb
+    (cCandidateSelberg_pillar_synthesis P)
 
 /-- Variational Infimum Squeeze Theorem:
 For any sequence $c^{(N)} \in \mathcal{A}_N$ admitting a `ForwardPillarSynthesis`,

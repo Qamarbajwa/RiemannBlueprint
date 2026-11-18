@@ -1,1 +1,7 @@
 /.lake
+/build
+*.olean
+*.ilean
+*.ir
+*.trace
+__pycache__/
