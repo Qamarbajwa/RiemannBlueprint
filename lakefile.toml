@@ -1,6 +1,10 @@
 name = "RiemannBlueprint"
-version = "0.1.0"
-keywords = ["math"]
+version = "3.0.0"
+description = "Axiom-free Lean 4 formalizations of classical equivalences and unconditional theorems in analytic number theory (NO_RH_PROOF = TRUE)"
+keywords = ["math", "number-theory", "riemann-zeta", "lean4"]
+homepage = "https://github.com/Qamarbajwa/RiemannBlueprint"
+repository = "https://github.com/Qamarbajwa/RiemannBlueprint"
+license = "Apache-2.0"
 defaultTargets = ["RiemannBlueprint"]
 
 [leanOptions]

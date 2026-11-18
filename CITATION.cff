@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+title: "RiemannBlueprint: Axiom-Free Lean 4 Formalizations of Classical Analytic Number Theory"
+version: "3.0.0"
+date-released: "2026-11-18"
+license: "Apache-2.0"
+doi: "10.5281/zenodo.24329861"
+url: "https://github.com/Qamarbajwa/RiemannBlueprint"
+repository-code: "https://github.com/Qamarbajwa/RiemannBlueprint"
+authors:
+  - family-names: Munawer
+    given-names: Qamar
+    affiliation: "Brandenburg University of Technology Cottbus–Senftenberg"
+keywords:
+  - riemann-hypothesis
+  - riemann-zeta-function
+  - lean4
+  - mathlib4
+  - formal-verification
+  - number-theory
+abstract: >-
+  Axiom-free Lean 4.35.0 formalizations of classical equivalences and unconditional
+  theorems surrounding the Riemann zeta function (Littlewood, von Koch, Nyman-Beurling,
+  de la Vallee Poussin, Hardy, Vasyunin-Baez-Duarte, and 39 extracted Mathlib4 PR
+  modules). Maintains NO_RH_PROOF = TRUE.
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.24329861"
+    description: "Zenodo Hub 07 v3.0.0/v3.0.1 versioned software archive"
+  - type: doi
+    value: "10.5281/zenodo.24150107"
+    description: "Zenodo Hub 07 Concept DOI"
