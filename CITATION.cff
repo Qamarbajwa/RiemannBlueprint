@@ -4,7 +4,7 @@ title: "RiemannBlueprint: Axiom-Free Lean 4 Formalizations of Classical Analytic
 version: "3.0.0"
 date-released: "2026-11-18"
 license: "Apache-2.0"
-doi: "10.5281/zenodo.24352678"
+doi: "10.5281/zenodo.24352900"
 url: "https://github.com/Qamarbajwa/RiemannBlueprint"
 repository-code: "https://github.com/Qamarbajwa/RiemannBlueprint"
 authors:
@@ -21,9 +21,12 @@ keywords:
 abstract: >-
   Axiom-free Lean 4.35.0 formalizations of classical equivalences and unconditional
   theorems surrounding the Riemann zeta function (Littlewood, von Koch, Nyman-Beurling,
-  de la Vallee Poussin, Hardy, Vasyunin-Baez-Duarte, and 62 self-contained,
-  linter-verified modular Lean 4 formalization units, updated from 57, 58, 59, 60, and 61). Maintains NO_RH_PROOF = TRUE.
+  de la Vallee Poussin, Hardy, Vasyunin-Baez-Duarte, and 63 self-contained,
+  linter-verified modular Lean 4 formalization units, updated from 57, 58, 59, 60, 61, and 62). Maintains NO_RH_PROOF = TRUE.
 identifiers:
+  - type: doi
+    value: "10.5281/zenodo.24352900"
+    description: "Zenodo Hub 07 v3.0.9 software archive"
   - type: doi
     value: "10.5281/zenodo.24352678"
     description: "Zenodo Hub 07 v3.0.8 software archive"
