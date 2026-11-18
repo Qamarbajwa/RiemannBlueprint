@@ -45,7 +45,7 @@ jobs:
           assert not bad, f"Found sorry/admit in proof code: {bad}"
           print("Zero sorry/admit across all Lean proof code.")
           '
-          lake env lean -c /dev/null --stdin <<'EOF'
+          lake env lean --stdin <<'EOF'
           import RiemannBlueprint.UnconditionalTitchmarshBridge
           #print axioms titchmarshMellinProperty_unconditional
           #print axioms riemannHypothesis_of_purePlaque_vanishing_unconditional
