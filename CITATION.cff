@@ -22,7 +22,7 @@ abstract: >-
   Axiom-free Lean 4.35.0 formalizations of classical equivalences and unconditional
   theorems surrounding the Riemann zeta function (Littlewood, von Koch, Nyman-Beurling,
   de la Vallee Poussin, Hardy, Vasyunin-Baez-Duarte, and 64 self-contained,
-  linter-verified modular Lean 4 formalization units, updated from 57, 58, 59, 60, 61, 62, and 63). Maintains NO_RH_PROOF = TRUE.
+  linter-verified modular Lean 4 formalization units, updated from 57, 58, 59, 60, 61, 62, and 63). Conditional equivalences parameterize their analytic hypotheses explicitly (MSC 2020 11M26, 46E20, 68V20).
 identifiers:
   - type: doi
     value: "10.5281/zenodo.24353134"
