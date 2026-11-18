@@ -47,7 +47,11 @@ jobs:
           '
           lake env lean --stdin <<'EOF'
           import RiemannBlueprint.UnconditionalTitchmarshBridge
+          import RiemannBlueprint.OpenStripRouche
           #print axioms titchmarshMellinProperty_unconditional
           #print axioms riemannHypothesis_of_purePlaque_vanishing_unconditional
           #print axioms riemannHypothesis_of_logarithmic_plaque_bound_unconditional
+          #print axioms RiemannBlueprint.OpenStripRouche.rectRoucheProperty_unconditional
+          #print axioms RiemannBlueprint.OpenStripRouche.theorem1_rouche_zero_exclusion_unconditional
+          #print axioms RiemannBlueprint.OpenStripRouche.theorem2_rouche_exhaustion_implies_rh_unconditional
           EOF
