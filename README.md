@@ -16,7 +16,7 @@
   - Wave 8: `UpstreamPR_8A`–`8G` (pure plaque Cauchy–Schwarz lower bound, Dirichlet-anchored $c_1=-1$ plaque positivity & unit-drive $L^2$ law, 2D discrete Abel telescoping kernel reduction, pure plaque / telescoped RH criteria, exact closed-form $(31/108)\pi$ $N=4$ Dirichlet optimum, closed-form $N=5$ dipole Gram entries via $(\mathbb{Z}/5\mathbb{Z})^\times$ reciprocity, and exact $N=6$ Vasyunin sums in $\mathbb{Q}(\sqrt{3})$, $K(3,6)=0$, and complete $\widetilde{G}_{24}=0$ decoupling).
 - **Zenodo Hub 07 DOI:** [`10.5281/zenodo.24329861`](https://doi.org/10.5281/zenodo.24329861) (Concept DOI [`10.5281/zenodo.24150107`](https://doi.org/10.5281/zenodo.24150107); earlier `v3.0.0` `10.5281/zenodo.24328027`)
 - **CI & Citation:** Automated build via [`.github/workflows/lean_action_ci.yml`](./.github/workflows/lean_action_ci.yml) (`leanprover/lean-action@v1`) and [`CITATION.cff`](./CITATION.cff)
-- **Companion Papers Repository:** `https://github.com/Qamarbajwa/riemann-lean4-papers`
+- **Companion Papers Repository (`Paper 0`, `Papers A–L`, `14` Live Zenodo Hubs):** `https://github.com/Qamarbajwa/riemann-lean4-papers` (Unified Master Review `Paper L`: [`10.5281/zenodo.24341498`](https://doi.org/10.5281/zenodo.24341498))
 - **Standalone Archive & Fork Policy:** All `50` modules are maintained as standalone verifiable artifacts in `Qamarbajwa/RiemannBlueprint`, `Qamarbajwa/mathlib4` (`50` stacked `feat/*` fork branches), and Zenodo, with automated upstream `leanprover-community/mathlib4` PR/commenting disabled (`ALLOW_UPSTREAM_BOT_ACTIONS = False`). Earlier manual Wave 1 references: `#46127`, `#46128`, `#46129`.
 
 ## Build & Verify
