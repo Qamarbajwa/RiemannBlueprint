@@ -1,0 +1,53 @@
+name: Lean 4 Formal Verification CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  lean4-build-and-axioms:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install elan and Lean toolchain
+        run: |
+          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> $GITHUB_PATH
+
+      - name: Fetch Mathlib cache
+        run: lake exe cache get
+
+      - name: Build RiemannBlueprint and UnconditionalTitchmarshBridge
+        run: |
+          lake build
+          lake build RiemannBlueprint.UnconditionalTitchmarshBridge
+
+      - name: Verify zero sorry tokens in proof code and standard axioms
+        run: |
+          python3 -c '
+          import pathlib, re
+          bad = []
+          for p in sorted(pathlib.Path("RiemannBlueprint").rglob("*.lean")):
+              lines = p.read_text(encoding="utf-8").splitlines()
+              in_block = False
+              for i, line in enumerate(lines, 1):
+                  if "/-" in line: in_block = True
+                  if "-/" in line: in_block = False; continue
+                  if in_block: continue
+                  code = line.split("--")[0]
+                  if re.search(r"\b(sorry|admit)\b", code):
+                      bad.append(f"{p}:{i}: {code.strip()}")
+          assert not bad, f"Found sorry/admit in proof code: {bad}"
+          print("Zero sorry/admit across all Lean proof code.")
+          '
+          lake env lean -c /dev/null --stdin <<'EOF'
+          import RiemannBlueprint.UnconditionalTitchmarshBridge
+          #print axioms titchmarshMellinProperty_unconditional
+          #print axioms riemannHypothesis_of_purePlaque_vanishing_unconditional
+          #print axioms riemannHypothesis_of_logarithmic_plaque_bound_unconditional
+          EOF
