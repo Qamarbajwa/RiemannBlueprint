@@ -5,6 +5,7 @@ Authors: Qamar Munawer
 -/
 import Mathlib.Data.Matrix.Mul
 import Mathlib.LinearAlgebra.Matrix.Symmetric
+import Mathlib.LinearAlgebra.Matrix.Trace
 import Mathlib.NumberTheory.ArithmeticFunction.Moebius
 import RiemannBlueprint.UnconditionalTitchmarshBridge
 import RiemannBlueprint.UpstreamPRs.UpstreamPR_8U_EuclideanExhaustionTailBound
@@ -863,5 +864,689 @@ theorem riemannHypothesis_of_unitDefectMatrix_vanishing_unconditional
       have hi : 1 ≤ i.1 + 1 ∧ i.1 + 1 ≤ N - 2 := ⟨by omega, i.isLt⟩
       simp [hi]]
   exact ⟨N, α', hN, hα', hsum_eq ▸ hlt⟩
+
+/-! ## Part V: Basal 50/50 Clock, Observation Matrices, & Upper-Half Gram Bound -/
+
+/-- Basal 50/50 alternating clock vector `b_M(i) = (-1)^{i + 1}` on `Fin M`. -/
+def baseClockVec (M : ℕ) : Fin M → ℝ :=
+  fun i => (-1 : ℝ) ^ (i.1 + 1)
+
+/-- **Basal 50/50 Alternating Clock Theorem**: the anchor `cBaseAnchor = (-2, 4, 0, ...)`
+generates `discreteCellResidual cBaseAnchor N n = (-1)^n` for every `n : ℕ` (`2 ≤ N`). -/
+theorem discreteCellResidual_cBaseAnchor_eq_neg_one_pow {N : ℕ} (hN : 2 ≤ N) (n : ℕ) :
+    discreteCellResidual cBaseAnchor N n = (-1 : ℝ) ^ n := by
+  unfold discreteCellResidual
+  have hterm : ∀ k ∈ Finset.Icc 1 N,
+      cBaseAnchor k * ((n / k : ℕ) : ℝ) =
+        (if k = 1 then -2 * (n : ℝ) else 0) +
+          (if k = 2 then 4 * ((n / 2 : ℕ) : ℝ) else 0) := fun k _ => by
+    rcases k with _ | _ | _ | k
+    · simp [cBaseAnchor]
+    · simp [cBaseAnchor]
+    · simp [cBaseAnchor]
+    · simp [cBaseAnchor]
+  have h1 : (1 : ℕ) ∈ Finset.Icc 1 N := Finset.mem_Icc.mpr ⟨le_rfl, by omega⟩
+  have h2 : (2 : ℕ) ∈ Finset.Icc 1 N := Finset.mem_Icc.mpr ⟨by omega, hN⟩
+  rw [Finset.sum_congr rfl hterm, Finset.sum_add_distrib, Finset.sum_ite_eq',
+    Finset.sum_ite_eq']
+  simp only [h1, h2, ↓reduceIte]
+  rcases Nat.even_or_odd n with ⟨k, rfl⟩ | ⟨k, rfl⟩
+  · have hdiv : (k + k) / 2 = k := by omega
+    rw [hdiv, Even.neg_one_pow (⟨k, rfl⟩ : Even (k + k))]
+    push_cast; ring
+  · have hdiv : (2 * k + 1) / 2 = k := by omega
+    rw [hdiv, Odd.neg_one_pow (⟨k, rfl⟩ : Odd (2 * k + 1))]
+    push_cast; ring
+
+/-- Matrix-vector form of the basal 50/50 clock on `Fin M`: `residualVec cBaseAnchor M N = b_M`. -/
+theorem residualVec_cBaseAnchor_eq_baseClockVec {N : ℕ} (hN : 2 ≤ N) (M : ℕ) :
+    residualVec cBaseAnchor M N = baseClockVec M := by
+  ext i
+  exact discreteCellResidual_cBaseAnchor_eq_neg_one_pow hN (i.1 + 1)
+
+/-- **Basal 50/50 Clock L² Norm Identity**: `b_Mᵀ W_M b_M = 1 - 1 / (M + 1)`. -/
+theorem baseClockVec_quadForm_eq (M : ℕ) :
+    dotProduct (baseClockVec M) ((slabWeightMatrix M).mulVec (baseClockVec M)) =
+      1 - 1 / ((M : ℝ) + 1) := by
+  have hdot : dotProduct (baseClockVec M) ((slabWeightMatrix M).mulVec (baseClockVec M)) =
+      ∑ i : Fin M, harmonicCellWidth (i.1 + 1) := by
+    simp only [dotProduct, slabWeightMatrix, Matrix.mulVec_diagonal, baseClockVec]
+    refine Finset.sum_congr rfl fun i _ => ?_
+    have hsq : (-1 : ℝ) ^ (i.1 + 1) * (-1 : ℝ) ^ (i.1 + 1) = 1 := by
+      rw [← sq, ← pow_mul, mul_comm, pow_mul, neg_one_sq, one_pow]
+    calc (-1 : ℝ) ^ (i.1 + 1) * (harmonicCellWidth (i.1 + 1) * (-1 : ℝ) ^ (i.1 + 1))
+        = ((-1 : ℝ) ^ (i.1 + 1) * (-1 : ℝ) ^ (i.1 + 1)) * harmonicCellWidth (i.1 + 1) := by ring
+      _ = harmonicCellWidth (i.1 + 1) := by rw [hsq, one_mul]
+  have hsum : ∀ m : ℕ, ∑ i : Fin m, harmonicCellWidth (i.1 + 1) = 1 - 1 / ((m : ℝ) + 1) := by
+    intro m
+    induction m with
+    | zero => simp
+    | succ k ih =>
+      rw [Fin.sum_univ_castSucc]
+      simp only [Fin.val_castSucc, Fin.val_last]
+      rw [ih]
+      unfold harmonicCellWidth
+      have hk1 : ((k : ℝ) + 1) ≠ 0 := by positivity
+      have hk2 : ((k : ℝ) + 2) ≠ 0 := by positivity
+      push_cast
+      field_simp
+      ring
+  rw [hdot, hsum M]
+
+/-- **Palindromic Clock Reversal**: `J_{2H} *ᵥ b_{2H} = -b_{2H}`. -/
+theorem baseClockVec_antisym_rev (H : ℕ) :
+    (revPermMatrix (2 * H)).mulVec (baseClockVec (2 * H)) = -baseClockVec (2 * H) := by
+  ext i
+  have hiLt : i.1 < 2 * H := i.isLt
+  simp only [Matrix.mulVec, dotProduct, Pi.neg_apply]
+  set k : Fin (2 * H) := ⟨2 * H - 1 - i.1, by omega⟩
+  have hkval : k.1 = 2 * H - 1 - i.1 := rfl
+  have hterm : ∀ j : Fin (2 * H), revPermMatrix (2 * H) i j * baseClockVec (2 * H) j =
+      if j = k then baseClockVec (2 * H) k else 0 := fun j => by
+    dsimp [revPermMatrix]
+    by_cases hjk : j = k
+    · subst hjk
+      have hik : i.1 + k.1 + 1 = 2 * H := by rw [hkval]; omega
+      simp [hik]
+    · have hne : i.1 + j.1 + 1 ≠ 2 * H := fun heq => hjk (Fin.ext (by rw [hkval]; omega))
+      simp [hne, hjk]
+  rw [Finset.sum_congr rfl fun j _ => hterm j, Finset.sum_ite_eq']
+  simp only [Finset.mem_univ, ↓reduceIte, baseClockVec]
+  rcases Nat.even_or_odd (i.1 + 1) with hi_ev | hi_od
+  · have hk_od : Odd (k.1 + 1) := by
+      rcases hi_ev with ⟨r, hr⟩
+      exact ⟨H - r, by rw [hkval]; omega⟩
+    rw [hi_ev.neg_one_pow, hk_od.neg_one_pow]
+  · have hk_ev : Even (k.1 + 1) := by
+      rcases hi_od with ⟨r, hr⟩
+      exact ⟨H - r, by rw [hkval]; omega⟩
+    rw [hi_od.neg_one_pow, hk_ev.neg_one_pow]; ring
+
+/-- Orthogonal basal 50/50 parity observation matrix `O_{2K} = I_K ⊗ U_2` (`2K × 2K`),
+mapping each adjacent pair `(r_{2k-1}, r_{2k})` to its mean and alternating coordinates. -/
+noncomputable def parityObsMatrix (K : ℕ) : Matrix (Fin (2 * K)) (Fin (2 * K)) ℝ :=
+  fun i j =>
+    if i.1 / 2 = j.1 / 2 then
+      if Even i.1 then 1 / Real.sqrt 2
+      else if Even j.1 then -(1 / Real.sqrt 2) else 1 / Real.sqrt 2
+    else 0
+
+private lemma sum_fin_block_pair {K : ℕ} (b : ℕ) (hb : 2 * b + 1 < 2 * K)
+    (f : Fin (2 * K) → ℝ) (hf : ∀ k : Fin (2 * K), k.1 / 2 ≠ b → f k = 0) :
+    (∑ k : Fin (2 * K), f k) = f ⟨2 * b, by omega⟩ + f ⟨2 * b + 1, hb⟩ := by
+  let e : Fin (2 * K) := ⟨2 * b, by omega⟩
+  let o : Fin (2 * K) := ⟨2 * b + 1, hb⟩
+  have heo : e ≠ o := fun h => by
+    have := congrArg Fin.val h
+    dsimp [e, o] at this; omega
+  have hsplit : ∀ k : Fin (2 * K),
+      f k = (if k = e then f e else 0) + (if k = o then f o else 0) := fun k => by
+    by_cases hke : k = e
+    · subst hke; simp [heo]
+    · by_cases hko : k = o
+      · subst hko; simp [heo.symm]
+      · have hdiv : k.1 / 2 ≠ b := fun hd => by
+          have hkval : k.1 = 2 * b ∨ k.1 = 2 * b + 1 := by omega
+          rcases hkval with h1 | h2
+          · exact hke (Fin.ext h1)
+          · exact hko (Fin.ext h2)
+        simp [hf k hdiv, hke, hko]
+  rw [Finset.sum_congr rfl fun k _ => hsplit k, Finset.sum_add_distrib,
+    Finset.sum_ite_eq', Finset.sum_ite_eq']
+  simp [e, o]
+
+private lemma parityObsMatrix_sq_two_inv :
+    (1 / Real.sqrt 2) * (1 / Real.sqrt 2) = (1 / 2 : ℝ) := by
+  have h2 : Real.sqrt 2 * Real.sqrt 2 = 2 := Real.mul_self_sqrt (by norm_num)
+  calc (1 / Real.sqrt 2) * (1 / Real.sqrt 2)
+      = 1 / (Real.sqrt 2 * Real.sqrt 2) := by ring
+    _ = 1 / 2 := by rw [h2]
+
+private lemma parityObsMatrix_col_even {K : ℕ} (i : Fin (2 * K)) (b : ℕ) (hb : 2 * b < 2 * K) :
+    parityObsMatrix K i ⟨2 * b, hb⟩ =
+      if i.1 / 2 = b then
+        if Even i.1 then 1 / Real.sqrt 2 else -(1 / Real.sqrt 2)
+      else 0 := by
+  dsimp [parityObsMatrix]
+  have hev : Even (2 * b) := ⟨b, by omega⟩
+  have hdiv : (2 * b) / 2 = b := by omega
+  rw [hdiv]
+  by_cases hi : i.1 / 2 = b <;> by_cases hie : Even i.1 <;> simp [hi, hie, hev]
+
+private lemma parityObsMatrix_col_odd {K : ℕ} (i : Fin (2 * K)) (b : ℕ)
+    (hb : 2 * b + 1 < 2 * K) :
+    parityObsMatrix K i ⟨2 * b + 1, hb⟩ =
+      if i.1 / 2 = b then 1 / Real.sqrt 2 else 0 := by
+  dsimp [parityObsMatrix]
+  have hod : ¬ Even (2 * b + 1) := Nat.not_even_iff_odd.mpr ⟨b, by omega⟩
+  have hdiv : (2 * b + 1) / 2 = b := by omega
+  rw [hdiv]
+  by_cases hi : i.1 / 2 = b <;> by_cases hie : Even i.1 <;> simp [hi, hie, hod]
+
+/-- **Orthogonality (`O * Oᵀ = I`)**: `parityObsMatrix K` is a row-orthogonal matrix. -/
+theorem parityObsMatrix_mul_transpose (K : ℕ) :
+    parityObsMatrix K * (parityObsMatrix K).transpose = 1 := by
+  ext i j
+  rw [Matrix.mul_apply]
+  have hb : 2 * (i.1 / 2) + 1 < 2 * K := by omega
+  have hzero : ∀ k : Fin (2 * K), k.1 / 2 ≠ i.1 / 2 →
+      parityObsMatrix K i k * (parityObsMatrix K).transpose k j = 0 := fun k hk => by
+    dsimp [parityObsMatrix, Matrix.transpose_apply]
+    simp [Ne.symm hk]
+  rw [sum_fin_block_pair (i.1 / 2) hb _ hzero]
+  simp only [Matrix.transpose_apply]
+  rw [parityObsMatrix_col_even i (i.1 / 2) (by omega),
+    parityObsMatrix_col_even j (i.1 / 2) (by omega),
+    parityObsMatrix_col_odd i (i.1 / 2) hb,
+    parityObsMatrix_col_odd j (i.1 / 2) hb]
+  by_cases hdiv : j.1 / 2 = i.1 / 2
+  · have hsq := parityObsMatrix_sq_two_inv
+    by_cases hi : Even i.1 <;> by_cases hj : Even j.1
+    · have hij : i = j := Fin.ext (by
+        rcases hi with ⟨a, ha⟩; rcases hj with ⟨b, hb'⟩; omega)
+      subst hij
+      simp only [↓reduceIte, hi, Matrix.one_apply_eq]
+      calc (1 / Real.sqrt 2) * (1 / Real.sqrt 2) + (1 / Real.sqrt 2) * (1 / Real.sqrt 2)
+          = 1 / 2 + 1 / 2 := by rw [hsq]
+        _ = 1 := by norm_num
+    · have hij : i ≠ j := fun h => hj (h ▸ hi)
+      simp [hij, hdiv, hi, hj]
+    · have hij : i ≠ j := fun h => hi (h ▸ hj)
+      simp [hij, hdiv, hi, hj]
+    · have hij : i = j := Fin.ext (by
+        rw [Nat.not_even_iff_odd] at hi hj
+        rcases hi with ⟨a, ha⟩; rcases hj with ⟨b, hb'⟩; omega)
+      subst hij
+      simp only [↓reduceIte, hi, Matrix.one_apply_eq]
+      calc -(1 / Real.sqrt 2) * -(1 / Real.sqrt 2) + (1 / Real.sqrt 2) * (1 / Real.sqrt 2)
+          = 1 / 2 + 1 / 2 := by rw [neg_mul_neg, hsq]
+        _ = 1 := by norm_num
+  · have hij : i ≠ j := fun h => hdiv (by rw [h])
+    simp [hij, hdiv]
+
+/-- **Orthogonality (`Oᵀ * O = I`)**: `parityObsMatrix K` is a column-orthogonal matrix. -/
+theorem parityObsMatrix_transpose_mul (K : ℕ) :
+    (parityObsMatrix K).transpose * parityObsMatrix K = 1 := by
+  ext i j
+  rw [Matrix.mul_apply]
+  have hb : 2 * (i.1 / 2) + 1 < 2 * K := by omega
+  have hzero : ∀ k : Fin (2 * K), k.1 / 2 ≠ i.1 / 2 →
+      (parityObsMatrix K).transpose i k * parityObsMatrix K k j = 0 := fun k hk => by
+    dsimp [parityObsMatrix, Matrix.transpose_apply]
+    simp [hk]
+  rw [sum_fin_block_pair (i.1 / 2) hb _ hzero]
+  simp only [Matrix.transpose_apply]
+  dsimp [parityObsMatrix]
+  have he_ev : Even (2 * (i.1 / 2)) := ⟨i.1 / 2, by omega⟩
+  have ho_odd : ¬ Even (2 * (i.1 / 2) + 1) := Nat.not_even_iff_odd.mpr ⟨i.1 / 2, by omega⟩
+  have he_div : (2 * (i.1 / 2)) / 2 = i.1 / 2 := by omega
+  have ho_div : (2 * (i.1 / 2) + 1) / 2 = i.1 / 2 := by omega
+  rw [he_div, ho_div]
+  by_cases hdiv : i.1 / 2 = j.1 / 2
+  · have hsq := parityObsMatrix_sq_two_inv
+    by_cases hi : Even i.1 <;> by_cases hj : Even j.1
+    · have hij : i = j := Fin.ext (by
+        rcases hi with ⟨a, ha⟩; rcases hj with ⟨b, hb'⟩; omega)
+      subst hij
+      simp only [↓reduceIte, he_ev, ho_odd, hi, Matrix.one_apply_eq]
+      calc (1 / Real.sqrt 2) * (1 / Real.sqrt 2) + -(1 / Real.sqrt 2) * -(1 / Real.sqrt 2)
+          = 1 / 2 + 1 / 2 := by rw [neg_mul_neg, hsq]
+        _ = 1 := by norm_num
+    · have hij : i ≠ j := fun h => hj (h ▸ hi)
+      simp [hij, hdiv, hi, hj]
+    · have hij : i ≠ j := fun h => hi (h ▸ hj)
+      simp [hij, hdiv, hi, hj]
+    · have hij : i = j := Fin.ext (by
+        rw [Nat.not_even_iff_odd] at hi hj
+        rcases hi with ⟨a, ha⟩; rcases hj with ⟨b, hb'⟩; omega)
+      subst hij
+      simp only [↓reduceIte, he_ev, ho_odd, hi, Matrix.one_apply_eq]
+      calc (1 / Real.sqrt 2) * (1 / Real.sqrt 2) + (1 / Real.sqrt 2) * (1 / Real.sqrt 2)
+          = 1 / 2 + 1 / 2 := by rw [hsq]
+        _ = 1 := by norm_num
+  · have hij : i ≠ j := fun h => hdiv (by rw [h])
+    simp [hij, hdiv]
+
+/-- **50/50 Parity Channel Separation**: `O_{2K}` maps `b_{2K}` to `0` on every even-indexed
+(local-mean) row and `√2` on every odd-indexed (alternating) row. -/
+theorem parityObsMatrix_mulVec_baseClockVec (K : ℕ) (i : Fin (2 * K)) :
+    ((parityObsMatrix K).mulVec (baseClockVec (2 * K))) i =
+      if Even i.1 then 0 else Real.sqrt 2 := by
+  simp only [Matrix.mulVec, dotProduct]
+  have hb : 2 * (i.1 / 2) + 1 < 2 * K := by omega
+  have hbe : baseClockVec (2 * K) ⟨2 * (i.1 / 2), by omega⟩ = -1 := by
+    dsimp [baseClockVec]
+    exact Odd.neg_one_pow ⟨i.1 / 2, by omega⟩
+  have hbo : baseClockVec (2 * K) ⟨2 * (i.1 / 2) + 1, hb⟩ = 1 := by
+    dsimp [baseClockVec]
+    exact Even.neg_one_pow ⟨i.1 / 2 + 1, by omega⟩
+  have hzero : ∀ k : Fin (2 * K), k.1 / 2 ≠ i.1 / 2 →
+      parityObsMatrix K i k * baseClockVec (2 * K) k = 0 := fun k hk => by
+    dsimp [parityObsMatrix]
+    simp [Ne.symm hk]
+  rw [sum_fin_block_pair (i.1 / 2) hb _ hzero,
+    parityObsMatrix_col_even i (i.1 / 2) (by omega),
+    parityObsMatrix_col_odd i (i.1 / 2) hb, hbe, hbo]
+  have h2 : 2 / Real.sqrt 2 = Real.sqrt 2 := by
+    have hsq : Real.sqrt 2 * Real.sqrt 2 = 2 := Real.mul_self_sqrt (by norm_num)
+    have hne : Real.sqrt 2 ≠ 0 := by positivity
+    field_simp; linarith [hsq]
+  by_cases hi : Even i.1
+  · simp [hi]
+  · simp only [↓reduceIte, hi, ↓reduceIte]
+    calc -(1 / Real.sqrt 2) * -1 + 1 / Real.sqrt 2 * 1 = 2 / Real.sqrt 2 := by ring
+      _ = Real.sqrt 2 := h2
+
+/-- **Transformed Parity-Channel Slab Metric**: `O_{2K} * W_{2K} * O_{2K}ᵀ` is exact
+block-diagonal with `2 × 2` blocks having diagonal `1 / (4 p² - 1)` and off-diagonal
+`-1 / (2 p (4 p² - 1))` where `p = i / 2 + 1`. -/
+theorem parityObsMatrix_conj_slabWeightMatrix (K : ℕ) (i j : Fin (2 * K)) :
+    (parityObsMatrix K * slabWeightMatrix (2 * K) * (parityObsMatrix K).transpose) i j =
+      if i.1 / 2 = j.1 / 2 then
+        let p : ℝ := ((i.1 / 2 + 1 : ℕ) : ℝ)
+        if i = j then 1 / (4 * p ^ 2 - 1)
+        else -(1 / (2 * p * (4 * p ^ 2 - 1)))
+      else 0 := by
+  rw [Matrix.mul_apply]
+  have hdiag : ∀ k : Fin (2 * K),
+      (parityObsMatrix K * slabWeightMatrix (2 * K)) i k =
+        parityObsMatrix K i k * harmonicCellWidth (k.1 + 1) := fun k => by
+    rw [Matrix.mul_apply]
+    have ht : ∀ m : Fin (2 * K),
+        parityObsMatrix K i m * slabWeightMatrix (2 * K) m k =
+          if m = k then parityObsMatrix K i k * harmonicCellWidth (k.1 + 1) else 0 := fun m => by
+      dsimp [slabWeightMatrix, Matrix.diagonal]
+      by_cases hmk : m = k
+      · subst hmk; simp
+      · simp [hmk]
+    rw [Finset.sum_congr rfl fun m _ => ht m, Finset.sum_ite_eq']
+    simp
+  rw [Finset.sum_congr rfl fun k _ => by rw [hdiag k]]
+  by_cases hij_div : i.1 / 2 = j.1 / 2
+  · simp only [hij_div, ↓reduceIte]
+    have hb : 2 * (i.1 / 2) + 1 < 2 * K := by omega
+    have hzero : ∀ k : Fin (2 * K), k.1 / 2 ≠ i.1 / 2 →
+        parityObsMatrix K i k * harmonicCellWidth (k.1 + 1) *
+          (parityObsMatrix K).transpose k j = 0 := fun k hk => by
+      dsimp [parityObsMatrix, Matrix.transpose_apply]
+      simp [Ne.symm hk]
+    rw [sum_fin_block_pair (i.1 / 2) hb _ hzero]
+    simp only [Matrix.transpose_apply]
+    rw [parityObsMatrix_col_even i (i.1 / 2) (by omega),
+      parityObsMatrix_col_even j (i.1 / 2) (by omega),
+      parityObsMatrix_col_odd i (i.1 / 2) hb,
+      parityObsMatrix_col_odd j (i.1 / 2) hb]
+    have hwe : harmonicCellWidth ((⟨2 * (i.1 / 2), by omega⟩ : Fin (2 * K)).1 + 1) =
+        1 / ((2 * ((i.1 / 2 + 1 : ℕ) : ℝ) - 1) * (2 * ((i.1 / 2 + 1 : ℕ) : ℝ))) := by
+      dsimp [harmonicCellWidth]; push_cast; ring
+    have hwo : harmonicCellWidth ((⟨2 * (i.1 / 2) + 1, hb⟩ : Fin (2 * K)).1 + 1) =
+        1 / ((2 * ((i.1 / 2 + 1 : ℕ) : ℝ)) * (2 * ((i.1 / 2 + 1 : ℕ) : ℝ) + 1)) := by
+      dsimp [harmonicCellWidth]; push_cast; ring
+    rw [hwe, hwo, ← hij_div]
+    set p : ℝ := ((i.1 / 2 + 1 : ℕ) : ℝ)
+    have hp1 : (1 : ℝ) ≤ p := by dsimp [p]; exact_mod_cast Nat.succ_pos _
+    have hp_nz : 2 * p - 1 ≠ 0 := by linarith
+    have hp_nz2 : p ≠ 0 := by linarith
+    have hp_nz3 : 2 * p + 1 ≠ 0 := by linarith
+    have h4p : 4 * p ^ 2 - 1 = (2 * p - 1) * (2 * p + 1) := by ring
+    have hsq := parityObsMatrix_sq_two_inv
+    by_cases hi : Even i.1 <;> by_cases hj : Even j.1
+    · have hij : i = j := Fin.ext (by
+        rcases hi with ⟨a, ha⟩; rcases hj with ⟨b, hb'⟩; omega)
+      subst hij
+      simp only [↓reduceIte, hi, h4p]
+      calc (1 / Real.sqrt 2 * (1 / ((2 * p - 1) * (2 * p))) * (1 / Real.sqrt 2) +
+            1 / Real.sqrt 2 * (1 / (2 * p * (2 * p + 1))) * (1 / Real.sqrt 2))
+          = ((1 / Real.sqrt 2) * (1 / Real.sqrt 2)) *
+              (1 / ((2 * p - 1) * (2 * p)) + 1 / (2 * p * (2 * p + 1))) := by ring
+        _ = (1 / 2) * (1 / ((2 * p - 1) * (2 * p)) + 1 / (2 * p * (2 * p + 1))) := by rw [hsq]
+        _ = 1 / ((2 * p - 1) * (2 * p + 1)) := by field_simp; ring
+    · have hij : i ≠ j := fun h => hj (h ▸ hi)
+      simp only [↓reduceIte, hi, hj, hij, h4p]
+      calc (1 / Real.sqrt 2 * (1 / ((2 * p - 1) * (2 * p))) * -(1 / Real.sqrt 2) +
+            1 / Real.sqrt 2 * (1 / (2 * p * (2 * p + 1))) * (1 / Real.sqrt 2))
+          = ((1 / Real.sqrt 2) * (1 / Real.sqrt 2)) *
+              (1 / (2 * p * (2 * p + 1)) - 1 / ((2 * p - 1) * (2 * p))) := by ring
+        _ = (1 / 2) * (1 / (2 * p * (2 * p + 1)) - 1 / ((2 * p - 1) * (2 * p))) := by rw [hsq]
+        _ = -(1 / (2 * p * ((2 * p - 1) * (2 * p + 1)))) := by field_simp; ring
+    · have hij : i ≠ j := fun h => hi (h ▸ hj)
+      simp only [↓reduceIte, hi, hj, hij, h4p]
+      calc (-(1 / Real.sqrt 2) * (1 / ((2 * p - 1) * (2 * p))) * (1 / Real.sqrt 2) +
+            1 / Real.sqrt 2 * (1 / (2 * p * (2 * p + 1))) * (1 / Real.sqrt 2))
+          = ((1 / Real.sqrt 2) * (1 / Real.sqrt 2)) *
+              (1 / (2 * p * (2 * p + 1)) - 1 / ((2 * p - 1) * (2 * p))) := by ring
+        _ = (1 / 2) * (1 / (2 * p * (2 * p + 1)) - 1 / ((2 * p - 1) * (2 * p))) := by rw [hsq]
+        _ = -(1 / (2 * p * ((2 * p - 1) * (2 * p + 1)))) := by field_simp; ring
+    · have hij : i = j := Fin.ext (by
+        rw [Nat.not_even_iff_odd] at hi hj
+        rcases hi with ⟨a, ha⟩; rcases hj with ⟨b, hb'⟩; omega)
+      subst hij
+      simp only [↓reduceIte, hi, h4p]
+      calc (-(1 / Real.sqrt 2) * (1 / ((2 * p - 1) * (2 * p))) * -(1 / Real.sqrt 2) +
+            1 / Real.sqrt 2 * (1 / (2 * p * (2 * p + 1))) * (1 / Real.sqrt 2))
+          = ((1 / Real.sqrt 2) * (1 / Real.sqrt 2)) *
+              (1 / ((2 * p - 1) * (2 * p)) + 1 / (2 * p * (2 * p + 1))) := by ring
+        _ = (1 / 2) * (1 / ((2 * p - 1) * (2 * p)) + 1 / (2 * p * (2 * p + 1))) := by rw [hsq]
+        _ = 1 / ((2 * p - 1) * (2 * p + 1)) := by field_simp; ring
+  · simp only [hij_div, ↓reduceIte]
+    refine Finset.sum_eq_zero fun k _ => ?_
+    dsimp [parityObsMatrix, Matrix.transpose_apply]
+    by_cases h1 : i.1 / 2 = k.1 / 2
+    · have h2 : j.1 / 2 ≠ k.1 / 2 := fun h => hij_div (h1.trans h.symm)
+      simp [h1, h2]
+    · simp [h1]
+
+/-- **Isometric Channel Preservation**: `rᵀ W_{2K} r = (O r)ᵀ (O W_{2K} Oᵀ) (O r)`. -/
+theorem parityObsMatrix_preserves_quadForm (K : ℕ) (r : Fin (2 * K) → ℝ) :
+    dotProduct r ((slabWeightMatrix (2 * K)).mulVec r) =
+      dotProduct ((parityObsMatrix K).mulVec r)
+        ((parityObsMatrix K * slabWeightMatrix (2 * K) *
+          (parityObsMatrix K).transpose).mulVec ((parityObsMatrix K).mulVec r)) := by
+  set O := parityObsMatrix K
+  set W := slabWeightMatrix (2 * K)
+  have hOtO : O.transpose * O = 1 := parityObsMatrix_transpose_mul K
+  have hadj : ∀ v w : Fin (2 * K) → ℝ,
+      dotProduct (O.mulVec v) w = dotProduct v (O.transpose.mulVec w) := fun v w => by
+    calc dotProduct (O.mulVec v) w
+        = dotProduct (Matrix.vecMul v O.transpose) w := by rw [Matrix.vecMul_transpose]
+      _ = dotProduct v (O.transpose.mulVec w) := (Matrix.dotProduct_mulVec v O.transpose w).symm
+  symm
+  calc dotProduct (O.mulVec r) ((O * W * O.transpose).mulVec (O.mulVec r))
+      = dotProduct r (O.transpose.mulVec ((O * W * O.transpose).mulVec (O.mulVec r))) :=
+          hadj r _
+    _ = dotProduct r (W.mulVec r) := by
+          rw [Matrix.mulVec_mulVec, Matrix.mulVec_mulVec]
+          have hid : O.transpose * (O * W * O.transpose) * O = W := by
+            calc O.transpose * (O * W * O.transpose) * O
+                = O.transpose * (O * W * (O.transpose * O)) := by simp only [Matrix.mul_assoc]
+              _ = O.transpose * (O * W) := by rw [hOtO, Matrix.mul_one]
+              _ = (O.transpose * O) * W := by rw [← Matrix.mul_assoc]
+              _ = W := by rw [hOtO, Matrix.one_mul]
+          rw [hid]
+
+/-- Symmetric palindromic projection matrix `P_+ = (1/2) • (I + J)`. -/
+noncomputable def palindromicProjPlus (n : ℕ) : Matrix (Fin n) (Fin n) ℝ :=
+  (1 / 2 : ℝ) • (1 + revPermMatrix n)
+
+/-- Antisymmetric palindromic projection matrix `P_- = (1/2) • (I - J)`. -/
+noncomputable def palindromicProjMinus (n : ℕ) : Matrix (Fin n) (Fin n) ℝ :=
+  (1 / 2 : ℝ) • (1 - revPermMatrix n)
+
+/-- Partition of unity `P_+ + P_- = I`. -/
+theorem palindromicProjPlus_add_minus (n : ℕ) :
+    palindromicProjPlus n + palindromicProjMinus n = 1 := by
+  dsimp [palindromicProjPlus, palindromicProjMinus]
+  rw [← smul_add,
+    show (1 + revPermMatrix n) + (1 - revPermMatrix n) =
+      (2 : ℝ) • (1 : Matrix (Fin n) (Fin n) ℝ) by ext i j; simp; ring]
+  simp
+
+/-- Orthogonal idempotence: `P_+² = P_+`, `P_-² = P_-`, `P_+ P_- = 0`, `P_- P_+ = 0`. -/
+theorem palindromicProj_idempotent_and_orth (n : ℕ) :
+    (palindromicProjPlus n * palindromicProjPlus n = palindromicProjPlus n) ∧
+    (palindromicProjMinus n * palindromicProjMinus n = palindromicProjMinus n) ∧
+    (palindromicProjPlus n * palindromicProjMinus n = 0) ∧
+    (palindromicProjMinus n * palindromicProjPlus n = 0) := by
+  let J := revPermMatrix n
+  have hJ : J * J = 1 := revPermMatrix_mul_self n
+  have hpp : (1 + J) * (1 + J) = (2 : ℝ) • (1 + J) := by
+    calc (1 + J) * (1 + J) = 1 * (1 + J) + J * (1 + J) := add_mul 1 J (1 + J)
+      _ = (1 + J) + (J + J * J) := by rw [Matrix.one_mul, mul_add, Matrix.mul_one]
+      _ = (1 + J) + (J + 1) := by rw [hJ]
+      _ = (2 : ℝ) • (1 + J) := by ext i j; simp; ring
+  have hmm : (1 - J) * (1 - J) = (2 : ℝ) • (1 - J) := by
+    calc (1 - J) * (1 - J) = 1 * (1 - J) - J * (1 - J) := sub_mul 1 J (1 - J)
+      _ = (1 - J) - (J - J * J) := by rw [Matrix.one_mul, mul_sub, Matrix.mul_one]
+      _ = (1 - J) - (J - 1) := by rw [hJ]
+      _ = (2 : ℝ) • (1 - J) := by ext i j; simp; ring
+  have hpm : (1 + J) * (1 - J) = 0 := by
+    calc (1 + J) * (1 - J) = 1 * (1 - J) + J * (1 - J) := add_mul 1 J (1 - J)
+      _ = (1 - J) + (J - J * J) := by rw [Matrix.one_mul, mul_sub, Matrix.mul_one]
+      _ = (1 - J) + (J - 1) := by rw [hJ]
+      _ = 0 := by ext i j; simp
+  have hmp : (1 - J) * (1 + J) = 0 := by
+    calc (1 - J) * (1 + J) = 1 * (1 + J) - J * (1 + J) := sub_mul 1 J (1 + J)
+      _ = (1 + J) - (J + J * J) := by rw [Matrix.one_mul, mul_add, Matrix.mul_one]
+      _ = (1 + J) - (J + 1) := by rw [hJ]
+      _ = 0 := by ext i j; simp; ring
+  dsimp [palindromicProjPlus, palindromicProjMinus]
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · change (1 / 2 : ℝ) • (1 + J) * ((1 / 2 : ℝ) • (1 + J)) = (1 / 2 : ℝ) • (1 + J)
+    rw [Matrix.smul_mul, Matrix.mul_smul, smul_smul, hpp, smul_smul]; norm_num
+  · change (1 / 2 : ℝ) • (1 - J) * ((1 / 2 : ℝ) • (1 - J)) = (1 / 2 : ℝ) • (1 - J)
+    rw [Matrix.smul_mul, Matrix.mul_smul, smul_smul, hmm, smul_smul]; norm_num
+  · change (1 / 2 : ℝ) • (1 + J) * ((1 / 2 : ℝ) • (1 - J)) = 0
+    rw [Matrix.smul_mul, Matrix.mul_smul, hpm, smul_zero, smul_zero]
+  · change (1 / 2 : ℝ) • (1 - J) * ((1 / 2 : ℝ) • (1 + J)) = 0
+    rw [Matrix.smul_mul, Matrix.mul_smul, hmp, smul_zero, smul_zero]
+
+/-- **Equal 50/50 Projector Traces**: for any even dimension `2 * H`,
+`trace P_+ = H` and `trace P_- = H`. -/
+theorem palindromicProj_trace_half (H : ℕ) :
+    Matrix.trace (palindromicProjPlus (2 * H)) = (H : ℝ) ∧
+      Matrix.trace (palindromicProjMinus (2 * H)) = (H : ℝ) := by
+  have htrJ : Matrix.trace (revPermMatrix (2 * H)) = 0 := by
+    simp only [Matrix.trace, Matrix.diag_apply, revPermMatrix]
+    refine Finset.sum_eq_zero fun i _ => ?_
+    have hne : i.1 + i.1 + 1 ≠ 2 * H := by omega
+    simp [hne]
+  have htr1 : Matrix.trace (1 : Matrix (Fin (2 * H)) (Fin (2 * H)) ℝ) = ((2 * H : ℕ) : ℝ) := by
+    simp [Matrix.trace]
+  dsimp [palindromicProjPlus, palindromicProjMinus]
+  rw [Matrix.trace_smul, Matrix.trace_smul, Matrix.trace_add, Matrix.trace_sub, htrJ, htr1]
+  push_cast
+  exact ⟨by ring, by ring⟩
+
+/-- **Unobservability of the Antisymmetric Metric**: for any weight matrix `W`,
+`P_- * ((1/2) • (W - J W J)) * P_- = 0`. -/
+theorem palindromicProjMinus_annihilates_odd_metric (n : ℕ) (W : Matrix (Fin n) (Fin n) ℝ) :
+    palindromicProjMinus n * ((1 / 2 : ℝ) • (W - revPermMatrix n * W * revPermMatrix n)) *
+        palindromicProjMinus n = 0 := by
+  let J := revPermMatrix n
+  have hJ : J * J = 1 := revPermMatrix_mul_self n
+  have hLJ : palindromicProjMinus n * J = -palindromicProjMinus n := by
+    dsimp [palindromicProjMinus]
+    calc (1 / 2 : ℝ) • (1 - J) * J
+        = (1 / 2 : ℝ) • ((1 - J) * J) := Matrix.smul_mul _ _ _
+      _ = (1 / 2 : ℝ) • (J - 1) := by rw [sub_mul, Matrix.one_mul, hJ]
+      _ = -((1 / 2 : ℝ) • (1 - J)) := by ext i j; simp; ring
+  have hRJ : J * palindromicProjMinus n = -palindromicProjMinus n := by
+    dsimp [palindromicProjMinus]
+    calc J * ((1 / 2 : ℝ) • (1 - J))
+        = (1 / 2 : ℝ) • (J * (1 - J)) := Matrix.mul_smul _ _ _
+      _ = (1 / 2 : ℝ) • (J - 1) := by rw [mul_sub, Matrix.mul_one, hJ]
+      _ = -((1 / 2 : ℝ) • (1 - J)) := by ext i j; simp; ring
+  change palindromicProjMinus n * ((1 / 2 : ℝ) • (W - J * W * J)) *
+      palindromicProjMinus n = 0
+  rw [Matrix.mul_smul, Matrix.smul_mul, mul_sub, sub_mul]
+  calc (1 / 2 : ℝ) •
+      (palindromicProjMinus n * W * palindromicProjMinus n -
+        palindromicProjMinus n * (J * W * J) * palindromicProjMinus n)
+      = (1 / 2 : ℝ) •
+          (palindromicProjMinus n * W * palindromicProjMinus n -
+            (palindromicProjMinus n * J) * W * (J * palindromicProjMinus n)) := by
+          simp only [Matrix.mul_assoc]
+    _ = 0 := by
+          rw [hLJ, hRJ]
+          simp only [Matrix.neg_mul, Matrix.mul_neg, neg_neg, sub_self, smul_zero]
+
+/-- Augmented `(N - 1) × (N - 1)` 50/50-clock Gram matrix `G_aug`:
+index `none` is the basal 50/50 clock `cBaseAnchor`, and `some i` is the `i`-th cumulative dipole.
+-/
+noncomputable def augClockGramMatrix (N : ℕ) :
+    Matrix (Option (Fin (N - 2))) (Option (Fin (N - 2))) ℝ :=
+  fun r s => match r, s with
+  | none, none => 1
+  | none, some j => -(Real.pi * driveDiffVec N j)
+  | some i, none => -(Real.pi * driveDiffVec N i)
+  | some i, some j => dipoleGramMatrix N i j
+
+/-- Dirichlet simplex lift matrix `S_N` (`(N - 1) × (N - 2)`) enforcing `c 1 = -1`
+(`(none, j) ↦ 1`, `(some i, j) ↦ δ_{ij}`). -/
+def simplexLiftMatrix (N : ℕ) : Matrix (Option (Fin (N - 2))) (Fin (N - 2)) ℝ :=
+  fun r j => match r with
+  | none => 1
+  | some i => if i = j then 1 else 0
+
+/-- **Exact Augmented-Gram Factorization of `M_N`**:
+`M_N = S_Nᵀ * G_aug * S_N` for every truncation `N`. -/
+theorem unitDefectMatrix_eq_simplexLift_conj_augClockGram (N : ℕ) :
+    unitDefectMatrix N =
+      (simplexLiftMatrix N).transpose * augClockGramMatrix N * simplexLiftMatrix N := by
+  rw [unitDefectMatrix_eq_rankOne_sub_two_boundary_add_gram N]
+  ext i j
+  rw [Matrix.mul_apply, Fintype.sum_option]
+  have hrow : ∀ s : Option (Fin (N - 2)),
+      ((simplexLiftMatrix N).transpose * augClockGramMatrix N) i s =
+        augClockGramMatrix N none s + augClockGramMatrix N (some i) s := fun s => by
+    rw [Matrix.mul_apply, Fintype.sum_option]
+    simp [Matrix.transpose_apply, simplexLiftMatrix, Finset.sum_ite_eq']
+  simp only [hrow, simplexLiftMatrix, augClockGramMatrix, Matrix.add_apply, Matrix.sub_apply,
+    Matrix.smul_apply, smul_eq_mul, rankOneMatrix, onesVec, one_mul, mul_one]
+  have htail : (∑ x : Fin (N - 2),
+      (-(Real.pi * driveDiffVec N x) + dipoleGramMatrix N i x) * (if x = j then 1 else 0)) =
+      -(Real.pi * driveDiffVec N j) + dipoleGramMatrix N i j := by
+    have hpt : ∀ x : Fin (N - 2),
+        (-(Real.pi * driveDiffVec N x) + dipoleGramMatrix N i x) * (if x = j then 1 else 0) =
+          if x = j then -(Real.pi * driveDiffVec N j) + dipoleGramMatrix N i j else 0 := fun x => by
+      by_cases hxj : x = j
+      · subst hxj; simp
+      · simp [hxj]
+    rw [Finset.sum_congr rfl fun x _ => hpt x, Finset.sum_ite_eq']
+    simp
+  rw [htail]
+  ring
+
+/-- **Universal Upper-Half Gram Lower Bound (`(1/2) * (1ᵀ α)² ≤ αᵀ G̃_N α`)**:
+because every tangent vector `h = ∑ α_m d_m` has constant value `-1ᵀ α` on the upper half
+`(1/2, 1]` of measure `1/2`, its Gram quadratic energy cannot fall below `(1/2) * (1ᵀ α)²`. -/
+theorem dipoleGramMatrix_quadForm_ge_half_sq {N : ℕ} (hN : 2 ≤ N) (α : Fin (N - 2) → ℝ) :
+    (1 / 2 : ℝ) * (dotProduct (onesVec (N - 2)) α) ^ 2 ≤
+      dotProduct α ((dipoleGramMatrix N).mulVec α) := by
+  let α' : ℕ → ℝ := fun m => if hm : 1 ≤ m ∧ m ≤ N - 2 then α ⟨m - 1, by omega⟩ else 0
+  let h : ℕ → ℝ := fun k => ∑ m ∈ Finset.Icc 1 (N - 2), α' m * cumulativeDipole m k
+  have hs_m : ∀ m ∈ Finset.Icc 1 (N - 2), 1 ≤ m ∧ m + 2 ≤ N := fun m hm =>
+    ⟨(Finset.mem_Icc.mp hm).1, by have := (Finset.mem_Icc.mp hm).2; omega⟩
+  have hhD1 : D1 h N = 0 := by
+    unfold D1
+    simp_rw [h, Finset.sum_div]; rw [Finset.sum_comm]
+    refine Finset.sum_eq_zero fun m hm => ?_
+    have hd := (cumulativeDipole_mem_tangent (hs_m m hm).1 (hs_m m hm).2).1
+    unfold D1 at hd
+    simp_rw [mul_div_assoc, ← Finset.mul_sum, hd, mul_zero]
+  have hhD0 : D0 h N = 0 := by
+    unfold D0
+    simp_rw [h]; rw [Finset.sum_comm]
+    refine Finset.sum_eq_zero fun m hm => ?_
+    have hd := (cumulativeDipole_mem_tangent (hs_m m hm).1 (hs_m m hm).2).2
+    unfold D0 at hd
+    rw [← Finset.mul_sum, hd, mul_zero]
+  have hcum1 : ∀ m ∈ Finset.Icc 1 (N - 2), cumulativeDipole m 1 = 1 := fun m hm => by
+    unfold cumulativeDipole
+    rw [Finset.sum_eq_single 1]
+    · simp [harmonicWavelet]
+    · intro r hr hne
+      rcases r with _ | _ | r <;> [exact absurd (Finset.mem_Icc.mp hr).1 (by decide);
+        exact absurd rfl hne; simp [harmonicWavelet]]
+    · intro hg; exact absurd (Finset.mem_Icc.mpr ⟨le_rfl, (Finset.mem_Icc.mp hm).1⟩) hg
+  have hh1 : h 1 = dotProduct (onesVec (N - 2)) α := by
+    dsimp [h]
+    rw [Finset.sum_congr rfl fun m hm => by rw [hcum1 m hm, mul_one]]
+    simp only [dotProduct, onesVec, one_mul]
+    rw [← sum_fin_succ_eq_sum_Icc (N - 2) α']
+    refine Finset.sum_congr rfl fun i _ => ?_
+    dsimp [α']
+    have hi : 1 ≤ i.1 + 1 ∧ i.1 + 1 ≤ N - 2 := ⟨by omega, i.isLt⟩
+    simp [hi]
+  have hcoord : ∀ a ∈ Finset.Icc 1 (N - 2), dipoleCoord h N a = α' a := fun a ha => by
+    unfold dipoleCoord
+    simp_rw [h, Finset.sum_div]; rw [Finset.sum_comm]
+    have ht : ∀ m ∈ Finset.Icc 1 (N - 2), ∑ j ∈ Finset.Icc (a + 2) N,
+        α' m * cumulativeDipole m j / (j : ℝ) = if m = a then α' a else 0 := fun m hm => by
+      let F : ℕ → ℝ := fun k => if a + 2 ≤ k then 1 else 0
+      have hs := cumulativeDipole_div_sum_eq_four_point F (hs_m m hm).1 (hs_m m hm).2
+      rw [Finset.sum_congr rfl fun k _ => show cumulativeDipole m k * (F k / (k : ℝ)) =
+        if a + 2 ≤ k then cumulativeDipole m k / (k : ℝ) else 0 from by
+          dsimp [F]; split_ifs <;> ring] at hs
+      simp_rw [mul_div_assoc, ← Finset.mul_sum]
+      rw [show Finset.Icc (a + 2) N = (Finset.Icc 1 N).filter (fun k => a + 2 ≤ k) by
+        ext k; simp only [Finset.mem_Icc, Finset.mem_filter]; omega, Finset.sum_filter, hs]
+      have ha1 := (Finset.mem_Icc.mp ha).1
+      by_cases hma : m = a <;> (dsimp [F]; split_ifs <;> norm_num <;> try omega)
+      subst hma; simp
+    rw [Finset.sum_congr rfl ht, Finset.sum_ite_eq']; simp [ha]
+  have hquad_eq : dotProduct α ((dipoleGramMatrix N).mulVec α) = QCot vasyuninGCot h N := by
+    rw [QCot_eq_sum_dipoleGramEntry hN h hhD1 hhD0]
+    simp only [dotProduct, Matrix.mulVec, dipoleGramMatrix, Finset.mul_sum]
+    rw [← sum_fin_succ_eq_sum_Icc (N - 2) fun a =>
+      ∑ b ∈ Finset.Icc 1 (N - 2), dipoleCoord h N a * dipoleCoord h N b * dipoleGramEntry a b]
+    refine Finset.sum_congr rfl fun i _ => ?_
+    rw [← sum_fin_succ_eq_sum_Icc (N - 2) fun b =>
+      dipoleCoord h N (i.1 + 1) * dipoleCoord h N b * dipoleGramEntry (i.1 + 1) b]
+    refine Finset.sum_congr rfl fun j _ => ?_
+    have hi : i.1 + 1 ∈ Finset.Icc 1 (N - 2) := Finset.mem_Icc.mpr ⟨by omega, i.isLt⟩
+    have hj : j.1 + 1 ∈ Finset.Icc 1 (N - 2) := Finset.mem_Icc.mpr ⟨by omega, j.isLt⟩
+    rw [hcoord (i.1 + 1) hi, hcoord (j.1 + 1) hj]
+    have hi' : 1 ≤ i.1 + 1 ∧ i.1 + 1 ≤ N - 2 := ⟨by omega, i.isLt⟩
+    have hj' : 1 ≤ j.1 + 1 ∧ j.1 + 1 ≤ N - 2 := ⟨by omega, j.isLt⟩
+    have hαi : α' (i.1 + 1) = α i := by dsimp [α']; simp [hi']
+    have hαj : α' (j.1 + 1) = α j := by dsimp [α']; simp [hj']
+    rw [hαi, hαj]
+    ring
+  rw [hquad_eq, ← tangent_l2_norm_sq_eq_qcot h hhD1 hhD0, ← hh1]
+  have hint_full : IntervalIntegrable
+      (fun x => (∑ k ∈ Finset.Icc 1 N, h k * recipFractScaled k x) ^ 2) volume 0 1 := by
+    have hsq_eq : (fun x => (∑ k ∈ Finset.Icc 1 N, h k * recipFractScaled k x) ^ 2) =
+        ∑ j ∈ Finset.Icc 1 N, ∑ k ∈ Finset.Icc 1 N,
+          fun x => h j * h k * (recipFractScaled j x * recipFractScaled k x) := by
+      funext x
+      simp only [Finset.sum_apply]
+      rw [sq, Finset.sum_mul_sum]
+      exact Finset.sum_congr rfl fun _ _ => Finset.sum_congr rfl fun _ _ => by ring
+    rw [hsq_eq]
+    exact IntervalIntegrable.sum (Finset.Icc 1 N) fun j _ =>
+      IntervalIntegrable.sum (Finset.Icc 1 N) fun k _ =>
+        (intervalIntegrable_recipFractScaled_mul j k 0 1).const_mul _
+  have hint1 : IntervalIntegrable
+      (fun x => (∑ k ∈ Finset.Icc 1 N, h k * recipFractScaled k x) ^ 2) volume 0 (1 / 2) := by
+    refine hint_full.mono_set ?_
+    rw [Set.uIcc_of_le (by norm_num), Set.uIcc_of_le (by norm_num)]
+    exact Set.Icc_subset_Icc le_rfl (by norm_num)
+  have hint2 : IntervalIntegrable
+      (fun x => (∑ k ∈ Finset.Icc 1 N, h k * recipFractScaled k x) ^ 2) volume (1 / 2) 1 := by
+    refine hint_full.mono_set ?_
+    rw [Set.uIcc_of_le (by norm_num), Set.uIcc_of_le (by norm_num)]
+    exact Set.Icc_subset_Icc (by norm_num) le_rfl
+  rw [← intervalIntegral.integral_add_adjacent_intervals hint1 hint2]
+  have h_lo_nonneg : 0 ≤ ∫ x in (0 : ℝ)..(1 / 2),
+      (∑ k ∈ Finset.Icc 1 N, h k * recipFractScaled k x) ^ 2 :=
+    intervalIntegral.integral_nonneg (by norm_num) fun _ _ => sq_nonneg _
+  have h_top_congr : ∫ x in (1 / 2 : ℝ)..1,
+      (∑ k ∈ Finset.Icc 1 N, h k * recipFractScaled k x) ^ 2 = (1 / 2 : ℝ) * (h 1) ^ 2 := by
+    have hpt : Set.EqOn
+        (fun x => (∑ k ∈ Finset.Icc 1 N, h k * recipFractScaled k x) ^ 2)
+        (fun _ => (h 1) ^ 2) (Set.Ioc (1 / 2 : ℝ) 1) := fun x hx => by
+      have hx_lo : (1 / 2 : ℝ) < x := hx.1
+      have hx_hi : x ≤ 1 := hx.2
+      have hx1 : ((1 : ℕ) : ℝ) ≤ 1 / x := by
+        rw [Nat.cast_one, le_div_iff₀ (by linarith)]; linarith
+      have hx2 : 1 / x < ((1 : ℕ) : ℝ) + 1 := by
+        rw [Nat.cast_one, div_lt_iff₀ (by linarith)]; linarith
+      have hcont := continuousNymanResidual_eq_discreteCellResidual h N le_rfl hx1 hx2 hhD1
+      rw [discreteCellResidual_one_eq h (by omega : 1 ≤ N)] at hcont
+      dsimp only
+      unfold continuousNymanResidual at hcont
+      unfold recipFractScaled
+      have hS : (∑ k ∈ Finset.Icc 1 N, h k * Int.fract (1 / ((k : ℝ) * x))) = -(h 1) := by linarith
+      rw [hS, neg_sq]
+    have hcon : ∫ x in (1 / 2 : ℝ)..1,
+        (∑ k ∈ Finset.Icc 1 N, h k * recipFractScaled k x) ^ 2 =
+        ∫ _ in (1 / 2 : ℝ)..1, (h 1) ^ 2 := by
+      rw [intervalIntegral.integral_of_le (by norm_num : (1 / 2 : ℝ) ≤ 1),
+        intervalIntegral.integral_of_le (by norm_num : (1 / 2 : ℝ) ≤ 1)]
+      exact MeasureTheory.setIntegral_congr_fun measurableSet_Ioc hpt
+    rw [hcon, intervalIntegral.integral_const, smul_eq_mul]
+    ring
+  linarith
 
 end RiemannBlueprint.MatrixHalfObservation

@@ -63,4 +63,10 @@ jobs:
           #print axioms RiemannBlueprint.MatrixHalfObservation.harmonicCellL2PartialSum_period_eq_double_halfObservation
           #print axioms RiemannBlueprint.MatrixHalfObservation.unitDefectMatrix_offline_zero_floor_unconditional
           #print axioms RiemannBlueprint.MatrixHalfObservation.riemannHypothesis_of_unitDefectMatrix_vanishing_unconditional
+          #print axioms RiemannBlueprint.MatrixHalfObservation.discreteCellResidual_cBaseAnchor_eq_neg_one_pow
+          #print axioms RiemannBlueprint.MatrixHalfObservation.parityObsMatrix_mulVec_baseClockVec
+          #print axioms RiemannBlueprint.MatrixHalfObservation.parityObsMatrix_conj_slabWeightMatrix
+          #print axioms RiemannBlueprint.MatrixHalfObservation.palindromicProjMinus_annihilates_odd_metric
+          #print axioms RiemannBlueprint.MatrixHalfObservation.unitDefectMatrix_eq_simplexLift_conj_augClockGram
+          #print axioms RiemannBlueprint.MatrixHalfObservation.dipoleGramMatrix_quadForm_ge_half_sq
           EOF
