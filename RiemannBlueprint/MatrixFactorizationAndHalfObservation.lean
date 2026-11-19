@@ -2198,4 +2198,305 @@ theorem orthogonal_innovation_energy_monotone (ρ s : ℕ → ℝ) (N : ℕ) (hN
   have hterm : 0 ≤ ρ (N + 1) ^ 2 / s (N + 1) := div_nonneg (sq_nonneg _) hs_pos.le
   linarith
 
+/-- **Right Möbius Inversion of Divisibility**: `D_M * M_μ = I_M`. -/
+theorem divisorMatrix_mul_mobiusMatrix (M : ℕ) :
+    divisorMatrix M M * mobiusMatrix M = 1 := by
+  ext i j
+  rw [Matrix.mul_apply, Matrix.one_apply]
+  by_cases hdvd : j.1 + 1 ∣ i.1 + 1
+  · rcases hdvd with ⟨q, hq_eq⟩
+    have hj_pos : 1 ≤ j.1 + 1 := Nat.succ_pos _
+    have hq_pos : 1 ≤ q := by
+      rcases Nat.eq_zero_or_pos q with rfl | hqp
+      · simp at hq_eq
+      · exact hqp
+    have hsum_eq : (∑ m : Fin M, divisorMatrix M M i m * mobiusMatrix M m j) =
+        ∑ d ∈ q.divisors, (ArithmeticFunction.moebius (q / d) : ℝ) := by
+      have hterm : ∀ m : Fin M, divisorMatrix M M i m * mobiusMatrix M m j =
+          if m.1 + 1 ∣ i.1 + 1 ∧ j.1 + 1 ∣ m.1 + 1 then
+            (ArithmeticFunction.moebius ((m.1 + 1) / (j.1 + 1)) : ℝ) else 0 := by
+        intro m
+        dsimp [divisorMatrix, mobiusMatrix]
+        by_cases h1 : m.1 + 1 ∣ i.1 + 1 <;> by_cases h2 : j.1 + 1 ∣ m.1 + 1 <;> simp [h1, h2]
+      rw [Finset.sum_congr rfl fun m _ => hterm m, ← Finset.sum_filter]
+      refine Finset.sum_bij (fun m _ => (i.1 + 1) / (m.1 + 1)) ?_ ?_ ?_ ?_
+      · intro m hm
+        rcases Finset.mem_filter.mp hm with ⟨_, hmi, hjm⟩
+        rcases hjm with ⟨d, hd⟩
+        rcases hmi with ⟨t, ht⟩
+        have hm_pos : 1 ≤ m.1 + 1 := Nat.succ_pos _
+        have hqt : (i.1 + 1) / (m.1 + 1) = t := by rw [ht, Nat.mul_div_cancel_left _ hm_pos]
+        rw [hqt]
+        refine Nat.mem_divisors.mpr ⟨?_, by omega⟩
+        refine ⟨d, ?_⟩
+        have : (j.1 + 1) * q = (j.1 + 1) * (t * d) := by
+          calc (j.1 + 1) * q = i.1 + 1 := hq_eq.symm
+            _ = (m.1 + 1) * t := ht
+            _ = (j.1 + 1) * d * t := by rw [hd]
+            _ = (j.1 + 1) * (t * d) := by ring
+        exact Nat.mul_left_cancel hj_pos this
+      · intro m₁ hm₁ m₂ hm₂ h
+        have h1 := (Finset.mem_filter.mp hm₁).2.1
+        have h2 := (Finset.mem_filter.mp hm₂).2.1
+        rcases h1 with ⟨t₁, ht₁⟩
+        rcases h2 with ⟨t₂, ht₂⟩
+        have ht1_eq : (i.1 + 1) / (m₁.1 + 1) = t₁ := by rw [ht₁, Nat.mul_div_cancel_left _ (Nat.succ_pos _)]
+        have ht2_eq : (i.1 + 1) / (m₂.1 + 1) = t₂ := by rw [ht₂, Nat.mul_div_cancel_left _ (Nat.succ_pos _)]
+        have ht_eq : t₁ = t₂ := by rw [← ht1_eq, ← ht2_eq, h]
+        have ht_pos : 0 < t₁ := by
+          rcases Nat.eq_zero_or_pos t₁ with rfl | htp
+          · simp at ht₁
+          · exact htp
+        have hm_eq : m₁.1 + 1 = m₂.1 + 1 :=
+          Nat.mul_right_cancel ht_pos (ht₁.symm.trans (by rw [ht_eq]; exact ht₂))
+        exact Fin.ext (by omega)
+      · intro t ht
+        have ht_dvd : t ∣ q := Nat.dvd_of_mem_divisors ht
+        rcases ht_dvd with ⟨d, hd_eq⟩
+        have ht_pos : 1 ≤ t := Nat.pos_of_mem_divisors ht
+        have hd_pos : 1 ≤ d := by
+          rcases Nat.eq_zero_or_pos d with rfl | hdp
+          · simp at hd_eq; omega
+          · exact hdp
+        have hm_pos : 1 ≤ (j.1 + 1) * d := Nat.mul_pos hj_pos hd_pos
+        have hm_le : (j.1 + 1) * d ≤ M := by
+          have : (j.1 + 1) * d ≤ (j.1 + 1) * (d * t) :=
+            Nat.mul_le_mul_left _ (Nat.le_mul_of_pos_right d ht_pos)
+          rw [mul_comm d t, ← hd_eq, ← hq_eq] at this
+          exact this.trans i.isLt
+        refine ⟨⟨(j.1 + 1) * d - 1, by omega⟩, Finset.mem_filter.mpr ⟨Finset.mem_univ _, ?_, ?_⟩, ?_⟩
+        · dsimp
+          rw [show (j.1 + 1) * d - 1 + 1 = (j.1 + 1) * d by omega]
+          exact ⟨t, by rw [hq_eq, hd_eq]; ring⟩
+        · dsimp
+          rw [show (j.1 + 1) * d - 1 + 1 = (j.1 + 1) * d by omega]
+          exact ⟨d, rfl⟩
+        · dsimp
+          rw [show (j.1 + 1) * d - 1 + 1 = (j.1 + 1) * d by omega,
+            show i.1 + 1 = (j.1 + 1) * d * t by rw [hq_eq, hd_eq]; ring,
+            Nat.mul_div_cancel_left _ hm_pos]
+      · intro m hm
+        rcases Finset.mem_filter.mp hm with ⟨_, hmi, hjm⟩
+        rcases hmi with ⟨t, ht⟩
+        rcases hjm with ⟨d, hd⟩
+        have hm_pos : 1 ≤ m.1 + 1 := Nat.succ_pos _
+        have hqt : (i.1 + 1) / (m.1 + 1) = t := by rw [ht, Nat.mul_div_cancel_left _ hm_pos]
+        have hmd : (m.1 + 1) / (j.1 + 1) = d := by rw [hd, Nat.mul_div_cancel_left _ hj_pos]
+        have hq_dt : q = t * d := by
+          have : (j.1 + 1) * q = (j.1 + 1) * (t * d) := by
+            calc (j.1 + 1) * q = i.1 + 1 := hq_eq.symm
+              _ = (m.1 + 1) * t := ht
+              _ = (j.1 + 1) * d * t := by rw [hd]
+              _ = (j.1 + 1) * (t * d) := by ring
+          exact Nat.mul_left_cancel hj_pos this
+        have ht_pos : 0 < t := by
+          rcases Nat.eq_zero_or_pos t with rfl | htp
+          · simp at ht
+          · exact htp
+        have hq_div : q / t = d := by rw [hq_dt, Nat.mul_div_cancel_left _ ht_pos]
+        rw [hqt, hmd, hq_div]
+    rw [hsum_eq, sum_moebius_div_divisors q hq_pos]
+    by_cases hq1 : q = 1
+    · have hij : i = j := Fin.ext (by
+        have h1 : i.1 + 1 = j.1 + 1 := by rw [hq_eq, hq1, mul_one]
+        omega)
+      simp [hq1, hij]
+    · have hij : i ≠ j := fun h => hq1 (by
+        have h1 : (j.1 + 1) * q = (j.1 + 1) * 1 := by rw [← hq_eq, h, mul_one]
+        exact Nat.mul_left_cancel hj_pos h1)
+      simp [hq1, hij]
+  · have hsum_zero : (∑ m : Fin M, divisorMatrix M M i m * mobiusMatrix M m j) = 0 := by
+      refine Finset.sum_eq_zero fun m _ => ?_
+      dsimp [divisorMatrix, mobiusMatrix]
+      by_cases h1 : m.1 + 1 ∣ i.1 + 1 <;> by_cases h2 : j.1 + 1 ∣ m.1 + 1
+      · exact absurd (h2.trans h1) hdvd
+      · simp [h1, h2]
+      · simp [h1, h2]
+      · simp [h1, h2]
+    have hij : i ≠ j := fun h => hdvd (by subst h; exact dvd_refl _)
+    simp [hsum_zero, hij]
+
+/-- **Right Inversion of Summation**: `Σ_M * Δ_M = I_M`. -/
+theorem cumSumMatrix_mul_firstDiffMatrix (M : ℕ) :
+    cumSumMatrix M * firstDiffMatrix M = 1 := by
+  ext i j
+  rw [Matrix.mul_apply, Matrix.one_apply]
+  have hterm : ∀ m : Fin M, cumSumMatrix M i m * firstDiffMatrix M m j =
+      (if m = j then (if j.1 ≤ i.1 then (1 : ℝ) else 0) else 0) +
+        (if m.1 = j.1 + 1 then (if j.1 + 1 ≤ i.1 then (-1 : ℝ) else 0) else 0) := by
+    intro m
+    dsimp [cumSumMatrix, firstDiffMatrix]
+    by_cases hmj : m = j
+    · subst hmj
+      by_cases hle : m.1 ≤ i.1 <;> simp [hle]
+    · by_cases hms : m.1 = j.1 + 1
+      · have hne' : m ≠ j := hmj
+        by_cases hle : m.1 ≤ i.1 <;> simp [hms, hne'] <;> split_ifs <;> ring
+      · have hne1 : m.1 ≠ j.1 := fun h => hmj (Fin.ext h)
+        simp [hne1, hms, hmj]
+  rw [Finset.sum_congr rfl fun m _ => hterm m, Finset.sum_add_distrib, Finset.sum_ite_eq']
+  simp only [Finset.mem_univ, ↓reduceIte]
+  by_cases hj1 : j.1 + 1 < M
+  · set q : Fin M := ⟨j.1 + 1, hj1⟩
+    have hq_eq : (∑ m : Fin M, if m.1 = j.1 + 1 then
+        (if j.1 + 1 ≤ i.1 then (-1 : ℝ) else 0) else 0) =
+        if j.1 + 1 ≤ i.1 then (-1 : ℝ) else 0 := by
+      have : (∑ m : Fin M, if m.1 = j.1 + 1 then
+          (if j.1 + 1 ≤ i.1 then (-1 : ℝ) else 0) else 0) =
+          ∑ m : Fin M, if m = q then (if j.1 + 1 ≤ i.1 then (-1 : ℝ) else 0) else 0 := by
+        refine Finset.sum_congr rfl fun m _ => ?_
+        by_cases hmq : m = q
+        · subst hmq; simp [q]
+        · have hne : m.1 ≠ j.1 + 1 := fun h => hmq (Fin.ext h)
+          simp [hmq, hne]
+      rw [this, Finset.sum_ite_eq']
+      simp
+    rw [hq_eq]
+    by_cases hij : i = j
+    · subst hij; simp
+    · by_cases hle : j.1 ≤ i.1
+      · have hle1 : j.1 + 1 ≤ i.1 := by
+          have : j.1 ≠ i.1 := fun h => hij (Fin.ext h.symm)
+          omega
+        simp [hij, hle, hle1]
+      · have hnot : ¬ j.1 + 1 ≤ i.1 := by omega
+        simp [hij, hle, hnot]
+  · have hzero : (∑ m : Fin M, if m.1 = j.1 + 1 then
+        (if j.1 + 1 ≤ i.1 then (-1 : ℝ) else 0) else 0) = 0 :=
+      Finset.sum_eq_zero fun m _ => by
+        have hm : m.1 ≠ j.1 + 1 := by omega
+        simp [hm]
+    rw [hzero, add_zero]
+    by_cases hij : i = j
+    · subst hij; simp
+    · have hj_not : ¬ j.1 ≤ i.1 := by
+        have : j.1 = M - 1 := by omega
+        have : i.1 ≤ M - 1 := by omega
+        intro hle
+        exact hij (Fin.ext (by omega))
+      simp [hij, hj_not]
+
+/-- **Right Inversion of the Floor Matrix**: `F_M * (M_μ * Δ_M) = I_M`. -/
+theorem floorMatrix_mul_inverse (M : ℕ) :
+    floorMatrix M M * (mobiusMatrix M * firstDiffMatrix M) = 1 := by
+  calc floorMatrix M M * (mobiusMatrix M * firstDiffMatrix M)
+      = (cumSumMatrix M * divisorMatrix M M) * (mobiusMatrix M * firstDiffMatrix M) := by
+          rw [floorMatrix_eq_cumSum_mul_divisor]
+    _ = cumSumMatrix M * ((divisorMatrix M M * mobiusMatrix M) * firstDiffMatrix M) := by
+          simp only [Matrix.mul_assoc]
+    _ = cumSumMatrix M * firstDiffMatrix M := by
+          rw [divisorMatrix_mul_mobiusMatrix, Matrix.one_mul]
+    _ = 1 := cumSumMatrix_mul_firstDiffMatrix M
+
+/-- **Forward Gaussian Elimination to `e_1`**: `D_M * μ = (1, 0, ..., 0)ᵀ`. -/
+theorem divisorMatrix_mulVec_mobius_eq_e1 (M : ℕ) (i : Fin M) :
+    (divisorMatrix M M).mulVec (fun j : Fin M => (ArithmeticFunction.moebius (j.1 + 1) : ℝ)) i =
+      if i.1 = 0 then 1 else 0 := by
+  have hcol0 : ∀ m : Fin M,
+      mobiusMatrix M m ⟨0, i.pos⟩ = (ArithmeticFunction.moebius (m.1 + 1) : ℝ) := by
+    intro m
+    dsimp [mobiusMatrix]
+    simp
+  have hmul := congrArg (fun A : Matrix (Fin M) (Fin M) ℝ => A i ⟨0, i.pos⟩)
+    (divisorMatrix_mul_mobiusMatrix M)
+  rw [Matrix.mul_apply, Matrix.one_apply] at hmul
+  have hlhs : (divisorMatrix M M).mulVec
+      (fun j : Fin M => (ArithmeticFunction.moebius (j.1 + 1) : ℝ)) i =
+      ∑ m : Fin M, divisorMatrix M M i m * mobiusMatrix M m ⟨0, i.pos⟩ := by
+    rw [Matrix.mulVec, dotProduct]
+    refine Finset.sum_congr rfl fun m _ => by rw [hcol0 m]
+  rw [hlhs, hmul]
+  by_cases hi0 : i.1 = 0
+  · have hi_eq : i = ⟨0, i.pos⟩ := Fin.ext hi0
+    simp [hi_eq]
+  · have hi_ne : i ≠ ⟨0, i.pos⟩ := fun h => hi0 (congrArg Fin.val h)
+    simp [hi0, hi_ne]
+
+/-- **Pivot-Row Identity Matching**: row `n = 1` of `F_{M,N}` equals `(1, 0, ..., 0)`. -/
+theorem floorMatrix_firstRow_eq_e1 {M N : ℕ} (hM : 1 ≤ M) (j : Fin N) :
+    floorMatrix M N ⟨0, hM⟩ j = if j.1 = 0 then 1 else 0 := by
+  dsimp [floorMatrix]
+  by_cases hj0 : j.1 = 0
+  · simp [hj0]
+  · have hlt : (1 : ℕ) < j.1 + 1 := by omega
+    simp [hj0, Nat.div_eq_of_lt hlt]
+
+/-- **Pivot-Row Elimination Under Dirichlet Anchoring**: locking `c 1 = -1` forces
+`1 + (F_{M,N} c)_1 = 0`. -/
+theorem pivot_row_elimination_upperHalf_zero {M N : ℕ} (hM : 1 ≤ M) (hN : 1 ≤ N)
+    {c : ℕ → ℝ} (hc1 : c 1 = -1) :
+    1 + (floorMatrix M N).mulVec (coeffVec c N) ⟨0, hM⟩ = 0 := by
+  rw [Matrix.mulVec, dotProduct]
+  have hrow : ∑ j : Fin N, floorMatrix M N ⟨0, hM⟩ j * coeffVec c N j = coeffVec c N ⟨0, hN⟩ := by
+    have hterm : ∀ j : Fin N, floorMatrix M N ⟨0, hM⟩ j * coeffVec c N j =
+        if j = ⟨0, hN⟩ then coeffVec c N ⟨0, hN⟩ else 0 := by
+      intro j
+      rw [floorMatrix_firstRow_eq_e1 hM j]
+      by_cases hj0 : j.1 = 0
+      · have hj : j = ⟨0, hN⟩ := Fin.ext hj0
+        simp [hj]
+      · have hj : j ≠ ⟨0, hN⟩ := fun h => hj0 (congrArg Fin.val h)
+        simp [hj0, hj]
+    rw [Finset.sum_congr rfl fun j _ => hterm j, Finset.sum_ite_eq']
+    simp
+  rw [hrow]
+  dsimp [coeffVec]
+  linarith
+
+/-- **Cholesky Whitening to the Identity Matrix `I`**: if `Ψᵀ Ψ = L Lᵀ` and `W L = 1`, then
+`Ψ_tilde := Ψ Wᵀ` satisfies `Ψ_tildeᵀ Ψ_tilde = 1`. -/
+theorem choleskyWhitening_gram_eq_one {M k : ℕ} (Ψ : Matrix (Fin M) (Fin k) ℝ)
+    (L W : Matrix (Fin k) (Fin k) ℝ) (hG : Ψ.transpose * Ψ = L * L.transpose)
+    (hW : W * L = 1) :
+    (Ψ * W.transpose).transpose * (Ψ * W.transpose) = 1 := by
+  calc (Ψ * W.transpose).transpose * (Ψ * W.transpose)
+      = (W * Ψ.transpose) * (Ψ * W.transpose) := by
+          rw [Matrix.transpose_mul, Matrix.transpose_transpose]
+    _ = W * (Ψ.transpose * Ψ) * W.transpose := by
+          simp only [Matrix.mul_assoc]
+    _ = W * (L * L.transpose) * W.transpose := by rw [hG]
+    _ = (W * L) * (W * L).transpose := by
+          rw [Matrix.transpose_mul]
+          simp only [Matrix.mul_assoc]
+    _ = 1 * (1 : Matrix (Fin k) (Fin k) ℝ).transpose := by rw [hW]
+    _ = 1 := by simp
+
+/-- **Identity-Minus-Projection Operator Residual**: for orthogonal basis vectors `{φ_k}_{k=3}^N`
+with norms `s_k = ⟨φ_k, φ_k⟩ ≠ 0`, the rank-`(N-2)` projector
+`Π_N := ∑_{k=3}^N (1 / s_k) |φ_k⟩⟨φ_k|` satisfies
+`‖(I - Π_N) b‖₂² = ⟨b, (I - Π_N) b⟩ = 1 - ∑_{k=3}^N ρ_k² / s_k ≥ 0` when `‖b‖₂² = 1`. -/
+theorem identity_sub_proj_residual_eq {n : ℕ} (b : Fin n → ℝ) (hb : dotProduct b b = 1)
+    (φ : ℕ → (Fin n → ℝ)) (hφ_orth : ∀ i j, i ≠ j → dotProduct (φ i) (φ j) = 0)
+    (ρ s : ℕ → ℝ) (hρ : ∀ k, ρ k = dotProduct b (φ k)) (hs : ∀ k, s k = dotProduct (φ k) (φ k))
+    (N : ℕ) (hs_ne : ∀ k ∈ Finset.Icc 3 N, s k ≠ 0) :
+    let Pi_hat : Matrix (Fin n) (Fin n) ℝ :=
+      ∑ k ∈ Finset.Icc 3 N, (1 / s k) • Matrix.vecMulVec (φ k) (φ k)
+    let r : Fin n → ℝ := (1 - Pi_hat).mulVec b
+    r = b - ∑ k ∈ Finset.Icc 3 N, (ρ k / s k) • φ k ∧
+      dotProduct r r = dotProduct b r ∧
+      dotProduct b r = 1 - ∑ k ∈ Finset.Icc 3 N, ρ k ^ 2 / s k := by
+  intro Pi_hat r
+  have hPi_mul : Pi_hat.mulVec b = ∑ k ∈ Finset.Icc 3 N, (ρ k / s k) • φ k := by
+    dsimp [Pi_hat]
+    rw [Matrix.sum_mulVec]
+    refine Finset.sum_congr rfl fun k _ => ?_
+    rw [Matrix.smul_mulVec, Matrix.vecMulVec_mulVec, dotProduct_comm (φ k) b, ← hρ k,
+      op_smul_eq_smul, smul_smul]
+    ring_nf
+  have hr_eq : r = b - ∑ k ∈ Finset.Icc 3 N, (ρ k / s k) • φ k := by
+    dsimp [r]
+    rw [Matrix.sub_mulVec, Matrix.one_mulVec, hPi_mul]
+  have hr_norm : dotProduct r r = 1 - ∑ k ∈ Finset.Icc 3 N, ρ k ^ 2 / s k := by
+    rw [hr_eq]
+    exact orthogonal_innovation_telescoping_energy b hb φ hφ_orth ρ s hρ hs N hs_ne
+  have hb_dot : dotProduct b r = 1 - ∑ k ∈ Finset.Icc 3 N, ρ k ^ 2 / s k := by
+    rw [hr_eq, dotProduct_sub, hb, dotProduct_sum]
+    have hcross : ∑ k ∈ Finset.Icc 3 N, dotProduct b ((ρ k / s k) • φ k) =
+        ∑ k ∈ Finset.Icc 3 N, ρ k ^ 2 / s k := by
+      refine Finset.sum_congr rfl fun k _ => ?_
+      rw [dotProduct_smul, smul_eq_mul, ← hρ k]
+      ring
+    rw [hcross]
+  exact ⟨hr_eq, hr_norm.trans hb_dot.symm, hb_dot⟩
+
 end RiemannBlueprint.MatrixHalfObservation
