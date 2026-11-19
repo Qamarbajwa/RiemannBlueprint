@@ -154,7 +154,8 @@ theorem block_banachiewicz_schur_distance_split {p c : ℕ}
     congr 1
     simp only [Matrix.mul_assoc, ← Matrix.mulVec_mulVec]
     rfl
-  have hB12 : B12.mulVec ρ_C = -((Q_PP_inv * Q_PC).mulVec (Sigma_inv.mulVec ρ_C)) := by
+  have hB12 : B12.mulVec ρ_C =
+      -((Q_PP_inv * Q_PC).mulVec (Sigma_inv.mulVec ρ_C)) := by
     dsimp [B12]
     rw [Matrix.neg_mulVec, ← Matrix.mulVec_mulVec]
   have hB21 : B21.mulVec ρ_P = -(Sigma_inv.mulVec w) := by
@@ -199,5 +200,79 @@ theorem schur_distance_le_prime_baseline {p c : ℕ}
     block_banachiewicz_schur_distance_split Q_CP Q_PP_inv Sigma_inv hPP_sym ρ_P ρ_C
   refine ⟨hnonneg, ?_⟩
   linarith
+
+/-- **Schur-Complement Resolvent One-Step Growth:**
+Bordering a symmetric matrix `M_N` (with inverse `M_inv`) by `(v, d)` with scalar Schur
+complement `s > 0` increases `1ᵀ M⁻¹ 1` by the nonnegative Schur step `(1 - vᵀ M⁻¹ 1)^2 / s`. -/
+theorem schur_resolvent_one_step_growth {n : ℕ}
+    (M_inv : Matrix (Fin n) (Fin n) ℝ) (hM_sym : M_invᵀ = M_inv)
+    (v : Fin n → ℝ) (s : ℝ) (hs : 0 < s) :
+    let ones_n : Fin n → ℝ := fun _ => 1
+    let ones_next : Fin n ⊕ Fin 1 → ℝ := Sum.elim ones_n (fun _ => 1)
+    let v_col : Matrix (Fin n) (Fin 1) ℝ := Matrix.of (fun i _ => v i)
+    let v_row : Matrix (Fin 1) (Fin n) ℝ := v_colᵀ
+    let s_inv : Matrix (Fin 1) (Fin 1) ℝ := Matrix.of (fun _ _ => s⁻¹)
+    let B11 := M_inv + M_inv * v_col * s_inv * v_row * M_inv
+    let B12 := -(M_inv * v_col * s_inv)
+    let B21 := -(s_inv * v_row * M_inv)
+    let M_next_inv := fromBlocks B11 B12 B21 s_inv
+    dotProduct ones_next (M_next_inv.mulVec ones_next) =
+      dotProduct ones_n (M_inv.mulVec ones_n) +
+        (1 - dotProduct v (M_inv.mulVec ones_n)) ^ 2 / s ∧
+    dotProduct ones_n (M_inv.mulVec ones_n) ≤
+      dotProduct ones_next (M_next_inv.mulVec ones_next) := by
+  intro ones_n ones_next v_col v_row s_inv B11 B12 B21 M_next_inv
+  have hsplit := block_banachiewicz_schur_distance_split v_row M_inv s_inv hM_sym ones_n (fun _ => 1)
+  have hδ : (fun _ : Fin 1 => (1 : ℝ)) - v_row.mulVec (M_inv.mulVec ones_n) =
+      fun _ => 1 - dotProduct v (M_inv.mulVec ones_n) := by
+    ext i
+    fin_cases i
+    simp only [Pi.sub_apply, v_row, v_col, Matrix.mulVec, Matrix.transpose_apply,
+      Matrix.of_apply, dotProduct]
+  have hS : dotProduct (fun _ : Fin 1 => 1 - dotProduct v (M_inv.mulVec ones_n))
+      (s_inv.mulVec (fun _ : Fin 1 => 1 - dotProduct v (M_inv.mulVec ones_n))) =
+      (1 - dotProduct v (M_inv.mulVec ones_n)) ^ 2 / s := by
+    simp [s_inv, Matrix.mulVec, dotProduct, div_eq_mul_inv, sq]
+    ring
+  have hdot : dotProduct ones_next (M_next_inv.mulVec ones_next) =
+      dotProduct ones_n (M_inv.mulVec ones_n) +
+        (1 - dotProduct v (M_inv.mulVec ones_n)) ^ 2 / s := by
+    dsimp [ones_next, v_col, v_row, s_inv, B11, B12, B21, M_next_inv] at hsplit ⊢
+    rw [hδ, hS, Matrix.transpose_transpose] at hsplit
+    linarith
+  have hstep_nonneg : 0 ≤ (1 - dotProduct v (M_inv.mulVec ones_n)) ^ 2 / s :=
+    div_nonneg (sq_nonneg _) hs.le
+  exact ⟨hdot, by linarith⟩
+
+/-- **Telescoping Resolvent Sum:**
+Iterating a nonnegative Schur-step recursion `R (k + 1) = R k + step k` yields
+`R N = R N0 + ∑ k ∈ Finset.Ico N0 N, step k`. -/
+theorem resolvent_eq_base_add_sum_schur_steps (R step : ℕ → ℝ) (N0 N : ℕ) (hN : N0 ≤ N)
+    (hrec : ∀ k, N0 ≤ k → R (k + 1) = R k + step k) :
+    R N = R N0 + ∑ k ∈ Finset.Ico N0 N, step k := by
+  induction N, hN using Nat.le_induction with
+  | base => simp
+  | succ m hm ih =>
+    rw [hrec m hm, ih, Finset.sum_Ico_succ_top hm]
+    ring
+
+/-- **Conditional Barrier-Breaking Reduction:**
+If `R N0 ≥ 0` and the cumulative Schur-step series `∑ k ∈ Ico N0 N, step k` grows
+unboundedly, then `E_dir(N) = (R N)⁻¹ → 0` (the exact open Clay RH threshold). -/
+theorem inv_resolvent_lt_eps_of_schur_steps_unbounded (R step : ℕ → ℝ) (N0 : ℕ)
+    (hR0 : 0 ≤ R N0)
+    (hrec : ∀ k, N0 ≤ k → R (k + 1) = R k + step k)
+    (_hstep_nonneg : ∀ k, N0 ≤ k → 0 ≤ step k)
+    (hunbounded : ∀ B : ℝ, ∃ N ≥ N0, B < ∑ k ∈ Finset.Ico N0 N, step k) :
+    ∀ ε > 0, ∃ N ≥ N0, (R N)⁻¹ < ε := by
+  intro ε hε
+  obtain ⟨N, hN, hB⟩ := hunbounded ε⁻¹
+  have hsum_eq := resolvent_eq_base_add_sum_schur_steps R step N0 N hN hrec
+  have hR_gt : ε⁻¹ < R N := by linarith
+  have hR_pos : 0 < R N := lt_trans (inv_pos.mpr hε) hR_gt
+  refine ⟨N, hN, ?_⟩
+  rw [inv_lt_iff_one_lt_mul₀ hR_pos]
+  have := mul_lt_mul_of_pos_right hR_gt hε
+  rwa [inv_mul_cancel₀ hε.ne', mul_comm] at this
 
 end RiemannBlueprint.PrimorialSchurDistanceDecay
