@@ -32,3 +32,4 @@ import RiemannBlueprint.MathlibPR_ForwardClosure
 import RiemannBlueprint.VasyuninSchurChiralRosetta
 import RiemannBlueprint.PrimorialSchurDistanceDecay
 import RiemannBlueprint.RiemannMasterBBLRBridge
+import RiemannBlueprint.WavefunctionCholeskyMasterBridge
