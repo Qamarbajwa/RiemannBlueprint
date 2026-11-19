@@ -29,3 +29,6 @@ import RiemannBlueprint.MathlibPR_SpectralTailBound
 import RiemannBlueprint.MathlibPR_MontgomeryVaughan
 import RiemannBlueprint.MathlibPR_SelbergSieveBound
 import RiemannBlueprint.MathlibPR_ForwardClosure
+import RiemannBlueprint.VasyuninSchurChiralRosetta
+import RiemannBlueprint.PrimorialSchurDistanceDecay
+import RiemannBlueprint.RiemannMasterBBLRBridge
