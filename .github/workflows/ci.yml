@@ -22,10 +22,11 @@ jobs:
       - name: Fetch Mathlib cache
         run: lake exe cache get
 
-      - name: Build RiemannBlueprint and UnconditionalTitchmarshBridge
+      - name: Build RiemannBlueprint, UnconditionalTitchmarshBridge, and MatrixFactorizationAndHalfObservation
         run: |
           lake build
           lake build RiemannBlueprint.UnconditionalTitchmarshBridge
+          lake build RiemannBlueprint.MatrixFactorizationAndHalfObservation
 
       - name: Verify zero sorry tokens in proof code and standard axioms
         run: |
@@ -48,10 +49,18 @@ jobs:
           lake env lean --stdin <<'EOF'
           import RiemannBlueprint.UnconditionalTitchmarshBridge
           import RiemannBlueprint.OpenStripRouche
+          import RiemannBlueprint.MatrixFactorizationAndHalfObservation
           #print axioms titchmarshMellinProperty_unconditional
           #print axioms riemannHypothesis_of_purePlaque_vanishing_unconditional
           #print axioms riemannHypothesis_of_logarithmic_plaque_bound_unconditional
           #print axioms RiemannBlueprint.OpenStripRouche.rectRoucheProperty_unconditional
           #print axioms RiemannBlueprint.OpenStripRouche.theorem1_rouche_zero_exclusion_unconditional
           #print axioms RiemannBlueprint.OpenStripRouche.theorem2_rouche_exhaustion_implies_rh_unconditional
+          #print axioms RiemannBlueprint.MatrixHalfObservation.floorMatrix_eq_cumSum_mul_divisor
+          #print axioms RiemannBlueprint.MatrixHalfObservation.inverse_floorMatrix_mul
+          #print axioms RiemannBlueprint.MatrixHalfObservation.upperHalf_observation_zero
+          #print axioms RiemannBlueprint.MatrixHalfObservation.halfObservation_quadForm_eq_double_half
+          #print axioms RiemannBlueprint.MatrixHalfObservation.harmonicCellL2PartialSum_period_eq_double_halfObservation
+          #print axioms RiemannBlueprint.MatrixHalfObservation.unitDefectMatrix_offline_zero_floor_unconditional
+          #print axioms RiemannBlueprint.MatrixHalfObservation.riemannHypothesis_of_unitDefectMatrix_vanishing_unconditional
           EOF
