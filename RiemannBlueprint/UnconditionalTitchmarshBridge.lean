@@ -4,15 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Qamar Munawer
 -/
 import RiemannBlueprint.MellinFracPart
-import RiemannBlueprint.UpstreamPRs.UpstreamPR_8I_LogarithmicPlaqueDecayCriterion
+import RiemannBlueprint.Modules.LogarithmicPlaqueDecayCriterion
 
 /-!
 # Unconditional Titchmarsh Mellin Property Discharge Bridge
 
-Discharges `TitchmarshMellinProperty` (from `UpstreamPR_5C_MellinNymanBeurlingIff`)
+Discharges `TitchmarshMellinProperty` (from `MellinNymanBeurlingIff`)
 unconditionally using `mellin_recipFract_unit_interval_of_pos_re` (from `MellinFracPart`),
 yielding hypothesis-free versions of the Mellin Nyman–Beurling, pure-plaque, and
-BBLR logarithmic plaque decay criteria across `UpstreamPR_5C`, `UpstreamPR_8D`, and `UpstreamPR_8I`.
+BBLR logarithmic plaque decay criteria across `Module 5C`, `Module 8D`, and `Module 8I`.
 -/
 
 open MeasureTheory Set Filter
