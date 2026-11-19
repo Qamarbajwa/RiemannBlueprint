@@ -1820,6 +1820,53 @@ theorem anchoredWave_gram_quadForm_le_unitDefectMatrix {M N : ℕ} (hN : 2 ≤ N
   rw [hint_eq, affine_l2_dist_eq_one_sub_scot c hc.1 hc.2.1] at hle
   exact hle
 
+/-- **Slab-to-Continuum `M → ∞` Wavefunction Gram Limit**: for every `2 ≤ N` and
+`1ᵀ α = 1`, `αᵀ (Ω_{M,N}ᵀ Ω_{M,N}) α → αᵀ M_N α` as `M → ∞`. -/
+theorem anchoredWave_gram_quadForm_tendsto_unitDefectMatrix {N : ℕ} (hN : 2 ≤ N)
+    (α : Fin (N - 2) → ℝ) (hα : dotProduct (onesVec (N - 2)) α = 1) :
+    Filter.Tendsto
+      (fun M : ℕ =>
+        dotProduct α (((anchoredWaveMatrix M N).transpose * anchoredWaveMatrix M N).mulVec α))
+      Filter.atTop
+      (nhds (dotProduct α ((unitDefectMatrix N).mulVec α))) := by
+  obtain ⟨c, hc, hvec⟩ := exists_dirichletAnchored_of_simplex hN α hα
+  let S : ℕ → Set ℝ := fun n => Set.Ioc (1 / ((n : ℝ) + 2)) 1
+  have hS_mono : Monotone S := by
+    intro m n hmn x hx
+    refine ⟨lt_of_le_of_lt ?_ hx.1, hx.2⟩
+    exact one_div_le_one_div_of_le (by positivity) (by gcongr)
+  have hS_union : (⋃ n : ℕ, S n) = Set.Ioc (0 : ℝ) 1 := by
+    ext x
+    simp only [Set.mem_iUnion, S, Set.mem_Ioc]
+    constructor
+    · rintro ⟨n, hn1, hn2⟩
+      exact ⟨lt_trans (by positivity) hn1, hn2⟩
+    · rintro ⟨hx0, hx1⟩
+      obtain ⟨n, hn⟩ := exists_nat_one_div_lt hx0
+      refine ⟨n, lt_of_le_of_lt ?_ hn, hx1⟩
+      exact one_div_le_one_div_of_le (by positivity) (by linarith)
+  have h_int : MeasureTheory.IntegrableOn
+      (fun x => (continuousNymanResidual c N x) ^ 2) (⋃ n : ℕ, S n) := by
+    rw [hS_union]
+    exact continuousNymanResidual_sq_integrableOn_Ioc c N
+  have h_tend := MeasureTheory.tendsto_setIntegral_of_monotone
+    (fun n => measurableSet_Ioc) hS_mono h_int
+  rw [hS_union] at h_tend
+  have hint_eq : ∫ x in Set.Ioc (0 : ℝ) 1, (continuousNymanResidual c N x) ^ 2 =
+      dotProduct α ((unitDefectMatrix N).mulVec α) := by
+    rw [← hvec, ← one_sub_SCot_eq_unitDefectMatrix_quadForm hN hc,
+      ← affine_l2_dist_eq_one_sub_scot c hc.1 hc.2.1,
+      intervalIntegral.integral_of_le (by norm_num : (0 : ℝ) ≤ 1)]
+    rfl
+  rw [hint_eq] at h_tend
+  rw [← Filter.tendsto_add_atTop_iff_nat 1]
+  refine h_tend.congr fun n => ?_
+  have hM : 1 ≤ n + 1 := Nat.succ_pos n
+  have hS_eq : Set.Ioc (1 / ((n : ℝ) + 2)) 1 = Set.Ioc (1 / ((n + 1 : ℕ) + 1 : ℝ)) 1 := by
+    push_cast; ring_nf
+  rw [hS_eq, harmonicCellL2PartialSum_eq_setIntegral_Ioc c N hM hc.1,
+    harmonicCellL2PartialSum_eq_anchoredWave_gram_quadForm hN hc, hvec]
+
 /-- Half-space folded wavefunction vector on `[1, H]` for period `L = 2 * H + 2`, weighting the
 left-half modular residual by `√(2 * doubleConeSymmetricWidth (2H + 2) n)`. -/
 noncomputable def foldedHalfWaveVec (c : ℕ → ℝ) (N H : ℕ) : Fin H → ℝ :=

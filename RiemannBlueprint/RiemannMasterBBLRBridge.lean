@@ -1,22 +1,34 @@
-import Mathlib.Data.Real.Basic
+/-
+Copyright (c) 2026 Qamar Munawer. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Qamar Munawer
+-/
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.Tactic.Linarith
 import Mathlib.Tactic.Positivity
 import RiemannBlueprint.VasyuninSchurChiralRosetta
 import RiemannBlueprint.PrimorialSchurDistanceDecay
+import RiemannBlueprint.MatrixFactorizationAndHalfObservation
+
+/-!
+# Riemann Master BBLR Bridge (`RiemannMasterBBLRBridge`)
+
+`NO_RH_PROOF = TRUE`:
+The asymptotic `N → ∞` Clay Riemann Hypothesis remains strictly OPEN. This module
+composes the verified finite-`N` Vasyunin Schur–Chiral and Block-Banachiewicz
+Primorial Schur certificates into an end-to-end conditional master bridge.
+-/
 
 namespace RiemannBlueprint
 
-/-- **NO_RH_PROOF = TRUE**: The asymptotic N -> \infty Clay Riemann Hypothesis
-    remains strictly OPEN. This module composes the verified finite-N Vasyunin
-    Schur-Chiral and Block-Banachiewicz Primorial Schur certificates into an
-    end-to-end conditional master bridge parallel to Yang-Mills `YM180`. -/
+/-- **NO_RH_PROOF = TRUE**: The asymptotic `N → ∞` Clay Riemann Hypothesis
+    remains strictly OPEN. -/
 def no_rh_proof_master_bridge_lock : Bool := true
 
 /-- Unconditional synthesis of rank-1 Dirichlet anchor subtraction, palindromic
-    half-projector reconstruction (K_half + K_half^T = 4 T_pal), and the
+    half-projector reconstruction (`K_half + K_halfᵀ = 4 T_pal`), and the
     Block-Banachiewicz Prime-Composite Schur distance reduction:
-    E_dir(N) = d_{N,Prime,dir}^2 - \Delta_{Schur,dir}(C | P) <= d_{N,Prime,dir}^2. -/
+    `E_dir(N) = d_{N,Prime,dir}^2 - Δ_{Schur,dir}(C | P) ≤ d_{N,Prime,dir}^2`. -/
 theorem dirichlet_anchored_schur_energy_reduction_unconditional
     (d_prime_dir_sq delta_schur_dir k_half t_pal : ℝ)
     (h_half : k_half + k_half = 4 * t_pal)
@@ -28,11 +40,8 @@ theorem dirichlet_anchored_schur_energy_reduction_unconditional
   refine ⟨by linarith, by linarith, by linarith⟩
 
 /-- Unconditional primorial-ladder BBLR excess contraction lemma:
-    Let \eta_k = \ln(N_k) * E_dir(N_k) - C_{BBLR} be the excess above the
-    BBLR critical-line constant C_{BBLR} = 2 + \gamma - \ln(4\pi) \approx 0.04619142.
-    If 0 <= \eta_{k+1} <= \theta * \eta_k with 0 <= \theta < 1 (empirically
-    \theta \approx 0.20..0.23 across N = 2 -> 6 -> 30 -> 210), then
-    0 <= \eta_k <= \theta^k * \eta_0 for all k \in \mathbb{N}. -/
+    if `0 ≤ η (k + 1) ≤ θ * η k` with `0 ≤ θ`, then `0 ≤ η k ≤ θ^k * η 0`
+    for all `k : ℕ`. -/
 theorem bblr_logarithmic_envelope_excess_decay_unconditional
     (θ : ℝ) (η : ℕ → ℝ)
     (hθ_nonneg : 0 ≤ θ)
@@ -40,9 +49,10 @@ theorem bblr_logarithmic_envelope_excess_decay_unconditional
     (h_step : ∀ k, η (k + 1) ≤ θ * η k) :
     ∀ k, 0 ≤ η k ∧ η k ≤ θ ^ k * η 0 := by
   intro k
-  induction' k with k ih
-  · simp [h_nonneg 0]
-  · refine ⟨h_nonneg (k + 1), ?_⟩
+  induction k with
+  | zero => simp [h_nonneg 0]
+  | succ k ih =>
+    refine ⟨h_nonneg (k + 1), ?_⟩
     have h1 : η (k + 1) ≤ θ * η k := h_step k
     have h2 : θ * η k ≤ θ * (θ ^ k * η 0) :=
       mul_le_mul_of_nonneg_left ih.2 hθ_nonneg
@@ -51,7 +61,7 @@ theorem bblr_logarithmic_envelope_excess_decay_unconditional
       _ ≤ θ * (θ ^ k * η 0) := h2
       _ = θ ^ (k + 1) * η 0 := by ring
 
-/-- Parameterized asymptotic hypothesis isolating the open N -> \infty BBLR
+/-- Parameterized asymptotic hypothesis isolating the open `N → ∞` BBLR
     convergence step (`NO_RH_PROOF = TRUE`). -/
 structure BBLRAsymptoticSchurHypothesis where
   c_bblr : ℝ
@@ -71,11 +81,9 @@ structure BBLRAsymptoticSchurHypothesis where
       θ * (log_N k * (d_prime_dir_sq k - delta_schur_dir k) - c_bblr)
 
 /-- **Master Conditional Synthesis (`RiemannMasterBBLRBridge`)**:
-    Given `BBLRAsymptoticSchurHypothesis`, at every primorial step k:
-    1. The Composite Schur reduction lowers the Dirichlet-anchored energy:
-       0 <= E_dir(N_k) <= d_{N_k,Prime,dir}^2.
-    2. The scaled logarithmic product \ln(N_k) * E_dir(N_k) is sandwiched
-       within \theta^k * \eta_0 of the BBLR critical constant c_bblr. -/
+    Given `BBLRAsymptoticSchurHypothesis`, at every primorial step `k`:
+    1. `0 ≤ E_dir(N_k) ≤ d_{N_k,Prime,dir}^2`.
+    2. `log_N k * E_dir(N_k)` is sandwiched within `θ^k * η 0` of `c_bblr`. -/
 theorem master_vasyunin_schur_to_bblr_criterion_conditional
     (H : BBLRAsymptoticSchurHypothesis) (k : ℕ) :
     let e_dir := fun n => H.d_prime_dir_sq n - H.delta_schur_dir n
@@ -100,5 +108,39 @@ theorem master_vasyunin_schur_to_bblr_criterion_conditional
     H.hθ_nonneg h_eta_nonneg H.h_excess_contract k
   refine ⟨h_e_nonneg, h_e_le, h_floor, ?_⟩
   linarith [h_decay.2]
+
+/-- **End-to-End Conditional RH Bridge**:
+    Composing `master_vasyunin_schur_to_bblr_criterion_conditional` with unbounded
+    `log_N k` and simplex realization `αᵀ M_{N_k} α ≤ E_dir(N_k)` deduces
+    `_root_.RiemannHypothesis` via `riemannHypothesis_of_unitDefectMatrix_vanishing_unconditional`.
+    (`NO_RH_PROOF = TRUE`: `H` remains an open asymptotic hypothesis.) -/
+theorem riemannHypothesis_of_bblr_asymptotic_schur
+    (H : BBLRAsymptoticSchurHypothesis)
+    (h_log_unbounded : ∀ B : ℝ, ∃ k : ℕ, B < H.log_N k)
+    (h_realize : ∀ k : ℕ, ∃ (N : ℕ) (α : Fin (N - 2) → ℝ),
+      2 ≤ N ∧ dotProduct (MatrixHalfObservation.onesVec (N - 2)) α = 1 ∧
+      dotProduct α ((MatrixHalfObservation.unitDefectMatrix N).mulVec α) ≤
+        H.d_prime_dir_sq k - H.delta_schur_dir k) :
+    _root_.RiemannHypothesis := by
+  refine MatrixHalfObservation.riemannHypothesis_of_unitDefectMatrix_vanishing_unconditional
+    fun ε hε => ?_
+  set η0 : ℝ := H.log_N 0 * (H.d_prime_dir_sq 0 - H.delta_schur_dir 0) - H.c_bblr
+  have hη0_nonneg : 0 ≤ η0 := by linarith [H.h_bblr_floor 0]
+  set C : ℝ := H.c_bblr + η0
+  have hC_pos : 0 < C := by linarith [H.hc_pos]
+  obtain ⟨k, hk⟩ := h_log_unbounded (C / ε)
+  have hlog_pos : 0 < H.log_N k := H.hlog_pos k
+  have hm := master_vasyunin_schur_to_bblr_criterion_conditional H k
+  have hθ_pow_le : H.θ ^ k ≤ 1 := pow_le_one₀ H.hθ_nonneg H.hθ_lt_one.le
+  have hprod_le : H.log_N k * (H.d_prime_dir_sq k - H.delta_schur_dir k) ≤ C := by
+    have hmul : H.θ ^ k * η0 ≤ 1 * η0 := mul_le_mul_of_nonneg_right hθ_pow_le hη0_nonneg
+    linarith [hm.2.2.2]
+  have he_lt : H.d_prime_dir_sq k - H.delta_schur_dir k < ε := by
+    have h1 : C < H.log_N k * ε := (div_lt_iff₀ hε).mp hk
+    have h2 : H.log_N k * (H.d_prime_dir_sq k - H.delta_schur_dir k) < H.log_N k * ε :=
+      lt_of_le_of_lt hprod_le h1
+    exact lt_of_mul_lt_mul_left h2 hlog_pos.le
+  obtain ⟨N, α, hN, hα, hquad⟩ := h_realize k
+  exact ⟨N, α, hN, hα, lt_of_le_of_lt hquad he_lt⟩
 
 end RiemannBlueprint
