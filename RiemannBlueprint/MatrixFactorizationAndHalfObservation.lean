@@ -35,6 +35,17 @@ matrix relations and proves the three half-observation theorems without addition
   universal superdiagonal zeros `dipoleGramMatrix_superdiag_eq_zero`, unconditional
   off-line zero floor `unitDefectMatrix_offline_zero_floor_unconditional` on `Re(s) > 1/2`,
   and `riemannHypothesis_of_unitDefectMatrix_vanishing_unconditional`.
+* **Part V (Basal 50/50 Clock, Observation Matrices, & Upper-Half Gram Bound):**
+  `baseClockVec`, orthogonal parity observation matrix `parityObsMatrix`, transformed metric
+  `parityObsMatrix_conj_slabWeightMatrix`, palindromic projectors `palindromicProjPlus` /
+  `palindromicProjMinus` annihilating odd metrics, `augClockGramMatrix`, `simplexLiftMatrix`,
+  and the universal upper-half Gram bound `dipoleGramMatrix_quadForm_ge_half_sq`.
+* **Part VI (Wavefunction Matrix `Ω_{M,N}`, Cholesky/Schur Innovations, & Spectral RH):**
+  `wavefunctionVec`, `anchoredWaveMatrix`, `foldedHalfWaveVec`, exact Born norm and finite-horizon
+  Gram monotonicity `anchoredWave_gram_quadForm_le_unitDefectMatrix`, Cholesky/Schur innovation
+  identities `cholesky_energy_eq_one_sub_sum_sq` and `schur_one_step_innovation`, exact `{1, 2, 4}`
+  dyadic energy `one_sub_SCot_dyadicFour_eq` (`1 - π/4`), and ground-state spectral RH criterion
+  `riemannHypothesis_of_unitDefectMatrix_groundState_vanishing_unconditional`.
 -/
 
 namespace RiemannBlueprint.MatrixHalfObservation
@@ -1548,5 +1559,512 @@ theorem dipoleGramMatrix_quadForm_ge_half_sq {N : ℕ} (hN : 2 ≤ N) (α : Fin 
     rw [hcon, intervalIntegral.integral_const, smul_eq_mul]
     ring
   linarith
+
+/-! ## Part VI: Wavefunction Matrix `Ω_{M,N}`, Cholesky Innovations, & Spectral RH -/
+
+private lemma harmonicCellWidth_nonneg (n : ℕ) : 0 ≤ harmonicCellWidth n := by
+  unfold harmonicCellWidth; positivity
+
+private lemma doubleConeSymmetricWidth_nonneg (L m : ℕ) :
+    0 ≤ doubleConeSymmetricWidth L m := by
+  unfold doubleConeSymmetricWidth
+  exact div_nonneg (add_nonneg (harmonicCellWidth_nonneg m) (harmonicCellWidth_nonneg (L - 1 - m)))
+    (by norm_num)
+
+private lemma cumulativeDipole_one_eq_one {m : ℕ} (hm : 1 ≤ m) : cumulativeDipole m 1 = 1 := by
+  unfold cumulativeDipole
+  rw [Finset.sum_eq_single 1]
+  · simp [harmonicWavelet]
+  · intro r hr hne
+    rcases r with _ | _ | r <;>
+      [exact absurd (Finset.mem_Icc.mp hr).1 (by decide); exact absurd rfl hne;
+        simp [harmonicWavelet]]
+  · intro h; exact absurd (Finset.mem_Icc.mpr ⟨le_rfl, hm⟩) h
+
+private lemma cot_pi_div_four_p6 : Real.cos (Real.pi / 4) / Real.sin (Real.pi / 4) = 1 := by
+  rw [Real.cos_pi_div_four, Real.sin_pi_div_four]
+  field_simp [(Real.sqrt_pos.mpr (by norm_num : (0 : ℝ) < 2)).ne']
+
+private lemma vasyuninCotSum_two_p6 (b : ℕ) : vasyuninCotSum 2 b = 0 := by
+  unfold vasyuninCotSum
+  rw [show Finset.Ico 1 2 = ({1} : Finset ℕ) by ext x; simp, Finset.sum_singleton,
+    show Real.pi * ((1 : ℕ) : ℝ) / ((2 : ℕ) : ℝ) = Real.pi / 2 by push_cast; ring,
+    Real.cos_pi_div_two, zero_div, mul_zero]
+
+private lemma vasyuninCotSum_four_p6 (b : ℕ) :
+    vasyuninCotSum 4 b = Int.fract ((b : ℝ) / 4) - Int.fract (3 * (b : ℝ) / 4) := by
+  unfold vasyuninCotSum
+  rw [show Finset.Ico 1 4 = ({1, 2, 3} : Finset ℕ) by ext x; simp; omega,
+    Finset.sum_insert (by decide), Finset.sum_insert (by decide), Finset.sum_singleton]
+  push_cast
+  rw [show (1 : ℝ) * b / 4 = b / 4 by ring, show Real.pi * 1 / 4 = Real.pi / 4 by ring,
+    show Real.pi * 2 / 4 = Real.pi / 2 by ring, Real.cos_pi_div_two, zero_div, mul_zero,
+    show Real.pi * 3 / 4 = 3 * Real.pi / 4 by ring, cot_pi_div_four_p6,
+    show Real.cos (3 * Real.pi / 4) / Real.sin (3 * Real.pi / 4) = -1 by
+      rw [show 3 * Real.pi / 4 = Real.pi - Real.pi / 4 by ring, Real.cos_pi_sub, Real.sin_pi_sub,
+        neg_div, cot_pi_div_four_p6]]
+  ring
+
+private lemma sum_Icc_one_four_p6 (f : ℕ → ℝ) :
+    ∑ k ∈ Finset.Icc 1 4, f k = f 1 + f 2 + f 3 + f 4 := by
+  rw [show Finset.Icc 1 4 = ({1, 2, 3, 4} : Finset ℕ) by
+    ext x; simp only [Finset.mem_Icc, Finset.mem_insert, Finset.mem_singleton]; omega]
+  norm_num [Finset.sum_insert, add_assoc]
+
+/-- Square-root harmonic slab weight matrix `W_M^{1/2} = diag(√w_n)` on `Fin M`. -/
+noncomputable def slabWeightSqrtMatrix (M : ℕ) : Matrix (Fin M) (Fin M) ℝ :=
+  Matrix.diagonal fun i => Real.sqrt (harmonicCellWidth (i.1 + 1))
+
+/-- Normalized wavefunction state vector `ψ_{M,N} = W_M^{1/2} r_M` whose Euclidean norm squared
+equals the discrete `L²` cell energy. -/
+noncomputable def wavefunctionVec (c : ℕ → ℝ) (M N : ℕ) : Fin M → ℝ :=
+  (slabWeightSqrtMatrix M).mulVec (residualVec c M N)
+
+/-- Exact square-root factorization of the slab weight metric: `W_M^{1/2} * W_M^{1/2} = W_M`. -/
+theorem slabWeightSqrtMatrix_mul_self (M : ℕ) :
+    slabWeightSqrtMatrix M * slabWeightSqrtMatrix M = slabWeightMatrix M := by
+  ext i j
+  dsimp [slabWeightSqrtMatrix, slabWeightMatrix]
+  rw [Matrix.diagonal_mul_diagonal]
+  by_cases hij : i = j
+  · subst hij
+    simp [Matrix.diagonal_apply_eq, Real.mul_self_sqrt (harmonicCellWidth_nonneg (i.1 + 1))]
+  · simp [Matrix.diagonal_apply_ne _ hij]
+
+/-- **Born Norm Law for `wavefunctionVec`**: `‖ψ_{M,N}‖₂² = harmonicCellL2PartialSum c N M`. -/
+theorem wavefunctionVec_norm_sq_eq_partialSum (c : ℕ → ℝ) (M N : ℕ) :
+    dotProduct (wavefunctionVec c M N) (wavefunctionVec c M N) =
+      harmonicCellL2PartialSum c N M := by
+  rw [harmonicCellL2PartialSum_eq_quadForm]
+  have hsym : (slabWeightSqrtMatrix M).transpose = slabWeightSqrtMatrix M := by
+    dsimp [slabWeightSqrtMatrix]; exact Matrix.diagonal_transpose _
+  calc dotProduct (wavefunctionVec c M N) (wavefunctionVec c M N)
+      = dotProduct ((slabWeightSqrtMatrix M).mulVec (residualVec c M N))
+          ((slabWeightSqrtMatrix M).mulVec (residualVec c M N)) := rfl
+    _ = dotProduct (Matrix.vecMul (residualVec c M N) (slabWeightSqrtMatrix M).transpose)
+          ((slabWeightSqrtMatrix M).mulVec (residualVec c M N)) := by
+          rw [Matrix.vecMul_transpose]
+    _ = dotProduct (residualVec c M N)
+          ((slabWeightSqrtMatrix M).transpose.mulVec
+            ((slabWeightSqrtMatrix M).mulVec (residualVec c M N))) :=
+          (Matrix.dotProduct_mulVec _ _ _).symm
+    _ = dotProduct (residualVec c M N) ((slabWeightMatrix M).mulVec (residualVec c M N)) := by
+          rw [hsym, Matrix.mulVec_mulVec, slabWeightSqrtMatrix_mul_self]
+
+/-- **Wavefunction Lebesgue Integral Identity**: on `D1 c N = 0` (`1 ≤ M`),
+`∫ x in Ioc (1/(M+1)) 1, residual^2 = ψᵀ ψ`. -/
+theorem setIntegral_Ioc_eq_wavefunctionVec_norm_sq (c : ℕ → ℝ) (N M : ℕ) (hM : 1 ≤ M)
+    (hD1 : D1 c N = 0) :
+    ∫ x in Set.Ioc (1 / ((M : ℝ) + 1)) 1, (continuousNymanResidual c N x) ^ 2 =
+      dotProduct (wavefunctionVec c M N) (wavefunctionVec c M N) := by
+  rw [setIntegral_Ioc_eq_matrix_quadForm c N M hM hD1, ← harmonicCellL2PartialSum_eq_quadForm,
+    wavefunctionVec_norm_sq_eq_partialSum]
+
+/-- Basal 50/50 vacuum wavefunction `b̃_M = W_M^{1/2} b_M` generating `(-1)^n / √(n(n+1))`. -/
+noncomputable def vacuumWaveVec (M : ℕ) : Fin M → ℝ :=
+  (slabWeightSqrtMatrix M).mulVec (baseClockVec M)
+
+/-- **Vacuum Wavefunction Norm Law**: `‖b̃_M‖₂² = 1 - 1 / (M + 1)`. -/
+theorem vacuumWaveVec_norm_sq_eq (M : ℕ) :
+    dotProduct (vacuumWaveVec M) (vacuumWaveVec M) = 1 - 1 / ((M : ℝ) + 1) := by
+  rw [← baseClockVec_quadForm_eq M]
+  have hsym : (slabWeightSqrtMatrix M).transpose = slabWeightSqrtMatrix M := by
+    dsimp [slabWeightSqrtMatrix]; exact Matrix.diagonal_transpose _
+  calc dotProduct (vacuumWaveVec M) (vacuumWaveVec M)
+      = dotProduct ((slabWeightSqrtMatrix M).mulVec (baseClockVec M))
+          ((slabWeightSqrtMatrix M).mulVec (baseClockVec M)) := rfl
+    _ = dotProduct (Matrix.vecMul (baseClockVec M) (slabWeightSqrtMatrix M).transpose)
+          ((slabWeightSqrtMatrix M).mulVec (baseClockVec M)) := by
+          rw [Matrix.vecMul_transpose]
+    _ = dotProduct (baseClockVec M)
+          ((slabWeightSqrtMatrix M).transpose.mulVec
+            ((slabWeightSqrtMatrix M).mulVec (baseClockVec M))) :=
+          (Matrix.dotProduct_mulVec _ _ _).symm
+    _ = dotProduct (baseClockVec M) ((slabWeightMatrix M).mulVec (baseClockVec M)) := by
+          rw [hsym, Matrix.mulVec_mulVec, slabWeightSqrtMatrix_mul_self]
+
+/-- Cumulative-dipole excitation matrix `Ψ_{M,N}` (`M × (N - 2)`): entry `(i, m)` is the
+weighted dipole response `√w_{i+1} * ∑_{k=1}^N d_{m+1}(k) ⌊(i+1)/k⌋`. -/
+noncomputable def dipoleExcitationMatrix (M N : ℕ) : Matrix (Fin M) (Fin (N - 2)) ℝ :=
+  fun i m => Real.sqrt (harmonicCellWidth (i.1 + 1)) *
+    (∑ k ∈ Finset.Icc 1 N, cumulativeDipole (m.1 + 1) k * (((i.1 + 1) / k : ℕ) : ℝ))
+
+/-- Anchored wavefunction matrix `Ω_{M,N} = |b̃_M⟩ 1ᵀ + Ψ_{M,N}` (`M × (N - 2)`), mapping
+any Dirichlet simplex vector `α` (`1ᵀ α = 1`) directly to the normalized wavefunction state. -/
+noncomputable def anchoredWaveMatrix (M N : ℕ) : Matrix (Fin M) (Fin (N - 2)) ℝ :=
+  fun i m => vacuumWaveVec M i + dipoleExcitationMatrix M N i m
+
+/-- **Upper-Half Wavefunction Matrix Annihilation**: the first row (`n = 1`, interval `(1/2, 1]`)
+of `anchoredWaveMatrix M N` is identically zero in every column `m`. -/
+theorem anchoredWaveMatrix_topRow_zero {M N : ℕ} (hM : 1 ≤ M) (hN : 2 ≤ N)
+    (m : Fin (N - 2)) :
+    anchoredWaveMatrix M N ⟨0, by omega⟩ m = 0 := by
+  dsimp [anchoredWaveMatrix, vacuumWaveVec, dipoleExcitationMatrix, slabWeightSqrtMatrix,
+    baseClockVec]
+  rw [Matrix.mulVec_diagonal]
+  dsimp
+  have h1 : (1 : ℕ) ∈ Finset.Icc 1 N := Finset.mem_Icc.mpr ⟨le_rfl, by omega⟩
+  have hsum : (∑ k ∈ Finset.Icc 1 N,
+      cumulativeDipole (m.1 + 1) k * ((1 / k : ℕ) : ℝ)) = 1 := by
+    rw [Finset.sum_eq_single 1]
+    · simp [cumulativeDipole_one_eq_one (by omega : 1 ≤ m.1 + 1)]
+    · intro k hk hne
+      have hk1 := (Finset.mem_Icc.mp hk).1
+      have hdiv : 1 / k = 0 := Nat.div_eq_of_lt (by omega)
+      simp [hdiv]
+    · intro hg; exact absurd h1 hg
+  rw [hsum]
+  simp only [baseClockVec, zero_add, pow_one]
+  ring
+
+/-- **Exact Wavefunction Superposition Law**: on `IsDirichletAnchored c N`,
+`ψ_{M,N} = Ω_{M,N} *ᵥ α_N`. -/
+theorem wavefunctionVec_eq_anchoredWaveMatrix_mulVec {c : ℕ → ℝ} {M N : ℕ} (hN : 2 ≤ N)
+    (hc : IsDirichletAnchored c N) :
+    wavefunctionVec c M N = (anchoredWaveMatrix M N).mulVec (dipoleCoordVec c N) := by
+  ext i
+  have hres_split : discreteCellResidual c N (i.1 + 1) =
+      (-1 : ℝ) ^ (i.1 + 1) + ∑ m : Fin (N - 2), dipoleCoordVec c N m *
+        (∑ k ∈ Finset.Icc 1 N, cumulativeDipole (m.1 + 1) k * (((i.1 + 1) / k : ℕ) : ℝ)) := by
+    have hc_eq : ∀ k ∈ Finset.Icc 1 N, c k = cBaseAnchor k +
+        ∑ m ∈ Finset.Icc 1 (N - 2), dipoleCoord c N m * cumulativeDipole m k := fun k hk =>
+      eq_cBaseAnchor_add_sum_cumulativeDipole_of_mem_A_N hN c hc.1 hc.2.1 hk
+    unfold discreteCellResidual
+    rw [Finset.sum_congr rfl fun k hk => by
+      rw [hc_eq k hk, add_mul, Finset.sum_mul]]
+    rw [Finset.sum_add_distrib]
+    have hbase : 1 + ∑ k ∈ Finset.Icc 1 N, cBaseAnchor k * (((i.1 + 1) / k : ℕ) : ℝ) =
+        (-1 : ℝ) ^ (i.1 + 1) := by
+      have hb := discreteCellResidual_cBaseAnchor_eq_neg_one_pow hN (i.1 + 1)
+      unfold discreteCellResidual at hb
+      exact hb
+    rw [← add_assoc, hbase]
+    congr 1
+    rw [Finset.sum_comm]
+    rw [← sum_fin_succ_eq_sum_Icc (N - 2) fun m =>
+      ∑ k ∈ Finset.Icc 1 N,
+        dipoleCoord c N m * cumulativeDipole m k * (((i.1 + 1) / k : ℕ) : ℝ)]
+    refine Finset.sum_congr rfl fun m _ => ?_
+    simp only [dipoleCoordVec, mul_assoc, ← Finset.mul_sum]
+  have hsum_alpha : (∑ m : Fin (N - 2), dipoleCoordVec c N m) = 1 := by
+    have hs := dotProduct_ones_dipoleCoordVec_eq_one hN hc
+    simpa [dotProduct, onesVec, one_mul] using hs
+  have hvac : vacuumWaveVec M i =
+      Real.sqrt (harmonicCellWidth (i.1 + 1)) * (-1 : ℝ) ^ (i.1 + 1) := by
+    dsimp [vacuumWaveVec, slabWeightSqrtMatrix]
+    rw [Matrix.mulVec_diagonal]
+    rfl
+  dsimp [wavefunctionVec, slabWeightSqrtMatrix]
+  rw [Matrix.mulVec_diagonal]
+  dsimp [residualVec, Matrix.mulVec, dotProduct]
+  rw [hres_split, mul_add, Finset.mul_sum]
+  have h1 : Real.sqrt (harmonicCellWidth (i.1 + 1)) * (-1 : ℝ) ^ (i.1 + 1) =
+      ∑ m : Fin (N - 2), vacuumWaveVec M i * dipoleCoordVec c N m := by
+    rw [hvac, ← Finset.mul_sum, hsum_alpha, mul_one]
+  rw [h1, ← Finset.sum_add_distrib]
+  refine Finset.sum_congr rfl fun m _ => ?_
+  dsimp [anchoredWaveMatrix, dipoleExcitationMatrix]
+  ring
+
+/-- **Wavefunction Gram Factorization of Cell Energy**: on `IsDirichletAnchored c N`,
+`harmonicCellL2PartialSum c N M = α_Nᵀ (Ω_{M,N}ᵀ Ω_{M,N}) α_N`. -/
+theorem harmonicCellL2PartialSum_eq_anchoredWave_gram_quadForm {c : ℕ → ℝ} {M N : ℕ} (hN : 2 ≤ N)
+    (hc : IsDirichletAnchored c N) :
+    harmonicCellL2PartialSum c N M =
+      dotProduct (dipoleCoordVec c N)
+        (((anchoredWaveMatrix M N).transpose * anchoredWaveMatrix M N).mulVec
+          (dipoleCoordVec c N)) := by
+  rw [← wavefunctionVec_norm_sq_eq_partialSum, wavefunctionVec_eq_anchoredWaveMatrix_mulVec hN hc]
+  calc dotProduct ((anchoredWaveMatrix M N).mulVec (dipoleCoordVec c N))
+        ((anchoredWaveMatrix M N).mulVec (dipoleCoordVec c N))
+      = dotProduct (Matrix.vecMul (dipoleCoordVec c N) (anchoredWaveMatrix M N).transpose)
+          ((anchoredWaveMatrix M N).mulVec (dipoleCoordVec c N)) := by
+          rw [Matrix.vecMul_transpose]
+    _ = dotProduct (dipoleCoordVec c N)
+          ((anchoredWaveMatrix M N).transpose.mulVec
+            ((anchoredWaveMatrix M N).mulVec (dipoleCoordVec c N))) :=
+          (Matrix.dotProduct_mulVec _ _ _).symm
+    _ = dotProduct (dipoleCoordVec c N)
+          (((anchoredWaveMatrix M N).transpose * anchoredWaveMatrix M N).mulVec
+            (dipoleCoordVec c N)) := by
+          rw [Matrix.mulVec_mulVec]
+
+/-- **Monotonicity of Wavefunction Gram Forms**: for any `1 ≤ M ≤ M'` and `1ᵀ α = 1`,
+`αᵀ (Ω_{M,N}ᵀ Ω_{M,N}) α ≤ αᵀ (Ω_{M',N}ᵀ Ω_{M',N}) α`. -/
+theorem anchoredWave_gram_quadForm_monotone {M M' N : ℕ} (hN : 2 ≤ N) (hM : 1 ≤ M)
+    (hMM' : M ≤ M') (α : Fin (N - 2) → ℝ) (hα : dotProduct (onesVec (N - 2)) α = 1) :
+    dotProduct α (((anchoredWaveMatrix M N).transpose * anchoredWaveMatrix M N).mulVec α) ≤
+      dotProduct α
+        (((anchoredWaveMatrix M' N).transpose * anchoredWaveMatrix M' N).mulVec α) := by
+  obtain ⟨c, hc, hvec⟩ := exists_dirichletAnchored_of_simplex hN α hα
+  rw [← hvec, ← harmonicCellL2PartialSum_eq_anchoredWave_gram_quadForm hN hc,
+    ← harmonicCellL2PartialSum_eq_anchoredWave_gram_quadForm hN hc]
+  have hsub := harmonicCellL2PartialSum_sub_eq_tailSum c N hM hMM'
+  have hnn := harmonicCellL2TailSum_nonneg c N M M'
+  linarith
+
+/-- **Finite-Horizon Wavefunction Gram Domination by `M_N`**: for every `1 ≤ M`, `2 ≤ N`,
+and `1ᵀ α = 1`, `αᵀ (Ω_{M,N}ᵀ Ω_{M,N}) α ≤ αᵀ M_N α`. -/
+theorem anchoredWave_gram_quadForm_le_unitDefectMatrix {M N : ℕ} (hN : 2 ≤ N) (hM : 1 ≤ M)
+    (α : Fin (N - 2) → ℝ) (hα : dotProduct (onesVec (N - 2)) α = 1) :
+    dotProduct α (((anchoredWaveMatrix M N).transpose * anchoredWaveMatrix M N).mulVec α) ≤
+      dotProduct α ((unitDefectMatrix N).mulVec α) := by
+  obtain ⟨c, hc, hvec⟩ := exists_dirichletAnchored_of_simplex hN α hα
+  rw [← hvec, ← harmonicCellL2PartialSum_eq_anchoredWave_gram_quadForm hN hc,
+    ← one_sub_SCot_eq_unitDefectMatrix_quadForm hN hc]
+  have hle := harmonicCellL2PartialSum_le_integral_Ioc c N hM hc.1
+  have hint_eq : ∫ x in Set.Ioc (0 : ℝ) 1, (continuousNymanResidual c N x) ^ 2 =
+      ∫ x in (0 : ℝ)..1, (1 - ∑ k ∈ Finset.Icc 1 N, c k * recipFractScaled k x) ^ 2 := by
+    rw [intervalIntegral.integral_of_le (by norm_num : (0 : ℝ) ≤ 1)]
+    rfl
+  rw [hint_eq, affine_l2_dist_eq_one_sub_scot c hc.1 hc.2.1] at hle
+  exact hle
+
+/-- Half-space folded wavefunction vector on `[1, H]` for period `L = 2 * H + 2`, weighting the
+left-half modular residual by `√(2 * doubleConeSymmetricWidth (2H + 2) n)`. -/
+noncomputable def foldedHalfWaveVec (c : ℕ → ℝ) (N H : ℕ) : Fin H → ℝ :=
+  fun i => Real.sqrt (2 * doubleConeSymmetricWidth (2 * H + 2) (i.1 + 1)) *
+    leftHalfResidual c N H i
+
+/-- **Half-Space Wavefunction Born-Norm Isometry**: on `D1 c N = 0`, `D0 c N = 2`, and
+`∀ k ∈ Icc 1 N, k ∣ 2 * H + 2`, the `H`-dimensional folded wavefunction norm squared equals the
+full `2H`-cell interior energy. -/
+theorem foldedHalfWaveVec_norm_sq_eq_period (c : ℕ → ℝ) (N H : ℕ) (hD1 : D1 c N = 0)
+    (hD0 : D0 c N = 2) (hL : ∀ k ∈ Finset.Icc 1 N, k ∣ 2 * H + 2) :
+    dotProduct (foldedHalfWaveVec c N H) (foldedHalfWaveVec c N H) =
+      harmonicCellL2PartialSum c N (2 * H) := by
+  rw [harmonicCellL2PartialSum_period_eq_double_halfObservation c N H hD1 hD0 hL]
+  simp only [dotProduct, foldedHalfWaveVec, doubleConeHalfWeights, Matrix.mulVec_diagonal]
+  rw [Finset.mul_sum]
+  refine Finset.sum_congr rfl fun i _ => ?_
+  have hw := doubleConeSymmetricWidth_nonneg (2 * H + 2) (i.1 + 1)
+  have hsq : Real.sqrt (2 * doubleConeSymmetricWidth (2 * H + 2) (i.1 + 1)) *
+      Real.sqrt (2 * doubleConeSymmetricWidth (2 * H + 2) (i.1 + 1)) =
+      2 * doubleConeSymmetricWidth (2 * H + 2) (i.1 + 1) :=
+    Real.mul_self_sqrt (by linarith)
+  calc (Real.sqrt (2 * doubleConeSymmetricWidth (2 * H + 2) (i.1 + 1)) *
+          leftHalfResidual c N H i) *
+        (Real.sqrt (2 * doubleConeSymmetricWidth (2 * H + 2) (i.1 + 1)) *
+          leftHalfResidual c N H i)
+      = (Real.sqrt (2 * doubleConeSymmetricWidth (2 * H + 2) (i.1 + 1)) *
+          Real.sqrt (2 * doubleConeSymmetricWidth (2 * H + 2) (i.1 + 1))) *
+        (leftHalfResidual c N H i * leftHalfResidual c N H i) := by ring
+    _ = 2 * (leftHalfResidual c N H i *
+          (doubleConeSymmetricWidth (2 * H + 2) (i.1 + 1) * leftHalfResidual c N H i)) := by
+        rw [hsq]; ring
+
+/-- **Cholesky Telescoping Innovation Identity**: if `G = L * Lᵀ` with injective factor `L`,
+`L *ᵥ z = b`, and `G *ᵥ α = b`, then `1 - bᵀ α = 1 - ∑ i, zᵢ²`. -/
+theorem cholesky_energy_eq_one_sub_sum_sq {n : ℕ} (G L : Matrix (Fin n) (Fin n) ℝ)
+    (b α z : Fin n → ℝ) (hG : G = L * L.transpose) (hLz : L.mulVec z = b)
+    (hGα : G.mulVec α = b) (hL_inj : ∀ v : Fin n → ℝ, L.mulVec v = 0 → v = 0) :
+    1 - dotProduct b α = 1 - ∑ i : Fin n, (z i) ^ 2 := by
+  have hLt_eq : L.transpose.mulVec α = z := by
+    have hdiff : L.mulVec (L.transpose.mulVec α - z) = 0 := by
+      rw [Matrix.mulVec_sub, Matrix.mulVec_mulVec, ← hG, hGα, hLz, sub_self]
+    exact sub_eq_zero.mp (hL_inj _ hdiff)
+  have hba : dotProduct b α = ∑ i : Fin n, (z i) ^ 2 := by
+    calc dotProduct b α
+        = dotProduct (L.mulVec z) α := by rw [hLz]
+      _ = dotProduct (Matrix.vecMul z L.transpose) α := by rw [Matrix.vecMul_transpose]
+      _ = dotProduct z (L.transpose.mulVec α) := (Matrix.dotProduct_mulVec z L.transpose α).symm
+      _ = dotProduct z z := by rw [hLt_eq]
+      _ = ∑ i : Fin n, (z i) ^ 2 := by
+          simp only [dotProduct]
+          exact Finset.sum_congr rfl fun i _ => (sq (z i)).symm
+  rw [hba]
+
+/-- Symmetric bordered block extension of `G : Matrix (Fin k) (Fin k) ℝ` by vector `g` and
+diagonal entry `d`, indexed on `Option (Fin k)`. -/
+def borderedBlockMatrix {k : ℕ} (G : Matrix (Fin k) (Fin k) ℝ) (g : Fin k → ℝ) (d : ℝ) :
+    Matrix (Option (Fin k)) (Option (Fin k)) ℝ :=
+  fun r s => match r, s with
+  | none, none => d
+  | none, some j => g j
+  | some i, none => g i
+  | some i, some j => G i j
+
+/-- **Exact Schur One-Step Innovation Identity**: bordering a symmetric system `G α = b` with
+`G v = g` and Schur complement `s = d - gᵀ v ≠ 0` adds exact innovation `ρ² / s` where
+`ρ = b_new - gᵀ α`. -/
+theorem schur_one_step_innovation {k : ℕ} (G : Matrix (Fin k) (Fin k) ℝ)
+    (hGsym : G.IsSymm) (g b α v : Fin k → ℝ) (d b_new : ℝ) (hGα : G.mulVec α = b)
+    (hGv : G.mulVec v = g) (hs : d - dotProduct g v ≠ 0) :
+    let s := d - dotProduct g v
+    let ρ := b_new - dotProduct g α
+    let b_next : Option (Fin k) → ℝ := fun r => match r with | none => b_new | some i => b i
+    let α_next : Option (Fin k) → ℝ := fun r =>
+      match r with | none => ρ / s | some i => α i - (ρ / s) * v i
+    (borderedBlockMatrix G g d).mulVec α_next = b_next ∧
+      1 - dotProduct b_next α_next = (1 - dotProduct b α) - ρ ^ 2 / s := by
+  intro s ρ b_next α_next
+  have hvg : dotProduct v g = dotProduct g v := dotProduct_comm v g
+  have hga : dotProduct g α = dotProduct b v := by
+    have hGt : G.transpose = G := hGsym
+    calc dotProduct g α
+        = dotProduct (G.mulVec v) α := by rw [hGv]
+      _ = dotProduct (Matrix.vecMul v G.transpose) α := by rw [Matrix.vecMul_transpose]
+      _ = dotProduct v (G.mulVec α) := by
+          rw [hGt]; exact (Matrix.dotProduct_mulVec v G α).symm
+      _ = dotProduct v b := by rw [hGα]
+      _ = dotProduct b v := dotProduct_comm v b
+  constructor
+  · ext r
+    rw [Matrix.mulVec, dotProduct, Fintype.sum_option]
+    cases r with
+    | none =>
+      have hdot : (∑ x : Fin k, borderedBlockMatrix G g d none (some x) * α_next (some x)) =
+          dotProduct g α - (ρ / s) * dotProduct g v := by
+        simp only [borderedBlockMatrix, α_next, dotProduct, mul_sub, Finset.sum_sub_distrib,
+          Finset.mul_sum]
+        congr 1
+        refine Finset.sum_congr rfl fun x _ => by ring
+      rw [hdot]
+      dsimp [borderedBlockMatrix, α_next, b_next]
+      change d * (ρ / s) + (dotProduct g α - (ρ / s) * dotProduct g v) = b_new
+      have hs_def : s = d - dotProduct g v := rfl
+      have hρ_def : ρ = b_new - dotProduct g α := rfl
+      calc d * (ρ / s) + (dotProduct g α - (ρ / s) * dotProduct g v)
+          = (d - dotProduct g v) * (ρ / s) + dotProduct g α := by ring
+        _ = s * (ρ / s) + dotProduct g α := by rw [← hs_def]
+        _ = ρ + dotProduct g α := by rw [mul_div_cancel₀ _ hs]
+        _ = b_new := by rw [hρ_def]; ring
+    | some i =>
+      have hrow_sum : (∑ x : Fin k, borderedBlockMatrix G g d (some i) (some x) *
+            α_next (some x)) = (G.mulVec α) i - (ρ / s) * (G.mulVec v) i := by
+        simp only [borderedBlockMatrix, α_next, Matrix.mulVec, dotProduct, mul_sub,
+          Finset.sum_sub_distrib, Finset.mul_sum]
+        congr 1
+        refine Finset.sum_congr rfl fun x _ => by ring
+      rw [hrow_sum, hGα, hGv]
+      dsimp [borderedBlockMatrix, α_next, b_next]
+      ring
+  · rw [dotProduct, Fintype.sum_option]
+    dsimp [b_next, α_next]
+    have htail : (∑ x : Fin k, b x * (α x - (ρ / s) * v x)) =
+        dotProduct b α - (ρ / s) * dotProduct b v := by
+      simp only [dotProduct, mul_sub, Finset.sum_sub_distrib, Finset.mul_sum]
+      congr 1
+      refine Finset.sum_congr rfl fun x _ => by ring
+    rw [htail, ← hga]
+    have hρ_def : ρ = b_new - dotProduct g α := rfl
+    calc 1 - (b_new * (ρ / s) + (dotProduct b α - (ρ / s) * dotProduct g α))
+        = (1 - dotProduct b α) - (b_new - dotProduct g α) * (ρ / s) := by ring
+      _ = (1 - dotProduct b α) - ρ * (ρ / s) := by rw [← hρ_def]
+      _ = (1 - dotProduct b α) - ρ ^ 2 / s := by ring
+
+/-- Exact one-parameter family on the dyadic octave `{1, 2, 4}` (`c 3 = 0`) parameterized by `t`,
+interpolating from `cBaseAnchor` (`t = 0`) to the exact Dirichlet-anchored optimum (`t = 1`). -/
+def dyadicFourVec (t : ℝ) : ℕ → ℝ
+  | 1 => -2 + t
+  | 2 => 4 - 3 * t
+  | 4 => 2 * t
+  | _ => 0
+
+/-- For every `t : ℝ`, `dyadicFourVec t` lies on the Báez–Duarte affine manifold `A_4`. -/
+theorem dyadicFourVec_mem_A_N (t : ℝ) :
+    D1 (dyadicFourVec t) 4 = 0 ∧ D0 (dyadicFourVec t) 4 = 2 := by
+  unfold D1 D0
+  rw [sum_Icc_one_four_p6, sum_Icc_one_four_p6]
+  norm_num [dyadicFourVec]
+  exact ⟨by ring, by ring⟩
+
+/-- At `t = 1`, `dyadicFourVec 1 = (-1, 1, 0, 2)` is Dirichlet-anchored on `N = 4`. -/
+theorem dyadicFourVec_one_isDirichletAnchored :
+    IsDirichletAnchored (dyadicFourVec 1) 4 := by
+  refine ⟨(dyadicFourVec_mem_A_N 1).1, (dyadicFourVec_mem_A_N 1).2, ?_⟩
+  norm_num [dyadicFourVec]
+
+/-- **Exact Dyadic `{1, 2, 4}` Variational Energy Formula**: for every `c ∈ A_4` supported on
+`{1, 2, 4}` (`c 3 = 0`), `1 - SCot vasyuninGCot c 4 = (1 - π / 4) + (π / 4) * (c 1 + 1)²`. -/
+theorem one_sub_SCot_dyadicFour_eq {c : ℕ → ℝ} (hD1 : D1 c 4 = 0) (hD0 : D0 c 4 = 2)
+    (hc3 : c 3 = 0) :
+    1 - SCot vasyuninGCot c 4 = (1 - Real.pi / 4) + (Real.pi / 4) * (c 1 + 1) ^ 2 := by
+  have hd1' := hD1
+  have hd0' := hD0
+  unfold D1 at hd1'
+  unfold D0 at hd0'
+  rw [sum_Icc_one_four_p6, hc3] at hd1' hd0'
+  have hc4 : c 4 = 2 * c 1 + 4 := by linarith
+  have hV1 : ∀ b : ℕ, vasyuninCotSum 1 b = 0 := fun _ => by simp [vasyuninCotSum]
+  have hG12 : vasyuninGCot 1 2 = 0 := by
+    unfold vasyuninGCot; rw [hV1, vasyuninCotSum_two_p6]; ring
+  have hG14 : vasyuninGCot 1 4 = Real.pi / 16 := by
+    unfold vasyuninGCot; rw [hV1, vasyuninCotSum_four_p6]; norm_num; ring
+  have hG24 : vasyuninGCot 2 4 = 0 := by
+    unfold vasyuninGCot; rw [vasyuninCotSum_two_p6, vasyuninCotSum_four_p6]; norm_num
+  have hq : QCot vasyuninGCot c 4 = c 1 * c 4 * (Real.pi / 8) := by
+    unfold QCot
+    simp_rw [sum_Icc_one_four_p6]
+    rw [vasyuninGCot_diag 1, vasyuninGCot_diag 2, vasyuninGCot_diag 3, vasyuninGCot_diag 4,
+      vasyuninGCot_comm 2 1, vasyuninGCot_comm 3 1, vasyuninGCot_comm 4 1,
+      vasyuninGCot_comm 3 2, vasyuninGCot_comm 4 2, vasyuninGCot_comm 4 3,
+      hG12, hG14, hG24, hc3]
+    ring
+  unfold SCot
+  rw [hq, hc4]
+  ring
+
+/-- **Dyadic `{1, 2, 4}` Energy Lower Bound**: every vector on `A_4` supported on `{1, 2, 4}`
+has energy at least `1 - π / 4`. -/
+theorem one_sub_SCot_dyadicFour_ge {c : ℕ → ℝ} (hD1 : D1 c 4 = 0) (hD0 : D0 c 4 = 2)
+    (hc3 : c 3 = 0) :
+    1 - Real.pi / 4 ≤ 1 - SCot vasyuninGCot c 4 := by
+  rw [one_sub_SCot_dyadicFour_eq hD1 hD0 hc3]
+  have hsq : 0 ≤ (Real.pi / 4) * (c 1 + 1) ^ 2 :=
+    mul_nonneg (div_nonneg Real.pi_pos.le (by norm_num)) (sq_nonneg _)
+  linarith
+
+/-- **Exact First-Octave `{1, 2, 4}` Optimum**: `dyadicFourVec 1 = (-1, 1, 0, 2)` achieves
+`1 - SCot vasyuninGCot (dyadicFourVec 1) 4 = 1 - π / 4`. -/
+theorem one_sub_SCot_dyadicFour_opt_eq :
+    1 - SCot vasyuninGCot (dyadicFourVec 1) 4 = 1 - Real.pi / 4 := by
+  rw [one_sub_SCot_dyadicFour_eq (dyadicFourVec_mem_A_N 1).1 (dyadicFourVec_mem_A_N 1).2
+    (by simp [dyadicFourVec])]
+  norm_num [dyadicFourVec]
+
+/-- **Unit-Eigenvector Simplex Upper Bound**: any unit eigenvector `v` of `unitDefectMatrix N`
+with eigenvalue `lam` and nonzero sum `1ᵀ v` normalizes onto the Dirichlet simplex with exact
+energy `lam / (1ᵀ v)²`. -/
+theorem unitDefectMatrix_eigenvector_simplex_energy {N : ℕ} (lam : ℝ) (v : Fin (N - 2) → ℝ)
+    (heig : (unitDefectMatrix N).mulVec v = lam • v) (hunit : dotProduct v v = 1)
+    (hsum : dotProduct (onesVec (N - 2)) v ≠ 0) :
+    let α : Fin (N - 2) → ℝ := (1 / dotProduct (onesVec (N - 2)) v) • v
+    dotProduct (onesVec (N - 2)) α = 1 ∧
+      dotProduct α ((unitDefectMatrix N).mulVec α) =
+        lam / (dotProduct (onesVec (N - 2)) v) ^ 2 := by
+  intro α
+  constructor
+  · dsimp [α]
+    rw [dotProduct_smul, smul_eq_mul, one_div_mul_cancel hsum]
+  · dsimp [α]
+    rw [Matrix.mulVec_smul, dotProduct_smul, smul_dotProduct, heig, dotProduct_smul, smul_eq_mul,
+      smul_eq_mul, smul_eq_mul, hunit]
+    field_simp [hsum]
+
+/-- **Eigenvalue Nonnegativity for Overlap-Active Modes**: for `N ≥ 2`, any unit eigenvector `v`
+of `unitDefectMatrix N` with `1ᵀ v ≠ 0` satisfies `0 ≤ lam`. -/
+theorem unitDefectMatrix_eigenvalue_nonneg {N : ℕ} (hN : 2 ≤ N) (lam : ℝ) (v : Fin (N - 2) → ℝ)
+    (heig : (unitDefectMatrix N).mulVec v = lam • v) (hunit : dotProduct v v = 1)
+    (hsum : dotProduct (onesVec (N - 2)) v ≠ 0) :
+    0 ≤ lam := by
+  have h := unitDefectMatrix_eigenvector_simplex_energy lam v heig hunit hsum
+  have hnn := unitDefectMatrix_quadForm_nonneg_of_simplex hN _ h.1
+  rw [h.2] at hnn
+  have hden : 0 < (dotProduct (onesVec (N - 2)) v) ^ 2 := sq_pos_of_ne_zero hsum
+  exact nonneg_of_mul_nonneg_left (by simpa [div_eq_mul_inv] using hnn) (inv_pos.mpr hden)
+
+/-- **Ground-State Spectral RH Criterion**: `_root_.RiemannHypothesis` follows if the lowest
+overlap-active eigenvector ratio `lam / (1ᵀ v)²` of `unitDefectMatrix N` approaches `0`. -/
+theorem riemannHypothesis_of_unitDefectMatrix_groundState_vanishing_unconditional
+    (h_gs : ∀ ε : ℝ, 0 < ε → ∃ (N : ℕ) (lam : ℝ) (v : Fin (N - 2) → ℝ),
+      2 ≤ N ∧ (unitDefectMatrix N).mulVec v = lam • v ∧ dotProduct v v = 1 ∧
+        dotProduct (onesVec (N - 2)) v ≠ 0 ∧
+        lam / (dotProduct (onesVec (N - 2)) v) ^ 2 < ε) :
+    _root_.RiemannHypothesis := by
+  refine riemannHypothesis_of_unitDefectMatrix_vanishing_unconditional fun ε hε => ?_
+  obtain ⟨N, lam, v, hN, heig, hunit, hsum, hlt⟩ := h_gs ε hε
+  have h := unitDefectMatrix_eigenvector_simplex_energy lam v heig hunit hsum
+  exact ⟨N, (1 / dotProduct (onesVec (N - 2)) v) • v, hN, h.1, h.2.symm ▸ hlt⟩
 
 end RiemannBlueprint.MatrixHalfObservation

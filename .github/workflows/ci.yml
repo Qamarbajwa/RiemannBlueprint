@@ -69,4 +69,13 @@ jobs:
           #print axioms RiemannBlueprint.MatrixHalfObservation.palindromicProjMinus_annihilates_odd_metric
           #print axioms RiemannBlueprint.MatrixHalfObservation.unitDefectMatrix_eq_simplexLift_conj_augClockGram
           #print axioms RiemannBlueprint.MatrixHalfObservation.dipoleGramMatrix_quadForm_ge_half_sq
+          #print axioms RiemannBlueprint.MatrixHalfObservation.wavefunctionVec_eq_anchoredWaveMatrix_mulVec
+          #print axioms RiemannBlueprint.MatrixHalfObservation.anchoredWave_gram_quadForm_le_unitDefectMatrix
+          #print axioms RiemannBlueprint.MatrixHalfObservation.foldedHalfWaveVec_norm_sq_eq_period
+          #print axioms RiemannBlueprint.MatrixHalfObservation.cholesky_energy_eq_one_sub_sum_sq
+          #print axioms RiemannBlueprint.MatrixHalfObservation.schur_one_step_innovation
+          #print axioms RiemannBlueprint.MatrixHalfObservation.one_sub_SCot_dyadicFour_eq
+          #print axioms RiemannBlueprint.MatrixHalfObservation.one_sub_SCot_dyadicFour_opt_eq
+          #print axioms RiemannBlueprint.MatrixHalfObservation.unitDefectMatrix_eigenvector_simplex_energy
+          #print axioms RiemannBlueprint.MatrixHalfObservation.riemannHypothesis_of_unitDefectMatrix_groundState_vanishing_unconditional
           EOF
