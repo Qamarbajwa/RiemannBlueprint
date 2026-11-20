@@ -50,55 +50,75 @@ def prime_powers_up_to(limit: float) -> list[tuple[int, int]]:
     return sorted(out)
 
 
-def eval_e_hat(L: float, omegas: np.ndarray, t: np.ndarray) -> np.ndarray:
-    """Evaluate Fourier transform hat{e}_k(t) for k=0..K-1 at points t (shape (M,)).
-    Returns shape (K, M).
+def omega(k: np.ndarray, L: float) -> np.ndarray:
+    """Modal frequencies omega_k = (2k + 1) * pi / L."""
+    return (2.0 * k + 1.0) * np.pi / L
+
+
+def pole_vector_closed_form(K: int, L: float) -> np.ndarray:
+    """Exact closed-form pole overlap v_k on [-L/2, L/2]."""
+    k = np.arange(K, dtype=np.float64)
+    w = omega(k, L)
+    signs = np.where(k % 2 == 0, 1.0, -1.0)
+    return np.sqrt(2.0 / L) * (2.0 * signs * w * np.cosh(L / 4.0)) / (w ** 2 + 0.25)
+
+
+def fourier_basis_closed_form(t: np.ndarray, K: int, L: float) -> np.ndarray:
     """
-    K = len(omegas)
-    ks = np.arange(K)
-    signs = np.where(ks % 2 == 0, 1.0, -1.0)[:, None]  # (K, 1)
-    w = omegas[:, None]                                  # (K, 1)
-    t_row = t[None, :]                                   # (1, M)
+    Exact Fourier transform hat{e}_k(t) for array t (shape [M]) and modes k=0..K-1.
+    Returns matrix of shape [K, M] with removable singularity handled at |t| == omega_k.
+    """
+    k = np.arange(K, dtype=np.float64)[:, None]
+    w = omega(k, L)
+    signs = np.where(k % 2 == 0, 1.0, -1.0)
+    t_row = t[None, :]
     denom = w ** 2 - t_row ** 2
-    cos_tL2 = np.cos(t_row * (L / 2.0))
-    # Handle removable singularity near |t| == omega_k
-    safe_denom = np.where(np.abs(denom) < 1e-10, 1.0, denom)
-    raw = math.sqrt(2.0 / L) * 2.0 * signs * w * cos_tL2 / safe_denom
-    near_sing = np.abs(denom) < 1e-10
-    if np.any(near_sing):
-        # lim_{t -> +/- omega_k} hat{e}_k(t) = sqrt(L/2)
-        raw = np.where(near_sing, math.sqrt(L / 2.0), raw)
-    return raw
+    resonant = np.abs(denom) < 1e-11
+    safe_denom = np.where(resonant, 1.0, denom)
+    val = np.sqrt(2.0 / L) * (2.0 * signs * w * np.cos(0.5 * t_row * L)) / safe_denom
+    return np.where(resonant, np.sqrt(L / 2.0), val)
+
+
+def autocorrelation_matrix_at_shift(x: float, K: int, L: float) -> np.ndarray:
+    """Exact closed-form symmetric matrix G_{jk}(x) = (e_j * e_k)(x) for shift x >= 0."""
+    ax = abs(float(x))
+    if ax >= L:
+        return np.zeros((K, K), dtype=np.float64)
+    k = np.arange(K, dtype=np.float64)
+    w = omega(k, L)
+    sin_wx = np.sin(w * ax)
+    cos_wx = np.cos(w * ax)
+
+    j_idx = k[:, None]
+    k_idx = k[None, :]
+    w_j = w[:, None]
+    w_k = w[None, :]
+    parity = np.where((j_idx + k_idx) % 2 == 0, 1.0, -1.0)
+    diff_sq = w_j ** 2 - w_k ** 2
+    safe_diff_sq = np.where(j_idx == k_idx, 1.0, diff_sq)
+    G = (-2.0 * parity / (L * safe_diff_sq)) * (w_k * sin_wx[:, None] - w_j * sin_wx[None, :])
+
+    diag_vals = (1.0 - ax / L) * cos_wx + sin_wx / ((2.0 * k + 1.0) * np.pi)
+    np.fill_diagonal(G, diag_vals)
+    return G
 
 
 def compute_weil_blocks(L: float, K: int = 16) -> tuple[np.ndarray, np.ndarray, np.ndarray, int]:
     """Compute exact (Q_pole, Q_arch, Q_prime, n_prime_powers) on [-L/2, L/2] (autocorrelation [-L, L])."""
-    ks = np.arange(K, dtype=float)
-    omegas = (2.0 * ks + 1.0) * math.pi / L
-    signs = np.where(np.arange(K) % 2 == 0, 1.0, -1.0)
-
-    # 1. Pole block Q_pole = 2 * v v^T (analytic closed-form)
-    v = math.sqrt(2.0 / L) * 2.0 * signs * omegas * math.cosh(L / 4.0) / (omegas ** 2 + 0.25)
+    # 1. Pole block Q_pole = 2 * v v^T (exact closed-form)
+    v = pole_vector_closed_form(K, L)
     Q_pole = 2.0 * np.outer(v, v)
 
-    # 2. Prime-power subtraction block Q_prime
+    # 2. Prime-power subtraction block Q_prime (exact closed-form autocorrelation)
     pps = prime_powers_up_to(math.exp(L))
     Q_prime = np.zeros((K, K), dtype=float)
-    xi64, wi64 = np.polynomial.legendre.leggauss(64)
     for pm, p in pps:
         x = math.log(pm)
         if x >= L:
             continue
-        a, b = -L / 2.0, L / 2.0 - x
-        u = 0.5 * (b - a) * xi64 + 0.5 * (a + b)
-        w = 0.5 * (b - a) * wi64
-        # e_j(u + x) and e_k(u)
-        ej = math.sqrt(2.0 / L) * np.cos(omegas[:, None] * (u[None, :] + x))
-        ek = math.sqrt(2.0 / L) * np.cos(omegas[:, None] * u[None, :])
-        g_jk = (ej * w[None, :]) @ ek.T
+        G_x = autocorrelation_matrix_at_shift(x, K, L)
         w_pm = math.log(p) / math.sqrt(pm)
-        # g_jk(x) + g_jk(-x) = g_jk(x) + g_kj(x)
-        Q_prime += w_pm * (g_jk + g_jk.T)
+        Q_prime += 2.0 * w_pm * G_x
 
     # 3. Archimedean digamma block Q_arch using multi-scale composite 32-pt Gauss-Legendre on [0, 100000]
     #    Kernel: Re psi(1/4 + i t / 2) - ln(pi)
@@ -109,7 +129,7 @@ def compute_weil_blocks(L: float, K: int = 16) -> tuple[np.ndarray, np.ndarray, 
     t_pts = np.concatenate(t_all)
     w_pts = np.concatenate(w_all)
 
-    E_hat = eval_e_hat(L, omegas, t_pts)  # (K, M)
+    E_hat = fourier_basis_closed_form(t_pts, K, L)  # (K, M)
     psi_kernel = np.real(digamma(0.25 + 0.5j * t_pts)) - math.log(math.pi)
     # Factor 2 for [-T_max, T_max] symmetry, divided by 2*pi => 1/pi
     weights = (1.0 / math.pi) * w_pts * psi_kernel
