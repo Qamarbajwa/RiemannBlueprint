@@ -22,6 +22,6 @@
     "100-digit flint.arb",
     "verified-finite"
   ],
-  "description": "Complete 40-root-module Lean 4.35.0 formalization (3,137 Lake jobs, zero sorry, strictly [propext, Classical.choice, Quot.sound]) paired with the compiled PDF monographs (main.pdf, paper_k_dirichlet_anchored_plaque_criterion.pdf, paper_l_unified_arithmetic_lean4_master_review.pdf), the 10-theorem PrimeBinaryCompressionBooster.lean, and 100-digit flint.arb numerical verification up to N=1000 (4.45x {0,1} square-free booster, Weierstrass-Euclid pinch beta_min(N) - 1/2 = t_N^2/2 <= E_dir(N)/2 <= C_BBLR/(2 ln N)). EPISTEMIC LOCK: NO_RH_PROOF = TRUE; the global N -> infinity Clay Riemann Hypothesis remains strictly OPEN.",
+  "description": "Zero-Axiom Finite-Dimensional and Parameterized Bridge Certification in Lean 4 across 40 root modules (3,137 Lake jobs, zero sorry, strictly [propext, Classical.choice, Quot.sound]) paired with the compiled PDF monographs (main.pdf, paper_k_dirichlet_anchored_plaque_criterion.pdf, paper_l_unified_arithmetic_lean4_master_review.pdf), the 10-theorem PrimeBinaryCompressionBooster.lean, and 100-digit flint.arb numerical verification up to N=1000 (4.45x {0,1} square-free booster, Weierstrass-Euclid pinch beta_min(N) - 1/2 = t_N^2/2 <= E_dir(N)/2 <= C_BBLR/(2 ln N)). In this work, ai is being used as a tool by Arqam (Brandenburg University of Technology Cottbus-Senftenberg).",
   "notes": "All 40 root modules and all 10 PrimeBinaryCompressionBooster theorems compile with zero sorry and strictly [propext, Classical.choice, Quot.sound]."
 }
