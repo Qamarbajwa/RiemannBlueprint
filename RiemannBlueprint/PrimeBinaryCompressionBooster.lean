@@ -240,4 +240,69 @@ theorem riemann_R1_bblr_schur_angle_pinch_to_half
     linarith [h_pinch, h2, h3]
   exact ⟨h_t_le_e, h_nonneg, h_upper⟩
 
+/-- **Theorem 11 (Weierstrass-Euclid Half-Dimension Lipschitz Continuity):**
+    For any two half-angle states `t₁, t₂ ∈ [-1, 1]`, the exclusion boundary
+    `β(t) = 1/2 + t^2 / 2` satisfies the exact factored difference identity
+    and the two-sided Lipschitz bound `0 ≤ β(t₁) - β(t₂) ≤ (t₁ - t₂)`
+    whenever `t₂ ≤ t₁` and `0 ≤ t₁ + t₂ ≤ 2`. -/
+theorem weierstrass_euclid_pinch_lipschitz_continuity
+    (t₁ t₂ : ℝ)
+    (ht_order : t₂ ≤ t₁)
+    (ht_nonneg : 0 ≤ t₁ + t₂)
+    (ht_upper : t₁ + t₂ ≤ 2) :
+    let β₁ := (1 : ℝ) / 2 + t₁ ^ 2 / 2
+    let β₂ := (1 : ℝ) / 2 + t₂ ^ 2 / 2
+    β₁ - β₂ = ((t₁ + t₂) / 2) * (t₁ - t₂) ∧
+    0 ≤ β₁ - β₂ ∧
+    β₁ - β₂ ≤ t₁ - t₂ := by
+  dsimp only
+  have h_fact : ((1 : ℝ) / 2 + t₁ ^ 2 / 2) - ((1 : ℝ) / 2 + t₂ ^ 2 / 2) =
+      ((t₁ + t₂) / 2) * (t₁ - t₂) := by ring
+  have h_diff_nonneg : 0 ≤ t₁ - t₂ := by linarith
+  have h_avg_nonneg : 0 ≤ (t₁ + t₂) / 2 := by linarith
+  have h_avg_le_one : (t₁ + t₂) / 2 ≤ 1 := by linarith
+  refine ⟨h_fact, ?_, ?_⟩
+  · rw [h_fact]
+    exact mul_nonneg h_avg_nonneg h_diff_nonneg
+  · rw [h_fact]
+    calc ((t₁ + t₂) / 2) * (t₁ - t₂) ≤ 1 * (t₁ - t₂) :=
+      mul_le_mul_of_nonneg_right h_avg_le_one h_diff_nonneg
+    _ = t₁ - t₂ := by ring
+
+/-- **Theorem 12 (Monotone Nested 4-Rosetta Interval Inclusion):**
+    When the half-angle square contracts monotonically (`0 ≤ t_next_sq ≤ t_curr_sq`)
+    across nested subspaces `H_N ⊂ H_{N+1}`, the 4-Rosetta symmetric critical-line
+    intervals nest cleanly. -/
+theorem nested_four_rosetta_interval_monotonicity
+    (t_curr_sq t_next_sq : ℝ)
+    (h_nonneg : 0 ≤ t_next_sq)
+    (h_mono : t_next_sq ≤ t_curr_sq) :
+    let β_neg_curr := (1 : ℝ) / 2 - t_curr_sq / 2
+    let β_neg_next := (1 : ℝ) / 2 - t_next_sq / 2
+    let β_pos_next := (1 : ℝ) / 2 + t_next_sq / 2
+    let β_pos_curr := (1 : ℝ) / 2 + t_curr_sq / 2
+    β_neg_curr ≤ β_neg_next ∧
+    β_neg_next ≤ (1 : ℝ) / 2 ∧
+    (1 : ℝ) / 2 ≤ β_pos_next ∧
+    β_pos_next ≤ β_pos_curr := by
+  dsimp only
+  refine ⟨by linarith, by linarith, by linarith, by linarith⟩
+
+/-- **Theorem 13 (Continuous Epsilon-Squeeze Law onto the Critical Midpoint `1/2`):**
+    If a real number `β₀` lies inside the symmetric 4-Rosetta strip
+    `1/2 - ε ≤ β₀ ≤ 1/2 + ε` for every positive tolerance `ε > 0`,
+    then `β₀ = 1/2` identically. -/
+theorem archimedean_epsilon_squeeze_to_critical_half
+    (β₀ : ℝ)
+    (h_squeeze : ∀ ε : ℝ, 0 < ε → (1 : ℝ) / 2 - ε ≤ β₀ ∧ β₀ ≤ (1 : ℝ) / 2 + ε) :
+    β₀ = (1 : ℝ) / 2 := by
+  by_contra h_neq
+  rcases lt_or_gt_of_ne h_neq with h_lt | h_gt
+  · have h_eps : 0 < ((1 : ℝ) / 2 - β₀) / 2 := by linarith
+    have h_bound := (h_squeeze (((1 : ℝ) / 2 - β₀) / 2) h_eps).1
+    linarith
+  · have h_eps : 0 < (β₀ - (1 : ℝ) / 2) / 2 := by linarith
+    have h_bound := (h_squeeze ((β₀ - (1 : ℝ) / 2) / 2) h_eps).2
+    linarith
+
 end RiemannBlueprint
