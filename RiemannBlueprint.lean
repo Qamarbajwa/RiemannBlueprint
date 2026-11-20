@@ -33,3 +33,5 @@ import RiemannBlueprint.VasyuninSchurChiralRosetta
 import RiemannBlueprint.PrimorialSchurDistanceDecay
 import RiemannBlueprint.RiemannMasterBBLRBridge
 import RiemannBlueprint.WavefunctionCholeskyMasterBridge
+import RiemannBlueprint.PrimeIdentityExteriorWedge
+import RiemannBlueprint.EuclidOppositeSideExclusion
