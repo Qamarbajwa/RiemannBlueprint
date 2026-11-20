@@ -205,4 +205,39 @@ theorem iterated_sqrt_multiplicity_two_thirds_to_one_half_bridge
   intro ht hm_gt
   exact div_lt_div_of_pos_left (sq_pos_of_ne_zero ht) (by norm_num) (by linarith)
 
+/-- **Theorem 10 (`riemann_R1_bblr_schur_angle_pinch_to_half`):**
+For any half-angle tangent `t : ℝ` with `t ^ 2 ≤ 1` and `E_dir = (2 * t / (1 + t ^ 2)) ^ 2`:
+1. `t ^ 2 ≤ E_dir`,
+2. Given `β_min - 1 / 2 = t ^ 2 / 2`, `0 < logN`, and `E_dir ≤ C_bblr / logN`,
+   `0 ≤ β_min - 1 / 2` and `β_min - 1 / 2 ≤ C_bblr / (2 * logN)`. -/
+theorem riemann_R1_bblr_schur_angle_pinch_to_half
+    (t β_min C_bblr logN : ℝ)
+    (ht_sq : t ^ 2 ≤ 1)
+    (h_pinch : β_min - 1 / 2 = t ^ 2 / 2)
+    (h_logN : 0 < logN)
+    (h_bblr : (2 * t / (1 + t ^ 2)) ^ 2 ≤ C_bblr / logN) :
+    let E_dir : ℝ := (2 * t / (1 + t ^ 2)) ^ 2
+    (t ^ 2 ≤ E_dir) ∧
+    (0 ≤ β_min - 1 / 2) ∧
+    (β_min - 1 / 2 ≤ C_bblr / (2 * logN)) := by
+  have hden_pos : 0 < 1 + t ^ 2 := by positivity
+  have hden_sq_pos : 0 < (1 + t ^ 2) ^ 2 := sq_pos_of_pos hden_pos
+  have hden_sq_le : (1 + t ^ 2) ^ 2 ≤ 4 := by nlinarith
+  have h_e_eq : (2 * t / (1 + t ^ 2)) ^ 2 = 4 * t ^ 2 / (1 + t ^ 2) ^ 2 := by
+    field_simp
+    ring
+  have h_t_le_e : t ^ 2 ≤ (2 * t / (1 + t ^ 2)) ^ 2 := by
+    rw [h_e_eq, le_div_iff₀ hden_sq_pos]
+    nlinarith [sq_nonneg t]
+  have h_nonneg : 0 ≤ β_min - 1 / 2 := by
+    rw [h_pinch]
+    positivity
+  have h_upper : β_min - 1 / 2 ≤ C_bblr / (2 * logN) := by
+    have h1 : t ^ 2 ≤ C_bblr / logN := le_trans h_t_le_e h_bblr
+    have h2 : t ^ 2 / 2 ≤ (C_bblr / logN) / 2 := by linarith
+    have h3 : (C_bblr / logN) / 2 = C_bblr / (2 * logN) := by
+      field_simp [ne_of_gt h_logN]
+    linarith [h_pinch, h2, h3]
+  exact ⟨h_t_le_e, h_nonneg, h_upper⟩
+
 end RiemannBlueprint
