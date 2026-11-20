@@ -363,7 +363,6 @@ def main() -> None:
         "VASYUNIN_SCHUR_CHIRAL_ROSETTA_OK": True,
         "mpmath_dps": mp.mp.dps,
         "max_numerical_residual": mp.nstr(max_residual, 6),
-        "elapsed_seconds": round(elapsed, 3),
         "test_1_dirichlet_anchor_and_triple": t1_res,
         "test_2_palindromic_chirality": t2_res,
         "test_3_prime_composite_schur": t3_res,

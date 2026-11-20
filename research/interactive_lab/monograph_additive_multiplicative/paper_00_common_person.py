@@ -5,7 +5,7 @@ Paper 00: The Common-Person Relational Master Guide
 "What Is Happening and What Relates to What: A Common-Person Relational Guide to the Riemann Hypothesis"
 
 Written in clear, warm personal letter style in simple Indian English with step-by-step school math.
-Author: Arqam, Brandenburg University of Technology (BTU) Cottbus-Senftenberg.
+Author: Qamar Munawer, Brandenburg University of Technology Cottbus-Senftenberg.
 Methodology: ai is being used as a tool.
 """
 

@@ -13,7 +13,7 @@ Generates, compiles, and packages standalone LaTeX/PDF papers for:
 - Paper T07: Lipschitz Continuity, Nested 4-Rosetta Intervals & Archimedean Squeeze (PrimeBinaryCompressionBooster.lean Thms 11-13)
 - Paper T08: Continuum Selberg Quadratic Mollifier & Bettin-Conrey Reciprocity (ContinuumSelbergMollifierEnergyDecay.lean)
 
-Author: Arqam, Brandenburg University of Technology (BTU) Cottbus-Senftenberg.
+Author: Qamar Munawer, Brandenburg University of Technology Cottbus-Senftenberg.
 Methodology: ai is being used as a tool.
 """
 
@@ -96,13 +96,7 @@ LATEX_TEMPLATE = r"""\documentclass[11pt,a4paper]{article}
 
 \title{\textbf{__TITLE__}}
 
-\author{
-  \textbf{Arqam} \\
-  Brandenburg University of Technology (BTU) Cottbus-Senftenberg \\
-  Department of Mathematics and Computer Science \\
-  Cottbus, Germany \\
-  \texttt{arqam@b-tu.de}
-}
+\author{Qamar Munawer \\ Brandenburg University of Technology Cottbus-Senftenberg}
 
 \date{\today}
 
@@ -239,8 +233,8 @@ def generate_zenodo_json(paper_dict: dict, out_path: Path):
         ),
         "creators": [
             {
-                "name": "Arqam",
-                "affiliation": "Brandenburg University of Technology (BTU) Cottbus-Senftenberg",
+                "name": "Qamar Munawer",
+                "affiliation": "Brandenburg University of Technology Cottbus-Senftenberg",
                 "orcid": "0009-0004-9467-3363"
             }
         ],
@@ -324,7 +318,7 @@ def main() -> int:
     print("=" * 80)
     print("BUILDING ALL 9 RIEMANN STANDALONE PAPERS (PAPER 00 + T01 THROUGH T08)")
     print("Methodology note: ai is being used as a tool.")
-    print("Author: Arqam, Brandenburg University of Technology Cottbus-Senftenberg.")
+    print("Author: Qamar Munawer, Brandenburg University of Technology Cottbus-Senftenberg.")
     print("=" * 80)
 
     OUTPUT_BASE.mkdir(parents=True, exist_ok=True)

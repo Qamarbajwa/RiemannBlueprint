@@ -2,7 +2,7 @@
 papers_rh_theorems_part2.py
 
 Papers T05, T06, T07, T08 for the Standalone Zenodo Suite.
-Author: Arqam, Brandenburg University of Technology (BTU) Cottbus-Senftenberg.
+Author: Qamar Munawer, Brandenburg University of Technology Cottbus-Senftenberg.
 Methodology: ai is being used as a tool.
 """
 
