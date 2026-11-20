@@ -1,0 +1,89 @@
+{
+  "status": "PASS",
+  "epistemic_boundary": "Infinite-horizon L -> infinity coercivity remains strictly OPEN; finite K=16 unshifted signed Weil form verified for L <= 4.0",
+  "artificial_diagonal_shift": 0.0,
+  "basis": "L^2-orthonormal Dirichlet cosine e_k(u) on [-L/2, L/2], K=16 (Q_PP: 4x4, Q_CC: 12x12)",
+  "elapsed_s": 0.045,
+  "windows": [
+    {
+      "L": 0.6,
+      "active_prime_powers": 0,
+      "lambda_min_Q_W": 0.00838227,
+      "lambda_min_Q_PP": 0.01011175,
+      "lambda_min_Sigma_L": 1.65799771,
+      "sin2_theta_L": 0.98754189,
+      "min_arch_over_prime_k4_to_15": null,
+      "arch_over_prime_k15": null
+    },
+    {
+      "L": 1.0,
+      "active_prime_powers": 1,
+      "lambda_min_Q_W": 1.07e-06,
+      "lambda_min_Q_PP": 3.38e-06,
+      "lambda_min_Sigma_L": 0.31293548,
+      "sin2_theta_L": 0.95323874,
+      "min_arch_over_prime_k4_to_15": 5.9181,
+      "arch_over_prime_k15": 124.9239
+    },
+    {
+      "L": 1.5,
+      "active_prime_powers": 3,
+      "lambda_min_Q_W": 0.0,
+      "lambda_min_Q_PP": 0.0,
+      "lambda_min_Sigma_L": 1.24e-06,
+      "sin2_theta_L": 0.90301738,
+      "min_arch_over_prime_k4_to_15": 1.9504,
+      "arch_over_prime_k15": 31.5886
+    },
+    {
+      "L": 2.0,
+      "active_prime_powers": 5,
+      "lambda_min_Q_W": 0.0,
+      "lambda_min_Q_PP": 0.0,
+      "lambda_min_Sigma_L": 0.0,
+      "sin2_theta_L": 0.84369836,
+      "min_arch_over_prime_k4_to_15": 0.6126,
+      "arch_over_prime_k15": 1.618
+    },
+    {
+      "L": 2.5,
+      "active_prime_powers": 8,
+      "lambda_min_Q_W": -0.0,
+      "lambda_min_Q_PP": 0.0,
+      "lambda_min_Sigma_L": -0.0,
+      "sin2_theta_L": 0.74409655,
+      "min_arch_over_prime_k4_to_15": 0.4757,
+      "arch_over_prime_k15": 2.8698
+    },
+    {
+      "L": 3.0,
+      "active_prime_powers": 12,
+      "lambda_min_Q_W": -0.0,
+      "lambda_min_Q_PP": 0.0,
+      "lambda_min_Sigma_L": -0.0,
+      "sin2_theta_L": 0.67320468,
+      "min_arch_over_prime_k4_to_15": 0.4602,
+      "arch_over_prime_k15": 1.6808
+    },
+    {
+      "L": 3.5,
+      "active_prime_powers": 18,
+      "lambda_min_Q_W": -0.0,
+      "lambda_min_Q_PP": 0.0,
+      "lambda_min_Sigma_L": -0.0,
+      "sin2_theta_L": 0.50286756,
+      "min_arch_over_prime_k4_to_15": 0.5615,
+      "arch_over_prime_k15": 1.2976
+    },
+    {
+      "L": 4.0,
+      "active_prime_powers": 24,
+      "lambda_min_Q_W": -0.0,
+      "lambda_min_Q_PP": -0.0,
+      "lambda_min_Sigma_L": -0.0,
+      "sin2_theta_L": 0.51001908,
+      "min_arch_over_prime_k4_to_15": 0.231,
+      "arch_over_prime_k15": 1.7208
+    }
+  ]
+}
