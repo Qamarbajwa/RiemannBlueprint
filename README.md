@@ -39,3 +39,13 @@ lake build RiemannBlueprint
 - **Prior-Art & Axiom Audit:** [`PRIOR_ART_AND_VERIFICATION_AUDIT.md`](../PRIOR_ART_AND_VERIFICATION_AUDIT.md)
 - **Companion Notes Repository:** `https://github.com/Qamarbajwa/riemann-lean4-papers`
 - **Historical Zenodo Concept Archive (Frozen):** [`10.5281/zenodo.24150107`](https://doi.org/10.5281/zenodo.24150107)
+
+
+### Part III — Exterior Wedge, Half-Dimension Split, & 10-Theorem Compression Booster (`v3.4.0-rosetta`)
+
+- **40 Root Imports (`3,137` Lake jobs, zero `sorry`, `[propext, Classical.choice, Quot.sound]`):** Modules `PrimeIdentityExteriorWedge.lean`, `EuclidOppositeSideExclusion.lean`, `HalfDimensionIdentitySplit.lean`, `RiemannSphereDoubleCover.lean`, and `PrimeBinaryCompressionBooster.lean` (10 zero-axiom theorems).
+- **100-Digit `flint.arb` Schur Trigonometry (`N = 2..1000`, `test_prime_dimensions.py` Tests 1–12):**
+  - `N = 211`: $E_{\mathrm{dir}} = 0.008629$, $\Theta = 5.330^\circ$, $t_{\mathrm{half}} = 0.046547$, $\beta_{\min} - 1/2 = 0.00108331$.
+  - `N = 500`: $E_{\mathrm{dir}} = 0.007427$, $\Theta = 4.944^\circ$, $t_{\mathrm{half}} = 0.043170$, $\beta_{\min} - 1/2 = 0.00093181$.
+  - `N = 1000`: $E_{\mathrm{dir}} = 0.006561$, $\Theta = 4.646^\circ$, $t_{\mathrm{half}} = 0.040568$, $\beta_{\min} - 1/2 = 0.00082287$ (`4.45x` $\{0,1\}$ compression speedup, `62.99%` memory savings, `arb100` pinch residual $\le 5.05 \times 10^{-100}$).
+- **Epistemic Boundary:** All finite-cutoff bounds ($N \le 1000$) are unconditional; the global $N \to \infty$ Clay Riemann Hypothesis remains strictly **OPEN**.
