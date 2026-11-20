@@ -1,0 +1,187 @@
+{
+  "status": "PASS",
+  "epistemic_boundary": "N -> infinity Premise A remains strictly OPEN; finite scan N <= 10000 verified",
+  "C_bblr": 0.212694,
+  "C_main": 0.120797,
+  "Delta_C_asymp": 0.091897,
+  "scanned_cutoffs": [
+    {
+      "N": 10,
+      "active_sqf_modes": 7,
+      "active_pct": 70.0,
+      "dropped_pct": 30.0,
+      "ln_N": 2.3026,
+      "E_diag": 1.384319,
+      "E_main": 0.052461,
+      "E_moll": 0.043961,
+      "envelope": 0.092372,
+      "scaled_product": 0.101225,
+      "delta_C": 0.111469,
+      "is_bounded": true
+    },
+    {
+      "N": 20,
+      "active_sqf_modes": 13,
+      "active_pct": 65.0,
+      "dropped_pct": 35.0,
+      "ln_N": 2.9957,
+      "E_diag": 1.502524,
+      "E_main": 0.040323,
+      "E_moll": 0.035958,
+      "envelope": 0.070999,
+      "scaled_product": 0.107721,
+      "delta_C": 0.104973,
+      "is_bounded": true
+    },
+    {
+      "N": 50,
+      "active_sqf_modes": 31,
+      "active_pct": 62.0,
+      "dropped_pct": 38.0,
+      "ln_N": 3.912,
+      "E_diag": 1.659306,
+      "E_main": 0.030878,
+      "E_moll": 0.028828,
+      "envelope": 0.054369,
+      "scaled_product": 0.112776,
+      "delta_C": 0.099918,
+      "is_bounded": true
+    },
+    {
+      "N": 100,
+      "active_sqf_modes": 61,
+      "active_pct": 61.0,
+      "dropped_pct": 39.0,
+      "ln_N": 4.6052,
+      "E_diag": 1.776025,
+      "E_main": 0.026231,
+      "E_moll": 0.025029,
+      "envelope": 0.046186,
+      "scaled_product": 0.115264,
+      "delta_C": 0.09743,
+      "is_bounded": true
+    },
+    {
+      "N": 250,
+      "active_sqf_modes": 153,
+      "active_pct": 61.2,
+      "dropped_pct": 38.8,
+      "ln_N": 5.5215,
+      "E_diag": 1.927457,
+      "E_main": 0.021878,
+      "E_moll": 0.021298,
+      "envelope": 0.038521,
+      "scaled_product": 0.117593,
+      "delta_C": 0.095101,
+      "is_bounded": true
+    },
+    {
+      "N": 500,
+      "active_sqf_modes": 306,
+      "active_pct": 61.2,
+      "dropped_pct": 38.8,
+      "ln_N": 6.2146,
+      "E_diag": 2.04008,
+      "E_main": 0.019438,
+      "E_moll": 0.019132,
+      "envelope": 0.034225,
+      "scaled_product": 0.118899,
+      "delta_C": 0.093795,
+      "is_bounded": true
+    },
+    {
+      "N": 1000,
+      "active_sqf_modes": 608,
+      "active_pct": 60.8,
+      "dropped_pct": 39.2,
+      "ln_N": 6.9078,
+      "E_diag": 2.151305,
+      "E_main": 0.017487,
+      "E_moll": 0.017364,
+      "envelope": 0.030791,
+      "scaled_product": 0.119943,
+      "delta_C": 0.092751,
+      "is_bounded": true
+    },
+    {
+      "N": 2000,
+      "active_sqf_modes": 1215,
+      "active_pct": 60.75,
+      "dropped_pct": 39.25,
+      "ln_N": 7.6009,
+      "E_diag": 2.261351,
+      "E_main": 0.015892,
+      "E_moll": 0.015892,
+      "envelope": 0.027983,
+      "scaled_product": 0.120797,
+      "delta_C": 0.091897,
+      "is_bounded": true
+    },
+    {
+      "N": 5000,
+      "active_sqf_modes": 3042,
+      "active_pct": 60.84,
+      "dropped_pct": 39.16,
+      "ln_N": 8.5172,
+      "E_diag": 2.405333,
+      "E_main": 0.014183,
+      "E_moll": 0.01429,
+      "envelope": 0.024972,
+      "scaled_product": 0.121712,
+      "delta_C": 0.090982,
+      "is_bounded": true
+    },
+    {
+      "N": 10000,
+      "active_sqf_modes": 6083,
+      "active_pct": 60.83,
+      "dropped_pct": 39.17,
+      "ln_N": 9.2103,
+      "E_diag": 2.513317,
+      "E_main": 0.013115,
+      "E_moll": 0.013277,
+      "envelope": 0.023093,
+      "scaled_product": 0.122283,
+      "delta_C": 0.090411,
+      "is_bounded": true
+    }
+  ],
+  "archimedean_checks_sample": [
+    {
+      "beta": 0.55,
+      "gamma": 0.0,
+      "eps_floor": 0.330579,
+      "N_star": 4,
+      "E_star": 0.15342629,
+      "valid": true
+    },
+    {
+      "beta": 0.55,
+      "gamma": 5.0,
+      "eps_floor": 0.00395218,
+      "x": 53.82,
+      "valid_by_lean_theorem_3": true
+    },
+    {
+      "beta": 0.55,
+      "gamma": 14.134725,
+      "eps_floor": 0.00049977,
+      "x": 425.59,
+      "valid_by_lean_theorem_3": true
+    },
+    {
+      "beta": 0.55,
+      "gamma": 21.02204,
+      "eps_floor": 0.00022613,
+      "x": 940.59,
+      "valid_by_lean_theorem_3": true
+    },
+    {
+      "beta": 0.55,
+      "gamma": 25.010858,
+      "eps_floor": 0.00015978,
+      "x": 1331.14,
+      "valid_by_lean_theorem_3": true
+    }
+  ]
+}
