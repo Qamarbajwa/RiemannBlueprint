@@ -37,3 +37,4 @@ import RiemannBlueprint.PrimeIdentityExteriorWedge
 import RiemannBlueprint.EuclidOppositeSideExclusion
 import RiemannBlueprint.HalfDimensionIdentitySplit
 import RiemannBlueprint.RiemannSphereDoubleCover
+import RiemannBlueprint.PrimeBinaryCompressionBooster
