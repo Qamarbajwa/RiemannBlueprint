@@ -1,0 +1,99 @@
+{
+  "phase": "Phase 2 Condition C1 Decomposition",
+  "NO_RH_PROOF": true,
+  "bblr_asymptotic_constant": 0.0461914179,
+  "grade2_reduction_rows": [
+    {
+      "N": 211,
+      "E_le1": 0.02851222,
+      "E_le2": 0.00969451,
+      "E_sqf_le4": 0.00888572,
+      "E_full": 0.00862901,
+      "grade2_share_of_drop": 0.946412,
+      "full_le_le2": true,
+      "lnN_E_le2": 0.05188366,
+      "lnN_E_full": 0.04618124
+    },
+    {
+      "N": 500,
+      "E_le1": 0.02851102,
+      "E_le2": 0.00854322,
+      "E_sqf_le4": 0.00761982,
+      "E_full": 0.00742679,
+      "grade2_share_of_drop": 0.947049,
+      "full_le_le2": true,
+      "lnN_E_le2": 0.05309275,
+      "lnN_E_full": 0.04615458
+    },
+    {
+      "N": 1000,
+      "E_le1": 0.02851017,
+      "E_le2": 0.00779993,
+      "E_sqf_le4": 0.00671868,
+      "E_full": 0.00656137,
+      "grade2_share_of_drop": 0.943571,
+      "full_le_le2": true,
+      "lnN_E_le2": 0.05387998,
+      "lnN_E_full": 0.04532437
+    }
+  ],
+  "bblr_envelope_rows": [
+    {
+      "N": 2,
+      "E_dir": 0.30685282,
+      "lnN_mul_E_dir": 0.21269417,
+      "excess_above_BBLR": 0.16650275,
+      "pinch_1step": 0.04568633,
+      "pinch_m_sqrtN": 0.03230511
+    },
+    {
+      "N": 6,
+      "E_dir": 0.03620803,
+      "lnN_mul_E_dir": 0.06487609,
+      "excess_above_BBLR": 0.01868467,
+      "pinch_1step": 0.00460985,
+      "pinch_m_sqrtN": 0.00188196
+    },
+    {
+      "N": 30,
+      "E_dir": 0.01455673,
+      "lnN_mul_E_dir": 0.04951032,
+      "excess_above_BBLR": 0.00331891,
+      "pinch_1step": 0.00183296,
+      "pinch_m_sqrtN": 0.00033465
+    },
+    {
+      "N": 100,
+      "E_dir": 0.01020192,
+      "lnN_mul_E_dir": 0.04698157,
+      "excess_above_BBLR": 0.00079016,
+      "pinch_1step": 0.00128179,
+      "pinch_m_sqrtN": 0.00012818
+    },
+    {
+      "N": 211,
+      "E_dir": 0.00862901,
+      "lnN_mul_E_dir": 0.04618124,
+      "excess_above_BBLR": -1.018e-05,
+      "pinch_1step": 0.00108331,
+      "pinch_m_sqrtN": 7.458e-05
+    },
+    {
+      "N": 500,
+      "E_dir": 0.00742679,
+      "lnN_mul_E_dir": 0.04615458,
+      "excess_above_BBLR": -3.684e-05,
+      "pinch_1step": 0.00093181,
+      "pinch_m_sqrtN": 4.167e-05
+    },
+    {
+      "N": 1000,
+      "E_dir": 0.00656137,
+      "lnN_mul_E_dir": 0.04532437,
+      "excess_above_BBLR": -0.00086705,
+      "pinch_1step": 0.00082287,
+      "pinch_m_sqrtN": 2.602e-05
+    }
+  ],
+  "all_full_le_le2": true
+}
