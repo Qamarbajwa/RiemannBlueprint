@@ -190,4 +190,19 @@ theorem multigrade_schur_pythagorean_telescoping_chain
     (cos_sq_4 = cos_sq_1 + Δ_2 + Δ_3 + Δ_4) := by
   refine ⟨by ring, by ring⟩
 
+/-- **Theorem 9 (Iterated Sqrt Multiplicity Two-Thirds to One-Half Bridge):**
+1. The a priori slope barrier `2 / 3` minus the semiprime `(2 * 3)⁻¹ = 1 / 6` GCD division step
+   equals the critical line `1 / 2`.
+2. For any multiplicity chain length `m > 0` and half-angle parameter `t : ℝ`,
+   `(1 / 2 + t ^ 2 / (2 * m)) - 1 / 2 = t ^ 2 / (2 * m)`, and whenever `t ≠ 0` and `1 < m`,
+   `t ^ 2 / (2 * m) < t ^ 2 / 2`. -/
+theorem iterated_sqrt_multiplicity_two_thirds_to_one_half_bridge
+    (m t : ℝ) (_hm : 0 < m) :
+    ((2 : ℝ) / 3 - 1 / (2 * 3) = 1 / 2) ∧
+    ((1 / 2 + t ^ 2 / (2 * m)) - 1 / 2 = t ^ 2 / (2 * m)) ∧
+    (t ≠ 0 → 1 < m → t ^ 2 / (2 * m) < t ^ 2 / 2) := by
+  refine ⟨by norm_num, by ring, ?_⟩
+  intro ht hm_gt
+  exact div_lt_div_of_pos_left (sq_pos_of_ne_zero ht) (by norm_num) (by linarith)
+
 end RiemannBlueprint
