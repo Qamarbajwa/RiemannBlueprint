@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "epistemic_boundary": "Infinite-horizon L -> infinity coercivity Premise A remains strictly OPEN",
+  "elapsed_s": 0.0153,
+  "test_1_factorized_mollifier": {
+    "passed": true,
+    "N_max": 10000,
+    "factor_length_at_10000": 100,
+    "capture_pct_at_10000": 98.1338,
+    "cutoffs": [
+      {
+        "N": 100,
+        "N1_N2_factor_bound": 10,
+        "E_1piece_prime": 1.732801,
+        "E_2piece_grade12": 1.775799,
+        "E_full_sqf": 1.776025,
+        "composite_capture_pct": 99.9602
+      },
+      {
+        "N": 500,
+        "N1_N2_factor_bound": 22,
+        "E_1piece_prime": 1.929361,
+        "E_2piece_grade12": 2.036898,
+        "E_full_sqf": 2.04008,
+        "composite_capture_pct": 99.6178
+      },
+      {
+        "N": 1000,
+        "N1_N2_factor_bound": 31,
+        "E_1piece_prime": 2.00441,
+        "E_2piece_grade12": 2.145262,
+        "E_full_sqf": 2.151305,
+        "composite_capture_pct": 99.3597
+      },
+      {
+        "N": 2000,
+        "N1_N2_factor_bound": 44,
+        "E_1piece_prime": 2.074732,
+        "E_2piece_grade12": 2.251279,
+        "E_full_sqf": 2.261351,
+        "composite_capture_pct": 99.0442
+      },
+      {
+        "N": 5000,
+        "N1_N2_factor_bound": 70,
+        "E_1piece_prime": 2.16141,
+        "E_2piece_grade12": 2.387995,
+        "E_full_sqf": 2.405333,
+        "composite_capture_pct": 98.5525
+      },
+      {
+        "N": 10000,
+        "N1_N2_factor_bound": 100,
+        "E_1piece_prime": 2.222831,
+        "E_2piece_grade12": 2.488948,
+        "E_full_sqf": 2.513317,
+        "composite_capture_pct": 98.1338
+      }
+    ]
+  },
+  "test_2_weil_schur_coercivity": {
+    "passed": true,
+    "windows": [
+      {
+        "L": 1.0,
+        "lambda_min_Q_PP": 0.05,
+        "lambda_min_Sigma_L": 0.05,
+        "sin2_theta_L": 0.3389922,
+        "banachiewicz_block_err": 3.0013125506118304e-16,
+        "banachiewicz_scalar_err": 5.551115123125783e-17,
+        "passed": true
+      },
+      {
+        "L": 2.0,
+        "lambda_min_Q_PP": 0.0500072,
+        "lambda_min_Sigma_L": 0.05000032,
+        "sin2_theta_L": 0.22908366,
+        "banachiewicz_block_err": 2.839455002500617e-16,
+        "banachiewicz_scalar_err": 0.0,
+        "passed": true
+      },
+      {
+        "L": 3.0,
+        "lambda_min_Q_PP": 0.05126851,
+        "lambda_min_Sigma_L": 0.05000565,
+        "sin2_theta_L": 0.18165222,
+        "banachiewicz_block_err": 4.440892098500626e-16,
+        "banachiewicz_scalar_err": 2.7755575615628914e-17,
+        "passed": true
+      },
+      {
+        "L": 4.0,
+        "lambda_min_Q_PP": 0.07755257,
+        "lambda_min_Sigma_L": 0.05002861,
+        "sin2_theta_L": 0.137359,
+        "banachiewicz_block_err": 7.133415755707213e-16,
+        "banachiewicz_scalar_err": 1.1102230246251565e-16,
+        "passed": true
+      }
+    ]
+  }
+}
