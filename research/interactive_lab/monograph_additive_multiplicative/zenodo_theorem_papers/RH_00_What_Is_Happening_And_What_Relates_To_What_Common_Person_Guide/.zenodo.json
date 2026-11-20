@@ -1,13 +1,12 @@
 {
-  "title": "What Is Happening and What Relates to What: A Common-Person Relational Guide to the Riemann Hypothesis",
+  "title": "Prime Numbers as Room Dimensions and Higher-Dimensional Trigonometry: A Plain-Language Guide to the Riemann Hypothesis and High-Speed Computing",
   "upload_type": "publication",
   "publication_type": "article",
-  "description": "<p>This guide explains in clear, school-level mathematics what is happening across the Riemann Hypothesis research program and how every concept connects together. We show how integers can be viewed as perpendicular directions in a room, why numbers with repeated prime factors collapse flat to zero (allowing us to discard 39.2\\% of all dimensions and accelerate computations by 4.71x), how splitting the identity of one into two equal halves (1 = 1/2 + 1/2) and pressing the kitchen-scale Schur tare button builds a higher-dimensional protractor calculating pi = 3.141625 from scratch, why 1D primes get stuck at 9.721 degrees until 2D prime tiles swing the angle down to 4.646 degrees, how the Weierstrass half-angle formula pinches the critical line 1/2 from both sides, how the Selberg quadratic mollifier smooths out high-frequency fluctuations, and how these exact geometric mechanisms unite Riemann with the Hodge Conjecture, 4D Yang-Mills theory, and 3D Navier-Stokes fluid mechanics.</p><p><strong>Formal Verification:</strong> Certified in Lean 4 with zero custom axioms [propext, Classical.choice, Quot.sound].</p><p><strong>Methodology:</strong> In accordance with open science standards, ai is being used as a tool for formal proof synthesis and numerical cross-checking.</p><p><strong>Epistemic Horizon:</strong> Finite structural theorem; open Millennium horizons remain strictly open.</p>",
+  "description": "<p>This guide explains in clear, school-level mathematics what is happening across the Riemann Hypothesis research program and how every concept connects together. We show how integers can be viewed as perpendicular directions in a room, why numbers with repeated prime factors collapse flat to zero (allowing us to discard 39.2% of all dimensions and accelerate computations by 4.71x), how splitting the identity of one into two equal halves (1 = 1/2 + 1/2) and pressing the kitchen-scale Schur tare button builds a higher-dimensional protractor calculating pi = 3.141625 from scratch, why 1D primes get stuck at 9.721 degrees until 2D prime tiles swing the angle down to 4.646 degrees, how the Weierstrass half-angle formula pinches the critical line 1/2 from both sides, how the Selberg quadratic mollifier smooths out high-frequency fluctuations, and how these exact geometric mechanisms unite Riemann with the Hodge Conjecture, 4D Yang-Mills theory, and 3D Navier-Stokes fluid mechanics.</p><p><strong>Formal Verification:</strong> Certified in Lean 4 with zero custom axioms [propext, Classical.choice, Quot.sound].</p><p><strong>Methodology:</strong> In accordance with open science standards, ai is being used as a tool for formal proof synthesis and numerical cross-checking.</p><p><strong>Epistemic Horizon:</strong> Finite structural theorem; open Millennium horizons remain strictly open.</p>",
   "creators": [
     {
-      "name": "Arqam",
-      "affiliation": "Brandenburg University of Technology (BTU) Cottbus-Senftenberg",
-      "orcid": "0009-0004-9467-3363"
+      "name": "Qamar Munawer",
+      "affiliation": "Brandenburg University of Technology Cottbus-Senftenberg"
     }
   ],
   "keywords": [
