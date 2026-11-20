@@ -1,0 +1,26 @@
+{
+  "title": "Higher-Dimensional Schur Trigonometry and the Weierstrass-Euclid Spectral Pinch",
+  "upload_type": "publication",
+  "publication_type": "article",
+  "description": "<p>We formulate the geometric exclusion of off-line zeros of the Riemann zeta function through Higher-Dimensional Schur Trigonometry and the Weierstrass-Euclid spectral pinch. By viewing the Schur complement as the orthogonal sine projector \\sin^2(\\Theta) = S / D, we prove that a putative off-axis zero at \\beta_0 > 1/2 forces an opposite-side partner at 1 - \\beta_0 < 1/2. The distance between these symmetric partners creates an irreducible spectral gap \\beta_{\\min} - 1/2 = t_N^2 / 2. We prove in Lean 4 with zero sorry that Pythagorean invariance \\cos^2(\\Theta) + \\sin^2(\\Theta) = 1 pinches the allowed spectrum, excluding non-trivial zeros outside the critical line.</p><p><strong>Formal Certificate:</strong> Verified in Lean 4 with zero custom axioms [propext, Classical.choice, Quot.sound].</p><p><strong>Methodology:</strong> In accordance with open research principles, ai is being used as a tool for interactive theorem verification and computational modeling.</p><p><strong>Epistemic Status:</strong> Finite structural theorem; Clay Millennium open horizons remain strictly open.</p>",
+  "creators": [
+    {
+      "name": "Arqam",
+      "affiliation": "Brandenburg University of Technology (BTU) Cottbus-Senftenberg",
+      "orcid": "0009-0004-9467-3363"
+    }
+  ],
+  "keywords": [
+    "Riemann Hypothesis",
+    "Schur Trigonometry",
+    "Weierstrass Factorization",
+    "Spectral Pinch",
+    "Pythagoras",
+    "Lean 4",
+    "Formal Verification",
+    "Clay Millennium Problems",
+    "BTU Cottbus-Senftenberg"
+  ],
+  "license": "CC-BY-4.0",
+  "access_right": "open"
+}

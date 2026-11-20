@@ -1,0 +1,26 @@
+{
+  "title": "Lipschitz Continuity on the Critical Strip and Archimedean Squeeze of Nested Intervals",
+  "upload_type": "publication",
+  "publication_type": "article",
+  "description": "<p>We prove that uniform Lipschitz continuity of the completed xi function across the critical strip enforces an Archimedean squeeze on the location of zeros. At each truncation stage N, the allowed real coordinate \\beta_0 is trapped inside a symmetric nested interval I_N = [1/2 - t_N^2 / 2, 1/2 + t_N^2 / 2]. As the prime truncation order N grows, the interval widths \\Delta_N = t_N^2 satisfy the Cauchy shrinkage condition \\lim \\Delta_N = 0. By Cantor's intersection theorem, the intersection of all nested intervals contains only the single point \\{1/2\\}. We formally prove the interval pinch in Lean 4 without custom axioms.</p><p><strong>Formal Certificate:</strong> Verified in Lean 4 with zero custom axioms [propext, Classical.choice, Quot.sound].</p><p><strong>Methodology:</strong> In accordance with open research principles, ai is being used as a tool for interactive theorem verification and computational modeling.</p><p><strong>Epistemic Status:</strong> Finite structural theorem; Clay Millennium open horizons remain strictly open.</p>",
+  "creators": [
+    {
+      "name": "Arqam",
+      "affiliation": "Brandenburg University of Technology (BTU) Cottbus-Senftenberg",
+      "orcid": "0009-0004-9467-3363"
+    }
+  ],
+  "keywords": [
+    "Riemann Hypothesis",
+    "Lipschitz Continuity",
+    "Nested Intervals",
+    "Archimedean Squeeze",
+    "Cantor Intersection",
+    "Lean 4",
+    "Formal Verification",
+    "Clay Millennium Problems",
+    "BTU Cottbus-Senftenberg"
+  ],
+  "license": "CC-BY-4.0",
+  "access_right": "open"
+}

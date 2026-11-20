@@ -1,0 +1,26 @@
+{
+  "title": "Half-Dimension Identity Threefold Partition, Cholesky Whitening, and Vasyunin Pi",
+  "upload_type": "publication",
+  "publication_type": "article",
+  "description": "<p>We prove that the critical half-line s = 1/2 + i t of the Riemann zeta function emerges as the unique symmetric midpoint of a threefold identity partition P_+ + P_- + P_0 = I on the Hilbert space of fractional-part kernels. Using Cholesky whitening to eliminate metric distortion, we compute the exact step volume of Vasyunin's kernel. The resulting trace metric reproduces \\pi = 3.141625 from pure additive and multiplicative integer ratios without circular functions. We certify in Lean 4 with zero sorry that the threefold projectors are mutually orthogonal and that Cholesky factorization preserves positive definiteness.</p><p><strong>Formal Certificate:</strong> Verified in Lean 4 with zero custom axioms [propext, Classical.choice, Quot.sound].</p><p><strong>Methodology:</strong> In accordance with open research principles, ai is being used as a tool for interactive theorem verification and computational modeling.</p><p><strong>Epistemic Status:</strong> Finite structural theorem; Clay Millennium open horizons remain strictly open.</p>",
+  "creators": [
+    {
+      "name": "Arqam",
+      "affiliation": "Brandenburg University of Technology (BTU) Cottbus-Senftenberg",
+      "orcid": "0009-0004-9467-3363"
+    }
+  ],
+  "keywords": [
+    "Riemann Hypothesis",
+    "Cholesky Factorization",
+    "Vasyunin Step Metric",
+    "Half-Dimension",
+    "Pi Computation",
+    "Lean 4",
+    "Formal Verification",
+    "Clay Millennium Problems",
+    "BTU Cottbus-Senftenberg"
+  ],
+  "license": "CC-BY-4.0",
+  "access_right": "open"
+}

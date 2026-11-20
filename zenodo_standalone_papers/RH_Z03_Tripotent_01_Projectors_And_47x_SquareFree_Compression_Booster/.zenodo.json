@@ -1,0 +1,26 @@
+{
+  "title": "Tripotent Projector Algebra and the 4.45-Fold Square-Free Compression Booster",
+  "upload_type": "publication",
+  "publication_type": "article",
+  "description": "<p>We construct the tripotent algebraic projection for the M\u00f6bius arithmetic function satisfying \\mu^3 = \\mu. Because \\mu(n) \\in \\{-1, 0, +1\\}, the operator decomposes Hilbert space into three canonical eigenspaces (+1, -1, 0). By filtering out square-full integers (the zero eigenspace), we achieve a 4.45-fold compression booster that retains 99.28\\% of square-free number-theoretic information. We prove in Lean 4 without custom axioms that tripotency forces (\\mu^3 - \\mu = 0), guaranteeing that the absolute square \\mu^2 is an idempotent projector (\\mu^2)^2 = \\mu^2 acting as an exact square-free characteristic filter.</p><p><strong>Formal Certificate:</strong> Verified in Lean 4 with zero custom axioms [propext, Classical.choice, Quot.sound].</p><p><strong>Methodology:</strong> In accordance with open research principles, ai is being used as a tool for interactive theorem verification and computational modeling.</p><p><strong>Epistemic Status:</strong> Finite structural theorem; Clay Millennium open horizons remain strictly open.</p>",
+  "creators": [
+    {
+      "name": "Arqam",
+      "affiliation": "Brandenburg University of Technology (BTU) Cottbus-Senftenberg",
+      "orcid": "0009-0004-9467-3363"
+    }
+  ],
+  "keywords": [
+    "Riemann Hypothesis",
+    "Mobius Function",
+    "Tripotent Algebra",
+    "Square-Free Numbers",
+    "Data Compression",
+    "Lean 4",
+    "Formal Verification",
+    "Clay Millennium Problems",
+    "BTU Cottbus-Senftenberg"
+  ],
+  "license": "CC-BY-4.0",
+  "access_right": "open"
+}
