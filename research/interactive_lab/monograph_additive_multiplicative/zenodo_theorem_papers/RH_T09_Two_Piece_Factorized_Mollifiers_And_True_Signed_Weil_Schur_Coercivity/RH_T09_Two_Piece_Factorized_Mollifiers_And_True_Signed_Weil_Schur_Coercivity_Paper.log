@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.7.21)  20 NOV 2026 23:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.7.21)  21 NOV 2026 02:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -570,32 +570,37 @@ Overfull \hbox (17.54022pt too wide) in paragraph at lines 99--113
  [][] 
  []
 
+
+Overfull \hbox (4.56152pt too wide) in paragraph at lines 118--135
+ [][] 
+ []
+
 [2{C:/Users/arqam/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.en
-c}]
+c}] [3]
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
-31.
+53.
  (C:\Users\arqam\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 139.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 161.
 
-[3] [4] [5] [6] [7] [8]
-Overfull \hbox (24.66057pt too wide) in paragraph at lines 415--416
+[4] [5] [6] [7] [8] [9]
+Overfull \hbox (24.66057pt too wide) in paragraph at lines 437--438
 [][][][][][][][][][][]  
  []
 
-[9] [10]
-Overfull \hbox (5.76038pt too wide) in paragraph at lines 495--496
-[][][][]  
- []
-
-[11]
-Overfull \hbox (5.76038pt too wide) in paragraph at lines 525--527
+[10] [11]
+Overfull \hbox (5.76038pt too wide) in paragraph at lines 517--518
 [][][][]  
  []
 
 [12]
+Overfull \hbox (5.76038pt too wide) in paragraph at lines 547--549
+[][][][]  
+ []
+
+[13] [14] [15] [16]
 (RH_T09_Two_Piece_Factorized_Mollifiers_And_True_Signed_Weil_Schur_Coercivity_P
 aper.aux)
  ***********
@@ -604,16 +609,16 @@ L3 programming layer <2025-12-24>
  ***********
 Package rerunfilecheck Info: File `RH_T09_Two_Piece_Factorized_Mollifiers_And_T
 rue_Signed_Weil_Schur_Coercivity_Paper.out' has not changed.
-(rerunfilecheck)             Checksum: 6E592ACDD31C5A8F3F530A5736B392A6;2940.
+(rerunfilecheck)             Checksum: 0239EC43BF9C1EA90271E29E07802274;3229.
  ) 
 Here is how much of TeX's memory you used:
- 13133 strings out of 467871
- 199056 string characters out of 5418376
- 947067 words of memory out of 5000000
- 41422 multiletter control sequences out of 15000+600000
+ 13315 strings out of 467871
+ 201800 string characters out of 5418376
+ 944052 words of memory out of 5000000
+ 41471 multiletter control sequences out of 15000+600000
  692728 words of font info for 98 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,12n,79p,1579b,2168s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,12n,79p,1757b,2166s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pf
 b><C:/Users/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pf
 b><C:/Users/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pf
@@ -634,9 +639,9 @@ rqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtk10.pfb><C:/Users/a
 rqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb><C:/Users/a
 rqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtti10.pfb>
 Output written on RH_T09_Two_Piece_Factorized_Mollifiers_And_True_Signed_Weil_S
-chur_Coercivity_Paper.pdf (12 pages, 469573 bytes).
+chur_Coercivity_Paper.pdf (16 pages, 504945 bytes).
 PDF statistics:
- 686 PDF objects out of 1000 (max. 8388607)
- 420 named destinations out of 1000 (max. 500000)
- 73 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 863 PDF objects out of 1000 (max. 8388607)
+ 553 named destinations out of 1000 (max. 500000)
+ 81 words of extra memory for PDF output out of 10000 (max. 10000000)
 

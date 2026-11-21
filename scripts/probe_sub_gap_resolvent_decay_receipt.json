@@ -1,0 +1,120 @@
+{
+  "status": "PASS",
+  "epistemic_boundary": "Infinite-horizon L -> infinity coercivity remains strictly OPEN; finite K=32 unshifted signed Weil form with sub-gap tare verified for L in [1.0, 6.0]",
+  "artificial_diagonal_shift": 0.0,
+  "basis": "L^2-orthonormal Dirichlet cosine e_k(u) on [-L/2, L/2], K=32",
+  "first_riemann_zero_gamma1": 14.134725141734695,
+  "elapsed_s": 0.082,
+  "windows": [
+    {
+      "L": 1.0,
+      "active_prime_powers": 1,
+      "n_sub_gap_modes": 2,
+      "delta_gap_to_gamma1": 1.573238,
+      "lambda_min_full_Q_W": 1.0326e-06,
+      "lambda_min_tared_Sigma_act": 0.0043059685,
+      "trace_ratio_Sigma_over_Q_act": 0.97913,
+      "arch_over_prime_k31": 23.35
+    },
+    {
+      "L": 1.5,
+      "active_prime_powers": 3,
+      "n_sub_gap_modes": 3,
+      "delta_gap_to_gamma1": 0.526041,
+      "lambda_min_full_Q_W": 0.0,
+      "lambda_min_tared_Sigma_act": 5e-10,
+      "trace_ratio_Sigma_over_Q_act": 0.943061,
+      "arch_over_prime_k31": 20.92
+    },
+    {
+      "L": 2.0,
+      "active_prime_powers": 5,
+      "n_sub_gap_modes": 4,
+      "delta_gap_to_gamma1": 0.002442,
+      "lambda_min_full_Q_W": -0.0,
+      "lambda_min_tared_Sigma_act": 0.0,
+      "trace_ratio_Sigma_over_Q_act": 0.938941,
+      "arch_over_prime_k31": 9.52
+    },
+    {
+      "L": 2.5,
+      "active_prime_powers": 8,
+      "n_sub_gap_modes": 6,
+      "delta_gap_to_gamma1": 0.311717,
+      "lambda_min_full_Q_W": -0.0,
+      "lambda_min_tared_Sigma_act": -0.0,
+      "trace_ratio_Sigma_over_Q_act": 0.920306,
+      "arch_over_prime_k31": 6.4
+    },
+    {
+      "L": 3.0,
+      "active_prime_powers": 12,
+      "n_sub_gap_modes": 7,
+      "delta_gap_to_gamma1": 0.521157,
+      "lambda_min_full_Q_W": -0.0,
+      "lambda_min_tared_Sigma_act": -0.0,
+      "trace_ratio_Sigma_over_Q_act": 0.874921,
+      "arch_over_prime_k31": 3.93
+    },
+    {
+      "L": 3.5,
+      "active_prime_powers": 18,
+      "n_sub_gap_modes": 8,
+      "delta_gap_to_gamma1": 0.670757,
+      "lambda_min_full_Q_W": -0.0,
+      "lambda_min_tared_Sigma_act": -0.0,
+      "trace_ratio_Sigma_over_Q_act": 0.820387,
+      "arch_over_prime_k31": 1.43
+    },
+    {
+      "L": 4.0,
+      "active_prime_powers": 24,
+      "n_sub_gap_modes": 9,
+      "delta_gap_to_gamma1": 0.782956,
+      "lambda_min_full_Q_W": -0.0,
+      "lambda_min_tared_Sigma_act": -0.0,
+      "trace_ratio_Sigma_over_Q_act": 0.786549,
+      "arch_over_prime_k31": 1.29
+    },
+    {
+      "L": 4.5,
+      "active_prime_powers": 34,
+      "n_sub_gap_modes": 10,
+      "delta_gap_to_gamma1": 0.526041,
+      "lambda_min_full_Q_W": -0.0,
+      "lambda_min_tared_Sigma_act": -0.0,
+      "trace_ratio_Sigma_over_Q_act": 0.687094,
+      "arch_over_prime_k31": 8.29
+    },
+    {
+      "L": 5.0,
+      "active_prime_powers": 47,
+      "n_sub_gap_modes": 11,
+      "delta_gap_to_gamma1": 0.316601,
+      "lambda_min_full_Q_W": -0.0,
+      "lambda_min_tared_Sigma_act": -0.0,
+      "trace_ratio_Sigma_over_Q_act": 0.574227,
+      "arch_over_prime_k31": 1.16
+    },
+    {
+      "L": 5.5,
+      "active_prime_powers": 68,
+      "n_sub_gap_modes": 12,
+      "delta_gap_to_gamma1": 0.145241,
+      "lambda_min_full_Q_W": -0.0,
+      "lambda_min_tared_Sigma_act": -0.0,
+      "trace_ratio_Sigma_over_Q_act": 0.563885,
+      "arch_over_prime_k31": 1.25
+    },
+    {
+      "L": 6.0,
+      "active_prime_powers": 98,
+      "n_sub_gap_modes": 13,
+      "delta_gap_to_gamma1": 0.002442,
+      "lambda_min_full_Q_W": -0.0,
+      "lambda_min_tared_Sigma_act": -0.0,
+      "trace_ratio_Sigma_over_Q_act": 0.529238,
+      "arch_over_prime_k31": 0.37
+    }
+  ]
+}
