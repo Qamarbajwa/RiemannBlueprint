@@ -67,7 +67,7 @@ theorem positive_exponent_guarantees_superlinear_tail_race
     mul_lt_mul_of_pos_left h_L_thresh h_div_pos
   have h_mul_cancel : (eta / C_w) * (C_w / eta) = 1 := by
     rw [div_mul_div_comm]
-    have h_denom : C_w * eta ≠ 0 := ne_of_gt (mul_pos h_Cw_pos h_eta_pos)
+    have h_denom : eta * C_w ≠ 0 := ne_of_gt (mul_pos h_eta_pos h_Cw_pos)
     rw [mul_comm C_w eta]
     exact div_self h_denom
   linarith

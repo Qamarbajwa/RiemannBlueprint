@@ -1,0 +1,78 @@
+{
+  "probe": "probe_global_adelic_inductive_limit.py",
+  "probe_number": 24,
+  "author": "Qamar Munawer",
+  "affiliation": "Brandenburg University of Technology Cottbus-Senftenberg",
+  "methodology_note": "ai is being used as a tool",
+  "epistemic_status": "verified-finite",
+  "open_horizon_lock": "STRICTLY OPEN",
+  "verified": true,
+  "status": "PASS",
+  "elapsed_seconds": 0.0173,
+  "max_prime_sieved": 200000,
+  "prime_count": 17984,
+  "bounds_verified": true,
+  "monotonic_decay_verified": true,
+  "tail_records": [
+    {
+      "p_r": 10,
+      "primes_summed_above_pr": 17980,
+      "tail_sum": 0.09888289,
+      "envelope_bound": 0.63245553,
+      "ratio_tail_to_bound": 0.156348,
+      "absorbed_floor": 0.17051711,
+      "bounds_satisfied": true,
+      "absorbed_positive": true
+    },
+    {
+      "p_r": 50,
+      "primes_summed_above_pr": 17969,
+      "tail_sum": 0.01874144,
+      "envelope_bound": 0.28284271,
+      "ratio_tail_to_bound": 0.066261,
+      "absorbed_floor": 0.25065856,
+      "bounds_satisfied": true,
+      "absorbed_positive": true
+    },
+    {
+      "p_r": 250,
+      "primes_summed_above_pr": 17931,
+      "tail_sum": 0.00392845,
+      "envelope_bound": 0.12649111,
+      "ratio_tail_to_bound": 0.031057,
+      "absorbed_floor": 0.26547155,
+      "bounds_satisfied": true,
+      "absorbed_positive": true
+    },
+    {
+      "p_r": 1000,
+      "primes_summed_above_pr": 17816,
+      "tail_sum": 0.00098634,
+      "envelope_bound": 0.06324555,
+      "ratio_tail_to_bound": 0.015595,
+      "absorbed_floor": 0.26841366,
+      "bounds_satisfied": true,
+      "absorbed_positive": true
+    },
+    {
+      "p_r": 5000,
+      "primes_summed_above_pr": 17315,
+      "tail_sum": 0.00019387,
+      "envelope_bound": 0.02828427,
+      "ratio_tail_to_bound": 0.006854,
+      "absorbed_floor": 0.26920613,
+      "bounds_satisfied": true,
+      "absorbed_positive": true
+    },
+    {
+      "p_r": 10000,
+      "primes_summed_above_pr": 16755,
+      "tail_sum": 9.444e-05,
+      "envelope_bound": 0.02,
+      "ratio_tail_to_bound": 0.004722,
+      "absorbed_floor": 0.26930556,
+      "bounds_satisfied": true,
+      "absorbed_positive": true
+    }
+  ]
+}

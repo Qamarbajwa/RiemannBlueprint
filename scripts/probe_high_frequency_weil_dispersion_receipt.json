@@ -1,0 +1,300 @@
+{
+  "probe": "probe_high_frequency_weil_dispersion.py",
+  "probe_number": 23,
+  "author": "Qamar Munawer",
+  "affiliation": "Brandenburg University of Technology Cottbus-Senftenberg",
+  "methodology_note": "ai is being used as a tool",
+  "epistemic_status": "verified-finite",
+  "open_horizon_lock": "STRICTLY OPEN",
+  "verified": true,
+  "status": "PASS",
+  "elapsed_seconds": 0.0034,
+  "frequency_range": [
+    10.0,
+    10000.0
+  ],
+  "stirling_dominance_holds": true,
+  "uniform_floor_positive": true,
+  "windows_evaluated": [
+    {
+      "L": 1.0,
+      "exp_L": 2.72,
+      "prime_power_count": 1,
+      "stirling_max_abs_diff": 0.000417,
+      "inf_W_tared": 2.3639,
+      "is_floor_positive": true,
+      "sample_points": [
+        {
+          "lambda": 10.0,
+          "archimedean": 2.7538,
+          "tared_prime": 0.3899,
+          "W_tared": 2.3639
+        },
+        {
+          "lambda": 1011.002004008016,
+          "archimedean": 7.3703,
+          "tared_prime": -0.4813,
+          "W_tared": 7.8516
+        },
+        {
+          "lambda": 2012.004008016032,
+          "archimedean": 8.0585,
+          "tared_prime": 0.4738,
+          "W_tared": 7.5846
+        },
+        {
+          "lambda": 3013.0060120240482,
+          "archimedean": 8.4623,
+          "tared_prime": -0.3749,
+          "W_tared": 8.8372
+        },
+        {
+          "lambda": 4014.008016032064,
+          "archimedean": 8.7491,
+          "tared_prime": 0.1982,
+          "W_tared": 8.5509
+        },
+        {
+          "lambda": 5015.01002004008,
+          "archimedean": 8.9718,
+          "tared_prime": 0.015,
+          "W_tared": 8.9568
+        },
+        {
+          "lambda": 6016.0120240480965,
+          "archimedean": 9.1538,
+          "tared_prime": -0.2282,
+          "W_tared": 9.382
+        },
+        {
+          "lambda": 7017.014028056113,
+          "archimedean": 9.3077,
+          "tared_prime": 0.3929,
+          "W_tared": 8.9148
+        },
+        {
+          "lambda": 8018.016032064128,
+          "archimedean": 9.441,
+          "tared_prime": -0.4823,
+          "W_tared": 9.9233
+        },
+        {
+          "lambda": 9019.018036072144,
+          "archimedean": 9.5587,
+          "tared_prime": 0.4726,
+          "W_tared": 9.0861
+        }
+      ]
+    },
+    {
+      "L": 2.0,
+      "exp_L": 7.39,
+      "prime_power_count": 5,
+      "stirling_max_abs_diff": 0.000417,
+      "inf_W_tared": 2.339,
+      "is_floor_positive": true,
+      "sample_points": [
+        {
+          "lambda": 10.0,
+          "archimedean": 2.7538,
+          "tared_prime": 0.4148,
+          "W_tared": 2.339
+        },
+        {
+          "lambda": 1011.002004008016,
+          "archimedean": 7.3703,
+          "tared_prime": 1.2079,
+          "W_tared": 6.1624
+        },
+        {
+          "lambda": 2012.004008016032,
+          "archimedean": 8.0585,
+          "tared_prime": 0.994,
+          "W_tared": 7.0645
+        },
+        {
+          "lambda": 3013.0060120240482,
+          "archimedean": 8.4623,
+          "tared_prime": 0.6026,
+          "W_tared": 7.8596
+        },
+        {
+          "lambda": 4014.008016032064,
+          "archimedean": 8.7491,
+          "tared_prime": 1.0617,
+          "W_tared": 7.6874
+        },
+        {
+          "lambda": 5015.01002004008,
+          "archimedean": 8.9718,
+          "tared_prime": -0.0704,
+          "W_tared": 9.0422
+        },
+        {
+          "lambda": 6016.0120240480965,
+          "archimedean": 9.1538,
+          "tared_prime": 1.1706,
+          "W_tared": 7.9831
+        },
+        {
+          "lambda": 7017.014028056113,
+          "archimedean": 9.3077,
+          "tared_prime": 0.7729,
+          "W_tared": 8.5348
+        },
+        {
+          "lambda": 8018.016032064128,
+          "archimedean": 9.441,
+          "tared_prime": 0.9985,
+          "W_tared": 8.4426
+        },
+        {
+          "lambda": 9019.018036072144,
+          "archimedean": 9.5587,
+          "tared_prime": 1.7491,
+          "W_tared": 7.8096
+        }
+      ]
+    },
+    {
+      "L": 4.0,
+      "exp_L": 54.6,
+      "prime_power_count": 24,
+      "stirling_max_abs_diff": 0.000417,
+      "inf_W_tared": 1.8695,
+      "is_floor_positive": true,
+      "sample_points": [
+        {
+          "lambda": 10.0,
+          "archimedean": 2.7538,
+          "tared_prime": 0.8843,
+          "W_tared": 1.8695
+        },
+        {
+          "lambda": 1011.002004008016,
+          "archimedean": 7.3703,
+          "tared_prime": 0.8151,
+          "W_tared": 6.5552
+        },
+        {
+          "lambda": 2012.004008016032,
+          "archimedean": 8.0585,
+          "tared_prime": 1.2127,
+          "W_tared": 6.8458
+        },
+        {
+          "lambda": 3013.0060120240482,
+          "archimedean": 8.4623,
+          "tared_prime": 0.0874,
+          "W_tared": 8.3748
+        },
+        {
+          "lambda": 4014.008016032064,
+          "archimedean": 8.7491,
+          "tared_prime": 1.9496,
+          "W_tared": 6.7995
+        },
+        {
+          "lambda": 5015.01002004008,
+          "archimedean": 8.9718,
+          "tared_prime": 2.8567,
+          "W_tared": 6.1151
+        },
+        {
+          "lambda": 6016.0120240480965,
+          "archimedean": 9.1538,
+          "tared_prime": 2.3004,
+          "W_tared": 6.8534
+        },
+        {
+          "lambda": 7017.014028056113,
+          "archimedean": 9.3077,
+          "tared_prime": 0.3376,
+          "W_tared": 8.9701
+        },
+        {
+          "lambda": 8018.016032064128,
+          "archimedean": 9.441,
+          "tared_prime": 2.2853,
+          "W_tared": 7.1558
+        },
+        {
+          "lambda": 9019.018036072144,
+          "archimedean": 9.5587,
+          "tared_prime": 2.3864,
+          "W_tared": 7.1723
+        }
+      ]
+    },
+    {
+      "L": 6.0,
+      "exp_L": 403.43,
+      "prime_power_count": 98,
+      "stirling_max_abs_diff": 0.000417,
+      "inf_W_tared": 0.9468,
+      "is_floor_positive": true,
+      "sample_points": [
+        {
+          "lambda": 10.0,
+          "archimedean": 2.7538,
+          "tared_prime": -0.5492,
+          "W_tared": 3.3029
+        },
+        {
+          "lambda": 1011.002004008016,
+          "archimedean": 7.3703,
+          "tared_prime": -0.0399,
+          "W_tared": 7.4102
+        },
+        {
+          "lambda": 2012.004008016032,
+          "archimedean": 8.0585,
+          "tared_prime": 5.315,
+          "W_tared": 2.7435
+        },
+        {
+          "lambda": 3013.0060120240482,
+          "archimedean": 8.4623,
+          "tared_prime": -1.0516,
+          "W_tared": 9.5139
+        },
+        {
+          "lambda": 4014.008016032064,
+          "archimedean": 8.7491,
+          "tared_prime": 6.0426,
+          "W_tared": 2.7065
+        },
+        {
+          "lambda": 5015.01002004008,
+          "archimedean": 8.9718,
+          "tared_prime": 0.8569,
+          "W_tared": 8.1149
+        },
+        {
+          "lambda": 6016.0120240480965,
+          "archimedean": 9.1538,
+          "tared_prime": 5.3018,
+          "W_tared": 3.8519
+        },
+        {
+          "lambda": 7017.014028056113,
+          "archimedean": 9.3077,
+          "tared_prime": 0.7373,
+          "W_tared": 8.5703
+        },
+        {
+          "lambda": 8018.016032064128,
+          "archimedean": 9.441,
+          "tared_prime": 4.8992,
+          "W_tared": 4.5418
+        },
+        {
+          "lambda": 9019.018036072144,
+          "archimedean": 9.5587,
+          "tared_prime": 3.9205,
+          "W_tared": 5.6382
+        }
+      ]
+    }
+  ]
+}

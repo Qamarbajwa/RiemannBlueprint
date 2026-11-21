@@ -1,0 +1,337 @@
+{
+  "probe": "probe_stepanov_deligne_higher_frobenius.py",
+  "probe_number": 22,
+  "author": "Qamar Munawer",
+  "affiliation": "Brandenburg University of Technology Cottbus-Senftenberg",
+  "methodology_note": "ai is being used as a tool",
+  "epistemic_status": "verified-finite",
+  "open_horizon_lock": "STRICTLY OPEN",
+  "verified": true,
+  "status": "PASS",
+  "elapsed_seconds": 0.0,
+  "primes_tested_count": 21,
+  "frobenius_eigenvalue_bounds_verified": true,
+  "theta_lift_margins_positive": true,
+  "sample_frobenius_records": [
+    {
+      "p": 5,
+      "a_p_1": 2,
+      "traces": {
+        "k_1": {
+          "trace": 2,
+          "bound": 4.4721,
+          "ratio": 0.4472,
+          "holds": true
+        },
+        "k_2": {
+          "trace": -6,
+          "bound": 10.0,
+          "ratio": 0.6,
+          "holds": true
+        },
+        "k_3": {
+          "trace": -22,
+          "bound": 22.3607,
+          "ratio": 0.9839,
+          "holds": true
+        },
+        "k_4": {
+          "trace": -14,
+          "bound": 50.0,
+          "ratio": 0.28,
+          "holds": true
+        }
+      }
+    },
+    {
+      "p": 7,
+      "a_p_1": 2,
+      "traces": {
+        "k_1": {
+          "trace": 2,
+          "bound": 5.2915,
+          "ratio": 0.378,
+          "holds": true
+        },
+        "k_2": {
+          "trace": -10,
+          "bound": 14.0,
+          "ratio": 0.7143,
+          "holds": true
+        },
+        "k_3": {
+          "trace": -34,
+          "bound": 37.0405,
+          "ratio": 0.9179,
+          "holds": true
+        },
+        "k_4": {
+          "trace": 2,
+          "bound": 98.0,
+          "ratio": 0.0204,
+          "holds": true
+        }
+      }
+    },
+    {
+      "p": 11,
+      "a_p_1": -6,
+      "traces": {
+        "k_1": {
+          "trace": -6,
+          "bound": 6.6332,
+          "ratio": 0.9045,
+          "holds": true
+        },
+        "k_2": {
+          "trace": 14,
+          "bound": 22.0,
+          "ratio": 0.6364,
+          "holds": true
+        },
+        "k_3": {
+          "trace": -18,
+          "bound": 72.9657,
+          "ratio": 0.2467,
+          "holds": true
+        },
+        "k_4": {
+          "trace": -46,
+          "bound": 242.0,
+          "ratio": 0.1901,
+          "holds": true
+        }
+      }
+    },
+    {
+      "p": 17,
+      "a_p_1": 1,
+      "traces": {
+        "k_1": {
+          "trace": 1,
+          "bound": 8.2462,
+          "ratio": 0.1213,
+          "holds": true
+        },
+        "k_2": {
+          "trace": -33,
+          "bound": 34.0,
+          "ratio": 0.9706,
+          "holds": true
+        },
+        "k_3": {
+          "trace": -50,
+          "bound": 140.1856,
+          "ratio": 0.3567,
+          "holds": true
+        },
+        "k_4": {
+          "trace": 511,
+          "bound": 578.0,
+          "ratio": 0.8841,
+          "holds": true
+        }
+      }
+    },
+    {
+      "p": 23,
+      "a_p_1": -3,
+      "traces": {
+        "k_1": {
+          "trace": -3,
+          "bound": 9.5917,
+          "ratio": 0.3128,
+          "holds": true
+        },
+        "k_2": {
+          "trace": -37,
+          "bound": 46.0,
+          "ratio": 0.8043,
+          "holds": true
+        },
+        "k_3": {
+          "trace": 180,
+          "bound": 220.6083,
+          "ratio": 0.8159,
+          "holds": true
+        },
+        "k_4": {
+          "trace": 311,
+          "bound": 1058.0,
+          "ratio": 0.294,
+          "holds": true
+        }
+      }
+    }
+  ],
+  "theta_lift_scaling_records": [
+    {
+      "L": 2.0,
+      "active_floor": 2.6097281424637084e-05,
+      "deligne_envelope": 0.04043564841807757,
+      "E_short": 0.04416666666666667,
+      "net_tared_margin": 0.0954237821966804,
+      "margin_positive": true
+    },
+    {
+      "L": 2.9,
+      "active_floor": 3.311064272496058e-05,
+      "deligne_envelope": 0.05158062299744933,
+      "E_short": 0.04108527131782946,
+      "net_tared_margin": 0.08736721632744615,
+      "margin_positive": true
+    },
+    {
+      "L": 3.8,
+      "active_floor": 3.9369946592836743e-05,
+      "deligne_envelope": 0.05649939052221623,
+      "E_short": 0.03840579710144928,
+      "net_tared_margin": 0.08513418232292733,
+      "margin_positive": true
+    },
+    {
+      "L": 4.7,
+      "active_floor": 4.511296187207465e-05,
+      "deligne_envelope": 0.05889158181497232,
+      "E_short": 0.03605442176870748,
+      "net_tared_margin": 0.08509910937819226,
+      "margin_positive": true
+    },
+    {
+      "L": 5.6,
+      "active_floor": 5.0471324714684806e-05,
+      "deligne_envelope": 0.060060145199383914,
+      "E_short": 0.03397435897435897,
+      "net_tared_margin": 0.08601596715097182,
+      "margin_positive": true
+    },
+    {
+      "L": 6.5,
+      "active_floor": 5.5527452582531604e-05,
+      "deligne_envelope": 0.06056995043173463,
+      "E_short": 0.03212121212121212,
+      "net_tared_margin": 0.08736436489963578,
+      "margin_positive": true
+    },
+    {
+      "L": 7.4,
+      "active_floor": 6.033721956458175e-05,
+      "deligne_envelope": 0.06070009118179054,
+      "E_short": 0.030459770114942525,
+      "net_tared_margin": 0.08890047592283151,
+      "margin_positive": true
+    },
+    {
+      "L": 8.3,
+      "active_floor": 6.494068714475962e-05,
+      "deligne_envelope": 0.06060144855471159,
+      "E_short": 0.02896174863387978,
+      "net_tared_margin": 0.09050174349855339,
+      "margin_positive": true
+    },
+    {
+      "L": 9.2,
+      "active_floor": 6.936780236197733e-05,
+      "deligne_envelope": 0.06036110205995769,
+      "E_short": 0.027604166666666666,
+      "net_tared_margin": 0.09210409907573759,
+      "margin_positive": true
+    },
+    {
+      "L": 10.1,
+      "active_floor": 7.36416864646346e-05,
+      "deligne_envelope": 0.0600318401194368,
+      "E_short": 0.026368159203980102,
+      "net_tared_margin": 0.09367364236304773,
+      "margin_positive": true
+    },
+    {
+      "L": 11.0,
+      "active_floor": 7.778065709508854e-05,
+      "deligne_envelope": 0.05964689179829326,
+      "E_short": 0.025238095238095237,
+      "net_tared_margin": 0.09519279362070661,
+      "margin_positive": true
+    },
+    {
+      "L": 11.9,
+      "active_floor": 8.179953542377249e-05,
+      "deligne_envelope": 0.05922779086410331,
+      "E_short": 0.02420091324200913,
+      "net_tared_margin": 0.09665309542931133,
+      "margin_positive": true
+    },
+    {
+      "L": 12.8,
+      "active_floor": 8.571052597349613e-05,
+      "deligne_envelope": 0.05878880604194966,
+      "E_short": 0.023245614035087715,
+      "net_tared_margin": 0.09805129044893612,
+      "margin_positive": true
+    },
+    {
+      "L": 13.7,
+      "active_floor": 8.952382899293661e-05,
+      "deligne_envelope": 0.058339549559806816,
+      "E_short": 0.022362869198312235,
+      "net_tared_margin": 0.09938710507087388,
+      "margin_positive": true
+    },
+    {
+      "L": 14.6,
+      "active_floor": 9.324807886760319e-05,
+      "deligne_envelope": 0.057886570710723374,
+      "E_short": 0.021544715447154472,
+      "net_tared_margin": 0.10066196192098975,
+      "margin_positive": true
+    },
+    {
+      "L": 15.5,
+      "active_floor": 9.689066563570475e-05,
+      "deligne_envelope": 0.057434360135741436,
+      "E_short": 0.020784313725490198,
+      "net_tared_margin": 0.10187821680440406,
+      "margin_positive": true
+    },
+    {
+      "L": 16.4,
+      "active_floor": 0.00010045797573447988,
+      "deligne_envelope": 0.05698599976919876,
+      "E_short": 0.020075757575757577,
+      "net_tared_margin": 0.10303870063077814,
+      "margin_positive": true
+    },
+    {
+      "L": 17.3,
+      "active_floor": 0.00010395557557228454,
+      "deligne_envelope": 0.056543593182964494,
+      "E_short": 0.01941391941391941,
+      "net_tared_margin": 0.10414644297868837,
+      "margin_positive": true
+    },
+    {
+      "L": 18.2,
+      "active_floor": 0.0001073883537626444,
+      "deligne_envelope": 0.05610855621141743,
+      "E_short": 0.018794326241134748,
+      "net_tared_margin": 0.10520450590121046,
+      "margin_positive": true
+    },
+    {
+      "L": 19.1,
+      "active_floor": 0.00011076063290585301,
+      "deligne_envelope": 0.055681816613238,
+      "E_short": 0.018213058419243984,
+      "net_tared_margin": 0.10621588560042387,
+      "margin_positive": true
+    },
+    {
+      "L": 20.0,
+      "active_floor": 0.00011407625856066077,
+      "deligne_envelope": 0.05526395329996793,
+      "E_short": 0.017666666666666667,
+      "net_tared_margin": 0.10718345629192606,
+      "margin_positive": true
+    }
+  ]
+}
