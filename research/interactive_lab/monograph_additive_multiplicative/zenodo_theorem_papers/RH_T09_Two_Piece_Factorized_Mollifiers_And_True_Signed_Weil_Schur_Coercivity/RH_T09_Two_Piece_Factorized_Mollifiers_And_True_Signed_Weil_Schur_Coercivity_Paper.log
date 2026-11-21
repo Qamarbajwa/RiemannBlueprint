@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.7.21)  21 NOV 2026 04:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.7.21)  21 NOV 2026 06:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -729,7 +729,72 @@ Overfull \hbox (141.34605pt too wide) in paragraph at lines 1868--1880
  [][] 
  []
 
-[39] [40] [41]
+[39] [40]
+Overfull \hbox (14.50116pt too wide) in paragraph at lines 1948--1948
+[]\T1/lmr/bx/n/14.4 The Maass-Selberg Cus-p-i-dal Slit and Dis-crete Re-sol-ven
+t Rigid-
+ []
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 1957.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@ifnextchar' on input line 1957.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 1957.
+
+[41]
+Overfull \hbox (2.02594pt too wide) in paragraph at lines 2001--2001
+[]\T1/lmr/bx/n/14.4 Resolvent Spec-tral Mea-sure Limit and Con-tin-u-ous Band P
+os-
+ []
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 2011.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\to' on input line 2011.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\infty' on input line 2011.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 2011.
+
+[42]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 2051.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\to' on input line 2051.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\infty' on input line 2051.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 2051.
+
+[43]
+Overfull \hbox (19.3479pt too wide) in paragraph at lines 2080--2099
+ [][] 
+ []
+
+[44]
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
+nput line 2110.
+ [45] [46] [47] [48] [49] [50] [51] [52] [53]
 (RH_T09_Two_Piece_Factorized_Mollifiers_And_True_Signed_Weil_Schur_Coercivity_P
 aper.aux)
  ***********
@@ -738,43 +803,44 @@ L3 programming layer <2025-12-24>
  ***********
 Package rerunfilecheck Info: File `RH_T09_Two_Piece_Factorized_Mollifiers_And_T
 rue_Signed_Weil_Schur_Coercivity_Paper.out' has not changed.
-(rerunfilecheck)             Checksum: 8D122FC179AB707C731EF99082D1DA81;14693.
+(rerunfilecheck)             Checksum: 1B0F32EDC6D1B36F0B780CB5239AE18B;17380.
  ) 
 Here is how much of TeX's memory you used:
- 14692 strings out of 467871
- 222978 string characters out of 5418376
- 942993 words of memory out of 5000000
- 41912 multiletter control sequences out of 15000+600000
- 727257 words of font info for 124 fonts, out of 8000000 for 9000
+ 15184 strings out of 467871
+ 230339 string characters out of 5418376
+ 943387 words of memory out of 5000000
+ 42027 multiletter control sequences out of 15000+600000
+ 739031 words of font info for 128 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,14n,79p,2447b,2118s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pf
 b><C:/Users/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pf
-b><C:/Users/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pf
-b><C:/Users/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pf
-b><C:/Users/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi12.pf
-b><C:/Users/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi6.pfb
-><C:/Users/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi7.pfb>
-<C:/Users/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><
-C:/Users/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmib10.pfb>
-<C:/Users/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><
-C:/Users/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C
-:/Users/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/
-Users/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Us
-ers/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/User
-s/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr9.pfb><C:/Users/
-arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/
-arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy7.pfb><C:/Users/a
-rqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy8.pfb><C:/Users/ar
-qam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtk10.pfb><C:/Users/ar
-qam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb><C:/Users/ar
-qam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtti10.pfb><C:/Users/a
-rqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.p
-fb>
+b><C:/Users/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx7.pfb
+><C:/Users/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb
+><C:/Users/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb
+><C:/Users/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi12.pfb
+><C:/Users/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi6.pfb>
+<C:/Users/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi7.pfb><
+C:/Users/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C
+:/Users/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmib10.pfb><
+C:/Users/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C
+:/Users/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:
+/Users/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/U
+sers/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Use
+rs/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users
+/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr9.pfb><C:/Users/a
+rqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/a
+rqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy7.pfb><C:/Users/ar
+qam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy8.pfb><C:/Users/arq
+am/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtk10.pfb><C:/Users/arq
+am/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb><C:/Users/arq
+am/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtti10.pfb><C:/Users/ar
+qam/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pf
+b>
 Output written on RH_T09_Two_Piece_Factorized_Mollifiers_And_True_Signed_Weil_S
-chur_Coercivity_Paper.pdf (41 pages, 862635 bytes).
+chur_Coercivity_Paper.pdf (53 pages, 996103 bytes).
 PDF statistics:
- 2179 PDF objects out of 2487 (max. 8388607)
- 1469 named destinations out of 1728 (max. 500000)
- 353 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2699 PDF objects out of 2984 (max. 8388607)
+ 1843 named destinations out of 2073 (max. 500000)
+ 409 words of extra memory for PDF output out of 10000 (max. 10000000)
 

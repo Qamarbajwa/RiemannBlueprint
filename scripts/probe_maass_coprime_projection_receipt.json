@@ -146,5 +146,7 @@
       "scaled_ratio": 0.4188893944215043,
       "subconvex_scaling": true
     }
-  ]
+  ],
+  "status": "PASS",
+  "verified": true
 }

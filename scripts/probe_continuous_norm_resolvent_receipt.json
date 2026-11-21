@@ -97,5 +97,7 @@
       "norm_diff_bound": 1.7139084313572537e-15,
       "exponential_decay_verified": true
     }
-  ]
+  ],
+  "status": "PASS",
+  "verified": true
 }

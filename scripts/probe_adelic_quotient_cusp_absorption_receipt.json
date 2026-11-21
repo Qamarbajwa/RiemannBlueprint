@@ -233,5 +233,7 @@
       "unified_boundary_leakage": 0.0015790593267948965,
       "race_unified_ratio": 3.4681338159069325e-07
     }
-  ]
+  ],
+  "status": "PASS",
+  "verified": true
 }

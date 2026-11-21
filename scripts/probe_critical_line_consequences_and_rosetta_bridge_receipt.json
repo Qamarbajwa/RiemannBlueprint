@@ -204,5 +204,6 @@
       "Boundary Edge Modes": "Majorana zero modes and chiral edge currents protected by bulk Chern invariant",
       "Diffusion / Energy Law": "Quantized Hall conductance sigma_xy = (e^2 / h) * C_1, zero dissipative bulk transport"
     }
-  ]
+  ],
+  "verified": true
 }

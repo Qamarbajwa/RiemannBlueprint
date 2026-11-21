@@ -427,5 +427,6 @@
       "continuous_defect": 7.76e-06,
       "strictly_positive": true
     }
-  ]
+  ],
+  "verified": true
 }

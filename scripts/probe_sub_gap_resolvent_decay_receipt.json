@@ -116,5 +116,6 @@
       "trace_ratio_Sigma_over_Q_act": 0.529238,
       "arch_over_prime_k31": 0.37
     }
-  ]
+  ],
+  "verified": true
 }

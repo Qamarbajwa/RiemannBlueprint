@@ -82,6 +82,6 @@ This master plan structures the remaining work along two rigorous fronts.
 ## 4. Epistemic Invariants & Governance Rules
 
 1. **Epistemic Invariant:** All four Clay Millennium Problems remain strictly OPEN. All claims must be indexed as `status: verified-finite` (finite matrix identities, Lean 4 lemmas, finite numerical scans) vs `open_horizon_lock: STRICTLY OPEN`. Never claim or imply that the Riemann Hypothesis is solved.
-2. **Author Attribution:** Strictly `Qamar Munawer`, `Brandenburg University of Technology Cottbus-Senftenberg`. Zero department names, zero `Arqam`, zero `(BTU)`.
+2. **Author Attribution:** Strictly `Qamar Munawer`, `Brandenburg University of Technology Cottbus-Senftenberg`. Zero department names, zero forbidden old name strings.
 3. **Methodology Note:** The exact lowercase phrase `ai is being used as a tool` must appear in all documentation, acknowledgments, and manifests.
 4. **Workspace Boundary:** Strictly restricted to `d:\Comfy UI\rheihman hypothesis`. Zero modifications to other repository workspaces.

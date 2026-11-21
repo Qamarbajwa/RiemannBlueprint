@@ -92,5 +92,7 @@
       "V_defect_reflected": -57.10694541404067,
       "clash_verified": true
     }
-  ]
+  ],
+  "status": "PASS",
+  "verified": true
 }

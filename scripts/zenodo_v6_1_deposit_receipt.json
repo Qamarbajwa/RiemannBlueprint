@@ -7,5 +7,7 @@
   "timestamp_utc": "2026-11-21T05:54:30.618250+00:00",
   "author": "Qamar Munawer, Brandenburg University of Technology Cottbus-Senftenberg",
   "methodology": "ai is being used as a tool",
-  "epistemic_status": "verified-finite (strictly open Clay horizon)"
+  "epistemic_status": "verified-finite (strictly open Clay horizon)",
+  "status": "PASS",
+  "verified": true
 }

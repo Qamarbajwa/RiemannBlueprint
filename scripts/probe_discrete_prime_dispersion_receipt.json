@@ -176,5 +176,7 @@
       "abs_discrete_defect": 0.0017392197523503035,
       "resonance_excluded": true
     }
-  ]
+  ],
+  "status": "PASS",
+  "verified": true
 }

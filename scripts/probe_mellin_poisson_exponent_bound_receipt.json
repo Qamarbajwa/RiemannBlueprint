@@ -243,5 +243,7 @@
       "race_A_ratio": 7.093678469489837e-10,
       "tau_unconditional_support": 2.0
     }
-  ]
+  ],
+  "status": "PASS",
+  "verified": true
 }

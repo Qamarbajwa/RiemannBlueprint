@@ -167,5 +167,7 @@
       "forward_positive": true,
       "sign_clash_verified": true
     }
-  ]
+  ],
+  "status": "PASS",
+  "verified": true
 }

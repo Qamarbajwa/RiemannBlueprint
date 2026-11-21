@@ -85,5 +85,6 @@
       "min_arch_over_prime_k4_to_15": 0.231,
       "arch_over_prime_k15": 1.7208
     }
-  ]
+  ],
+  "verified": true
 }

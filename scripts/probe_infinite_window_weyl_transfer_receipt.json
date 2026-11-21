@@ -132,5 +132,6 @@
       "tail_suppression": "1.389e-11",
       "sobolev_h1_floor": "5.392e-11"
     }
-  ]
+  ],
+  "verified": true
 }

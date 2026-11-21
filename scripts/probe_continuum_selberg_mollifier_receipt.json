@@ -183,5 +183,6 @@
       "x": 1331.14,
       "valid_by_lean_theorem_3": true
     }
-  ]
+  ],
+  "verified": true
 }

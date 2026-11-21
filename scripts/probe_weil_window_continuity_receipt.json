@@ -12,5 +12,6 @@
   },
   "fine_grid_points": 61,
   "grid_step_h": 0.05,
-  "elapsed_s": 0.301
+  "elapsed_s": 0.301,
+  "verified": true
 }
