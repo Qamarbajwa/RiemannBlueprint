@@ -1,0 +1,228 @@
+{
+  "probe": "probe_schur_floor_vs_algebraic_tail_race",
+  "description": "High-precision empirical audit of the race between active Schur floor lambda_min and exterior tail leakage C_w/L as L -> infinity",
+  "timestamp_utc": "2026-11-21T05:49:07Z",
+  "author": "Qamar Munawer, Brandenburg University of Technology Cottbus-Senftenberg",
+  "methodology": "ai is being used as a tool",
+  "epistemic_lock": "STRICTLY OPEN (all four Clay Millennium Problems remain strictly open)",
+  "status": "verified-finite",
+  "parameters": {
+    "L_range": [
+      1.0,
+      20.0
+    ],
+    "C_w": 1.5707963267948966,
+    "C_trace": 1.0,
+    "M_core": 3.0
+  },
+  "findings": {
+    "prefactor_A": 6.556047048421425e-12,
+    "beta_power_law_exponent": 0.6406,
+    "race_A_scaling_exponent": 1.6406,
+    "asymptotic_floor_behavior": "asymptotically flat around 10^(-11) (beta = 0.0573)",
+    "floor_dominates_exponential_leakage_for_L_ge": 15.0,
+    "race_A_conclusion": "ACTIVE FLOOR SCALES SLOWER THAN L^(-1): Ratio R_A(L) GROWS with exponent > 0"
+  },
+  "records": [
+    {
+      "L": 1.0,
+      "h1_floor": 1.6742798663429665e-05,
+      "tail_A_algebraic": 1.5707963267948966,
+      "race_A_ratio": 1.065879667390884e-05,
+      "tail_B_algebraic": 1.5707963267948966,
+      "race_B_ratio": 1.065879667390884e-05,
+      "tail_C_exponential": 1.0,
+      "race_C_ratio": 1.6742798663429665e-05
+    },
+    {
+      "L": 2.0,
+      "h1_floor": 7.591063244817043e-09,
+      "tail_A_algebraic": 0.7853981633974483,
+      "race_A_ratio": 9.66524190988668e-09,
+      "tail_B_algebraic": 0.39269908169872414,
+      "race_B_ratio": 1.933048381977336e-08,
+      "tail_C_exponential": 1.0,
+      "race_C_ratio": 7.591063244817043e-09
+    },
+    {
+      "L": 3.0,
+      "h1_floor": 3.93168925038324e-11,
+      "tail_A_algebraic": 0.5235987755982988,
+      "race_A_ratio": 7.508973346797135e-11,
+      "tail_B_algebraic": 0.17453292519943295,
+      "race_B_ratio": 2.2526920040391404e-10,
+      "tail_C_exponential": 1.0,
+      "race_C_ratio": 3.93168925038324e-11
+    },
+    {
+      "L": 4.0,
+      "h1_floor": 2.3715941798798785e-12,
+      "tail_A_algebraic": 0.39269908169872414,
+      "race_A_ratio": 6.0392149877736366e-12,
+      "tail_B_algebraic": 0.09817477042468103,
+      "race_B_ratio": 2.4156859951094546e-11,
+      "tail_C_exponential": 0.1353352832366127,
+      "race_C_ratio": 1.7523842439029848e-11
+    },
+    {
+      "L": 5.0,
+      "h1_floor": 6.978850909238179e-12,
+      "tail_A_algebraic": 0.3141592653589793,
+      "race_A_ratio": 2.221437238613249e-11,
+      "tail_B_algebraic": 0.06283185307179587,
+      "race_B_ratio": 1.1107186193066244e-10,
+      "tail_C_exponential": 0.01831563888873418,
+      "race_C_ratio": 3.810323490015312e-10
+    },
+    {
+      "L": 6.0,
+      "h1_floor": 3.4624352155927175e-11,
+      "tail_A_algebraic": 0.2617993877991494,
+      "race_A_ratio": 1.3225528312728801e-10,
+      "tail_B_algebraic": 0.04363323129985824,
+      "race_B_ratio": 7.93531698763728e-10,
+      "tail_C_exponential": 0.0024787521766663585,
+      "race_C_ratio": 1.3968460615733282e-08
+    },
+    {
+      "L": 7.0,
+      "h1_floor": 3.2871726457106805e-11,
+      "tail_A_algebraic": 0.2243994752564138,
+      "race_A_ratio": 1.4648753710116915e-10,
+      "tail_B_algebraic": 0.0320570678937734,
+      "race_B_ratio": 1.025412759708184e-09,
+      "tail_C_exponential": 0.00033546262790251185,
+      "race_C_ratio": 9.798923553016342e-08
+    },
+    {
+      "L": 8.0,
+      "h1_floor": 3.268107866038998e-11,
+      "tail_A_algebraic": 0.19634954084936207,
+      "race_A_ratio": 1.6644336686003593e-10,
+      "tail_B_algebraic": 0.02454369260617026,
+      "race_B_ratio": 1.3315469348802874e-09,
+      "tail_C_exponential": 4.5399929762484854e-05,
+      "race_C_ratio": 7.198486612504676e-07
+    },
+    {
+      "L": 9.0,
+      "h1_floor": 4.327967808310252e-11,
+      "tail_A_algebraic": 0.17453292519943295,
+      "race_A_ratio": 2.4797428928466233e-10,
+      "tail_B_algebraic": 0.019392547244381438,
+      "race_B_ratio": 2.231768603561961e-09,
+      "tail_C_exponential": 6.14421235332821e-06,
+      "race_C_ratio": 7.043974979096986e-06
+    },
+    {
+      "L": 10.0,
+      "h1_floor": 1.6148619996483686e-11,
+      "tail_A_algebraic": 0.15707963267948966,
+      "race_A_ratio": 1.0280530786212017e-10,
+      "tail_B_algebraic": 0.015707963267948967,
+      "race_B_ratio": 1.0280530786212016e-09,
+      "tail_C_exponential": 8.315287191035679e-07,
+      "race_C_ratio": 1.9420399591120264e-05
+    },
+    {
+      "L": 11.0,
+      "h1_floor": 6.455254742003427e-11,
+      "tail_A_algebraic": 0.14279966607226333,
+      "race_A_ratio": 4.5204970848718686e-10,
+      "tail_B_algebraic": 0.012981787824751212,
+      "race_B_ratio": 4.972546793359055e-09,
+      "tail_C_exponential": 1.1253517471925912e-07,
+      "race_C_ratio": 0.0005736210707547498
+    },
+    {
+      "L": 12.0,
+      "h1_floor": 6.254280958991444e-11,
+      "tail_A_algebraic": 0.1308996938995747,
+      "race_A_ratio": 4.777918704523238e-10,
+      "tail_B_algebraic": 0.01090830782496456,
+      "race_B_ratio": 5.733502445427885e-09,
+      "tail_C_exponential": 1.522997974471263e-08,
+      "race_C_ratio": 0.004106558947435721
+    },
+    {
+      "L": 13.0,
+      "h1_floor": 7.534778919633071e-11,
+      "tail_A_algebraic": 0.1208304866765305,
+      "race_A_ratio": 6.235826012853913e-10,
+      "tail_B_algebraic": 0.009294652821271577,
+      "race_B_ratio": 8.106573816710087e-09,
+      "tail_C_exponential": 2.061153622438558e-09,
+      "race_C_ratio": 0.036556124869133476
+    },
+    {
+      "L": 14.0,
+      "h1_floor": 6.658860787073245e-11,
+      "tail_A_algebraic": 0.1121997376282069,
+      "race_A_ratio": 5.934827413891576e-10,
+      "tail_B_algebraic": 0.00801426697344335,
+      "race_B_ratio": 8.308758379448207e-09,
+      "tail_C_exponential": 2.7894680928689246e-10,
+      "race_C_ratio": 0.238714355761808
+    },
+    {
+      "L": 15.0,
+      "h1_floor": 7.4982339206873e-11,
+      "tail_A_algebraic": 0.10471975511965977,
+      "race_A_ratio": 7.160285957620239e-10,
+      "tail_B_algebraic": 0.006981317007977318,
+      "race_B_ratio": 1.0740428936430358e-08,
+      "tail_C_exponential": 3.775134544279098e-11,
+      "race_C_ratio": 1.9862163408322093
+    },
+    {
+      "L": 16.0,
+      "h1_floor": 2.634892694368978e-11,
+      "tail_A_algebraic": 0.09817477042468103,
+      "race_A_ratio": 2.683879659683491e-10,
+      "tail_B_algebraic": 0.006135923151542565,
+      "race_B_ratio": 4.2942074554935854e-09,
+      "tail_C_exponential": 5.109089028063325e-12,
+      "race_C_ratio": 5.157265179557406
+    },
+    {
+      "L": 17.0,
+      "h1_floor": 4.908409644385596e-12,
+      "tail_A_algebraic": 0.09239978392911156,
+      "race_A_ratio": 5.3121440718425184e-11,
+      "tail_B_algebraic": 0.0054352814075947975,
+      "race_B_ratio": 9.030644922132282e-10,
+      "tail_C_exponential": 6.914400106940203e-13,
+      "race_C_ratio": 7.098822122629076
+    },
+    {
+      "L": 18.0,
+      "h1_floor": 4.3019397291183755e-11,
+      "tail_A_algebraic": 0.08726646259971647,
+      "race_A_ratio": 4.929659803962711e-10,
+      "tail_B_algebraic": 0.0048481368110953596,
+      "race_B_ratio": 8.87338764713288e-09,
+      "tail_C_exponential": 9.357622968840175e-14,
+      "race_C_ratio": 459.7256956647375
+    },
+    {
+      "L": 19.0,
+      "h1_floor": 2.4210874691674728e-11,
+      "tail_A_algebraic": 0.08267349088394192,
+      "race_A_ratio": 2.9284930916564603e-10,
+      "tail_B_algebraic": 0.004351236362312733,
+      "race_B_ratio": 5.564136874147274e-09,
+      "tail_C_exponential": 1.2664165549094176e-14,
+      "race_C_ratio": 1911.7623342665834
+    },
+    {
+      "L": 20.0,
+      "h1_floor": 5.57136204166934e-11,
+      "tail_A_algebraic": 0.07853981633974483,
+      "race_A_ratio": 7.093678469489837e-10,
+      "tail_B_algebraic": 0.003926990816987242,
+      "race_B_ratio": 1.4187356938979673e-08,
+      "tail_C_exponential": 1.713908431542013e-15,
+      "race_C_ratio": 32506.76605083712
+    }
+  ]
+}
