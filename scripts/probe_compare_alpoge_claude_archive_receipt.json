@@ -1,0 +1,150 @@
+{
+  "probe": "probe_compare_alpoge_claude_archive",
+  "verified": true,
+  "status": "PASS",
+  "elapsed_seconds": 5.85,
+  "epistemic_lock": {
+    "all_four_clay_millennium_problems_open": true,
+    "status": "verified-finite",
+    "open_horizon_lock": "STRICTLY OPEN"
+  },
+  "author": "Qamar Munawer",
+  "affiliation": "Brandenburg University of Technology Cottbus-Senftenberg",
+  "methodology": "ai is being used as a tool",
+  "alpoge_claude_archive": {
+    "path": "d:\\Comfy UI\\external_benchmarks\\alpoge_claude_rh_2026",
+    "lean_toolchain": "leanprover/lean4:v4.33.1",
+    "total_files": 175187,
+    "total_lines": 17374215,
+    "directory_breakdown": {
+      "BuildAid": {
+        "files": 5,
+        "lines": 20
+      },
+      "CompanionTheory": {
+        "files": 2027,
+        "lines": 194218
+      },
+      "Development": {
+        "files": 141928,
+        "lines": 12232663
+      },
+      "Formalism": {
+        "files": 18254,
+        "lines": 3200748
+      },
+      "GroundTheory": {
+        "files": 8507,
+        "lines": 1119138
+      },
+      "Lemmata": {
+        "files": 167,
+        "lines": 9232
+      },
+      "PositivityTheory": {
+        "files": 449,
+        "lines": 55130
+      },
+      "ReciprocityTheory": {
+        "files": 3845,
+        "lines": 563016
+      },
+      "Supplements": {
+        "files": 3,
+        "lines": 22
+      },
+      "src/Statements.lean": {
+        "files": 1,
+        "lines": 16
+      },
+      "src/Main.lean": {
+        "files": 1,
+        "lines": 12
+      }
+    },
+    "forbidden_tokens_scan": {
+      "sorry": {
+        "total_matches": 0,
+        "lean_code_violations": 0,
+        "details": []
+      },
+      "admit": {
+        "total_matches": 0,
+        "lean_code_violations": 0,
+        "details": []
+      },
+      "axiom": {
+        "total_matches": 0,
+        "lean_code_violations": 0,
+        "details": []
+      },
+      "native_decide": {
+        "total_matches": 0,
+        "lean_code_violations": 0,
+        "details": []
+      },
+      "opaque": {
+        "total_matches": 0,
+        "lean_code_violations": 0,
+        "details": []
+      }
+    },
+    "sample_theorems": {
+      "PositivityTheory": [
+        "src/PositivityTheory/AutomorphicForms/PublishedInputs/BorelInjectivity/EquivariantProjections/ExistsEquivariantProjOfLeSumIrreducible.lean:t",
+        "src/PositivityTheory/AutomorphicForms/PublishedInputs/CuspidalContinuity/ArchimedeanCuspidal/KFiniteVectors/LocallyConstantMajorants/CrdcTem",
+        "src/PositivityTheory/AutomorphicForms/PublishedInputs/HilbertEisenstein/AbsPInfModuleSection.lean:theorem arch_bound (k m : \u2115) : \u2203 C : \u211d, 0 ",
+        "src/PositivityTheory/AutomorphicForms/PublishedInputs/HilbertEisenstein/IdeleModuleFiniteEmbeddingUnit.lean:theorem coefK_mul_diagonal (c : ",
+        "src/PositivityTheory/AutomorphicForms/PublishedInputs/HilbertEisenstein/SLevel.lean:theorem congruence_subgroup_entries_bound {w : HeightOne",
+        "src/PositivityTheory/AutomorphicForms/PublishedInputs/JacquetLanglands/TorusKernels/AutomorphyFactorScalarMatrix.lean:theorem extendHalfPlan",
+        "src/PositivityTheory/AutomorphicForms/PublishedInputs/JacquetLanglands/TorusKernels/HeightsOnQuotientProof.lean:theorem vm_inv (X Y : Fin 2 ",
+        "src/PositivityTheory/AutomorphicForms/PublishedInputs/JacquetLanglands/TorusKernels/PfEcut.lean:theorem UpperTheory.Esk.pf_Ecut : UpperTheor",
+        "src/PositivityTheory/AutomorphicForms/PublishedInputs/NonzeroTypes/IsClosedUnipRad.lean:theorem mem_Nbar {g : GL (Fin n) k} : g \u2208 G.Nbar \u2194 \u2200",
+        "src/PositivityTheory/AutomorphicForms/PublishedInputs/NonzeroTypes/PSpUniq.lean:theorem eta_eq_one {x : LG G} (hx : x \u2208 etaKer G) : G.eta x "
+      ],
+      "ReciprocityTheory": [
+        "src/ReciprocityTheory/AdeleApproximation/AdeleIntA.lean:theorem isInt_zero : IsInt (0 : FiniteAdeleRing R K) := fun v => zero_mem (v.adicCom",
+        "src/ReciprocityTheory/ClassFieldTheory/LocalClassField/RecAbA.lean:theorem exists_eval_QZ (f : (A \u2192+ QZ) \u2192+ QZ) : \u2203 a : A, \u2200 \u03c7 : A \u2192+ QZ, \u03c7 ",
+        "src/ReciprocityTheory/L2DbarEstimates/Localization/MultAdj.lean:theorem multDiv (n : \u2115) (M : Type*) [TopologicalSpace M] [T2Space M]",
+        "src/ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/ArakelovVolumes/UpperBounds/OntoStatementPfH.lean:theorem ae_mem_nonvanishingLocus ",
+        "src/ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/FirstCohomology/CanonicalLiftFiniteOrder.lean:theorem val_scaleGen {X Y Z : Scheme.",
+        "src/ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/PullbackSections/HolomorphicFamilies/VtFrRdHol.lean:theorem vtf_mem {Z : Scheme.{0}",
+        "src/ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/TaylorDiscriminants/WickVanishing/LogChain.lean:theorem pderiv_aeval [Fintype \u03c3] (a",
+        "src/ReciprocityTheory/ReductiveGroups/DiscreteSeries/FormalDegree/FdUpper.lean:theorem fdU_s_sq {t : \u2115} (ht : 1 \u2264 t) : (Real.sqrt (t : \u211d))\u207b\u00b9",
+        "src/ReciprocityTheory/ReductiveGroups/DiscreteSeries/LaplaceOperators/LaplaceFoundations/IsCompactUnitaryMat.lean:theorem compactUG : Compac",
+        "src/ReciprocityTheory/ReductiveGroups/DiscreteSeries/TensorRepresentations/GelfandHW.lean:theorem ePow_hw_diag {E : Fin n \u2192 Fin n \u2192 Module.E"
+      ]
+    }
+  },
+  "riemann_blueprint": {
+    "path": "d:\\Comfy UI\\rheihman hypothesis\\RiemannBlueprint",
+    "lean_toolchain": "leanprover/lean4:v4.35.0",
+    "module_count": 84,
+    "total_lines": 35781,
+    "zero_sorry": true
+  },
+  "ratio_compression": {
+    "line_compression_ratio": 485.6,
+    "file_compression_ratio": 2085.6
+  },
+  "mathematical_correspondence": [
+    {
+      "mathematical_mechanism": "Algebraic Finite-Field Frobenius Trace Lift (Stepanov-Deligne)",
+      "alpoge_claude_structure": "src/GroundTheory/ (8,507 files, HeightsAndTheta, ProfiniteCohomology, Deligne bounds)",
+      "riemann_blueprint_module": "Module 30 (StepanovDeligneHigherFrobeniusTraceLift.lean)",
+      "mathematical_content": "Bounds Frobenius trace variance tr(Frob)^2 <= 4 p^(k/2)^2 to compress long-range |tau| >= 2 prime fluctuations via a 2D theta lift into an O(ln L / sqrt L) envelope."
+    },
+    {
+      "mathematical_mechanism": "Chained Theta Lifts & Ad\u00e8lic Towers (Rallis Seesaw / Bessel Periods)",
+      "alpoge_claude_structure": "src/ReciprocityTheory/ (3,845 files, ReductiveGroups, DiscreteSeries, SymplecticTraces, UnramifiedIntegrals)",
+      "riemann_blueprint_module": "Module 29 (AdelicSemilocalFiniteTrace.lean), Module 30 (theta_lift_frobenius_variance_compression), Module 32 (GlobalAdelicInductiveLimitAbsorption.lean)",
+      "mathematical_content": "Passes from semilocal place cutoff S = {infty, 2, 3, ..., p_r} to global ad\u00e8le class space; non-Archimedean tail sum_{p > p_r} (ln p)/(p(p-1)) <= 2/sqrt(p_r) is absorbed into positive semilocal Schur floor."
+    },
+    {
+      "mathematical_mechanism": "Positivity Forms & Bost Slope Inequality vs Phase-Dispersion Identity",
+      "alpoge_claude_structure": "src/PositivityTheory/ (449 files, ArchimedeanCuspidal, CyclicBaseChange, HilbertEisenstein, JacquetLanglands)",
+      "riemann_blueprint_module": "Module 23 (WeilSignedSubGapTareCoercivity.lean), Module 31 (HighFrequencyWeilDispersionFloor.lean), Module 33 (ConstructiveFinsetPrimeTailAndCosineBasisCert.lean), Module 34 (RosettaPhaseDispersionAndUncertaintyCert.lean)",
+      "mathematical_content": "Discharges the triangle-inequality wall (M_prime = 75.19 at L=6.0) via exact dispersion: Q_W = <A_arch> - M_prime + 2 sum w_p sin^2(lambda ln p / 2) > 0, with non-commuting [A_arch, P_prime] uncertainty floor."
+    }
+  ]
+}
