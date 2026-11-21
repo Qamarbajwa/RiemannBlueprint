@@ -1,0 +1,237 @@
+{
+  "metadata": {
+    "probe": "probe_adelic_quotient_cusp_absorption.py",
+    "author": "Qamar Munawer",
+    "affiliation": "Brandenburg University of Technology Cottbus-Senftenberg",
+    "methodology_note": "ai is being used as a tool",
+    "epistemic_status": "verified-finite",
+    "open_horizon_lock": "STRICTLY OPEN",
+    "timestamp_iso": "2026-11-21T06:10:11Z",
+    "elapsed_seconds": 0.002
+  },
+  "adelic_calibration": {
+    "relation": "Y = L^2",
+    "C_w_sobolev": 1.5707963267948966,
+    "C_cusp_eisenstein": 0.008263,
+    "C_unified_total": 1.5790593267948965,
+    "boundary_envelope_decay_rate": "O(1/L)"
+  },
+  "scaling_summary": {
+    "beta_floor": 0.6406174105838586,
+    "A_floor": 6.556047048421425e-12,
+    "unified_race_exponent": 1.6406174105838587,
+    "boundary_leakage_absorbed": true
+  },
+  "records": [
+    {
+      "L": 1.0,
+      "Y_cusp_calibration": 1.0,
+      "lambda_min_active": 1.6742798663429665e-05,
+      "cusp_eisenstein_leakage": 0.008263,
+      "sobolev_tail_leakage": 1.5707963267948966,
+      "unified_boundary_leakage": 1.5790593267948965,
+      "race_unified_ratio": 1.0603020658769956e-05
+    },
+    {
+      "L": 2.0,
+      "Y_cusp_calibration": 4.0,
+      "lambda_min_active": 7.591063244817043e-09,
+      "cusp_eisenstein_leakage": 0.0041315,
+      "sobolev_tail_leakage": 0.7853981633974483,
+      "unified_boundary_leakage": 0.7895296633974482,
+      "race_unified_ratio": 9.61466503000244e-09
+    },
+    {
+      "L": 3.0,
+      "Y_cusp_calibration": 9.0,
+      "lambda_min_active": 3.93168925038324e-11,
+      "cusp_eisenstein_leakage": 0.002754333333333333,
+      "sobolev_tail_leakage": 0.5235987755982988,
+      "unified_boundary_leakage": 0.5263531089316321,
+      "race_unified_ratio": 7.469679923357165e-11
+    },
+    {
+      "L": 4.0,
+      "Y_cusp_calibration": 16.0,
+      "lambda_min_active": 2.3715941798798785e-12,
+      "cusp_eisenstein_leakage": 0.00206575,
+      "sobolev_tail_leakage": 0.39269908169872414,
+      "unified_boundary_leakage": 0.3947648316987241,
+      "race_unified_ratio": 6.007612607421492e-12
+    },
+    {
+      "L": 5.0,
+      "Y_cusp_calibration": 25.0,
+      "lambda_min_active": 6.978850909238179e-12,
+      "cusp_eisenstein_leakage": 0.0016526,
+      "sobolev_tail_leakage": 0.3141592653589793,
+      "unified_boundary_leakage": 0.3158118653589793,
+      "race_unified_ratio": 2.2098127634645418e-11
+    },
+    {
+      "L": 6.0,
+      "Y_cusp_calibration": 36.0,
+      "lambda_min_active": 3.4624352155927175e-11,
+      "cusp_eisenstein_leakage": 0.0013771666666666665,
+      "sobolev_tail_leakage": 0.2617993877991494,
+      "unified_boundary_leakage": 0.26317655446581606,
+      "race_unified_ratio": 1.3156320944396484e-10
+    },
+    {
+      "L": 7.0,
+      "Y_cusp_calibration": 49.0,
+      "lambda_min_active": 3.2871726457106805e-11,
+      "cusp_eisenstein_leakage": 0.0011804285714285714,
+      "sobolev_tail_leakage": 0.2243994752564138,
+      "unified_boundary_leakage": 0.22557990382784238,
+      "race_unified_ratio": 1.457209879927681e-10
+    },
+    {
+      "L": 8.0,
+      "Y_cusp_calibration": 64.0,
+      "lambda_min_active": 3.268107866038998e-11,
+      "cusp_eisenstein_leakage": 0.001032875,
+      "sobolev_tail_leakage": 0.19634954084936207,
+      "unified_boundary_leakage": 0.19738241584936206,
+      "race_unified_ratio": 1.6557239164268547e-10
+    },
+    {
+      "L": 9.0,
+      "Y_cusp_calibration": 81.0,
+      "lambda_min_active": 4.327967808310252e-11,
+      "cusp_eisenstein_leakage": 0.0009181111111111111,
+      "sobolev_tail_leakage": 0.17453292519943295,
+      "unified_boundary_leakage": 0.17545103631054407,
+      "race_unified_ratio": 2.4667667397813793e-10
+    },
+    {
+      "L": 10.0,
+      "Y_cusp_calibration": 100.0,
+      "lambda_min_active": 1.6148619996483686e-11,
+      "cusp_eisenstein_leakage": 0.0008263,
+      "sobolev_tail_leakage": 0.15707963267948966,
+      "unified_boundary_leakage": 0.15790593267948966,
+      "race_unified_ratio": 1.0226734184371291e-10
+    },
+    {
+      "L": 11.0,
+      "Y_cusp_calibration": 121.0,
+      "lambda_min_active": 6.455254742003427e-11,
+      "cusp_eisenstein_leakage": 0.0007511818181818182,
+      "sobolev_tail_leakage": 0.14279966607226333,
+      "unified_boundary_leakage": 0.14355084789044514,
+      "race_unified_ratio": 4.4968419461582947e-10
+    },
+    {
+      "L": 12.0,
+      "Y_cusp_calibration": 144.0,
+      "lambda_min_active": 6.254280958991444e-11,
+      "cusp_eisenstein_leakage": 0.0006885833333333333,
+      "sobolev_tail_leakage": 0.1308996938995747,
+      "unified_boundary_leakage": 0.13158827723290803,
+      "race_unified_ratio": 4.752916513924351e-10
+    },
+    {
+      "L": 13.0,
+      "Y_cusp_calibration": 169.0,
+      "lambda_min_active": 7.534778919633071e-11,
+      "cusp_eisenstein_leakage": 0.0006356153846153845,
+      "sobolev_tail_leakage": 0.1208304866765305,
+      "unified_boundary_leakage": 0.12146610206114589,
+      "race_unified_ratio": 6.203194794083433e-10
+    },
+    {
+      "L": 14.0,
+      "Y_cusp_calibration": 196.0,
+      "lambda_min_active": 6.658860787073245e-11,
+      "cusp_eisenstein_leakage": 0.0005902142857142857,
+      "sobolev_tail_leakage": 0.1121997376282069,
+      "unified_boundary_leakage": 0.11278995191392119,
+      "race_unified_ratio": 5.903771279338022e-10
+    },
+    {
+      "L": 15.0,
+      "Y_cusp_calibration": 225.0,
+      "lambda_min_active": 7.4982339206873e-11,
+      "cusp_eisenstein_leakage": 0.0005508666666666666,
+      "sobolev_tail_leakage": 0.10471975511965977,
+      "unified_boundary_leakage": 0.10527062178632643,
+      "race_unified_ratio": 7.122817167269019e-10
+    },
+    {
+      "L": 16.0,
+      "Y_cusp_calibration": 256.0,
+      "lambda_min_active": 2.634892694368978e-11,
+      "cusp_eisenstein_leakage": 0.0005164375,
+      "sobolev_tail_leakage": 0.09817477042468103,
+      "unified_boundary_leakage": 0.09869120792468103,
+      "race_unified_ratio": 2.669835287029692e-10
+    },
+    {
+      "L": 17.0,
+      "Y_cusp_calibration": 289.0,
+      "lambda_min_active": 4.908409644385596e-12,
+      "cusp_eisenstein_leakage": 0.00048605882352941175,
+      "sobolev_tail_leakage": 0.09239978392911156,
+      "unified_boundary_leakage": 0.09288584275264097,
+      "race_unified_ratio": 5.284346353466269e-11
+    },
+    {
+      "L": 18.0,
+      "Y_cusp_calibration": 324.0,
+      "lambda_min_active": 4.3019397291183755e-11,
+      "cusp_eisenstein_leakage": 0.00045905555555555554,
+      "sobolev_tail_leakage": 0.08726646259971647,
+      "unified_boundary_leakage": 0.08772551815527203,
+      "race_unified_ratio": 4.903863573087191e-10
+    },
+    {
+      "L": 19.0,
+      "Y_cusp_calibration": 361.0,
+      "lambda_min_active": 2.4210874691674728e-11,
+      "cusp_eisenstein_leakage": 0.00043489473684210525,
+      "sobolev_tail_leakage": 0.08267349088394192,
+      "unified_boundary_leakage": 0.08310838562078403,
+      "race_unified_ratio": 2.913168690599615e-10
+    },
+    {
+      "L": 20.0,
+      "Y_cusp_calibration": 400.0,
+      "lambda_min_active": 5.57136204166934e-11,
+      "cusp_eisenstein_leakage": 0.00041315,
+      "sobolev_tail_leakage": 0.07853981633974483,
+      "unified_boundary_leakage": 0.07895296633974483,
+      "race_unified_ratio": 7.056558226951282e-10
+    }
+  ],
+  "high_scale_projections": [
+    {
+      "L": 50.0,
+      "Y": 2500.0,
+      "predicted_active_floor": 8.035850091283002e-11,
+      "unified_boundary_leakage": 0.03158118653589793,
+      "race_unified_ratio": 2.544505439068527e-09
+    },
+    {
+      "L": 100.0,
+      "Y": 10000.0,
+      "predicted_active_floor": 1.252785974794997e-10,
+      "unified_boundary_leakage": 0.015790593267948964,
+      "race_unified_ratio": 7.93374861562577e-09
+    },
+    {
+      "L": 500.0,
+      "Y": 250000.0,
+      "predicted_active_floor": 3.512766132550219e-10,
+      "unified_boundary_leakage": 0.003158118653589793,
+      "race_unified_ratio": 1.1122970723589826e-07
+    },
+    {
+      "L": 1000.0,
+      "Y": 1000000.0,
+      "predicted_active_floor": 5.476389048580617e-10,
+      "unified_boundary_leakage": 0.0015790593267948965,
+      "race_unified_ratio": 3.4681338159069325e-07
+    }
+  ]
+}
