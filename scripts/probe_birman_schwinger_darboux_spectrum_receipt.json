@@ -1,0 +1,98 @@
+{
+  "timestamp": "2026-11-21 03:08:25 UTC",
+  "status": "PASS",
+  "elapsed_seconds": 0.0,
+  "epistemic_lock": "STRICTLY OPEN (Phase 3 Birman-Schwinger Off-Line Exclusion)",
+  "author": "Qamar Munawer (Brandenburg University of Technology Cottbus-Senftenberg)",
+  "methodology_note": "ai is being used as a tool.",
+  "beta_scan_gamma1": [
+    {
+      "gamma": 14.1347,
+      "beta": 0.51,
+      "eta_distance": 0.01,
+      "im_defect": 0.090724,
+      "normalized_defect": 4.4e-05,
+      "resonance_possible": false
+    },
+    {
+      "gamma": 14.1347,
+      "beta": 0.55,
+      "eta_distance": 0.05,
+      "im_defect": 0.300827,
+      "normalized_defect": 0.000147,
+      "resonance_possible": false
+    },
+    {
+      "gamma": 14.1347,
+      "beta": 0.6,
+      "eta_distance": 0.1,
+      "im_defect": 0.357785,
+      "normalized_defect": 0.000175,
+      "resonance_possible": false
+    },
+    {
+      "gamma": 14.1347,
+      "beta": 0.7,
+      "eta_distance": 0.2,
+      "im_defect": 0.243007,
+      "normalized_defect": 0.000119,
+      "resonance_possible": false
+    },
+    {
+      "gamma": 14.1347,
+      "beta": 0.8,
+      "eta_distance": 0.3,
+      "im_defect": 0.107415,
+      "normalized_defect": 5.2e-05,
+      "resonance_possible": false
+    },
+    {
+      "gamma": 14.1347,
+      "beta": 0.9,
+      "eta_distance": 0.4,
+      "im_defect": 0.020756,
+      "normalized_defect": 1e-05,
+      "resonance_possible": false
+    },
+    {
+      "gamma": 14.1347,
+      "beta": 0.99,
+      "eta_distance": 0.49,
+      "im_defect": -0.02326,
+      "normalized_defect": -1.1e-05,
+      "resonance_possible": false
+    }
+  ],
+  "first_five_zeros_scan": [
+    {
+      "zero_idx": 1,
+      "gamma": 14.1347,
+      "im_defect": 0.357785,
+      "resonance_excluded": true
+    },
+    {
+      "zero_idx": 2,
+      "gamma": 21.022,
+      "im_defect": 0.275303,
+      "resonance_excluded": true
+    },
+    {
+      "zero_idx": 3,
+      "gamma": 25.0109,
+      "im_defect": -0.065209,
+      "resonance_excluded": true
+    },
+    {
+      "zero_idx": 4,
+      "gamma": 30.4249,
+      "im_defect": 0.211122,
+      "resonance_excluded": true
+    },
+    {
+      "zero_idx": 5,
+      "gamma": 32.9351,
+      "im_defect": 0.128238,
+      "resonance_excluded": true
+    }
+  ]
+}
