@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "epistemic_boundary": "Infinite-horizon L -> infinity coercivity remains strictly OPEN; continuous window variation and boundary vanishing verified on L in [1.0, 4.0]",
+  "tests": {
+    "test1_boundary_vanishing_max_abs": 0.0,
+    "test2_max_lipschitz_spectral_norm_M_L": 36.4795,
+    "test2_max_lipschitz_frobenius_norm": 60.8497,
+    "test3_global_min_eigenvalue_on_grid": -6e-14,
+    "test3_worst_L": 3.55,
+    "test4_mode2_threshold_L": 1.1113,
+    "test4_max_transition_jump": 6e-08
+  },
+  "fine_grid_points": 61,
+  "grid_step_h": 0.05,
+  "elapsed_s": 0.301
+}
