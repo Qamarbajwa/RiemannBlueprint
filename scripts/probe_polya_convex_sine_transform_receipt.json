@@ -1,0 +1,431 @@
+{
+  "timestamp": "2026-11-21 03:18:40 UTC",
+  "status": "PASS",
+  "elapsed_seconds": 0.21,
+  "epistemic_lock": "STRICTLY OPEN (Track 2 Polya Convex Sine Positivity)",
+  "author": "Qamar Munawer (Brandenburg University of Technology Cottbus-Senftenberg)",
+  "methodology_note": "ai is being used as a tool.",
+  "closed_form_formula": "int_0^infty u * exp(-beta * u) * sin(gamma * u) du = (2 * beta * gamma) / (beta^2 + gamma^2)^2",
+  "results": [
+    {
+      "gamma": 14.134725,
+      "beta": 0.51,
+      "eta": 0.01,
+      "exact_integral": 0.00036025,
+      "num_integral": 0.00036025,
+      "quad_rel_diff": "4.16e-11",
+      "continuous_defect": 3.6e-06,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 14.134725,
+      "beta": 0.55,
+      "eta": 0.05,
+      "exact_integral": 0.00038834,
+      "num_integral": 0.00038834,
+      "quad_rel_diff": "4.17e-11",
+      "continuous_defect": 1.942e-05,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 14.134725,
+      "beta": 0.6,
+      "eta": 0.1,
+      "exact_integral": 0.0004234,
+      "num_integral": 0.0004234,
+      "quad_rel_diff": "4.17e-11",
+      "continuous_defect": 4.234e-05,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 14.134725,
+      "beta": 0.7,
+      "eta": 0.2,
+      "exact_integral": 0.00049333,
+      "num_integral": 0.00049333,
+      "quad_rel_diff": "4.18e-11",
+      "continuous_defect": 9.867e-05,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 14.134725,
+      "beta": 0.8,
+      "eta": 0.3,
+      "exact_integral": 0.00056296,
+      "num_integral": 0.00056296,
+      "quad_rel_diff": "4.18e-11",
+      "continuous_defect": 0.00016889,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 14.134725,
+      "beta": 0.9,
+      "eta": 0.4,
+      "exact_integral": 0.00063226,
+      "num_integral": 0.00063226,
+      "quad_rel_diff": "4.19e-11",
+      "continuous_defect": 0.0002529,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 14.134725,
+      "beta": 0.99,
+      "eta": 0.49,
+      "exact_integral": 0.00069431,
+      "num_integral": 0.00069431,
+      "quad_rel_diff": "4.20e-11",
+      "continuous_defect": 0.00034021,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 21.02204,
+      "beta": 0.51,
+      "eta": 0.01,
+      "exact_integral": 0.00010966,
+      "num_integral": 0.00010966,
+      "quad_rel_diff": "2.03e-10",
+      "continuous_defect": 1.1e-06,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 21.02204,
+      "beta": 0.55,
+      "eta": 0.05,
+      "exact_integral": 0.00011824,
+      "num_integral": 0.00011824,
+      "quad_rel_diff": "2.04e-10",
+      "continuous_defect": 5.91e-06,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 21.02204,
+      "beta": 0.6,
+      "eta": 0.1,
+      "exact_integral": 0.00012896,
+      "num_integral": 0.00012896,
+      "quad_rel_diff": "2.04e-10",
+      "continuous_defect": 1.29e-05,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 21.02204,
+      "beta": 0.7,
+      "eta": 0.2,
+      "exact_integral": 0.00015036,
+      "num_integral": 0.00015036,
+      "quad_rel_diff": "2.04e-10",
+      "continuous_defect": 3.007e-05,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 21.02204,
+      "beta": 0.8,
+      "eta": 0.3,
+      "exact_integral": 0.00017173,
+      "num_integral": 0.00017173,
+      "quad_rel_diff": "2.04e-10",
+      "continuous_defect": 5.152e-05,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 21.02204,
+      "beta": 0.9,
+      "eta": 0.4,
+      "exact_integral": 0.00019304,
+      "num_integral": 0.00019304,
+      "quad_rel_diff": "2.04e-10",
+      "continuous_defect": 7.722e-05,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 21.02204,
+      "beta": 0.99,
+      "eta": 0.49,
+      "exact_integral": 0.00021219,
+      "num_integral": 0.00021219,
+      "quad_rel_diff": "2.04e-10",
+      "continuous_defect": 0.00010397,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 25.010858,
+      "beta": 0.51,
+      "eta": 0.01,
+      "exact_integral": 6.514e-05,
+      "num_integral": 6.514e-05,
+      "quad_rel_diff": "4.08e-10",
+      "continuous_defect": 6.5e-07,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 25.010858,
+      "beta": 0.55,
+      "eta": 0.05,
+      "exact_integral": 7.024e-05,
+      "num_integral": 7.024e-05,
+      "quad_rel_diff": "4.08e-10",
+      "continuous_defect": 3.51e-06,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 25.010858,
+      "beta": 0.6,
+      "eta": 0.1,
+      "exact_integral": 7.661e-05,
+      "num_integral": 7.661e-05,
+      "quad_rel_diff": "4.08e-10",
+      "continuous_defect": 7.66e-06,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 25.010858,
+      "beta": 0.7,
+      "eta": 0.2,
+      "exact_integral": 8.934e-05,
+      "num_integral": 8.934e-05,
+      "quad_rel_diff": "4.08e-10",
+      "continuous_defect": 1.787e-05,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 25.010858,
+      "beta": 0.8,
+      "eta": 0.3,
+      "exact_integral": 0.00010206,
+      "num_integral": 0.00010206,
+      "quad_rel_diff": "4.08e-10",
+      "continuous_defect": 3.062e-05,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 25.010858,
+      "beta": 0.9,
+      "eta": 0.4,
+      "exact_integral": 0.00011475,
+      "num_integral": 0.00011475,
+      "quad_rel_diff": "4.09e-10",
+      "continuous_defect": 4.59e-05,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 25.010858,
+      "beta": 0.99,
+      "eta": 0.49,
+      "exact_integral": 0.00012616,
+      "num_integral": 0.00012616,
+      "quad_rel_diff": "4.09e-10",
+      "continuous_defect": 6.182e-05,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 30.424876,
+      "beta": 0.51,
+      "eta": 0.01,
+      "exact_integral": 3.62e-05,
+      "num_integral": 3.62e-05,
+      "quad_rel_diff": "8.93e-10",
+      "continuous_defect": 3.6e-07,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 30.424876,
+      "beta": 0.55,
+      "eta": 0.05,
+      "exact_integral": 3.903e-05,
+      "num_integral": 3.903e-05,
+      "quad_rel_diff": "8.93e-10",
+      "continuous_defect": 1.95e-06,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 30.424876,
+      "beta": 0.6,
+      "eta": 0.1,
+      "exact_integral": 4.258e-05,
+      "num_integral": 4.258e-05,
+      "quad_rel_diff": "8.93e-10",
+      "continuous_defect": 4.26e-06,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 30.424876,
+      "beta": 0.7,
+      "eta": 0.2,
+      "exact_integral": 4.966e-05,
+      "num_integral": 4.966e-05,
+      "quad_rel_diff": "8.93e-10",
+      "continuous_defect": 9.93e-06,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 30.424876,
+      "beta": 0.8,
+      "eta": 0.3,
+      "exact_integral": 5.673e-05,
+      "num_integral": 5.673e-05,
+      "quad_rel_diff": "8.94e-10",
+      "continuous_defect": 1.702e-05,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 30.424876,
+      "beta": 0.9,
+      "eta": 0.4,
+      "exact_integral": 6.38e-05,
+      "num_integral": 6.38e-05,
+      "quad_rel_diff": "8.94e-10",
+      "continuous_defect": 2.552e-05,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 30.424876,
+      "beta": 0.99,
+      "eta": 0.49,
+      "exact_integral": 7.016e-05,
+      "num_integral": 7.016e-05,
+      "quad_rel_diff": "8.95e-10",
+      "continuous_defect": 3.438e-05,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 32.935062,
+      "beta": 0.51,
+      "eta": 0.01,
+      "exact_integral": 2.854e-05,
+      "num_integral": 2.854e-05,
+      "quad_rel_diff": "1.23e-09",
+      "continuous_defect": 2.9e-07,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 32.935062,
+      "beta": 0.55,
+      "eta": 0.05,
+      "exact_integral": 3.077e-05,
+      "num_integral": 3.077e-05,
+      "quad_rel_diff": "1.23e-09",
+      "continuous_defect": 1.54e-06,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 32.935062,
+      "beta": 0.6,
+      "eta": 0.1,
+      "exact_integral": 3.357e-05,
+      "num_integral": 3.357e-05,
+      "quad_rel_diff": "1.23e-09",
+      "continuous_defect": 3.36e-06,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 32.935062,
+      "beta": 0.7,
+      "eta": 0.2,
+      "exact_integral": 3.915e-05,
+      "num_integral": 3.915e-05,
+      "quad_rel_diff": "1.23e-09",
+      "continuous_defect": 7.83e-06,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 32.935062,
+      "beta": 0.8,
+      "eta": 0.3,
+      "exact_integral": 4.473e-05,
+      "num_integral": 4.473e-05,
+      "quad_rel_diff": "1.23e-09",
+      "continuous_defect": 1.342e-05,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 32.935062,
+      "beta": 0.9,
+      "eta": 0.4,
+      "exact_integral": 5.031e-05,
+      "num_integral": 5.031e-05,
+      "quad_rel_diff": "1.23e-09",
+      "continuous_defect": 2.012e-05,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 32.935062,
+      "beta": 0.99,
+      "eta": 0.49,
+      "exact_integral": 5.532e-05,
+      "num_integral": 5.532e-05,
+      "quad_rel_diff": "1.23e-09",
+      "continuous_defect": 2.711e-05,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 50.0,
+      "beta": 0.51,
+      "eta": 0.01,
+      "exact_integral": 8.16e-06,
+      "num_integral": 8.16e-06,
+      "quad_rel_diff": "6.52e-09",
+      "continuous_defect": 8e-08,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 50.0,
+      "beta": 0.55,
+      "eta": 0.05,
+      "exact_integral": 8.8e-06,
+      "num_integral": 8.8e-06,
+      "quad_rel_diff": "6.52e-09",
+      "continuous_defect": 4.4e-07,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 50.0,
+      "beta": 0.6,
+      "eta": 0.1,
+      "exact_integral": 9.6e-06,
+      "num_integral": 9.6e-06,
+      "quad_rel_diff": "6.52e-09",
+      "continuous_defect": 9.6e-07,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 50.0,
+      "beta": 0.7,
+      "eta": 0.2,
+      "exact_integral": 1.12e-05,
+      "num_integral": 1.12e-05,
+      "quad_rel_diff": "6.51e-09",
+      "continuous_defect": 2.24e-06,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 50.0,
+      "beta": 0.8,
+      "eta": 0.3,
+      "exact_integral": 1.279e-05,
+      "num_integral": 1.279e-05,
+      "quad_rel_diff": "6.51e-09",
+      "continuous_defect": 3.84e-06,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 50.0,
+      "beta": 0.9,
+      "eta": 0.4,
+      "exact_integral": 1.439e-05,
+      "num_integral": 1.439e-05,
+      "quad_rel_diff": "6.51e-09",
+      "continuous_defect": 5.76e-06,
+      "strictly_positive": true
+    },
+    {
+      "gamma": 50.0,
+      "beta": 0.99,
+      "eta": 0.49,
+      "exact_integral": 1.583e-05,
+      "num_integral": 1.583e-05,
+      "quad_rel_diff": "6.51e-09",
+      "continuous_defect": 7.76e-06,
+      "strictly_positive": true
+    }
+  ]
+}

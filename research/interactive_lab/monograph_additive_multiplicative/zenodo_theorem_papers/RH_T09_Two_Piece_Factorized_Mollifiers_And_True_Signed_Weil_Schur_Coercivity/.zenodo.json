@@ -1,7 +1,7 @@
 {
   "title": "Two-Piece Factorized Mollifiers, Signed Weil-Schur Coercivity, and the Rosetta Cross-Field Unification",
-  "version": "v3.1.0",
-  "description": "Definitive research release containing 13 machine-certified Lean 4 modules (0 sorry, standard axioms) and 10 audited high-precision numerical diagnostics covering infinite-window Weyl transfer to 10.68 trillion, shifted convolution coprime bounds, Birman-Schwinger off-line exclusion, and the Rosetta cross-field structural unification across the Clay Millennium Problems.",
+  "version": "v3.2.0",
+  "description": "Comprehensive release containing 15 machine-certified Lean 4 modules (0 sorry, standard axioms), 11 audited high-precision numerical diagnostics, a 33-page definitive monograph, and a standalone interactive visualizer covering Sobolev compact resolvents, Polya kernel Fourier-sine positivity, and the Rosetta cross-field structural unification across the Clay Millennium Problems.",
   "creators": [
     {
       "name": "Munawer, Qamar",
@@ -15,9 +15,8 @@
     "Schur Complement Tare",
     "Sobolev Quotient Operator",
     "Hilbert-Polya Operator",
-    "Weyl Resolvent Transfer",
-    "Kuznetsov Coprime Spectral Bound",
-    "Birman-Schwinger Resolvent",
+    "Sobolev Compact Resolvent",
+    "Polya Kernel Sine Positivity",
     "Rosetta Cross-Field Invariants",
     "Lean 4",
     "Formal Verification"
