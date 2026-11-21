@@ -1,0 +1,478 @@
+{
+  "probe": "probe_maass_selberg_scattering_pole",
+  "description": "High-precision audit of Arthur-Selberg Eisenstein scattering norm and chained theta projection as Y -> infinity",
+  "timestamp_utc": "2026-11-21T04:55:26Z",
+  "author": "Qamar Munawer, Brandenburg University of Technology Cottbus-Senftenberg",
+  "methodology": "ai is being used as a tool",
+  "epistemic_lock": "STRICTLY OPEN (all four Clay Millennium Problems remain strictly open)",
+  "status": "verified-finite",
+  "parameters": {
+    "cusp_heights": [
+      10,
+      50,
+      100,
+      500,
+      1000,
+      5000,
+      10000,
+      50000,
+      100000,
+      1000000
+    ],
+    "frequencies": [
+      1.0,
+      5.0,
+      14.134725,
+      21.02204,
+      30.0
+    ],
+    "precision_dps": 50
+  },
+  "findings": {
+    "max_overlap_at_Y_max": 8.2568e-06,
+    "continuous_eisenstein_decay_rate": "O(1 / sqrt(Y))",
+    "asymptotic_zero_leakage_confirmed": true
+  },
+  "results_by_Y": [
+    {
+      "Y": 10,
+      "sqrt_Y": 3.1623,
+      "max_overlap": 0.53019,
+      "mean_overlap": 0.32674820000000004,
+      "inv_sqrt_Y": 0.31623,
+      "freq_results": [
+        {
+          "r": 1.0,
+          "phi_modulus": 1.0,
+          "norm_sq": 5.9983,
+          "overlap_energy": 0.088391,
+          "rate_vs_sqrt_Y": 0.27952
+        },
+        {
+          "r": 5.0,
+          "phi_modulus": 1.0,
+          "norm_sq": 3.4794,
+          "overlap_energy": 0.15238,
+          "rate_vs_sqrt_Y": 0.48187
+        },
+        {
+          "r": 14.134725,
+          "phi_modulus": 1.0,
+          "norm_sq": 1.5941,
+          "overlap_energy": 0.33259,
+          "rate_vs_sqrt_Y": 1.0518
+        },
+        {
+          "r": 21.02204,
+          "phi_modulus": 1.0,
+          "norm_sq": 1.0,
+          "overlap_energy": 0.53019,
+          "rate_vs_sqrt_Y": 1.6766
+        },
+        {
+          "r": 30.0,
+          "phi_modulus": 1.0,
+          "norm_sq": 1.0,
+          "overlap_energy": 0.53019,
+          "rate_vs_sqrt_Y": 1.6766
+        }
+      ]
+    },
+    {
+      "Y": 50,
+      "sqrt_Y": 7.0711,
+      "max_overlap": 0.091993,
+      "mean_overlap": 0.060444399999999995,
+      "inv_sqrt_Y": 0.14142,
+      "freq_results": [
+        {
+          "r": 1.0,
+          "phi_modulus": 1.0,
+          "norm_sq": 11.215,
+          "overlap_energy": 0.027292,
+          "rate_vs_sqrt_Y": 0.19298
+        },
+        {
+          "r": 5.0,
+          "phi_modulus": 1.0,
+          "norm_sq": 7.0789,
+          "overlap_energy": 0.043238,
+          "rate_vs_sqrt_Y": 0.30574
+        },
+        {
+          "r": 14.134725,
+          "phi_modulus": 1.0,
+          "norm_sq": 4.7459,
+          "overlap_energy": 0.064493,
+          "rate_vs_sqrt_Y": 0.45604
+        },
+        {
+          "r": 21.02204,
+          "phi_modulus": 1.0,
+          "norm_sq": 4.0699,
+          "overlap_energy": 0.075206,
+          "rate_vs_sqrt_Y": 0.53178
+        },
+        {
+          "r": 30.0,
+          "phi_modulus": 1.0,
+          "norm_sq": 3.3272,
+          "overlap_energy": 0.091993,
+          "rate_vs_sqrt_Y": 0.65049
+        }
+      ]
+    },
+    {
+      "Y": 100,
+      "sqrt_Y": 10.0,
+      "max_overlap": 0.045068,
+      "mean_overlap": 0.0324714,
+      "inv_sqrt_Y": 0.1,
+      "freq_results": [
+        {
+          "r": 1.0,
+          "phi_modulus": 1.0,
+          "norm_sq": 11.7245,
+          "overlap_energy": 0.018088,
+          "rate_vs_sqrt_Y": 0.18088
+        },
+        {
+          "r": 5.0,
+          "phi_modulus": 1.0,
+          "norm_sq": 8.377,
+          "overlap_energy": 0.025316,
+          "rate_vs_sqrt_Y": 0.25316
+        },
+        {
+          "r": 14.134725,
+          "phi_modulus": 1.0,
+          "norm_sq": 6.1508,
+          "overlap_energy": 0.034479,
+          "rate_vs_sqrt_Y": 0.34479
+        },
+        {
+          "r": 21.02204,
+          "phi_modulus": 1.0,
+          "norm_sq": 5.3818,
+          "overlap_energy": 0.039406,
+          "rate_vs_sqrt_Y": 0.39406
+        },
+        {
+          "r": 30.0,
+          "phi_modulus": 1.0,
+          "norm_sq": 4.7057,
+          "overlap_energy": 0.045068,
+          "rate_vs_sqrt_Y": 0.45068
+        }
+      ]
+    },
+    {
+      "Y": 500,
+      "sqrt_Y": 22.3607,
+      "max_overlap": 0.009735,
+      "mean_overlap": 0.007768840000000001,
+      "inv_sqrt_Y": 0.044721,
+      "freq_results": [
+        {
+          "r": 1.0,
+          "phi_modulus": 1.0,
+          "norm_sq": 14.778,
+          "overlap_energy": 0.0052269,
+          "rate_vs_sqrt_Y": 0.11688
+        },
+        {
+          "r": 5.0,
+          "phi_modulus": 1.0,
+          "norm_sq": 11.484,
+          "overlap_energy": 0.0067261,
+          "rate_vs_sqrt_Y": 0.1504
+        },
+        {
+          "r": 14.134725,
+          "phi_modulus": 1.0,
+          "norm_sq": 9.4667,
+          "overlap_energy": 0.0081594,
+          "rate_vs_sqrt_Y": 0.18245
+        },
+        {
+          "r": 21.02204,
+          "phi_modulus": 1.0,
+          "norm_sq": 8.5856,
+          "overlap_energy": 0.0089968,
+          "rate_vs_sqrt_Y": 0.20117
+        },
+        {
+          "r": 30.0,
+          "phi_modulus": 1.0,
+          "norm_sq": 7.9345,
+          "overlap_energy": 0.009735,
+          "rate_vs_sqrt_Y": 0.21768
+        }
+      ]
+    },
+    {
+      "Y": 1000,
+      "sqrt_Y": 31.6228,
+      "max_overlap": 0.0051262,
+      "mean_overlap": 0.004141219999999999,
+      "inv_sqrt_Y": 0.031623,
+      "freq_results": [
+        {
+          "r": 1.0,
+          "phi_modulus": 1.0,
+          "norm_sq": 17.1825,
+          "overlap_energy": 0.0027771,
+          "rate_vs_sqrt_Y": 0.087819
+        },
+        {
+          "r": 5.0,
+          "phi_modulus": 1.0,
+          "norm_sq": 12.9944,
+          "overlap_energy": 0.0036721,
+          "rate_vs_sqrt_Y": 0.11612
+        },
+        {
+          "r": 14.134725,
+          "phi_modulus": 1.0,
+          "norm_sq": 10.8782,
+          "overlap_energy": 0.0043865,
+          "rate_vs_sqrt_Y": 0.13871
+        },
+        {
+          "r": 21.02204,
+          "phi_modulus": 1.0,
+          "norm_sq": 10.0581,
+          "overlap_energy": 0.0047442,
+          "rate_vs_sqrt_Y": 0.15002
+        },
+        {
+          "r": 30.0,
+          "phi_modulus": 1.0,
+          "norm_sq": 9.3084,
+          "overlap_energy": 0.0051262,
+          "rate_vs_sqrt_Y": 0.16211
+        }
+      ]
+    },
+    {
+      "Y": 5000,
+      "sqrt_Y": 70.7107,
+      "max_overlap": 0.0011568,
+      "mean_overlap": 0.00099625,
+      "inv_sqrt_Y": 0.014142,
+      "freq_results": [
+        {
+          "r": 1.0,
+          "phi_modulus": 1.0,
+          "norm_sq": 18.4388,
+          "overlap_energy": 0.00078685,
+          "rate_vs_sqrt_Y": 0.055638
+        },
+        {
+          "r": 5.0,
+          "phi_modulus": 1.0,
+          "norm_sq": 15.9469,
+          "overlap_energy": 0.0009098,
+          "rate_vs_sqrt_Y": 0.064333
+        },
+        {
+          "r": 14.134725,
+          "phi_modulus": 1.0,
+          "norm_sq": 14.0406,
+          "overlap_energy": 0.0010333,
+          "rate_vs_sqrt_Y": 0.073067
+        },
+        {
+          "r": 21.02204,
+          "phi_modulus": 1.0,
+          "norm_sq": 13.2561,
+          "overlap_energy": 0.0010945,
+          "rate_vs_sqrt_Y": 0.077391
+        },
+        {
+          "r": 30.0,
+          "phi_modulus": 1.0,
+          "norm_sq": 12.5417,
+          "overlap_energy": 0.0011568,
+          "rate_vs_sqrt_Y": 0.081799
+        }
+      ]
+    },
+    {
+      "Y": 10000,
+      "sqrt_Y": 100.0,
+      "max_overlap": 0.0006098,
+      "mean_overlap": 0.000529652,
+      "inv_sqrt_Y": 0.01,
+      "freq_results": [
+        {
+          "r": 1.0,
+          "phi_modulus": 1.0,
+          "norm_sq": 20.4841,
+          "overlap_energy": 0.00041413,
+          "rate_vs_sqrt_Y": 0.041413
+        },
+        {
+          "r": 5.0,
+          "phi_modulus": 1.0,
+          "norm_sq": 17.2946,
+          "overlap_energy": 0.0004905,
+          "rate_vs_sqrt_Y": 0.04905
+        },
+        {
+          "r": 14.134725,
+          "phi_modulus": 1.0,
+          "norm_sq": 15.3762,
+          "overlap_energy": 0.0005517,
+          "rate_vs_sqrt_Y": 0.05517
+        },
+        {
+          "r": 21.02204,
+          "phi_modulus": 1.0,
+          "norm_sq": 14.5725,
+          "overlap_energy": 0.00058213,
+          "rate_vs_sqrt_Y": 0.058213
+        },
+        {
+          "r": 30.0,
+          "phi_modulus": 1.0,
+          "norm_sq": 13.9111,
+          "overlap_energy": 0.0006098,
+          "rate_vs_sqrt_Y": 0.06098
+        }
+      ]
+    },
+    {
+      "Y": 50000,
+      "sqrt_Y": 223.6068,
+      "max_overlap": 0.00013653,
+      "mean_overlap": 0.00012045560000000001,
+      "inv_sqrt_Y": 0.0044721,
+      "freq_results": [
+        {
+          "r": 1.0,
+          "phi_modulus": 1.0,
+          "norm_sq": 24.2883,
+          "overlap_energy": 9.6398e-05,
+          "rate_vs_sqrt_Y": 0.021555
+        },
+        {
+          "r": 5.0,
+          "phi_modulus": 1.0,
+          "norm_sq": 20.8975,
+          "overlap_energy": 0.00011204,
+          "rate_vs_sqrt_Y": 0.025053
+        },
+        {
+          "r": 14.134725,
+          "phi_modulus": 1.0,
+          "norm_sq": 18.57,
+          "overlap_energy": 0.00012608,
+          "rate_vs_sqrt_Y": 0.028193
+        },
+        {
+          "r": 21.02204,
+          "phi_modulus": 1.0,
+          "norm_sq": 17.8414,
+          "overlap_energy": 0.00013123,
+          "rate_vs_sqrt_Y": 0.029344
+        },
+        {
+          "r": 30.0,
+          "phi_modulus": 1.0,
+          "norm_sq": 17.1488,
+          "overlap_energy": 0.00013653,
+          "rate_vs_sqrt_Y": 0.030529
+        }
+      ]
+    },
+    {
+      "Y": 100000,
+      "sqrt_Y": 316.2278,
+      "max_overlap": 7.1594e-05,
+      "mean_overlap": 6.409659999999999e-05,
+      "inv_sqrt_Y": 0.0031623,
+      "freq_results": [
+        {
+          "r": 1.0,
+          "phi_modulus": 1.0,
+          "norm_sq": 24.5154,
+          "overlap_energy": 5.4067e-05,
+          "rate_vs_sqrt_Y": 0.017097
+        },
+        {
+          "r": 5.0,
+          "phi_modulus": 1.0,
+          "norm_sq": 22.1991,
+          "overlap_energy": 5.9708e-05,
+          "rate_vs_sqrt_Y": 0.018881
+        },
+        {
+          "r": 14.134725,
+          "phi_modulus": 1.0,
+          "norm_sq": 19.9956,
+          "overlap_energy": 6.6288e-05,
+          "rate_vs_sqrt_Y": 0.020962
+        },
+        {
+          "r": 21.02204,
+          "phi_modulus": 1.0,
+          "norm_sq": 19.2584,
+          "overlap_energy": 6.8826e-05,
+          "rate_vs_sqrt_Y": 0.021765
+        },
+        {
+          "r": 30.0,
+          "phi_modulus": 1.0,
+          "norm_sq": 18.5138,
+          "overlap_energy": 7.1594e-05,
+          "rate_vs_sqrt_Y": 0.02264
+        }
+      ]
+    },
+    {
+      "Y": 1000000,
+      "sqrt_Y": 1000.0,
+      "max_overlap": 8.2568e-06,
+      "mean_overlap": 7.4740200000000005e-06,
+      "inv_sqrt_Y": 0.001,
+      "freq_results": [
+        {
+          "r": 1.0,
+          "phi_modulus": 1.0,
+          "norm_sq": 30.547,
+          "overlap_energy": 6.2484e-06,
+          "rate_vs_sqrt_Y": 0.0062484
+        },
+        {
+          "r": 5.0,
+          "phi_modulus": 1.0,
+          "norm_sq": 26.8035,
+          "overlap_energy": 7.121e-06,
+          "rate_vs_sqrt_Y": 0.007121
+        },
+        {
+          "r": 14.134725,
+          "phi_modulus": 1.0,
+          "norm_sq": 24.6898,
+          "overlap_energy": 7.7307e-06,
+          "rate_vs_sqrt_Y": 0.0077307
+        },
+        {
+          "r": 21.02204,
+          "phi_modulus": 1.0,
+          "norm_sq": 23.8192,
+          "overlap_energy": 8.0132e-06,
+          "rate_vs_sqrt_Y": 0.0080132
+        },
+        {
+          "r": 30.0,
+          "phi_modulus": 1.0,
+          "norm_sq": 23.1164,
+          "overlap_energy": 8.2568e-06,
+          "rate_vs_sqrt_Y": 0.0082568
+        }
+      ]
+    }
+  ]
+}

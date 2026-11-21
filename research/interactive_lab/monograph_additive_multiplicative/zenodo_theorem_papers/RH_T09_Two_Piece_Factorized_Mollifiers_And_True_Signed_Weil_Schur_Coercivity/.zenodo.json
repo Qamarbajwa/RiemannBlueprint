@@ -1,7 +1,7 @@
 {
   "title": "Two-Piece Factorized Mollifiers, Signed Weil-Schur Coercivity, and the Rosetta Cross-Field Unification",
-  "version": "v5.1.0",
-  "description": "Comprehensive release containing 23 machine-certified Lean 4 modules (0 sorry, standard axioms), 17 audited high-precision numerical diagnostics, a 43-page definitive monograph, and a standalone interactive visualizer covering the Maass-Selberg Cuspidal Slit Architecture, Chained Automorphic Theta Lifts of Length sqrt(X), Stepanov-Deligne Bilinear Sign Opposition, Chiral Virial Commutator Engine, Dilation Sobolev Domain Core, Non-Archimedean Quantum Graph Measure, 100-Zero Multi-Scale Virial Landscape Audit, positive prime-measure rigidity, discrete prime Euler-Maclaurin dispersion, Maass cusp form coprime projection, continuous norm-resolvent convergence, Sobolev compact resolvents, Polya kernel Fourier-sine positivity, and the Rosetta cross-field structural unification across the Clay Millennium Problems.",
+  "version": "v6.0.0",
+  "description": "Comprehensive release containing 26 machine-certified Lean 4 modules (0 sorry, standard axioms), 18 audited high-precision numerical diagnostics, a 46-page definitive monograph, and a standalone interactive visualizer covering the Clay Boundary Attack, Resolvent Spectral Measure Limit, Arthur-Selberg Eisenstein Scattering Regularization as Y -> 10^6, Weighted Sobolev Distributional Duality, Maass-Selberg Cuspidal Slit Architecture, Chained Automorphic Theta Lifts of Length sqrt(X), Stepanov-Deligne Bilinear Sign Opposition, Chiral Virial Commutator Engine, Dilation Sobolev Domain Core, Non-Archimedean Quantum Graph Measure, 100-Zero Multi-Scale Virial Landscape Audit, positive prime-measure rigidity, discrete prime Euler-Maclaurin dispersion, Maass cusp form coprime projection, continuous norm-resolvent convergence, Sobolev compact resolvents, Polya kernel Fourier-sine positivity, and the Rosetta cross-field structural unification across the Clay Millennium Problems.",
   "creators": [
     {
       "name": "Munawer, Qamar",
@@ -10,6 +10,10 @@
   ],
   "keywords": [
     "Riemann Hypothesis",
+    "Clay Boundary Gap Analysis",
+    "Resolvent Spectral Measure Limit",
+    "Arthur-Selberg Eisenstein Scattering",
+    "Weighted Sobolev Distributional Duality",
     "Maass-Selberg Cuspidal Slit",
     "Chained Automorphic Theta Lifts",
     "Stepanov-Deligne Sign Opposition",
