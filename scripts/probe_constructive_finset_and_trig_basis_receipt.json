@@ -1,0 +1,51 @@
+{
+  "title": "Constructive Finset & Trigonometric Basis Probe (Audit Probe 25)",
+  "author": "Qamar Munawer",
+  "affiliation": "Brandenburg University of Technology Cottbus-Senftenberg",
+  "methodology": "ai is being used as a tool",
+  "status": "PASS",
+  "verified": true,
+  "epistemic_lock": {
+    "all_four_clay_millennium_problems_open": true,
+    "status": "verified-finite"
+  },
+  "metrics": {
+    "cosine_boundary_val": 6.123233995736766e-17,
+    "cosine_center_val": 1.0,
+    "autocorr_center": 1.0,
+    "autocorr_boundary": 0.0,
+    "telescoping_records": [
+      {
+        "N": 10,
+        "numerical_sum": 0.021786492374727667,
+        "exact_closed": 0.02178649237472767,
+        "bound_1_over_pr": 0.058823529411764705,
+        "diff": 3.469446951953614e-18
+      },
+      {
+        "N": 50,
+        "numerical_sum": 0.043898156277436345,
+        "exact_closed": 0.043898156277436345,
+        "bound_1_over_pr": 0.058823529411764705,
+        "diff": 0.0
+      },
+      {
+        "N": 100,
+        "numerical_sum": 0.05027652086475616,
+        "exact_closed": 0.05027652086475616,
+        "bound_1_over_pr": 0.058823529411764705,
+        "diff": 0.0
+      },
+      {
+        "N": 1000,
+        "numerical_sum": 0.05784024524263982,
+        "exact_closed": 0.05784024524263983,
+        "bound_1_over_pr": 0.058823529411764705,
+        "diff": 6.938893903907228e-18
+      }
+    ],
+    "first_six_primes_exact_fraction": "11351/15015",
+    "first_six_primes_float": 0.7559773559773559,
+    "schur_budget_margin": 0.24402264402264404
+  }
+}
