@@ -1,0 +1,150 @@
+{
+  "audit_name": "probe_maass_coprime_projection",
+  "timestamp": "2026-11-21T03:38:19Z",
+  "author": "Qamar Munawer, Brandenburg University of Technology Cottbus-Senftenberg",
+  "methodology_note": "ai is being used as a tool.",
+  "epistemic_status": "status: verified-finite (open_horizon_lock: STRICTLY OPEN)",
+  "hecke_tests_count": 45,
+  "hecke_collapse_all_pass": true,
+  "max_hecke_diff": 0.0,
+  "cs_tests_count": 5,
+  "cs_all_pass": true,
+  "sample_hecke_records": [
+    {
+      "form_id": 1,
+      "r": 9.53369526,
+      "m": 2,
+      "n": 3,
+      "gcd": 1,
+      "rho_m": -1.54930448,
+      "rho_n": -0.24430485,
+      "product": 0.378502598590728,
+      "rho_mn": 0.378502598590728,
+      "diff": 0.0,
+      "higher_divisor_terms": 0.0,
+      "collapse_passed": true
+    },
+    {
+      "form_id": 1,
+      "r": 9.53369526,
+      "m": 2,
+      "n": 5,
+      "gcd": 1,
+      "rho_m": -1.54930448,
+      "rho_n": 0.17743789,
+      "product": -0.27490531789874717,
+      "rho_mn": -0.27490531789874717,
+      "diff": 0.0,
+      "higher_divisor_terms": 0.0,
+      "collapse_passed": true
+    },
+    {
+      "form_id": 1,
+      "r": 9.53369526,
+      "m": 2,
+      "n": 7,
+      "gcd": 1,
+      "rho_m": -1.54930448,
+      "rho_n": -0.19897148,
+      "product": 0.30826740535623043,
+      "rho_mn": 0.30826740535623043,
+      "diff": 0.0,
+      "higher_divisor_terms": 0.0,
+      "collapse_passed": true
+    },
+    {
+      "form_id": 1,
+      "r": 9.53369526,
+      "m": 3,
+      "n": 4,
+      "gcd": 1,
+      "rho_m": -0.24430485,
+      "rho_n": 1.4003443717480701,
+      "product": -0.3421109216882565,
+      "rho_mn": -0.3421109216882565,
+      "diff": 0.0,
+      "higher_divisor_terms": 0.0,
+      "collapse_passed": true
+    },
+    {
+      "form_id": 1,
+      "r": 9.53369526,
+      "m": 3,
+      "n": 5,
+      "gcd": 1,
+      "rho_m": -0.24430485,
+      "rho_n": 0.17743789,
+      "product": -0.043348937100766496,
+      "rho_mn": -0.043348937100766496,
+      "diff": 0.0,
+      "higher_divisor_terms": 0.0,
+      "collapse_passed": true
+    },
+    {
+      "form_id": 1,
+      "r": 9.53369526,
+      "m": 2,
+      "n": 9,
+      "gcd": 1,
+      "rho_m": -1.54930448,
+      "rho_n": -0.9403151402664776,
+      "product": 1.456834459426682,
+      "rho_mn": 1.456834459426682,
+      "diff": 0.0,
+      "higher_divisor_terms": 0.0,
+      "collapse_passed": true
+    }
+  ],
+  "cs_records": [
+    {
+      "X": 1000,
+      "sqfull_annihilated_count": 392,
+      "sqfull_energy_after": 0.0,
+      "E_spec_bound": 1102.5,
+      "E_weight": 0.15915494309189535,
+      "P_cross_bound": 13.246445740605841,
+      "scaled_ratio": 0.41888939442150436,
+      "subconvex_scaling": true
+    },
+    {
+      "X": 5000,
+      "sqfull_annihilated_count": 1960,
+      "sqfull_energy_after": 0.0,
+      "E_spec_bound": 5512.5,
+      "E_weight": 0.15915494309189535,
+      "P_cross_bound": 29.619953136257205,
+      "scaled_ratio": 0.4188893944215043,
+      "subconvex_scaling": true
+    },
+    {
+      "X": 10000,
+      "sqfull_annihilated_count": 3920,
+      "sqfull_energy_after": 0.0,
+      "E_spec_bound": 11025.0,
+      "E_weight": 0.15915494309189535,
+      "P_cross_bound": 41.88893944215043,
+      "scaled_ratio": 0.4188893944215043,
+      "subconvex_scaling": true
+    },
+    {
+      "X": 50000,
+      "sqfull_annihilated_count": 19603,
+      "sqfull_energy_after": 0.0,
+      "E_spec_bound": 55125.0,
+      "E_weight": 0.15915494309189535,
+      "P_cross_bound": 93.6665160980205,
+      "scaled_ratio": 0.41888939442150436,
+      "subconvex_scaling": true
+    },
+    {
+      "X": 100000,
+      "sqfull_annihilated_count": 39207,
+      "sqfull_energy_after": 0.0,
+      "E_spec_bound": 110250.0,
+      "E_weight": 0.15915494309189535,
+      "P_cross_bound": 132.46445740605841,
+      "scaled_ratio": 0.4188893944215043,
+      "subconvex_scaling": true
+    }
+  ]
+}

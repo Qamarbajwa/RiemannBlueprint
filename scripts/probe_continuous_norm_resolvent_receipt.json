@@ -1,0 +1,101 @@
+{
+  "audit_name": "probe_continuous_norm_resolvent",
+  "timestamp": "2026-11-21T03:40:11Z",
+  "author": "Qamar Munawer, Brandenburg University of Technology Cottbus-Senftenberg",
+  "methodology_note": "ai is being used as a tool.",
+  "epistemic_status": "status: verified-finite (open_horizon_lock: STRICTLY OPEN)",
+  "core_radius_M": 6.0,
+  "test_energy_z": -1.0,
+  "sobolev_floor_lambda_0": 5.39e-11,
+  "L_values_tested": [
+    10.0,
+    15.0,
+    20.0,
+    25.0,
+    30.0,
+    35.0,
+    40.0
+  ],
+  "all_converged": true,
+  "min_resolvent_diff": 1.7139084313572537e-15,
+  "max_resolvent_diff": 0.018315638886759755,
+  "records": [
+    {
+      "L": 10.0,
+      "tail_distance": 4.0,
+      "exp_tail": 0.01831563888873418,
+      "norm_delta": 0.01831563888873418,
+      "dist_spec": 1.0000000000539,
+      "norm_R_L": 0.9999999999461,
+      "norm_R_inf": 0.9999999999461,
+      "norm_diff_bound": 0.018315638886759755,
+      "exponential_decay_verified": true
+    },
+    {
+      "L": 15.0,
+      "tail_distance": 9.0,
+      "exp_tail": 0.00012340980408667956,
+      "norm_delta": 0.00012340980408667956,
+      "dist_spec": 1.0000000000539,
+      "norm_R_L": 0.9999999999461,
+      "norm_R_inf": 0.9999999999461,
+      "norm_diff_bound": 0.000123409804073376,
+      "exponential_decay_verified": true
+    },
+    {
+      "L": 20.0,
+      "tail_distance": 14.0,
+      "exp_tail": 8.315287191035679e-07,
+      "norm_delta": 8.315287191035679e-07,
+      "dist_spec": 1.0000000000539,
+      "norm_R_L": 0.9999999999461,
+      "norm_R_inf": 0.9999999999461,
+      "norm_diff_bound": 8.315287190139291e-07,
+      "exponential_decay_verified": true
+    },
+    {
+      "L": 25.0,
+      "tail_distance": 19.0,
+      "exp_tail": 5.602796437537268e-09,
+      "norm_delta": 5.602796437537268e-09,
+      "dist_spec": 1.0000000000539,
+      "norm_R_L": 0.9999999999461,
+      "norm_R_inf": 0.9999999999461,
+      "norm_diff_bound": 5.602796436933286e-09,
+      "exponential_decay_verified": true
+    },
+    {
+      "L": 30.0,
+      "tail_distance": 24.0,
+      "exp_tail": 3.775134544279098e-11,
+      "norm_delta": 3.775134544279098e-11,
+      "dist_spec": 1.0000000000539,
+      "norm_R_L": 0.9999999999461,
+      "norm_R_inf": 0.9999999999461,
+      "norm_diff_bound": 3.7751345438721384e-11,
+      "exponential_decay_verified": true
+    },
+    {
+      "L": 35.0,
+      "tail_distance": 29.0,
+      "exp_tail": 2.543665647376923e-13,
+      "norm_delta": 2.543665647376923e-13,
+      "dist_spec": 1.0000000000539,
+      "norm_R_L": 0.9999999999461,
+      "norm_R_inf": 0.9999999999461,
+      "norm_diff_bound": 2.5436656471027157e-13,
+      "exponential_decay_verified": true
+    },
+    {
+      "L": 40.0,
+      "tail_distance": 34.0,
+      "exp_tail": 1.713908431542013e-15,
+      "norm_delta": 1.713908431542013e-15,
+      "dist_spec": 1.0000000000539,
+      "norm_R_L": 0.9999999999461,
+      "norm_R_inf": 0.9999999999461,
+      "norm_diff_bound": 1.7139084313572537e-15,
+      "exponential_decay_verified": true
+    }
+  ]
+}
