@@ -1,0 +1,215 @@
+{
+  "status": "PASS",
+  "author": "Qamar Munawer, Brandenburg University of Technology Cottbus-Senftenberg",
+  "methodology_note": "ai is being used as a tool",
+  "epistemic_status": "verified-finite (Clay Millennium Problems remain strictly OPEN)",
+  "scan_domain": {
+    "L_min": 1.0,
+    "L_max": 12.0,
+    "L_steps": 12
+  },
+  "sobolev_indices_tested": [
+    -1.0,
+    -0.5,
+    0.0,
+    0.5,
+    1.0
+  ],
+  "gamma_1": 14.134725141734695,
+  "all_floors_positive": true,
+  "records": [
+    {
+      "L": 1.0,
+      "K_modes": 32,
+      "prime_powers_count": 1,
+      "n_sub_gap_modes": 2,
+      "dimension_active": 30,
+      "sobolev_floors": {
+        "s_-1.0": 1.0779374843353215,
+        "s_-0.5": 0.06822206763700771,
+        "s_+0.0": 0.004305968478174121,
+        "s_+0.5": 0.0002703376033083615,
+        "s_+1.0": 1.6742798663429665e-05
+      },
+      "h1_max_eigenvalue": 0.002832,
+      "h1_condition_number": 169.12
+    },
+    {
+      "L": 2.0,
+      "K_modes": 32,
+      "prime_powers_count": 5,
+      "n_sub_gap_modes": 4,
+      "dimension_active": 28,
+      "sobolev_floors": {
+        "s_-1.0": 1.8413933959223898e-12,
+        "s_-0.5": 5.000416781703622e-09,
+        "s_+0.0": 2.1357820726527197e-10,
+        "s_+0.5": 9.034901493180775e-12,
+        "s_+1.0": 7.591063244817043e-09
+      },
+      "h1_max_eigenvalue": 0.009962,
+      "h1_condition_number": 1312337.59
+    },
+    {
+      "L": 3.0,
+      "K_modes": 32,
+      "prime_powers_count": 12,
+      "n_sub_gap_modes": 7,
+      "dimension_active": 25,
+      "sobolev_floors": {
+        "s_-1.0": 9.887988917298277e-12,
+        "s_-0.5": 1.145916245520606e-12,
+        "s_+0.0": 5.450948215451996e-11,
+        "s_+0.5": 1.574054083992615e-12,
+        "s_+1.0": 3.93168925038324e-11
+      },
+      "h1_max_eigenvalue": 0.004781,
+      "h1_condition_number": 121609605.99
+    },
+    {
+      "L": 4.0,
+      "K_modes": 32,
+      "prime_powers_count": 24,
+      "n_sub_gap_modes": 9,
+      "dimension_active": 23,
+      "sobolev_floors": {
+        "s_-1.0": 1.7355389217488194e-12,
+        "s_-0.5": 9.785987398298583e-12,
+        "s_+0.0": 2.5960743249990152e-12,
+        "s_+0.5": 1.0968042486845784e-12,
+        "s_+1.0": 2.3715941798798785e-12
+      },
+      "h1_max_eigenvalue": 0.007819,
+      "h1_condition_number": 3296943090.53
+    },
+    {
+      "L": 5.0,
+      "K_modes": 40,
+      "prime_powers_count": 47,
+      "n_sub_gap_modes": 11,
+      "dimension_active": 29,
+      "sobolev_floors": {
+        "s_-1.0": 6.827293247746927e-12,
+        "s_-0.5": 3.1619135308448617e-12,
+        "s_+0.0": 3.095698189415796e-11,
+        "s_+0.5": 2.5727958115839325e-10,
+        "s_+1.0": 6.978850909238179e-12
+      },
+      "h1_max_eigenvalue": 0.007315,
+      "h1_condition_number": 1048196697.28
+    },
+    {
+      "L": 6.0,
+      "K_modes": 48,
+      "prime_powers_count": 98,
+      "n_sub_gap_modes": 13,
+      "dimension_active": 35,
+      "sobolev_floors": {
+        "s_-1.0": 2.78182361118948e-12,
+        "s_-0.5": 1.1741042720568478e-12,
+        "s_+0.0": 9.418648923748637e-12,
+        "s_+0.5": 2.1530291781563694e-12,
+        "s_+1.0": 3.4624352155927175e-11
+      },
+      "h1_max_eigenvalue": 0.009564,
+      "h1_condition_number": 276230723.52
+    },
+    {
+      "L": 7.0,
+      "K_modes": 56,
+      "prime_powers_count": 209,
+      "n_sub_gap_modes": 16,
+      "dimension_active": 40,
+      "sobolev_floors": {
+        "s_-1.0": 2.4111308735673734e-12,
+        "s_-0.5": 1.0963959770059107e-12,
+        "s_+0.0": 1.089814954516432e-10,
+        "s_+0.5": 2.7655145436261358e-12,
+        "s_+1.0": 3.2871726457106805e-11
+      },
+      "h1_max_eigenvalue": 0.013669,
+      "h1_condition_number": 415837620.69
+    },
+    {
+      "L": 8.0,
+      "K_modes": 64,
+      "prime_powers_count": 465,
+      "n_sub_gap_modes": 18,
+      "dimension_active": 46,
+      "sobolev_floors": {
+        "s_-1.0": 2.31974118975982e-12,
+        "s_-0.5": 1.210314403683736e-12,
+        "s_+0.0": 2.16934514571824e-12,
+        "s_+0.5": 3.0853612544043143e-12,
+        "s_+1.0": 3.268107866038998e-11
+      },
+      "h1_max_eigenvalue": 0.012373,
+      "h1_condition_number": 378585538.36
+    },
+    {
+      "L": 9.0,
+      "K_modes": 72,
+      "prime_powers_count": 1068,
+      "n_sub_gap_modes": 20,
+      "dimension_active": 52,
+      "sobolev_floors": {
+        "s_-1.0": 3.4260492504634553e-12,
+        "s_-0.5": 1.0542318502247565e-12,
+        "s_+0.0": 1.8746104464432184e-12,
+        "s_+0.5": 1.2300103586083687e-11,
+        "s_+1.0": 4.327967808310252e-11
+      },
+      "h1_max_eigenvalue": 0.013696,
+      "h1_condition_number": 316452155.73
+    },
+    {
+      "L": 10.0,
+      "K_modes": 80,
+      "prime_powers_count": 2532,
+      "n_sub_gap_modes": 22,
+      "dimension_active": 58,
+      "sobolev_floors": {
+        "s_-1.0": 1.068944045348216e-12,
+        "s_-0.5": 1.1716414181052404e-12,
+        "s_+0.0": 1.1510890172152792e-12,
+        "s_+0.5": 7.75314773214993e-12,
+        "s_+1.0": 1.6148619996483686e-11
+      },
+      "h1_max_eigenvalue": 0.02147,
+      "h1_condition_number": 1329505826.65
+    },
+    {
+      "L": 11.0,
+      "K_modes": 88,
+      "prime_powers_count": 6139,
+      "n_sub_gap_modes": 25,
+      "dimension_active": 63,
+      "sobolev_floors": {
+        "s_-1.0": 3.2939618922278337e-12,
+        "s_-0.5": 1.1231390954494584e-12,
+        "s_+0.0": 1.0509064995776696e-12,
+        "s_+0.5": 1.4342564375501456e-11,
+        "s_+1.0": 6.455254742003427e-11
+      },
+      "h1_max_eigenvalue": 0.016343,
+      "h1_condition_number": 253177700.62
+    },
+    {
+      "L": 12.0,
+      "K_modes": 96,
+      "prime_powers_count": 15040,
+      "n_sub_gap_modes": 27,
+      "dimension_active": 69,
+      "sobolev_floors": {
+        "s_-1.0": 3.5499315719804633e-12,
+        "s_-0.5": 1.0758887192287165e-12,
+        "s_+0.0": 5.657972547219863e-10,
+        "s_+0.5": 1.4303397784344924e-11,
+        "s_+1.0": 6.254280958991444e-11
+      },
+      "h1_max_eigenvalue": 0.018614,
+      "h1_condition_number": 297621151.5
+    }
+  ],
+  "elapsed_seconds": 0.2628
+}
