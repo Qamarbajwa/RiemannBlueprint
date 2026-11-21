@@ -1,6 +1,6 @@
 {
   "title": "Two-Piece Grade-Factorized Mollifiers, True Signed Weil Schur Coercivity, and Three-Tier Frequency-Adaptive Sub-Gap Tare",
-  "version": "2.7.0",
+  "version": "2.8.0",
   "upload_type": "publication",
   "publication_type": "article",
   "description": "<p>Standalone paper RH_T09 presenting the 3-part Selberg-Conrey reciprocity margin split, the N=10000 square-free compressed scan (98.1338% 2-piece capture), the unshifted true signed Weil quadratic form, the discovery of the spectral near-kernel below gamma_1=14.135, the Three-Tier Frequency-Adaptive Sub-Gap Schur Tare across L in [1.0, 6.0], the Dirichlet boundary vanishing law g_jk(L)=0, the Sobolev quotient metric, and six zero-axiom Lean 4 certificates.</p><p><strong>Methodology:</strong> In this work, ai is being used as a tool for formal verification and computational checks.</p><p><strong>Epistemic Status:</strong> Verified finite mathematics; infinite Clay Millennium open horizons remain strictly open.</p>",

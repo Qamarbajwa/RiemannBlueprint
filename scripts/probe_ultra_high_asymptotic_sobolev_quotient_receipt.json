@@ -1,0 +1,87 @@
+{
+  "status": "PASS",
+  "author": "Qamar Munawer, Brandenburg University of Technology Cottbus-Senftenberg",
+  "methodology_note": "ai is being used as a tool",
+  "epistemic_status": "verified-finite (Clay Millennium Problems remain strictly OPEN)",
+  "scan_domain": {
+    "L_min": 13.0,
+    "L_max": 16.0,
+    "L_steps": 4
+  },
+  "sobolev_indices_tested": [
+    -1.0,
+    -0.5,
+    0.0,
+    0.5,
+    1.0
+  ],
+  "gamma_1": 14.134725141734695,
+  "all_floors_positive": true,
+  "records": [
+    {
+      "L": 13.0,
+      "K_modes": 104,
+      "prime_powers_count": 37308,
+      "n_sub_gap_modes": 29,
+      "dimension_active": 75,
+      "sobolev_floors": {
+        "s_-1.0": 1.1317452514917043e-12,
+        "s_-0.5": 1.3220242985552767e-12,
+        "s_+0.0": 5.95197163561574e-10,
+        "s_+0.5": 1.4294159950525724e-11,
+        "s_+1.0": 7.534778919633071e-11
+      },
+      "h1_max_eigenvalue": 0.02937,
+      "h1_condition_number": 389797403.42
+    },
+    {
+      "L": 14.0,
+      "K_modes": 112,
+      "prime_powers_count": 93371,
+      "n_sub_gap_modes": 31,
+      "dimension_active": 81,
+      "sobolev_floors": {
+        "s_-1.0": 1.0307371457063081e-11,
+        "s_-0.5": 1.1342175122720194e-12,
+        "s_+0.0": 1.1743803993232466e-12,
+        "s_+0.5": 1.2513824190168469e-11,
+        "s_+1.0": 6.658860787073245e-11
+      },
+      "h1_max_eigenvalue": 0.021515,
+      "h1_condition_number": 323099066.03
+    },
+    {
+      "L": 15.0,
+      "K_modes": 120,
+      "prime_powers_count": 235220,
+      "n_sub_gap_modes": 34,
+      "dimension_active": 86,
+      "sobolev_floors": {
+        "s_-1.0": 1.4675133386110555e-11,
+        "s_-0.5": 1.720608929047051e-12,
+        "s_+0.0": 1.0982612258142952e-12,
+        "s_+0.5": 1.9995487269535653e-11,
+        "s_+1.0": 7.4982339206873e-11
+      },
+      "h1_max_eigenvalue": 0.022356,
+      "h1_condition_number": 298149796.21
+    },
+    {
+      "L": 16.0,
+      "K_modes": 128,
+      "prime_powers_count": 595877,
+      "n_sub_gap_modes": 36,
+      "dimension_active": 92,
+      "sobolev_floors": {
+        "s_-1.0": 5.107460227817682e-12,
+        "s_-0.5": 1.2238921130691208e-12,
+        "s_+0.0": 1.0923950040018532e-12,
+        "s_+0.5": 8.016794594686876e-12,
+        "s_+1.0": 2.634892694368978e-11
+      },
+      "h1_max_eigenvalue": 0.035497,
+      "h1_condition_number": 1347207187.7
+    }
+  ],
+  "elapsed_seconds": 3.2637
+}
