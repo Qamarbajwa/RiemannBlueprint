@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.7.21)  21 NOV 2026 04:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.7.21)  21 NOV 2026 04:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -710,7 +710,26 @@ Overfull \hbox (135.43832pt too wide) in paragraph at lines 1789--1802
  [][] 
  []
 
-[37] [38] [39]
+[37] [38]
+Overfull \hbox (4.83466pt too wide) in paragraph at lines 1853--1855
+\T1/lmr/m/n/10.95 By Mod-ule 20 (\T1/lmtt/m/n/10.95 DilationSobolevDomainCore.l
+ean\T1/lmr/m/n/10.95 ), the bound-ary trace norm sat-is-fies $\OMS/lmsy/m/n/10.
+95 k\OML/lmm/m/it/10.95 P[] \OMS/lmsy/m/n/10.95 k[] ^^T
+ []
+
+
+Overfull \hbox (79.04436pt too wide) in paragraph at lines 1857--1859
+\T1/lmr/m/n/10.95 tive mea-sure to any open in-ter-val con-tain-ing a prime. In
+ Mod-ule 21 (\T1/lmtt/m/n/10.95 NonArchimedeanPrimeGraphMeasure.lean\T1/lmr/m/n
+/10.95 ),
+ []
+
+
+Overfull \hbox (141.34605pt too wide) in paragraph at lines 1868--1880
+ [][] 
+ []
+
+[39] [40] [41]
 (RH_T09_Two_Piece_Factorized_Mollifiers_And_True_Signed_Weil_Schur_Coercivity_P
 aper.aux)
  ***********
@@ -719,13 +738,13 @@ L3 programming layer <2025-12-24>
  ***********
 Package rerunfilecheck Info: File `RH_T09_Two_Piece_Factorized_Mollifiers_And_T
 rue_Signed_Weil_Schur_Coercivity_Paper.out' has not changed.
-(rerunfilecheck)             Checksum: 83121D7E6EAA352F9C0220833E2F1FAD;13117.
+(rerunfilecheck)             Checksum: 8D122FC179AB707C731EF99082D1DA81;14693.
  ) 
 Here is how much of TeX's memory you used:
- 14588 strings out of 467871
- 221339 string characters out of 5418376
- 942840 words of memory out of 5000000
- 41877 multiletter control sequences out of 15000+600000
+ 14692 strings out of 467871
+ 222978 string characters out of 5418376
+ 942993 words of memory out of 5000000
+ 41912 multiletter control sequences out of 15000+600000
  727257 words of font info for 124 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,14n,79p,2447b,2118s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -753,9 +772,9 @@ qam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtti10.pfb><C:/Users/a
 rqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.p
 fb>
 Output written on RH_T09_Two_Piece_Factorized_Mollifiers_And_True_Signed_Weil_S
-chur_Coercivity_Paper.pdf (39 pages, 838106 bytes).
+chur_Coercivity_Paper.pdf (41 pages, 862635 bytes).
 PDF statistics:
- 2075 PDF objects out of 2487 (max. 8388607)
- 1400 named destinations out of 1440 (max. 500000)
- 313 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2179 PDF objects out of 2487 (max. 8388607)
+ 1469 named destinations out of 1728 (max. 500000)
+ 353 words of extra memory for PDF output out of 10000 (max. 10000000)
 

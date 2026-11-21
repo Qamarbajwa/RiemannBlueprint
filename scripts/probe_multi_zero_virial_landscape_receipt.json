@@ -1,0 +1,96 @@
+{
+  "audit_name": "probe_multi_zero_virial_landscape",
+  "timestamp": "2026-11-21T03:59:01Z",
+  "author": "Qamar Munawer, Brandenburg University of Technology Cottbus-Senftenberg",
+  "methodology_note": "ai is being used as a tool.",
+  "epistemic_status": "status: verified-finite (open_horizon_lock: STRICTLY OPEN)",
+  "zeros_count": 100,
+  "gamma_1": 14.134725141734695,
+  "gamma_100": 236.5242296658162,
+  "primes_generated": 664579,
+  "benchmark_core_M": 8.0,
+  "benchmark_E_prime": 285.5347270704823,
+  "choke_table": [
+    {
+      "L": 20.0,
+      "tail_distance": 12.0,
+      "E_leak": 6.14421235332821e-06,
+      "choke_ratio": 46472144.94723856,
+      "log10_choke_ratio": 7.667192718040553,
+      "passed": true
+    },
+    {
+      "L": 30.0,
+      "tail_distance": 22.0,
+      "E_leak": 2.7894680928689246e-10,
+      "choke_ratio": 1023617111091.6499,
+      "log10_choke_ratio": 12.010137537073073,
+      "passed": true
+    },
+    {
+      "L": 40.0,
+      "tail_distance": 32.0,
+      "E_leak": 1.2664165549094176e-14,
+      "choke_ratio": 2.2546667284439092e+16,
+      "log10_choke_ratio": 16.353082356105592,
+      "passed": true
+    }
+  ],
+  "all_zeros_clash_verified": true,
+  "sample_zero_records": [
+    {
+      "zero_index": 1,
+      "gamma": 14.134725,
+      "eta": 0.1,
+      "E_net": 285.53472707020336,
+      "V_defect_forward": 57.10694541404067,
+      "V_defect_reflected": -57.10694541404067,
+      "clash_verified": true
+    },
+    {
+      "zero_index": 10,
+      "gamma": 49.773832,
+      "eta": 0.1,
+      "E_net": 285.53472707020336,
+      "V_defect_forward": 57.10694541404067,
+      "V_defect_reflected": -57.10694541404067,
+      "clash_verified": true
+    },
+    {
+      "zero_index": 25,
+      "gamma": 88.809111,
+      "eta": 0.1,
+      "E_net": 285.53472707020336,
+      "V_defect_forward": 57.10694541404067,
+      "V_defect_reflected": -57.10694541404067,
+      "clash_verified": true
+    },
+    {
+      "zero_index": 50,
+      "gamma": 143.111846,
+      "eta": 0.1,
+      "E_net": 285.53472707020336,
+      "V_defect_forward": 57.10694541404067,
+      "V_defect_reflected": -57.10694541404067,
+      "clash_verified": true
+    },
+    {
+      "zero_index": 75,
+      "gamma": 192.026656,
+      "eta": 0.1,
+      "E_net": 285.53472707020336,
+      "V_defect_forward": 57.10694541404067,
+      "V_defect_reflected": -57.10694541404067,
+      "clash_verified": true
+    },
+    {
+      "zero_index": 100,
+      "gamma": 236.52423,
+      "eta": 0.1,
+      "E_net": 285.53472707020336,
+      "V_defect_forward": 57.10694541404067,
+      "V_defect_reflected": -57.10694541404067,
+      "clash_verified": true
+    }
+  ]
+}

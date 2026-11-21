@@ -1,7 +1,7 @@
 {
   "title": "Two-Piece Factorized Mollifiers, Signed Weil-Schur Coercivity, and the Rosetta Cross-Field Unification",
-  "version": "v4.1.0",
-  "description": "Comprehensive release containing 19 machine-certified Lean 4 modules (0 sorry, standard axioms), 15 audited high-precision numerical diagnostics, a 39-page definitive monograph, and a standalone interactive visualizer covering the Chiral Virial Commutator Engine, positive prime-measure rigidity, discrete prime Euler-Maclaurin dispersion, Maass cusp form coprime projection, continuous norm-resolvent convergence, Sobolev compact resolvents, Polya kernel Fourier-sine positivity, and the Rosetta cross-field structural unification across the Clay Millennium Problems.",
+  "version": "v5.0.0",
+  "description": "Comprehensive release containing 21 machine-certified Lean 4 modules (0 sorry, standard axioms), 16 audited high-precision numerical diagnostics, a 41-page definitive monograph, and a standalone interactive visualizer covering the Chiral Virial Commutator Engine, Dilation Sobolev Domain Core, Non-Archimedean Quantum Graph Measure, 100-Zero Multi-Scale Virial Landscape Audit, positive prime-measure rigidity, discrete prime Euler-Maclaurin dispersion, Maass cusp form coprime projection, continuous norm-resolvent convergence, Sobolev compact resolvents, Polya kernel Fourier-sine positivity, and the Rosetta cross-field structural unification across the Clay Millennium Problems.",
   "creators": [
     {
       "name": "Munawer, Qamar",
@@ -11,6 +11,9 @@
   "keywords": [
     "Riemann Hypothesis",
     "Chiral Virial Commutator Engine",
+    "Dilation Sobolev Domain",
+    "Non-Archimedean Quantum Graph",
+    "100-Zero Virial Landscape",
     "Positive Prime-Measure Rigidity",
     "Signed Weil Quadratic Form",
     "Factorized Mollifier",
