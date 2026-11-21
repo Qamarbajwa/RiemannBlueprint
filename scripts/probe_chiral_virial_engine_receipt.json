@@ -1,0 +1,171 @@
+{
+  "audit_name": "probe_chiral_virial_engine",
+  "timestamp": "2026-11-21T03:49:10Z",
+  "author": "Qamar Munawer, Brandenburg University of Technology Cottbus-Senftenberg",
+  "methodology_note": "ai is being used as a tool.",
+  "epistemic_status": "status: verified-finite (open_horizon_lock: STRICTLY OPEN)",
+  "primes_limit": 25000,
+  "core_radii_tested": [
+    4.0,
+    6.0,
+    8.0,
+    10.0
+  ],
+  "L_expansions_tested": [
+    15.0,
+    20.0,
+    25.0,
+    30.0,
+    35.0,
+    40.0
+  ],
+  "total_choke_configurations": 24,
+  "all_choked": true,
+  "min_choke_ratio": 206808.98339381217,
+  "max_choke_ratio": 4.3856295654510744e+16,
+  "eta_values_tested": [
+    0.01,
+    0.05,
+    0.1,
+    0.25,
+    0.4
+  ],
+  "all_sign_clashes_verified": true,
+  "sample_choke_records": [
+    {
+      "M": 4.0,
+      "L": 15.0,
+      "tail_dist": 11.0,
+      "E_prime": 10.172567902054952,
+      "E_leak": 1.670170079024566e-05,
+      "E_net": 10.172551200354162,
+      "choke_ratio": 609073.7721751108,
+      "log10_choke_ratio": 5.784669898393445,
+      "choked_passed": true
+    },
+    {
+      "M": 4.0,
+      "L": 20.0,
+      "tail_dist": 16.0,
+      "E_prime": 10.172567902054952,
+      "E_leak": 1.1253517471925912e-07,
+      "E_net": 10.172567789519778,
+      "choke_ratio": 90394562.6550312,
+      "log10_choke_ratio": 7.956142307909705,
+      "choked_passed": true
+    },
+    {
+      "M": 4.0,
+      "L": 25.0,
+      "tail_dist": 21.0,
+      "E_prime": 10.172567902054952,
+      "E_leak": 7.582560427911907e-10,
+      "E_net": 10.172567901296697,
+      "choke_ratio": 13415742609.328978,
+      "log10_choke_ratio": 10.127614717425963,
+      "choked_passed": true
+    },
+    {
+      "M": 4.0,
+      "L": 30.0,
+      "tail_dist": 26.0,
+      "E_prime": 10.172567902054952,
+      "E_leak": 5.109089028063325e-12,
+      "E_net": 10.172567902049844,
+      "choke_ratio": 1991072742357.5574,
+      "log10_choke_ratio": 12.299087126942222,
+      "choked_passed": true
+    },
+    {
+      "M": 4.0,
+      "L": 35.0,
+      "tail_dist": 31.0,
+      "E_prime": 10.172567902054952,
+      "E_leak": 3.442477108469977e-14,
+      "E_net": 10.172567902054919,
+      "choke_ratio": 295501395696315.7,
+      "log10_choke_ratio": 14.470559536458483,
+      "choked_passed": true
+    },
+    {
+      "M": 4.0,
+      "L": 40.0,
+      "tail_dist": 36.0,
+      "E_prime": 10.172567902054952,
+      "E_leak": 2.3195228302435696e-16,
+      "E_net": 10.172567902054952,
+      "choke_ratio": 4.3856295654510744e+16,
+      "log10_choke_ratio": 16.64203194597474,
+      "choked_passed": true
+    },
+    {
+      "M": 6.0,
+      "L": 15.0,
+      "tail_dist": 9.0,
+      "E_prime": 56.49325862782826,
+      "E_leak": 0.00012340980408667956,
+      "E_net": 56.49313521802417,
+      "choke_ratio": 457769.61600351456,
+      "log10_choke_ratio": 5.660646963436985,
+      "choked_passed": true
+    },
+    {
+      "M": 6.0,
+      "L": 20.0,
+      "tail_dist": 14.0,
+      "E_prime": 56.49325862782826,
+      "E_leak": 8.315287191035679e-07,
+      "E_net": 56.493257796299545,
+      "choke_ratio": 67939034.852255,
+      "log10_choke_ratio": 7.832119372953245,
+      "choked_passed": true
+    }
+  ],
+  "virial_records": [
+    {
+      "eta": 0.01,
+      "neg_eta": -0.01,
+      "E_net": 56.49325862779051,
+      "V_defect_forward": 1.1298651725558102,
+      "V_defect_reflected": -1.1298651725558102,
+      "forward_positive": true,
+      "sign_clash_verified": true
+    },
+    {
+      "eta": 0.05,
+      "neg_eta": -0.05,
+      "E_net": 56.49325862779051,
+      "V_defect_forward": 5.649325862779051,
+      "V_defect_reflected": -5.649325862779051,
+      "forward_positive": true,
+      "sign_clash_verified": true
+    },
+    {
+      "eta": 0.1,
+      "neg_eta": -0.1,
+      "E_net": 56.49325862779051,
+      "V_defect_forward": 11.298651725558102,
+      "V_defect_reflected": -11.298651725558102,
+      "forward_positive": true,
+      "sign_clash_verified": true
+    },
+    {
+      "eta": 0.25,
+      "neg_eta": -0.25,
+      "E_net": 56.49325862779051,
+      "V_defect_forward": 28.246629313895255,
+      "V_defect_reflected": -28.246629313895255,
+      "forward_positive": true,
+      "sign_clash_verified": true
+    },
+    {
+      "eta": 0.4,
+      "neg_eta": -0.4,
+      "E_net": 56.49325862779051,
+      "V_defect_forward": 45.19460690223241,
+      "V_defect_reflected": -45.19460690223241,
+      "forward_positive": true,
+      "sign_clash_verified": true
+    }
+  ]
+}

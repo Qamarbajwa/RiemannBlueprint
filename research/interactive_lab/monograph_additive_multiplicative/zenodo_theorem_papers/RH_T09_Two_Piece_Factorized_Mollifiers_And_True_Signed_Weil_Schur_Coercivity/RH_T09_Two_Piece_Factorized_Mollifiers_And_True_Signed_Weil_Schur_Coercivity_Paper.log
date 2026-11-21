@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.7.21)  21 NOV 2026 04:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.7.21)  21 NOV 2026 04:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -699,7 +699,18 @@ Overfull \hbox (52.81615pt too wide) in paragraph at lines 1652--1665
  [][] 
  []
 
-[35] [36] [37]
+[35] [36]
+Underfull \hbox (badness 8019) in paragraph at lines 1787--1787
+[]\T1/lmr/m/n/10.95 Table 16: []Chiral Virial Prime Push vs Dirich-let Bound-ar
+y Leak-age (Re-ceipt:
+ []
+
+
+Overfull \hbox (135.43832pt too wide) in paragraph at lines 1789--1802
+ [][] 
+ []
+
+[37] [38] [39]
 (RH_T09_Two_Piece_Factorized_Mollifiers_And_True_Signed_Weil_Schur_Coercivity_P
 aper.aux)
  ***********
@@ -708,14 +719,14 @@ L3 programming layer <2025-12-24>
  ***********
 Package rerunfilecheck Info: File `RH_T09_Two_Piece_Factorized_Mollifiers_And_T
 rue_Signed_Weil_Schur_Coercivity_Paper.out' has not changed.
-(rerunfilecheck)             Checksum: BE5174230DAAF477A681D9E9E31C45ED;12447.
+(rerunfilecheck)             Checksum: 83121D7E6EAA352F9C0220833E2F1FAD;13117.
  ) 
 Here is how much of TeX's memory you used:
- 14508 strings out of 467871
- 220118 string characters out of 5418376
- 942705 words of memory out of 5000000
- 41847 multiletter control sequences out of 15000+600000
- 721284 words of font info for 122 fonts, out of 8000000 for 9000
+ 14588 strings out of 467871
+ 221339 string characters out of 5418376
+ 942840 words of memory out of 5000000
+ 41877 multiletter control sequences out of 15000+600000
+ 727257 words of font info for 124 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,14n,79p,2447b,2118s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/arqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pf
@@ -742,9 +753,9 @@ qam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtti10.pfb><C:/Users/a
 rqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.p
 fb>
 Output written on RH_T09_Two_Piece_Factorized_Mollifiers_And_True_Signed_Weil_S
-chur_Coercivity_Paper.pdf (37 pages, 820650 bytes).
+chur_Coercivity_Paper.pdf (39 pages, 838106 bytes).
 PDF statistics:
- 2005 PDF objects out of 2073 (max. 8388607)
- 1352 named destinations out of 1440 (max. 500000)
- 297 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2075 PDF objects out of 2487 (max. 8388607)
+ 1400 named destinations out of 1440 (max. 500000)
+ 313 words of extra memory for PDF output out of 10000 (max. 10000000)
 
