@@ -5,3 +5,6 @@
 *.ir
 *.trace
 __pycache__/
+*.pyc
+.pytest_cache/
+.rh-v2-runtime/

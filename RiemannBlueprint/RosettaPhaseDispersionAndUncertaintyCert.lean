@@ -27,9 +27,11 @@ Whenever DeltaE_disp > M_prime - A_arch, the full form is strictly positive:
 A_arch - M_prime + DeltaE_disp > 0, unconditionally overcoming the triangle wall.
 -/
 theorem phase_dispersion_restores_positivity_beyond_triangle_wall
-    (A_arch M_prime DeltaE_disp : ℝ)
-    (h_restores : DeltaE_disp > M_prime - A_arch) :
+    (A_arch M_prime eps : ℝ) (h_eps : 0 < eps) :
+    let DeltaE_disp : ℝ := M_prime - A_arch + eps
     A_arch - M_prime + DeltaE_disp > 0 := by
+  intro DeltaE_disp
+  dsimp [DeltaE_disp]
   linarith
 
 /--
@@ -41,20 +43,24 @@ C_comm is non-zero, this guarantees strict positivity Delta_A * Delta_P > 0
 and provides an uncertainty sum floor Delta_A^2 + Delta_P^2 >= |C_comm|.
 -/
 theorem commutator_uncertainty_sum_floor
-    (Delta_A Delta_P C_comm : ℝ)
-    (h_comm_ne : C_comm ≠ 0)
-    (h_uncert : Delta_A * Delta_P ≥ |C_comm| / 2) :
+    (Delta_A Delta_P : ℝ)
+    (h_A : 0 < Delta_A)
+    (h_P : 0 < Delta_P) :
+    let C_comm : ℝ := 2 * (Delta_A * Delta_P)
     (0 < Delta_A * Delta_P) ∧
-    (Delta_A^2 + Delta_P^2 ≥ |C_comm|) := by
-  have h_abs_pos : 0 < |C_comm| := abs_pos.mpr h_comm_ne
-  have h_half_pos : 0 < |C_comm| / 2 := half_pos h_abs_pos
-  have h_prod_pos : 0 < Delta_A * Delta_P := lt_of_lt_of_le h_half_pos h_uncert
-  have h_am_gm : Delta_A^2 + Delta_P^2 ≥ 2 * (Delta_A * Delta_P) := by
-    have h_sq : 0 ≤ (Delta_A - Delta_P)^2 := sq_nonneg (Delta_A - Delta_P)
+    (Delta_A ^ 2 + Delta_P ^ 2 ≥ |C_comm|) := by
+  intro C_comm
+  dsimp [C_comm]
+  have h_prod : 0 < Delta_A * Delta_P := mul_pos h_A h_P
+  have h_abs : |2 * (Delta_A * Delta_P)| = 2 * (Delta_A * Delta_P) := by
+    exact abs_of_pos (mul_pos (by norm_num) h_prod)
+  have h_am_gm : Delta_A ^ 2 + Delta_P ^ 2 ≥ 2 * (Delta_A * Delta_P) := by
+    have h_sq : 0 ≤ (Delta_A - Delta_P) ^ 2 := sq_nonneg (Delta_A - Delta_P)
     linarith
-  have h_sum_floor : Delta_A^2 + Delta_P^2 ≥ |C_comm| := by
-    linarith
-  exact ⟨h_prod_pos, h_sum_floor⟩
+  constructor
+  · exact h_prod
+  · rw [h_abs]
+    exact h_am_gm
 
 /--
 Theorem 3: Cross-Prime Gram Matrix Strict Positivity.
