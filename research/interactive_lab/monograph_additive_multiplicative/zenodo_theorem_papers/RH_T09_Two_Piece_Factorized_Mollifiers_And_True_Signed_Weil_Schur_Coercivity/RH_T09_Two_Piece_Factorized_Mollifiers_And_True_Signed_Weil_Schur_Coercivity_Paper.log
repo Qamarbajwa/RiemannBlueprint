@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.7.21)  21 NOV 2026 02:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.7.21)  21 NOV 2026 02:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -600,7 +600,7 @@ Overfull \hbox (5.76038pt too wide) in paragraph at lines 547--549
 [][][][]  
  []
 
-[13] [14] [15] [16] [17] [18]
+[13] [14] [15] [16] [17] [18] [19] [20]
 (RH_T09_Two_Piece_Factorized_Mollifiers_And_True_Signed_Weil_Schur_Coercivity_P
 aper.aux)
  ***********
@@ -609,13 +609,13 @@ L3 programming layer <2025-12-24>
  ***********
 Package rerunfilecheck Info: File `RH_T09_Two_Piece_Factorized_Mollifiers_And_T
 rue_Signed_Weil_Schur_Coercivity_Paper.out' has not changed.
-(rerunfilecheck)             Checksum: 8051FD1EF43780661881D8982B87E3A2;3568.
+(rerunfilecheck)             Checksum: 2CC80D3C14F1030D64BB0D748DAB265C;3892.
  ) 
 Here is how much of TeX's memory you used:
- 13453 strings out of 467871
- 203877 string characters out of 5418376
+ 13584 strings out of 467871
+ 205898 string characters out of 5418376
  944052 words of memory out of 5000000
- 41511 multiletter control sequences out of 15000+600000
+ 41547 multiletter control sequences out of 15000+600000
  692728 words of font info for 98 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,12n,79p,1757b,2166s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -639,9 +639,9 @@ rqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtk10.pfb><C:/Users/a
 rqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb><C:/Users/a
 rqam/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtti10.pfb>
 Output written on RH_T09_Two_Piece_Factorized_Mollifiers_And_True_Signed_Weil_S
-chur_Coercivity_Paper.pdf (18 pages, 530705 bytes).
+chur_Coercivity_Paper.pdf (20 pages, 555744 bytes).
 PDF statistics:
- 990 PDF objects out of 1000 (max. 8388607)
- 651 named destinations out of 1000 (max. 500000)
- 89 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1113 PDF objects out of 1200 (max. 8388607)
+ 746 named destinations out of 1000 (max. 500000)
+ 97 words of extra memory for PDF output out of 10000 (max. 10000000)
 

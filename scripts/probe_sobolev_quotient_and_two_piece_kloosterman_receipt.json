@@ -1,0 +1,179 @@
+{
+  "status": "PASS",
+  "epistemic_boundary": "Infinite-horizon L -> infinity and N -> infinity limits remain strictly OPEN; Sobolev quotient positivity and exterior annihilation verified",
+  "part1_sobolev_quotient": [
+    {
+      "L": 1.0,
+      "active_prime_powers": 1,
+      "n_sub_gap_modes": 2,
+      "dimension_active": 30,
+      "active_quotient_rank": 30,
+      "lambda_min_plus_quotient": 0.0043059685,
+      "lambda_max_quotient": 3.848859,
+      "quotient_condition_number": 893.84
+    },
+    {
+      "L": 1.5,
+      "active_prime_powers": 3,
+      "n_sub_gap_modes": 3,
+      "dimension_active": 29,
+      "active_quotient_rank": 28,
+      "lambda_min_plus_quotient": 6.6494e-06,
+      "lambda_max_quotient": 3.851464,
+      "quotient_condition_number": 579216.47
+    },
+    {
+      "L": 2.0,
+      "active_prime_powers": 5,
+      "n_sub_gap_modes": 4,
+      "dimension_active": 28,
+      "active_quotient_rank": 26,
+      "lambda_min_plus_quotient": 4.6537e-06,
+      "lambda_max_quotient": 3.968655,
+      "quotient_condition_number": 852793.52
+    },
+    {
+      "L": 2.5,
+      "active_prime_powers": 8,
+      "n_sub_gap_modes": 6,
+      "dimension_active": 26,
+      "active_quotient_rank": 21,
+      "lambda_min_plus_quotient": 1.671e-07,
+      "lambda_max_quotient": 4.087572,
+      "quotient_condition_number": 24466419.92
+    },
+    {
+      "L": 3.0,
+      "active_prime_powers": 12,
+      "n_sub_gap_modes": 7,
+      "dimension_active": 25,
+      "active_quotient_rank": 17,
+      "lambda_min_plus_quotient": 5.2e-08,
+      "lambda_max_quotient": 4.238627,
+      "quotient_condition_number": 81588412.81
+    },
+    {
+      "L": 3.5,
+      "active_prime_powers": 18,
+      "n_sub_gap_modes": 8,
+      "dimension_active": 24,
+      "active_quotient_rank": 14,
+      "lambda_min_plus_quotient": 2.98e-08,
+      "lambda_max_quotient": 4.484346,
+      "quotient_condition_number": 150715913.27
+    },
+    {
+      "L": 4.0,
+      "active_prime_powers": 24,
+      "n_sub_gap_modes": 9,
+      "dimension_active": 23,
+      "active_quotient_rank": 12,
+      "lambda_min_plus_quotient": 3.4e-09,
+      "lambda_max_quotient": 5.098569,
+      "quotient_condition_number": 1501596831.44
+    },
+    {
+      "L": 4.5,
+      "active_prime_powers": 34,
+      "n_sub_gap_modes": 10,
+      "dimension_active": 22,
+      "active_quotient_rank": 10,
+      "lambda_min_plus_quotient": 4.4e-09,
+      "lambda_max_quotient": 5.269477,
+      "quotient_condition_number": 1204368480.05
+    },
+    {
+      "L": 5.0,
+      "active_prime_powers": 47,
+      "n_sub_gap_modes": 11,
+      "dimension_active": 21,
+      "active_quotient_rank": 8,
+      "lambda_min_plus_quotient": 8.16e-08,
+      "lambda_max_quotient": 5.353824,
+      "quotient_condition_number": 65626593.27
+    },
+    {
+      "L": 5.5,
+      "active_prime_powers": 68,
+      "n_sub_gap_modes": 12,
+      "dimension_active": 20,
+      "active_quotient_rank": 7,
+      "lambda_min_plus_quotient": 2.057e-07,
+      "lambda_max_quotient": 6.004562,
+      "quotient_condition_number": 29196051.64
+    },
+    {
+      "L": 6.0,
+      "active_prime_powers": 98,
+      "n_sub_gap_modes": 13,
+      "dimension_active": 19,
+      "active_quotient_rank": 7,
+      "lambda_min_plus_quotient": 8.1e-09,
+      "lambda_max_quotient": 6.276823,
+      "quotient_condition_number": 771889921.44
+    }
+  ],
+  "part2_kloosterman_annihilation": [
+    {
+      "N": 100,
+      "N_1_bound": 10,
+      "n_primes_N1": 4,
+      "n_semiprimes": 34,
+      "total_cross_pairs": 39,
+      "annihilated_pairs_self_wedge": 17,
+      "annihilation_percentage": 43.59,
+      "coprime_surviving_pairs": 22
+    },
+    {
+      "N": 500,
+      "N_1_bound": 22,
+      "n_primes_N1": 8,
+      "n_semiprimes": 153,
+      "total_cross_pairs": 242,
+      "annihilated_pairs_self_wedge": 61,
+      "annihilation_percentage": 25.21,
+      "coprime_surviving_pairs": 181
+    },
+    {
+      "N": 1000,
+      "N_1_bound": 31,
+      "n_primes_N1": 11,
+      "n_semiprimes": 299,
+      "total_cross_pairs": 499,
+      "annihilated_pairs_self_wedge": 112,
+      "annihilation_percentage": 22.44,
+      "coprime_surviving_pairs": 387
+    },
+    {
+      "N": 2000,
+      "N_1_bound": 44,
+      "n_primes_N1": 14,
+      "n_semiprimes": 577,
+      "total_cross_pairs": 1014,
+      "annihilated_pairs_self_wedge": 197,
+      "annihilation_percentage": 19.43,
+      "coprime_surviving_pairs": 817
+    },
+    {
+      "N": 5000,
+      "N_1_bound": 70,
+      "n_primes_N1": 19,
+      "n_semiprimes": 1365,
+      "total_cross_pairs": 2589,
+      "annihilated_pairs_self_wedge": 428,
+      "annihilation_percentage": 16.53,
+      "coprime_surviving_pairs": 2161
+    },
+    {
+      "N": 10000,
+      "N_1_bound": 100,
+      "n_primes_N1": 25,
+      "n_semiprimes": 2625,
+      "total_cross_pairs": 5264,
+      "annihilated_pairs_self_wedge": 769,
+      "annihilation_percentage": 14.61,
+      "coprime_surviving_pairs": 4495
+    }
+  ],
+  "elapsed_s": 0.086
+}
