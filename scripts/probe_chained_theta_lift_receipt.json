@@ -1,0 +1,574 @@
+{
+  "probe": "probe_chained_theta_lift_multiplicity",
+  "description": "High-precision audit of chained automorphic theta lifts of length sqrt(X) and Maass-Selberg cuspidal slit",
+  "timestamp_utc": "2026-11-21T04:46:01Z",
+  "author": "Qamar Munawer, Brandenburg University of Technology Cottbus-Senftenberg",
+  "methodology": "ai is being used as a tool",
+  "epistemic_lock": "STRICTLY OPEN (all four Clay Millennium Problems remain strictly open)",
+  "status": "verified-finite",
+  "parameters": {
+    "test_scales": [
+      100,
+      400,
+      1000,
+      2500,
+      5000,
+      10000,
+      25000,
+      50000,
+      100000
+    ],
+    "total_primes_sieved": 9592,
+    "total_prime_powers": 9700,
+    "precision_dps": 50
+  },
+  "findings": {
+    "max_stepanov_slit_ratio": 1.367652,
+    "mean_stepanov_slit_ratio": 0.909694,
+    "max_unslit_ratio": 1.526692,
+    "continuous_eisenstein_leakage_choke_achieved": true,
+    "stepanov_square_root_confinement_verified": false
+  },
+  "scale_results": [
+    {
+      "X": 100,
+      "sqrt_X": 10,
+      "log_X": 4.60517,
+      "psi_X": 94.0453,
+      "delta_X": 5.9547,
+      "classical_ratio": 0.129304,
+      "m_results": [
+        {
+          "m": 1,
+          "is_stepanov_optimal": false,
+          "weighted_sum": 32.2146,
+          "expected_integral_main": 66.6667,
+          "eisenstein_leak_unslit": 0.732936,
+          "eisenstein_leak_slit": 5.16e-28,
+          "error_unslit": 35.185,
+          "error_slit": 34.4521,
+          "ratio_unslit": 0.764033,
+          "ratio_slit": 0.748117
+        },
+        {
+          "m": 2,
+          "is_stepanov_optimal": false,
+          "weighted_sum": 16.8115,
+          "expected_integral_main": 53.3333,
+          "eisenstein_leak_unslit": 1.465871,
+          "eisenstein_leak_slit": 5.16e-28,
+          "error_unslit": 37.9877,
+          "error_slit": 36.5219,
+          "ratio_unslit": 0.824893,
+          "ratio_slit": 0.793062
+        },
+        {
+          "m": 5,
+          "is_stepanov_optimal": false,
+          "weighted_sum": 5.8584,
+          "expected_integral_main": 36.9408,
+          "eisenstein_leak_unslit": 3.664678,
+          "eisenstein_leak_slit": 5.16e-28,
+          "error_unslit": 34.7472,
+          "error_slit": 31.0825,
+          "ratio_unslit": 0.754525,
+          "ratio_slit": 0.674947
+        },
+        {
+          "m": 10,
+          "is_stepanov_optimal": true,
+          "weighted_sum": 2.518,
+          "expected_integral_main": 27.026,
+          "eisenstein_leak_unslit": 7.329356,
+          "eisenstein_leak_slit": 5.16e-28,
+          "error_unslit": 31.8374,
+          "error_slit": 24.508,
+          "ratio_unslit": 0.69134,
+          "ratio_slit": 0.532185
+        }
+      ],
+      "stepanov_optimal_ratio_slit": 0.532185,
+      "stepanov_optimal_ratio_unslit": 0.69134
+    },
+    {
+      "X": 400,
+      "sqrt_X": 20,
+      "log_X": 5.991465,
+      "psi_X": 397.8308,
+      "delta_X": 2.1692,
+      "classical_ratio": 0.018102,
+      "m_results": [
+        {
+          "m": 1,
+          "is_stepanov_optimal": false,
+          "weighted_sum": 109.4447,
+          "expected_integral_main": 266.6667,
+          "eisenstein_leak_unslit": 0.953571,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 158.1755,
+          "error_slit": 157.2219,
+          "ratio_unslit": 1.320007,
+          "ratio_slit": 1.312049
+        },
+        {
+          "m": 5,
+          "is_stepanov_optimal": false,
+          "weighted_sum": 14.2201,
+          "expected_integral_main": 147.7633,
+          "eisenstein_leak_unslit": 4.767856,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 138.3111,
+          "error_slit": 133.5432,
+          "ratio_unslit": 1.154234,
+          "ratio_slit": 1.114446
+        },
+        {
+          "m": 10,
+          "is_stepanov_optimal": false,
+          "weighted_sum": 5.3994,
+          "expected_integral_main": 108.1041,
+          "eisenstein_leak_unslit": 9.535712,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 112.2404,
+          "error_slit": 102.7047,
+          "ratio_unslit": 0.936669,
+          "ratio_slit": 0.857092
+        },
+        {
+          "m": 20,
+          "is_stepanov_optimal": true,
+          "weighted_sum": 2.1629,
+          "expected_integral_main": 77.818,
+          "eisenstein_leak_unslit": 19.071424,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 94.7265,
+          "error_slit": 75.6551,
+          "ratio_unslit": 0.790512,
+          "ratio_slit": 0.631357
+        }
+      ],
+      "stepanov_optimal_ratio_slit": 0.631357,
+      "stepanov_optimal_ratio_unslit": 0.790512
+    },
+    {
+      "X": 1000,
+      "sqrt_X": 31,
+      "log_X": 6.907755,
+      "psi_X": 996.6809,
+      "delta_X": 3.3191,
+      "classical_ratio": 0.015194,
+      "m_results": [
+        {
+          "m": 1,
+          "is_stepanov_optimal": false,
+          "weighted_sum": 245.7372,
+          "expected_integral_main": 666.6667,
+          "eisenstein_leak_unslit": 1.099403,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 422.0288,
+          "error_slit": 420.9294,
+          "ratio_unslit": 1.931991,
+          "ratio_slit": 1.926958
+        },
+        {
+          "m": 7,
+          "is_stepanov_optimal": false,
+          "weighted_sum": 14.7551,
+          "expected_integral_main": 318.2595,
+          "eisenstein_leak_unslit": 7.695824,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 311.2002,
+          "error_slit": 303.5044,
+          "ratio_unslit": 1.424633,
+          "ratio_slit": 1.389402
+        },
+        {
+          "m": 15,
+          "is_stepanov_optimal": false,
+          "weighted_sum": 4.7793,
+          "expected_integral_main": 223.2941,
+          "eisenstein_leak_unslit": 16.491051,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 235.0059,
+          "error_slit": 218.5149,
+          "ratio_unslit": 1.075826,
+          "ratio_slit": 1.000332
+        },
+        {
+          "m": 31,
+          "is_stepanov_optimal": true,
+          "weighted_sum": 1.8031,
+          "expected_integral_main": 157.2774,
+          "eisenstein_leak_unslit": 34.081505,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 189.5559,
+          "error_slit": 155.4744,
+          "ratio_unslit": 0.867761,
+          "ratio_slit": 0.711741
+        }
+      ],
+      "stepanov_optimal_ratio_slit": 0.711741,
+      "stepanov_optimal_ratio_unslit": 0.867761
+    },
+    {
+      "X": 2500,
+      "sqrt_X": 50,
+      "log_X": 7.824046,
+      "psi_X": 2498.3679,
+      "delta_X": 1.6321,
+      "classical_ratio": 0.004172,
+      "m_results": [
+        {
+          "m": 1,
+          "is_stepanov_optimal": false,
+          "weighted_sum": 555.6401,
+          "expected_integral_main": 1666.6667,
+          "eisenstein_leak_unslit": 1.245236,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 1112.2718,
+          "error_slit": 1111.0266,
+          "ratio_unslit": 2.843214,
+          "ratio_slit": 2.840031
+        },
+        {
+          "m": 12,
+          "is_stepanov_optimal": false,
+          "weighted_sum": 10.0112,
+          "expected_integral_main": 620.4234,
+          "eisenstein_leak_unslit": 14.942827,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 625.355,
+          "error_slit": 610.4122,
+          "ratio_unslit": 1.598546,
+          "ratio_slit": 1.560349
+        },
+        {
+          "m": 25,
+          "is_stepanov_optimal": false,
+          "weighted_sum": 3.4056,
+          "expected_integral_main": 436.6024,
+          "eisenstein_leak_unslit": 31.13089,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 464.3276,
+          "error_slit": 433.1967,
+          "ratio_unslit": 1.186925,
+          "ratio_slit": 1.107347
+        },
+        {
+          "m": 50,
+          "is_stepanov_optimal": true,
+          "weighted_sum": 1.3468,
+          "expected_integral_main": 311.0028,
+          "eisenstein_leak_unslit": 62.26178,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 371.9178,
+          "error_slit": 309.656,
+          "ratio_unslit": 0.950704,
+          "ratio_slit": 0.791549
+        }
+      ],
+      "stepanov_optimal_ratio_slit": 0.791549,
+      "stepanov_optimal_ratio_unslit": 0.950704
+    },
+    {
+      "X": 5000,
+      "sqrt_X": 70,
+      "log_X": 8.517193,
+      "psi_X": 4997.9597,
+      "delta_X": 2.0403,
+      "classical_ratio": 0.003388,
+      "m_results": [
+        {
+          "m": 1,
+          "is_stepanov_optimal": false,
+          "weighted_sum": 1034.416,
+          "expected_integral_main": 3333.3333,
+          "eisenstein_leak_unslit": 1.355553,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 2300.2729,
+          "error_slit": 2298.9174,
+          "ratio_unslit": 3.819424,
+          "ratio_slit": 3.817173
+        },
+        {
+          "m": 17,
+          "is_stepanov_optimal": false,
+          "weighted_sum": 7.7858,
+          "expected_integral_main": 1051.7057,
+          "eisenstein_leak_unslit": 23.044408,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 1066.9644,
+          "error_slit": 1043.92,
+          "ratio_unslit": 1.771611,
+          "ratio_slit": 1.733348
+        },
+        {
+          "m": 35,
+          "is_stepanov_optimal": false,
+          "weighted_sum": 2.7382,
+          "expected_integral_main": 741.0911,
+          "eisenstein_leak_unslit": 47.444369,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 785.7973,
+          "error_slit": 738.3529,
+          "ratio_unslit": 1.304755,
+          "ratio_slit": 1.225977
+        },
+        {
+          "m": 70,
+          "is_stepanov_optimal": true,
+          "weighted_sum": 1.0831,
+          "expected_integral_main": 526.8056,
+          "eisenstein_leak_unslit": 94.888738,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 620.6112,
+          "error_slit": 525.7225,
+          "ratio_unslit": 1.030477,
+          "ratio_slit": 0.872921
+        }
+      ],
+      "stepanov_optimal_ratio_slit": 0.872921,
+      "stepanov_optimal_ratio_unslit": 1.030477
+    },
+    {
+      "X": 10000,
+      "sqrt_X": 100,
+      "log_X": 9.21034,
+      "psi_X": 10013.3967,
+      "delta_X": 13.3967,
+      "classical_ratio": 0.014545,
+      "m_results": [
+        {
+          "m": 1,
+          "is_stepanov_optimal": false,
+          "weighted_sum": 1933.9012,
+          "expected_integral_main": 6666.6667,
+          "eisenstein_leak_unslit": 1.465871,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 4734.2314,
+          "error_slit": 4732.7655,
+          "ratio_unslit": 5.140126,
+          "ratio_slit": 5.138535
+        },
+        {
+          "m": 25,
+          "is_stepanov_optimal": false,
+          "weighted_sum": 5.5791,
+          "expected_integral_main": 1746.4095,
+          "eisenstein_leak_unslit": 36.64678,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 1777.4772,
+          "error_slit": 1740.8304,
+          "ratio_unslit": 1.929871,
+          "ratio_slit": 1.890083
+        },
+        {
+          "m": 50,
+          "is_stepanov_optimal": false,
+          "weighted_sum": 2.1017,
+          "expected_integral_main": 1244.0112,
+          "eisenstein_leak_unslit": 73.29356,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 1315.203,
+          "error_slit": 1241.9095,
+          "ratio_unslit": 1.427964,
+          "ratio_slit": 1.348386
+        },
+        {
+          "m": 100,
+          "is_stepanov_optimal": true,
+          "weighted_sum": 0.8277,
+          "expected_integral_main": 882.9208,
+          "eisenstein_leak_unslit": 146.58712,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 1028.6802,
+          "error_slit": 882.0931,
+          "ratio_unslit": 1.116875,
+          "ratio_slit": 0.95772
+        }
+      ],
+      "stepanov_optimal_ratio_slit": 0.95772,
+      "stepanov_optimal_ratio_unslit": 1.116875
+    },
+    {
+      "X": 25000,
+      "sqrt_X": 158,
+      "log_X": 10.126631,
+      "psi_X": 25003.8913,
+      "delta_X": 3.8913,
+      "classical_ratio": 0.00243,
+      "m_results": [
+        {
+          "m": 1,
+          "is_stepanov_optimal": false,
+          "weighted_sum": 4448.3982,
+          "expected_integral_main": 16666.6667,
+          "eisenstein_leak_unslit": 1.611703,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 12219.8801,
+          "error_slit": 12218.2684,
+          "ratio_unslit": 7.631887,
+          "ratio_slit": 7.630881
+        },
+        {
+          "m": 39,
+          "is_stepanov_optimal": false,
+          "weighted_sum": 3.8852,
+          "expected_integral_main": 3514.0836,
+          "eisenstein_leak_unslit": 62.856432,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 3573.0549,
+          "error_slit": 3510.1984,
+          "ratio_unslit": 2.23154,
+          "ratio_slit": 2.192283
+        },
+        {
+          "m": 79,
+          "is_stepanov_optimal": false,
+          "weighted_sum": 1.4751,
+          "expected_integral_main": 2480.953,
+          "eisenstein_leak_unslit": 127.324568,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 2606.8025,
+          "error_slit": 2479.4779,
+          "ratio_unslit": 1.62807,
+          "ratio_slit": 1.54855
+        },
+        {
+          "m": 158,
+          "is_stepanov_optimal": true,
+          "weighted_sum": 0.5692,
+          "expected_integral_main": 1758.441,
+          "eisenstein_leak_unslit": 254.649137,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 2012.521,
+          "error_slit": 1757.8719,
+          "ratio_unslit": 1.256914,
+          "ratio_slit": 1.097873
+        }
+      ],
+      "stepanov_optimal_ratio_slit": 1.097873,
+      "stepanov_optimal_ratio_unslit": 1.256914
+    },
+    {
+      "X": 50000,
+      "sqrt_X": 223,
+      "log_X": 10.819778,
+      "psi_X": 49985.9577,
+      "delta_X": 14.0423,
+      "classical_ratio": 0.005804,
+      "m_results": [
+        {
+          "m": 1,
+          "is_stepanov_optimal": false,
+          "weighted_sum": 8386.0445,
+          "expected_integral_main": 33333.3333,
+          "eisenstein_leak_unslit": 1.722021,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 24949.0109,
+          "error_slit": 24947.2889,
+          "ratio_unslit": 10.312168,
+          "ratio_slit": 10.311456
+        },
+        {
+          "m": 55,
+          "is_stepanov_optimal": false,
+          "weighted_sum": 2.8966,
+          "expected_integral_main": 5934.5846,
+          "eisenstein_leak_unslit": 94.711166,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 6026.3991,
+          "error_slit": 5931.688,
+          "ratio_unslit": 2.49089,
+          "ratio_slit": 2.451743
+        },
+        {
+          "m": 111,
+          "is_stepanov_optimal": false,
+          "weighted_sum": 1.1185,
+          "expected_integral_main": 4191.7043,
+          "eisenstein_leak_unslit": 191.144353,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 4381.7301,
+          "error_slit": 4190.5858,
+          "ratio_unslit": 1.811099,
+          "ratio_slit": 1.732094
+        },
+        {
+          "m": 223,
+          "is_stepanov_optimal": true,
+          "weighted_sum": 0.4158,
+          "expected_integral_main": 2962.329,
+          "eisenstein_leak_unslit": 384.010727,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 3345.9239,
+          "error_slit": 2961.9132,
+          "ratio_unslit": 1.38297,
+          "ratio_slit": 1.224247
+        }
+      ],
+      "stepanov_optimal_ratio_slit": 1.224247,
+      "stepanov_optimal_ratio_unslit": 1.38297
+    },
+    {
+      "X": 100000,
+      "sqrt_X": 316,
+      "log_X": 11.512925,
+      "psi_X": 100051.564,
+      "delta_X": 51.564,
+      "classical_ratio": 0.014163,
+      "m_results": [
+        {
+          "m": 1,
+          "is_stepanov_optimal": false,
+          "weighted_sum": 15861.4166,
+          "expected_integral_main": 66666.6667,
+          "eisenstein_leak_unslit": 1.832339,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 50807.0824,
+          "error_slit": 50805.25,
+          "ratio_unslit": 13.95528,
+          "ratio_slit": 13.954777
+        },
+        {
+          "m": 79,
+          "is_stepanov_optimal": false,
+          "weighted_sum": 2.0953,
+          "expected_integral_main": 9923.812,
+          "eisenstein_leak_unslit": 144.754781,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 10066.4715,
+          "error_slit": 9921.7167,
+          "ratio_unslit": 2.764977,
+          "ratio_slit": 2.725217
+        },
+        {
+          "m": 158,
+          "is_stepanov_optimal": false,
+          "weighted_sum": 0.8197,
+          "expected_integral_main": 7033.7642,
+          "eisenstein_leak_unslit": 289.509562,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 7322.4541,
+          "error_slit": 7032.9445,
+          "ratio_unslit": 2.011273,
+          "ratio_slit": 1.931753
+        },
+        {
+          "m": 316,
+          "is_stepanov_optimal": true,
+          "weighted_sum": 0.2913,
+          "expected_integral_main": 4979.5095,
+          "eisenstein_leak_unslit": 579.019123,
+          "eisenstein_leak_slit": 2.66e-55,
+          "error_unslit": 5558.2373,
+          "error_slit": 4979.2182,
+          "ratio_unslit": 1.526692,
+          "ratio_slit": 1.367652
+        }
+      ],
+      "stepanov_optimal_ratio_slit": 1.367652,
+      "stepanov_optimal_ratio_unslit": 1.526692
+    }
+  ]
+}

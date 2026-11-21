@@ -1,7 +1,7 @@
 {
   "title": "Two-Piece Factorized Mollifiers, Signed Weil-Schur Coercivity, and the Rosetta Cross-Field Unification",
-  "version": "v5.0.0",
-  "description": "Comprehensive release containing 21 machine-certified Lean 4 modules (0 sorry, standard axioms), 16 audited high-precision numerical diagnostics, a 41-page definitive monograph, and a standalone interactive visualizer covering the Chiral Virial Commutator Engine, Dilation Sobolev Domain Core, Non-Archimedean Quantum Graph Measure, 100-Zero Multi-Scale Virial Landscape Audit, positive prime-measure rigidity, discrete prime Euler-Maclaurin dispersion, Maass cusp form coprime projection, continuous norm-resolvent convergence, Sobolev compact resolvents, Polya kernel Fourier-sine positivity, and the Rosetta cross-field structural unification across the Clay Millennium Problems.",
+  "version": "v5.1.0",
+  "description": "Comprehensive release containing 23 machine-certified Lean 4 modules (0 sorry, standard axioms), 17 audited high-precision numerical diagnostics, a 43-page definitive monograph, and a standalone interactive visualizer covering the Maass-Selberg Cuspidal Slit Architecture, Chained Automorphic Theta Lifts of Length sqrt(X), Stepanov-Deligne Bilinear Sign Opposition, Chiral Virial Commutator Engine, Dilation Sobolev Domain Core, Non-Archimedean Quantum Graph Measure, 100-Zero Multi-Scale Virial Landscape Audit, positive prime-measure rigidity, discrete prime Euler-Maclaurin dispersion, Maass cusp form coprime projection, continuous norm-resolvent convergence, Sobolev compact resolvents, Polya kernel Fourier-sine positivity, and the Rosetta cross-field structural unification across the Clay Millennium Problems.",
   "creators": [
     {
       "name": "Munawer, Qamar",
@@ -10,6 +10,9 @@
   ],
   "keywords": [
     "Riemann Hypothesis",
+    "Maass-Selberg Cuspidal Slit",
+    "Chained Automorphic Theta Lifts",
+    "Stepanov-Deligne Sign Opposition",
     "Chiral Virial Commutator Engine",
     "Dilation Sobolev Domain",
     "Non-Archimedean Quantum Graph",
@@ -25,13 +28,16 @@
     "Norm-Resolvent Convergence",
     "Sobolev Compact Resolvent",
     "Polya Kernel Sine Positivity",
-    "Rosetta Cross-Field Invariants",
-    "Lean 4",
-    "Formal Verification"
+    "Birman-Schwinger Darboux Resolvent",
+    "Kuznetsov Coprime Spectral Decomposition",
+    "Infinite-Window Weyl Resolvent Limit",
+    "Critical Line Von Koch Mertens",
+    "Coprime Kloosterman Factorization",
+    "Rosetta Cross-Field Bridge",
+    "Lean 4 Certified Bridge",
+    "Open Clay Horizon Lock"
   ],
   "license": "CC-BY-4.0",
-  "upload_type": "publication",
-  "publication_type": "preprint",
-  "access_right": "open",
-  "methodology_note": "ai is being used as a tool for formal verification and computation under human geometric direction."
+  "methodology": "ai is being used as a tool",
+  "epistemic_lock": "All four Clay Millennium Problems remain strictly OPEN (status: verified-finite)."
 }
