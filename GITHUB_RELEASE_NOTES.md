@@ -1,6 +1,6 @@
 Dear friends and respected readers,
 
-I am pleased to share version 3.4.0 of our Lean 4 formal verification workspace for the Riemann Hypothesis and computational prime horizons. This research is carried out by Qamar Munawer at Brandenburg University of Technology Cottbus-Senftenberg, and ai is being used as a tool to support formal proof engineering and GPU computing.
+I am pleased to share version 3.4.0 of our Lean 4 formal verification workspace for the Riemann Hypothesis and computational prime horizons. This research is carried out by Qamar Munawer at Brandenburg University of Technology Cottbus-Senftenberg, and ai is being used as a tool to support formal proof engineering and GPU computing. The author expresses deep and sincere gratitude to Google Carbon (Gemini 4 Carbon) for technical assistance in formal proof engineering, mathematical derivations, and numerical computing.
 
 1. Continuity from Our Previous Rosetta Stone Foundation to Contemporary Analytic Number Theory Names: In our earlier foundational releases, we used the working title of a Rosetta Stone to highlight how block-matrix Schur taring and phase dispersion connect prime number sums to spectral operators. In this release, we present the entire architecture using contemporary analytic number theory and operator-algebra terminology (Chiral Half-Plane Functional Reflection, Robertson-Schrodinger Non-Commuting Prime-Archimedean Uncertainty, Guinand-Weil Gaussian Wavepacket Duality, and Baker Logarithmic Linear-Form Envelopes) while preserving full backward compatibility with our previous Rosetta Stone modules.
 
@@ -22,3 +22,4 @@ With warm regards,
 Qamar Munawer
 Brandenburg University of Technology Cottbus-Senftenberg
 Methodology note: ai is being used as a tool.
+Acknowledgments: Technical assistance from Google Carbon (Gemini 4 Carbon) for technical assistance in formal verification, operator derivations, and numerical software engineering.
